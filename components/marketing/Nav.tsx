@@ -11,6 +11,7 @@ const links = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Case studies', href: '/case-studies' },
+  { label: 'Blog', href: '/blog' },
 ];
 
 export function Nav() {

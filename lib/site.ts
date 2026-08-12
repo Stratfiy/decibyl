@@ -1,9 +1,41 @@
 /** Site-wide constants. Change once, changes everywhere. */
 
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://decibyl.ai').replace(
-  /\/$/,
-  '',
-);
+const FALLBACK_URL = 'https://decibyl.ai';
+
+/** Coerce whatever we were handed into a usable origin, or give up cleanly.
+ *  Accepts a bare host ("decibyl.ai", "my-app.vercel.app") as well as a full URL. */
+function toOrigin(value: string): string | null {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+  try {
+    return new URL(withProtocol).origin;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Resolve the canonical site URL.
+ *
+ * `??` is NOT enough here: Vercel offers to import env vars from .env.example
+ * and fills them in EMPTY, so NEXT_PUBLIC_SITE_URL arrives as '' rather than
+ * undefined. `??` only falls back on undefined, so siteUrl became '' and
+ * metadataBase's `new URL('')` threw — failing the deploy while collecting
+ * page data. Every branch below is guarded, and a malformed value degrades to
+ * the fallback instead of breaking the build.
+ */
+function resolveSiteUrl(): string {
+  return (
+    toOrigin(process.env.NEXT_PUBLIC_SITE_URL ?? '') ??
+    // Vercel sets these automatically — a preview deploy needs no config at all.
+    toOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL ?? '') ??
+    toOrigin(process.env.VERCEL_URL ?? '') ??
+    FALLBACK_URL
+  );
+}
+
+export const siteUrl = resolveSiteUrl();
 
 export const site = {
   name: 'Decibyl',

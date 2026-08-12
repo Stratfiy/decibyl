@@ -57,7 +57,9 @@ git push -u origin main
 
 1. Go to <https://vercel.com> → **Add New → Project** → import the GitHub repo.
 2. Vercel auto-detects Next.js. Leave the build settings alone.
-3. Before the first deploy, open **Environment Variables** and add:
+3. **You can deploy with no environment variables at all** — the site builds and previews fine
+   without them, and picks up its own URL from Vercel. Forms will show a "we couldn't save that"
+   message until Supabase is wired. When you're ready, open **Environment Variables** and add:
 
    | Name | Value | Environments |
    |---|---|---|
@@ -67,8 +69,13 @@ git push -u origin main
    | `N8N_LEAD_WEBHOOK_URL` | your n8n webhook URL | All (optional) |
    | `N8N_WEBHOOK_SECRET` | any long random string | All (optional) |
 
-   For Preview and Development, set `NEXT_PUBLIC_SITE_URL` to the Vercel preview URL so canonical
-   tags and OG images don't point at production.
+   Leave `NEXT_PUBLIC_SITE_URL` **unset** on Preview and Development — with nothing set, canonical
+   tags and OG images resolve from Vercel's own `VERCEL_URL`, so a preview points at itself rather
+   than at production.
+
+   > ⚠️ If Vercel offers to import variables from `.env.example`, skip it — or delete the empty
+   > rows afterwards. An env var that is present-but-empty is not the same as absent, and empty
+   > values are what most "builds locally, fails on Vercel" deploys turn out to be.
 
 4. **Deploy.** First build takes about two minutes.
 

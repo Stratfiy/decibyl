@@ -109,6 +109,27 @@ export function faqSchema(faqs: Faq[]) {
   };
 }
 
+export function articleSchema(input: {
+  title: string;
+  description: string;
+  path: string;
+  publishedAt: string;
+  category: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: input.title,
+    description: input.description,
+    datePublished: input.publishedAt,
+    dateModified: input.publishedAt,
+    articleSection: input.category,
+    author: { '@type': 'Organization', name: site.legalName },
+    publisher: { '@type': 'Organization', name: site.name },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${siteUrl}${input.path}` },
+  };
+}
+
 export function breadcrumbSchema(crumbs: { name: string; path: string }[]) {
   return {
     '@context': 'https://schema.org',

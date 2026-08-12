@@ -176,7 +176,7 @@ export default function HomePage() {
       </Section>
 
       {/* Languages */}
-      <Section surface="canvas" ariaLabel="Languages">
+      <Section surface="canvas" ariaLabel="Languages" id="languages">
         <SectionHead
           eyebrow="Languages"
           title="Indian languages live today, and any language your stack speaks."

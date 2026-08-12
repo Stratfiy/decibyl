@@ -20,7 +20,7 @@ export function Hero() {
 
       <Container className="relative">
         <div className="pt-14 pb-16 sm:pt-20 lg:pt-24 lg:pb-24">
-          <p className="t-eyebrow text-sindoor">Built in India · Shipped for the world</p>
+          <p className="t-eyebrow text-sindoor">AI voice workers · Built in India, shipped for the world</p>
 
           <h1 className="t-display mt-5 max-w-4xl text-balance">
             Your customers don’t answer emails.{' '}
@@ -28,9 +28,10 @@ export function Hero() {
           </h1>
 
           <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
-            Decibyl runs your confirmation, follow-up, and reminder calls end-to-end — in Hindi,
-            Tamil, Telugu, Kannada, Marathi, Gujarati, English, and any language your voice stack
-            supports. Every call transcribed, recorded, and scored.
+            Decibyl is an AI voice worker — it runs your confirmation, follow-up, and reminder
+            calls end-to-end, not a tool that assists a human doing it. Hindi, Tamil, Telugu,
+            Kannada, Marathi, Gujarati, English, and any language your voice stack supports. Every
+            call transcribed, recorded, and scored.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">

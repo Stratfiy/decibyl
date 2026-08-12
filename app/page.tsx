@@ -16,19 +16,20 @@ import { homeFaqs } from '@/data/faqs';
 import { JsonLd, faqSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Voice AI Agent India — Calls in Indian Languages | Decibyl',
+  title: 'AI Voice Worker for India — Calls Handled End-to-End | Decibyl',
   description:
-    'Voice agents that run your confirmation, follow-up and reminder calls end-to-end in Indian languages, and beyond. Every call transcribed, recorded and scored.',
+    'Decibyl builds AI voice workers that run your confirmation, follow-up and reminder calls end-to-end — not a tool that assists a human doing it. Indian languages, and beyond.',
   path: '/',
   keywords: [
+    'AI voice worker India',
     'voice AI agent India',
     'AI calling software India',
     'AI receptionist India',
     'voice AI platform India',
     'Hindi voice AI agent',
   ],
-  ogTitle: 'India’s revenue recovery layer',
-  ogSubtitle: 'Voice agents that call, confirm, and close — in the language your customer speaks.',
+  ogTitle: 'The AI voice worker that answers your phone',
+  ogSubtitle: 'It calls, confirms, and closes — in the language your customer speaks.',
 });
 
 const painPoints = [

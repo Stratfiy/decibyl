@@ -94,6 +94,7 @@ export function Footer() {
                 vs {c.name}
               </FooterLink>
             ))}
+            <FooterLink href="/security">Security & trust</FooterLink>
             {legal.map((l) => (
               <FooterLink key={l.href} href={l.href}>
                 {l.label}

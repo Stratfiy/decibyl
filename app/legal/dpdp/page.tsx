@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { LegalPage, LegalSection } from '@/components/marketing/LegalPage';
 import { site } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
@@ -15,7 +16,16 @@ export default function DpdpPage() {
   return (
     <LegalPage
       title="DPDP & call data handling"
-      intro="Voice calls carry personal data, and automated voice calls carry a disclosure obligation on top of it. This page says exactly how we handle both."
+      intro={
+        <>
+          Voice calls carry personal data, and automated voice calls carry a disclosure obligation
+          on top of it. This page says exactly how we handle both. For the skimmable version, see{' '}
+          <Link href="/security" className="text-sindoor underline-offset-4 hover:underline">
+            Security & trust
+          </Link>
+          .
+        </>
+      }
     >
       <LegalSection heading="Roles">
         <p>

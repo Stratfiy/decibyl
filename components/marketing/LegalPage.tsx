@@ -18,7 +18,7 @@ export function LegalPage({
   children,
 }: {
   title: string;
-  intro: string;
+  intro: ReactNode;
   children: ReactNode;
 }) {
   return (

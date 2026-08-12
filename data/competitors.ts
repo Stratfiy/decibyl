@@ -218,6 +218,191 @@ export const competitors: Competitor[] = [
       keywords: ['Retell alternative India', 'Retell vs Decibyl', 'Retell AI India'],
     },
   },
+  {
+    slug: 'squadstack',
+    name: 'SquadStack',
+    summaryThem:
+      'SquadStack builds voice AI specifically for high-volume Indian sales, lending, and activation outreach, trained on a reported 600M+ minutes of real Indian contact-centre audio. If you are a large consumer brand replacing a telecalling team at serious scale — SquadStack cites 40 lakh+ calls a day across its customer base — it has the training data and the omnichannel tooling (call, WhatsApp, SMS, in-app) that a smaller platform will not have built yet.',
+    summaryUs:
+      'Decibyl publishes its prices and gets you live in about half a day. SquadStack runs on custom enterprise pricing — reported to start around ₹5 lakh+ a year — reached through a sales conversation, not a page you can read before one.',
+    strongerThem: [
+      {
+        title: 'Scale and training data',
+        body: 'A reported 600M+ minutes of real Indian contact-centre audio and 40 lakh+ calls a day across its customer base. Few platforms anywhere have that much real call data to train sales-conversation handling on.',
+      },
+      {
+        title: 'Omnichannel beyond voice',
+        body: 'Call, WhatsApp, SMS, and in-app engagement in one platform, with quality monitoring and A/B testing built in — useful if voice is one channel of several in your outreach motion, not the whole thing.',
+      },
+      {
+        title: 'Built specifically for high-volume sales and lending outreach',
+        body: 'Lead qualification, onboarding, renewals, and collections are the core workflow, not a general-purpose calling layer adapted to fit them.',
+      },
+    ],
+    strongerUs: [
+      {
+        title: 'Published pricing',
+        body: 'A number you can read on the pricing page, not a figure you get after a sales call.',
+      },
+      {
+        title: 'Live in about half a day',
+        body: 'No enterprise sales cycle to get through before your first call runs.',
+      },
+      {
+        title: 'MCP-native agent building',
+        body: 'Build and modify agents from Claude Code — not published as a SquadStack capability.',
+      },
+      {
+        title: 'Zero markup, shown separately',
+        body: 'A platform fee with the provider cost shown apart from it, rather than a custom quote you cannot itemise.',
+      },
+    ],
+    table: sharedTable({
+      languages: '8+ languages incl. Hindi, Hinglish, Tamil, Telugu — trained on Indian contact-centre audio',
+      dids: 'Not published',
+      billing: 'Custom enterprise pricing, ₹5L+/year typical; GST invoicing not published',
+      residency: 'Not published',
+      mcp: 'No',
+      byok: 'Not published',
+      markup: 'Custom quote — not itemised',
+      onboarding: 'Enterprise sales process, not self-serve',
+    }),
+    verdict:
+      'Replacing a large telecalling team for high-volume sales or lending outreach, with an enterprise budget and an ops team to run it? SquadStack has the scale and the training data for exactly that. Want to see the price today and be live this week? That is Decibyl.',
+    relatedVerticals: ['lending-collections', 'd2c-ndr-recovery'],
+    seo: {
+      title: 'SquadStack Alternative — Honest Comparison',
+      description:
+        'Decibyl vs SquadStack for Indian teams: published pricing, fast setup, MCP-native agent building — and where SquadStack’s scale is genuinely stronger.',
+      keywords: ['SquadStack alternative', 'SquadStack vs Decibyl', 'voice AI platform India comparison'],
+    },
+  },
+  {
+    slug: 'elevenlabs',
+    name: 'ElevenLabs Agents',
+    summaryThem:
+      'ElevenLabs is widely regarded as the voice-quality leader in the market — Expressive Mode adapts tone to conversation context, RAG is built into the platform natively, and you can plug in Gemini, Claude, or GPT as the reasoning layer directly. It already has real enterprise traction in India: Cars24, Razorpay, and Unacademy use ElevenLabs Agents for domain-specific assistants. To be precise about what is being compared here: Decibyl uses ElevenLabs as one of the voice providers in its own stack, alongside Sarvam, OpenAI, and Google. This page compares against ElevenLabs’ own Agents platform — the end-to-end orchestration product — not against the underlying voice models Decibyl may call on.',
+    summaryUs:
+      'Decibyl is built around Indian telephony, INR billing with a GST invoice, and code-mixed Hinglish and Tanglish as the default register — not a general multilingual capability configured toward it.',
+    strongerThem: [
+      {
+        title: 'Voice quality leadership',
+        body: 'Widely regarded as the best-sounding TTS in the market, with an Expressive Mode that adapts delivery to what the caller is feeling.',
+      },
+      {
+        title: 'Bring your own LLM',
+        body: 'Gemini, Claude, or GPT can sit behind the voice layer directly, for teams who want to choose and swap the reasoning model themselves.',
+      },
+      {
+        title: 'RAG built in natively',
+        body: 'Agents pull from a knowledge base without bolting on separate retrieval infrastructure.',
+      },
+      {
+        title: 'Real enterprise traction in India already',
+        body: 'Cars24, Razorpay, and Unacademy are named users of ElevenLabs Agents for domain-specific assistants — genuine proof at scale.',
+      },
+    ],
+    strongerUs: [
+      {
+        title: 'Indian telephony included',
+        body: 'Indian DIDs and SIP trunking, not a Twilio-class integration bolted on.',
+      },
+      {
+        title: 'INR billing and a GST invoice',
+        body: 'Priced and invoiced the way an Indian finance team needs, not converted from USD after the fact.',
+      },
+      {
+        title: 'India data residency by default',
+        body: 'Mumbai (ap-south-1) by default, not a US/EU region with India as an afterthought.',
+      },
+      {
+        title: 'Code-mixed speech as the default register',
+        body: 'Hinglish and Tanglish are what the agent is built for, not a general multilingual capability aimed at it.',
+      },
+    ],
+    table: sharedTable({
+      languages: '31 languages (70+ across the broader voice platform); strong general multilingual, not code-mixed-specific',
+      dids: 'Telephony via Twilio/SIP integration — no Indian DIDs natively included',
+      billing: 'USD, $0.10–0.30/min depending on tier; no GST invoice',
+      residency: 'US/EU regions',
+      mcp: 'No',
+      byok: 'Partial — bring your own LLM (Gemini, Claude, GPT); voice stays ElevenLabs',
+      markup: 'Blended per-minute rate (voice + LLM + platform)',
+      onboarding: 'Self-serve, instant',
+    }),
+    verdict:
+      'Want the best raw voice quality in the market and the flexibility to plug in any major LLM yourself? ElevenLabs Agents is a genuinely strong choice. Need Indian telephony, INR billing with GST, and code-mixed speech handled as the default rather than configured toward it? That is what Decibyl is built around.',
+    relatedVerticals: ['clinics', 'real-estate'],
+    seo: {
+      title: 'ElevenLabs Agents Alternative India — Comparison',
+      description:
+        'Decibyl vs ElevenLabs Agents: Indian telephony, INR and GST billing, data residency, code-mixed speech — and where ElevenLabs genuinely leads on voice quality.',
+      keywords: ['ElevenLabs Agents alternative', 'ElevenLabs vs Decibyl', 'ElevenLabs Conversational AI India'],
+    },
+  },
+  {
+    slug: 'gnani',
+    name: 'Gnani.ai',
+    summaryThem:
+      'Gnani is a serious India-built enterprise voice AI company, and the most compliance-heavy platform on this page: SOC 2, ISO 27001, GDPR, HIPAA, and PCI DSS certifications, with cloud, private cloud, on-premises, and air-gapped deployment options. Its speech models handle 12+ Indian languages with genuine mid-sentence code-switching, reportedly trained on 14 million hours of real telephonic audio, and it is proven at large regulated enterprises — HDFC Bank, Airtel, and Tata Motors are named customers. If your procurement process requires a specific certificate or your compliance mandate rules out cloud entirely, this is the most direct answer on this page, and Decibyl is honest that it is not there yet — see Security & trust.',
+    summaryUs:
+      'Decibyl publishes its prices and is live in about half a day. Gnani does not publish pricing and runs a reported 3–6 month enterprise sales cycle with an 8–16 week deployment — built for a different kind of buyer and a different kind of timeline.',
+    strongerThem: [
+      {
+        title: 'Compliance certifications Decibyl does not have',
+        body: 'SOC 2, ISO 27001, GDPR, HIPAA, and PCI DSS. Decibyl is explicitly not certified for any of these today — if your procurement process requires one of these certificates specifically, that is the whole answer, and Gnani has it.',
+      },
+      {
+        title: 'On-premises and air-gapped deployment',
+        body: 'For a compliance mandate that rules out cloud entirely, this is not a nice-to-have difference — a cloud-only platform, including Decibyl, is simply not eligible.',
+      },
+      {
+        title: 'Real Indian-language code-switching depth at scale',
+        body: '12+ Indian languages with genuine mid-sentence code-switching, reportedly trained on 14 million hours of real telephonic audio — deep, specific investment in exactly this problem.',
+      },
+      {
+        title: 'Proven at large regulated enterprises already',
+        body: 'HDFC Bank, Airtel, and Tata Motors are named customers — evidence at a scale Decibyl does not have yet.',
+      },
+    ],
+    strongerUs: [
+      {
+        title: 'Published pricing',
+        body: 'A number you can read today, not a figure that emerges after a 3–6 month sales cycle.',
+      },
+      {
+        title: 'Live in about half a day',
+        body: 'Not an 8–16 week deployment.',
+      },
+      {
+        title: 'Zero markup, shown separately',
+        body: 'A platform fee with the provider cost itemised apart from it.',
+      },
+      {
+        title: 'Self-serve managed tiers alongside enterprise',
+        body: 'A path in below a six-figure-rupee monthly minimum, for teams that are not yet the large regulated enterprise Gnani is built for.',
+      },
+    ],
+    table: sharedTable({
+      languages: '40+ languages/dialects; 12+ Indian languages with mid-sentence code-switching',
+      dids: 'Not published — enterprise telephony integration',
+      billing: 'Custom/outcome-based pricing; GST invoicing not published',
+      residency: 'Cloud, private cloud, on-premises, or air-gapped — enterprise-configured',
+      mcp: 'No',
+      byok: 'Not published',
+      markup: 'Custom quote — not itemised',
+      onboarding: '3–6 month sales cycle, 8–16 week deployment',
+    }),
+    verdict:
+      'A large, regulated enterprise with an on-premises or air-gapped mandate and a procurement team that needs a specific compliance certificate? Gnani is built for exactly that, and it shows — this is the one comparison on this page where we are not the more compliant option. Want to see the price today and be live this week without a multi-month sales cycle? That is Decibyl.',
+    relatedVerticals: ['lending-collections', 'clinics'],
+    seo: {
+      title: 'Gnani.ai Alternative — Honest Comparison',
+      description:
+        'Decibyl vs Gnani.ai for Indian teams: published pricing, fast setup — and where Gnani’s compliance certifications and on-prem deployment are genuinely stronger.',
+      keywords: ['Gnani alternative', 'Gnani.ai vs Decibyl', 'Gnani voice AI India'],
+    },
+  },
 ];
 
 export function getCompetitor(slug: string): Competitor | undefined {

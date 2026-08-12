@@ -3,6 +3,7 @@ import { createHmac } from 'crypto';
 import { leadSchema } from '@/lib/schema';
 import { getSupabase } from '@/lib/supabase';
 import { clientIp, hashIp, rateLimit } from '@/lib/rate-limit';
+import { sendWaitlistEmail } from '@/lib/email';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -84,6 +85,13 @@ export async function POST(request: Request) {
   // 5. Fire the n8n webhook. Never fail the request on a webhook error — the
   //    lead is already saved, and speed-to-lead beats delivery guarantees here.
   await notifyN8n({ id: data?.id, ...record });
+
+  // 6. Waitlist gets an immediate confirmation email with the booking link,
+  //    so anyone who doesn't want to wait can skip straight to a demo.
+  //    Same rule as above: a failed send must not fail the request.
+  if (lead.form_type === 'waitlist') {
+    await sendWaitlistEmail(lead.email);
+  }
 
   return NextResponse.json({ ok: true });
 }

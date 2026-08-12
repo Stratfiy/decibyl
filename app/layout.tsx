@@ -95,6 +95,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
   },
+  verification: {
+    google: 'j8NFMFrj2shPvdT9CObTaU84Zu-MdPhtMOxpmSEprcE',
+  },
 };
 
 export const viewport: Viewport = {

@@ -55,9 +55,13 @@ legal advice and have not been reviewed by counsel. Numbers I chose that you may
 
 ### 6 · Overage rate per minute per tier → `data/pricing.ts`
 
-`overageInr` is `null` on every tier, so the pricing table renders **TBD**. At ₹2,999 / 500 min
-you're at ₹6/min effective — worth checking against Sarvam + Plivo + Gemini COGS before it's
-public. A price you have to walk back is worse than a blank.
+`overageInr` is still `null` on the four managed tiers (Starter/Growth/Scale/Enterprise), so the
+comparison table still renders **TBD** for those. At ₹2,999 / 500 min you're at ₹6/min effective —
+worth checking against Sarvam + Plivo + Gemini COGS before it's public.
+
+The pay-as-you-go rate (`payAsYouGo` in the same file) IS set and live: ₹5.20/min at the $15
+entry point, sliding to ₹4.20/min at the $3,000 top of the range. Confirm those two numbers
+against COGS the same way — they're now public on `/pricing`, not a placeholder.
 
 ### 7 · Growth and Scale prices, and concurrent-call limits
 

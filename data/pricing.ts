@@ -123,6 +123,32 @@ export const byok = {
   providers: ['OpenAI', 'Deepgram', 'ElevenLabs', 'Sarvam'],
 };
 
+/**
+ * Pay-as-you-go / volume-based pricing. No monthly commitment — top up
+ * credit, the effective per-minute rate improves the more you put in at
+ * once. Same shape as the managed tiers' "starting at" positioning: the
+ * best rate (minRateInr) is what unlocks at the top of the range.
+ */
+export const payAsYouGo = {
+  headline: 'Pay-as-you-go',
+  tagline: 'Flexible credits. Top up anytime, no commitment.',
+  minSpendUsd: 15,
+  maxSpendUsd: 3000,
+  /** rate at minSpendUsd — the "starting at ₹5/min" headline number */
+  minRateInr: 5.2,
+  /** rate at maxSpendUsd — the best rate, unlocked at the top of the range */
+  maxRateInr: 4.2,
+  body: 'Purchase credits from $15 to $3,000 — no plan to commit to, top up again whenever your balance runs low. The bigger the top-up, the lower your effective per-minute rate.',
+};
+
+/** Linear interpolation between minRateInr and maxRateInr across the spend range. */
+export function payAsYouGoRateInr(spendUsd: number): number {
+  const { minSpendUsd, maxSpendUsd, minRateInr, maxRateInr } = payAsYouGo;
+  const clamped = Math.min(Math.max(spendUsd, minSpendUsd), maxSpendUsd);
+  const t = (clamped - minSpendUsd) / (maxSpendUsd - minSpendUsd);
+  return minRateInr + t * (maxRateInr - minRateInr);
+}
+
 export function formatInr(value: number): string {
   return '₹' + value.toLocaleString('en-IN');
 }

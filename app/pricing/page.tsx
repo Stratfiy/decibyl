@@ -1,16 +1,17 @@
 import type { Metadata } from 'next';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { PricingTable } from '@/components/marketing/PricingTable';
+import { PayAsYouGo } from '@/components/marketing/PayAsYouGo';
 import { FaqList } from '@/components/marketing/Faq';
 import { FinalCta } from '@/components/marketing/Blocks';
-import { byok } from '@/data/pricing';
+import { byok, formatInr, payAsYouGo } from '@/data/pricing';
 import { pricingFaqs } from '@/data/faqs';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Pricing — Voice AI in India, in Rupees',
   description:
-    'Managed plans from ₹2,999/month with telephony included, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
+    'Managed plans from ₹2,999/month with telephony included, pay-as-you-go starting at ₹5.20/min, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
   path: '/pricing',
   keywords: [
     'voice AI pricing India',
@@ -33,7 +34,8 @@ export default function PricingPage() {
             </h1>
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
               A blended per-minute rate hides the markup taken on model costs. We don’t take one.
-              Managed plans include Indian telephony and phone numbers; BYOK is for teams who want
+              Managed plans include Indian telephony and phone numbers; pay-as-you-go starts at{' '}
+              {formatInr(payAsYouGo.minRateInr)}/min with no commitment; BYOK is for teams who want
               to pay providers directly.
             </p>
           </div>
@@ -42,6 +44,11 @@ export default function PricingPage() {
 
       <Section surface="canvas" className="pt-0" ariaLabel="Plans">
         <PricingTable />
+      </Section>
+
+      {/* Pay-as-you-go — no commitment, rate improves with the top-up size */}
+      <Section surface="white" ariaLabel="Pay as you go">
+        <PayAsYouGo />
       </Section>
 
       {/* BYOK — the technical/agency path, not the default */}

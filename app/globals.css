@@ -1,0 +1,327 @@
+@import 'tailwindcss';
+
+@theme {
+  /* ---- Core ---- */
+  --color-canvas: #f4f5f7; /* cool page floor — NOT cream */
+  --color-snow: #ffffff;
+  --color-ink: #211814;
+  --color-slate: #5a5f6b;
+  --color-iron: #676c77; /* darkened from #8A8F99 — helper text must clear 4.5:1 on canvas */
+  --color-line: #e2e4e9;
+
+  /* ---- Brand ---- */
+  --color-vermilion: #f0431c;
+  --color-ember: #ff7a2f;
+  --color-sindoor: #c42d0e;
+  --color-saffron: #ffb627; /* MONEY ONLY — on dark surfaces */
+  --color-saffron-deep: #a85e00; /* MONEY ONLY — same role on light surfaces, readable */
+  --color-forest: #146b5a;
+
+  /* ---- Pastel card surfaces ---- */
+  --color-peach: #ffe4d6;
+  --color-blush: #ffe2dc; /* lightened a shade so sindoor link text clears 4.5:1 */
+  --color-sand: #fff1dc;
+  --color-sage: #dfede6;
+  --color-mistblue: #deeaf6;
+  --color-lilac: #ebe3f7;
+
+  /* ---- Radius ---- */
+  --radius-button: 999px;
+  --radius-card: 24px;
+  --radius-panel: 32px;
+  --radius-badge: 8px;
+  --radius-input: 10px;
+
+  /* ---- Shadow ---- */
+  --shadow-card: rgba(33, 24, 20, 0.06) 0px 2px 40px 0px;
+  --shadow-lift: rgba(33, 24, 20, 0.12) 0px 8px 44px 0px;
+  --shadow-warm: rgba(240, 67, 28, 0.18) 0px 10px 40px -8px;
+
+  /* ---- Type ---- */
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
+  --font-indic:
+    var(--font-plex-deva), var(--font-noto-tamil), var(--font-noto-telugu),
+    var(--font-noto-kannada), var(--font-noto-gujarati), var(--font-plex), sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  /* ---- Layout ---- */
+  --spacing-page: 1200px;
+}
+
+:root {
+  --gradient-hero: linear-gradient(96deg, #f0431c 0%, #ff7a2f 55%, #ffb627 100%);
+  --gradient-panel: linear-gradient(150deg, #c42d0e 0%, #f0431c 100%);
+  --gradient-glow: radial-gradient(60% 60% at 50% 0%, rgba(240, 67, 28, 0.18), transparent 70%);
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-blur: 18px;
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --section-gap: 96px;
+  --card-padding: 28px;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-vermilion);
+  color: #fff;
+}
+
+/* ---------- Focus ring: vermilion, visible, everywhere ---------- */
+:focus-visible {
+  outline: 2px solid var(--color-vermilion);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer components {
+  /* ---------- Type roles ---------- */
+  .t-display {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 5.5vw, 4.25rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .t-h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+  }
+
+  .t-h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+
+  .t-body-lg {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  .t-caption {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  .t-data {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .t-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .t-indic {
+    font-family: var(--font-indic);
+  }
+
+  /* ---------- Gradient text: hero headline only, once per page ---------- */
+  .gradient-text {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* keeps descenders from clipping */
+    padding-bottom: 0.08em;
+  }
+
+  /* ---------- Glass ---------- */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass {
+      background: rgba(255, 255, 255, 0.94);
+    }
+  }
+
+  .shadow-inset-top {
+    box-shadow: var(--shadow-warm), var(--shadow-inset);
+  }
+
+  /* ---------- SlideDeck scroll rail ---------- */
+  .deck-rail {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 8px;
+  }
+
+  .deck-rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .deck-card {
+    scroll-snap-align: start;
+    flex: 0 0 min(340px, 78vw);
+    transition:
+      transform 180ms ease-out,
+      box-shadow 180ms ease-out;
+  }
+
+  .deck-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  /* ---------- Range sliders — the one tactile moment ---------- */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 22px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .slider::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      var(--color-vermilion) 0%,
+      var(--color-vermilion) var(--fill, 0%),
+      var(--color-line) var(--fill, 0%),
+      var(--color-line) 100%
+    );
+  }
+
+  .slider::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-line);
+  }
+
+  .slider::-moz-range-progress {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-vermilion);
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    margin-top: -8px;
+    border-radius: 999px;
+    background: #fff;
+    border: 2px solid var(--color-vermilion);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #fff;
+    border: 2px solid var(--color-vermilion);
+    box-shadow: var(--shadow-lift);
+  }
+
+  /* ---------- Scroll-in fade: 150ms, the whole non-transcript motion budget ---------- */
+  .fade-in {
+    animation: fadeIn 150ms ease-out both;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .caret::after {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 1.05em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background: var(--color-ember);
+    animation: blink 1s steps(2, start) infinite;
+  }
+
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .deck-rail {
+    scroll-behavior: auto;
+  }
+
+  .deck-card:hover {
+    transform: none;
+  }
+
+  .fade-in {
+    animation: none;
+  }
+
+  .caret::after {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

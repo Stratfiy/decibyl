@@ -148,10 +148,11 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['logistics', 'clinics'],
     seo: {
-      title: 'NDR Recovery & COD Confirmation Calls, India',
+      title: 'AI Voice Agent for NDR Recovery & COD Confirmation, India',
       description:
         'Automated NDR recovery and COD confirmation calls in Hindi, Tamil, Telugu and English. Call the buyer within minutes, confirm the reattempt, cut RTO.',
       keywords: [
+        'AI voice agent for NDR recovery India',
         'NDR recovery automation India',
         'COD confirmation calls',
         'reduce RTO',
@@ -267,10 +268,11 @@ export const verticals: Vertical[] = [
     recommendedTier: 'starter',
     siblings: ['d2c-ndr-recovery', 'education'],
     seo: {
-      title: 'AI Receptionist for Clinics in India',
+      title: 'AI Voice Agent for Clinics in India | AI Receptionist',
       description:
         'An AI receptionist that answers every clinic call in Tamil, Hindi, Kannada and English, books into your calendar, and calls back no-shows.',
       keywords: [
+        'AI voice agent for clinics India',
         'AI receptionist for clinics India',
         'clinic missed calls',
         'appointment booking automation India',
@@ -382,10 +384,11 @@ export const verticals: Vertical[] = [
     recommendedTier: 'starter',
     siblings: ['ivf-fertility', 'diagnostics'],
     seo: {
-      title: 'AI Receptionist for Dental Clinics',
+      title: 'AI Voice Agent for Dental Clinics in India',
       description:
         'Answer evening cost enquiries, run hygiene recalls, and confirm appointments automatically — in Tamil, Hindi and English.',
       keywords: [
+        'AI voice agent for dental clinics India',
         'AI receptionist dental clinic',
         'dental appointment reminder calls',
         'dental recall calls automation',
@@ -496,10 +499,11 @@ export const verticals: Vertical[] = [
     recommendedTier: 'starter',
     siblings: ['dental', 'diagnostics'],
     seo: {
-      title: 'Fertility & IVF Clinic Call Handling',
+      title: 'AI Voice Agent for Fertility & IVF Clinics, India',
       description:
         'Answer every IVF enquiry the day it comes in, book the counsellor consultation, and transfer anything sensitive to a human immediately.',
       keywords: [
+        'AI voice agent for IVF clinics India',
         'fertility clinic patient enquiry automation',
         'IVF clinic call handling',
         'IVF enquiry follow up',
@@ -607,10 +611,11 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['dental', 'ivf-fertility'],
     seo: {
-      title: 'Diagnostic Lab Call Automation',
+      title: 'AI Voice Agent for Diagnostic Labs in India',
       description:
         'Automate report-status calls, home-collection bookings, and repeat-test reminders for diagnostic labs — in Indian languages, and beyond.',
       keywords: [
+        'AI voice agent for diagnostic labs India',
         'diagnostic lab call automation',
         'home collection booking calls',
         'pathology lab call handling',
@@ -718,10 +723,11 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['lending-collections', 'education'],
     seo: {
-      title: 'Real Estate Lead Calling Automation',
+      title: 'AI Voice Agent for Real Estate Leads, India',
       description:
         'Call every portal lead within 60 seconds, qualify budget and timeline, and book the site visit — in Hindi, Marathi and English.',
       keywords: [
+        'AI voice agent for real estate India',
         'real estate lead calling automation',
         'portal lead follow up',
         'site visit booking automation',
@@ -831,10 +837,11 @@ export const verticals: Vertical[] = [
     recommendedTier: 'scale',
     siblings: ['d2c-ndr-recovery', 'real-estate'],
     seo: {
-      title: 'EMI Reminder & Collections Calls, India',
+      title: 'AI Voice Agent for EMI Reminders & Collections, India',
       description:
         'On-script EMI reminder and soft-recovery calls, recorded and QA-scored on 100% of calls, with human transfer on any dispute or hardship.',
       keywords: [
+        'AI voice agent for lending collections India',
         'EMI reminder calls automation',
         'collections voice bot India',
         'loan repayment reminder calls',
@@ -937,10 +944,11 @@ export const verticals: Vertical[] = [
     recommendedTier: 'scale',
     siblings: ['d2c-ndr-recovery', 'real-estate'],
     seo: {
-      title: 'Delivery Reattempt Confirmation Calls',
+      title: 'AI Voice Agent for Delivery Reattempt Calls, India',
       description:
         'Automated NDR and reattempt confirmation calls for 3PLs and couriers — address correction, COD confirmation, and a recording on every call.',
       keywords: [
+        'AI voice agent for logistics India',
         'delivery reattempt confirmation calls',
         'logistics call automation India',
         'NDR calling for couriers',
@@ -1043,10 +1051,11 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['real-estate', 'clinics'],
     seo: {
-      title: 'Admission Enquiry Follow-Up Automation',
+      title: 'AI Voice Agent for Admission Enquiry Follow-Up, India',
       description:
         'Call every admission enquiry within a minute, answer fee and eligibility questions, and book the counsellor slot — in Indian languages, and beyond.',
       keywords: [
+        'AI voice agent for education India',
         'admission enquiry follow up automation',
         'education lead calling',
         'college admission calling automation India',

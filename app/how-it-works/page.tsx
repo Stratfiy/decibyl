@@ -6,11 +6,11 @@ import { LanguageChips } from '@/components/marketing/Languages';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'How It Works — Setup, Numbers, Outcomes',
+  title: 'How the AI Voice Worker Works — Setup, Numbers, Outcomes',
   description:
     'Describe the agent, connect a number, and calls run with transcripts, recordings, QA scores and outcomes written back. Forwarding, not porting.',
   path: '/how-it-works',
-  keywords: ['how AI calling works', 'voice agent setup India', 'AI receptionist setup'],
+  keywords: ['how AI calling works', 'voice agent setup India', 'AI receptionist setup', 'AI voice worker India'],
   ogTitle: 'Describe the agent. Connect a number. Calls run.',
 });
 

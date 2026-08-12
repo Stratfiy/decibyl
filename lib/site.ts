@@ -41,11 +41,15 @@ export const site = {
   name: 'Decibyl',
   legalName: 'nAutomation Labs Pvt Ltd',
   url: siteUrl,
-  /** The category line. Use this, not "voice AI platform". */
-  tagline: 'Voice agents built in India, shipped for the world.',
+  /** The category line. Use this, not "voice AI platform" or "voice agents" —
+   *  "AI voice worker" is the deliberate reposition: a labor noun, not a tool
+   *  noun. It puts Decibyl up against the cost of a BPO seat, not against
+   *  Vapi/Bolna/Retell's "platform" framing, which every India competitor
+   *  currently uses. See the SEO/positioning research from 12 Aug 2026. */
+  tagline: 'AI voice workers, built in India, shipped for the world.',
   subline: 'Calls that confirm and close — in the language your customer actually speaks.',
   description:
-    'Decibyl runs your confirmation, follow-up, and reminder calls end-to-end — 7 Indian languages live today, plus any language your voice stack supports. Every call transcribed, recorded, and scored.',
+    'Decibyl builds AI voice workers that run your confirmation, follow-up, and reminder calls end-to-end — not a tool that assists a human doing it. 7 Indian languages live today, plus any language your voice stack supports. Every call transcribed, recorded, and scored.',
   /** Infra footprint, referenced in comparison tables and the "built for the
    *  world" positioning. Mumbai is home base; US/EU exist for international
    *  clients who need data closer to them. */

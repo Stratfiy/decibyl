@@ -6,11 +6,11 @@ import { topLevelVerticals, clinicSubVerticals, verticalHref } from '@/data/vert
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Solutions by Industry',
+  title: 'AI Voice Agent Solutions by Industry, India',
   description:
-    'Voice agents for D2C and NDR recovery, clinics, real estate, lending and collections, logistics, and education — in Indian languages, and beyond.',
+    'AI voice agents for D2C and NDR recovery, clinics, real estate, lending and collections, logistics, and education — in Indian languages, and beyond.',
   path: '/solutions',
-  keywords: ['voice AI use cases India', 'AI calling by industry India'],
+  keywords: ['voice AI use cases India', 'AI calling by industry India', 'AI voice agent solutions India'],
   ogTitle: 'Same engine. Different conversation.',
 });
 

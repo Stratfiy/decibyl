@@ -157,7 +157,7 @@ export function PricingPreview() {
             <ul className="mt-6 space-y-2 text-[0.9375rem] text-slate">
               <li>{tier.minutes} minutes included</li>
               <li>{tier.phoneNumbers} · telephony included</li>
-              <li>All 7 languages · {tier.concurrentCalls} concurrent calls</li>
+              <li>All Indian languages · {tier.concurrentCalls} concurrent calls</li>
               <li>QA scoring on 100% of calls</li>
             </ul>
           </div>

@@ -22,10 +22,14 @@ const sharedTable = (them: {
   markup: string;
   onboarding: string;
 }) => [
-  { feature: 'Indian languages', them: them.languages, us: 'All 7, code-mixed as the default register' },
+  {
+    feature: 'Indian languages',
+    them: them.languages,
+    us: '7 live, code-mixed by default — plus any language your stack supports',
+  },
   { feature: 'Indian phone numbers (DIDs)', them: them.dids, us: 'Indian DIDs, Indian SIP trunking included' },
   { feature: 'INR billing + GST invoice', them: them.billing, us: 'INR-first, GST-compliant invoice via Razorpay' },
-  { feature: 'Data residency', them: them.residency, us: 'India — AWS Mumbai (ap-south-1)' },
+  { feature: 'Data residency', them: them.residency, us: 'India, US, or EU — Mumbai (ap-south-1) by default' },
   { feature: 'MCP-native agent building', them: them.mcp, us: 'Yes — build agents from Claude Code' },
   { feature: 'BYOK', them: them.byok, us: 'Yes — $0.02/min platform fee, pay providers directly' },
   { feature: 'Markup model', them: them.markup, us: 'Zero markup on model costs, shown separately' },
@@ -39,7 +43,7 @@ export const competitors: Competitor[] = [
     summaryThem:
       'Vapi is a mature, developer-first voice platform with a large ecosystem, good documentation, and instant self-serve signup. If you are building in the US or Europe, want to pick your own STT/LLM/TTS stack, and your callers speak English, Vapi is a strong and well-supported default — and it will keep getting better faster than a smaller platform can.',
     summaryUs:
-      'Decibyl is built for one market. Indian languages with code-mixed speech as the normal case, Indian telephony, INR billing with a GST invoice, and call data resident in India. If your callers speak Hindi or Tamil and your finance team needs a GST invoice, that combination is the whole reason we exist.',
+      'Decibyl is built India-first. Indian languages with code-mixed speech as the normal case, Indian telephony, INR billing with a GST invoice, and data resident in Mumbai by default — with US and EU infrastructure available for teams serving customers outside India too. If your callers speak Hindi or Tamil and your finance team needs a GST invoice, that combination is the whole reason we exist; it just doesn\'t stop there.',
     strongerThem: [
       {
         title: 'Larger ecosystem and more mature docs',
@@ -87,7 +91,7 @@ export const competitors: Competitor[] = [
       onboarding: 'Self-serve, instant',
     }),
     verdict:
-      'Building for a global or US audience, or want the biggest ecosystem? Use Vapi. Calling Indian customers in Indian languages, paying in INR, and answering to an Indian finance and compliance process? That is what we built.',
+      'Want the biggest ecosystem and don\'t need Indian telephony or GST billing? Use Vapi. Calling Indian customers in Indian languages, paying in INR, and answering to an Indian finance and compliance process — with the option to run on US or EU infrastructure when you also serve customers there? That is what we built.',
     relatedVerticals: ['d2c-ndr-recovery', 'clinics'],
     seo: {
       title: 'Vapi Alternative India — Honest Comparison',

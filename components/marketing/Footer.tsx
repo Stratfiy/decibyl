@@ -7,6 +7,7 @@ import { competitors } from '@/data/competitors';
 const company = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Case studies', href: '/case-studies' },
   { label: 'Book a demo', href: '/book-a-demo' },
   { label: 'Join the waitlist', href: '/waitlist' },
   { label: 'Contact', href: '/contact' },
@@ -105,7 +106,10 @@ export function Footer() {
           <p className="t-data text-white/60">
             © {new Date().getFullYear()} {site.legalName}. All prices exclusive of 18% GST.
           </p>
-          <p className="t-data text-white/60">Data resident in India · AWS Mumbai (ap-south-1)</p>
+          <p className="t-data text-white/60">
+            Data resident in India by default · AWS Mumbai (ap-south-1) · also available in the US
+            &amp; EU
+          </p>
         </div>
       </Container>
     </footer>

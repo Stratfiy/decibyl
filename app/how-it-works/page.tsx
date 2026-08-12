@@ -79,7 +79,7 @@ export default function HowItWorksPage() {
       <Section surface="canvas" ariaLabel="Languages">
         <SectionHead
           eyebrow="Languages"
-          title="Seven, plus the mixed register most people actually use."
+          title="Indian languages live today, plus the mixed register most people actually use."
         />
         <div className="mt-9">
           <LanguageChips />

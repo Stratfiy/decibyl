@@ -8,7 +8,7 @@ import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Solutions by Industry',
   description:
-    'Voice agents for D2C and NDR recovery, clinics, real estate, lending and collections, logistics, and education — in seven Indian languages.',
+    'Voice agents for D2C and NDR recovery, clinics, real estate, lending and collections, logistics, and education — in Indian languages, and beyond.',
   path: '/solutions',
   keywords: ['voice AI use cases India', 'AI calling by industry India'],
   ogTitle: 'Same engine. Different conversation.',

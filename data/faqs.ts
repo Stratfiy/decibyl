@@ -3,7 +3,7 @@ export type Faq = { q: string; a: string };
 export const homeFaqs: Faq[] = [
   {
     q: 'What languages does Decibyl support?',
-    a: 'Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati, and English — all seven on every plan.',
+    a: 'Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati, and English live today on every plan — plus any language your voice stack supports, since Decibyl runs on Sarvam, OpenAI, Google, and ElevenLabs underneath.',
   },
   {
     q: 'Can it handle Hinglish or code-mixed speech?',

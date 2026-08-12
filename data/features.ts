@@ -105,14 +105,14 @@ export const howItWorks: { title: string; body: string }[] = [
   },
   {
     title: 'Calls run, outcomes write back',
-    body: 'Inbound and outbound, in seven languages, with the transcript, recording, QA score, and structured outcome landing in your system.',
+    body: 'Inbound and outbound, in Indian languages and beyond, with the transcript, recording, QA score, and structured outcome landing in your system.',
   },
 ];
 
 /** Trust strip — provable facts only. */
 export const trustStrip = [
   '~2.6s response latency',
-  '7 languages',
+  '7+ languages',
   'Data in India (ap-south-1)',
   'GST invoicing',
   'Zero markup on model costs',

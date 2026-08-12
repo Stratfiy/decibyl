@@ -10,6 +10,7 @@ import { competitors } from '@/data/competitors';
 const links = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Case studies', href: '/case-studies' },
 ];
 
 export function Nav() {

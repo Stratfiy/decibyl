@@ -10,11 +10,14 @@ export const site = {
   legalName: 'nAutomation Labs Pvt Ltd',
   url: siteUrl,
   /** The category line. Use this, not "voice AI platform". */
-  tagline: "India's revenue recovery layer.",
-  subline:
-    'Voice agents that call, confirm, and close — in the language your customer actually speaks.',
+  tagline: 'Voice agents built in India, shipped for the world.',
+  subline: 'Calls that confirm and close — in the language your customer actually speaks.',
   description:
-    'Decibyl runs your confirmation, follow-up, and reminder calls end-to-end in seven Indian languages. Every call transcribed, recorded, and scored.',
+    'Decibyl runs your confirmation, follow-up, and reminder calls end-to-end — 7 Indian languages live today, plus any language your voice stack supports. Every call transcribed, recorded, and scored.',
+  /** Infra footprint, referenced in comparison tables and the "built for the
+   *  world" positioning. Mumbai is home base; US/EU exist for international
+   *  clients who need data closer to them. */
+  regions: ['Mumbai (AWS ap-south-1)', 'USA', 'Europe'],
 
   /** ⚠️ OPEN-ITEMS #7 — confirm before deploy. */
   supportEmail: 'hello@decibyl.ai',

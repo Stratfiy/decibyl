@@ -7,6 +7,7 @@ import { LossCalculator } from '@/components/marketing/LossCalculator';
 import { LanguageChips } from '@/components/marketing/Languages';
 import { IntegrationsDeck } from '@/components/marketing/Integrations';
 import { ProofStrip } from '@/components/marketing/Proof';
+import { CaseStudiesSection } from '@/components/marketing/CaseStudies';
 import { FaqList } from '@/components/marketing/Faq';
 import { Advantages, FinalCta, HowItWorks, IndianOps, PricingPreview } from '@/components/marketing/Blocks';
 import { verticals, homepageDeckOrder, verticalHref, getVertical } from '@/data/verticals';
@@ -15,9 +16,9 @@ import { homeFaqs } from '@/data/faqs';
 import { JsonLd, faqSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Voice AI Agent India — Calls in 7 Indian Languages | Decibyl',
+  title: 'Voice AI Agent India — Calls in Indian Languages | Decibyl',
   description:
-    'Voice agents that run your confirmation, follow-up and reminder calls end-to-end in seven Indian languages. Every call transcribed, recorded and scored.',
+    'Voice agents that run your confirmation, follow-up and reminder calls end-to-end in Indian languages, and beyond. Every call transcribed, recorded and scored.',
   path: '/',
   keywords: [
     'voice AI agent India',
@@ -178,7 +179,7 @@ export default function HomePage() {
       <Section surface="canvas" ariaLabel="Languages">
         <SectionHead
           eyebrow="Languages"
-          title="Seven languages, and the one most people actually speak."
+          title="Indian languages live today, and any language your stack speaks."
           sub="Hinglish and Tanglish aren’t an edge case we tolerate — code-mixed speech is the default register the agent is built for."
         />
         <div className="mt-9">
@@ -199,6 +200,11 @@ export default function HomePage() {
       {/* Now onboarding */}
       <Section surface="canvas" ariaLabel="Now onboarding">
         <ProofStrip />
+      </Section>
+
+      {/* Case studies */}
+      <Section surface="white" ariaLabel="Case studies">
+        <CaseStudiesSection />
       </Section>
 
       {/* Pricing preview */}

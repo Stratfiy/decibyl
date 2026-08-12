@@ -81,7 +81,7 @@ export function GET(request: Request) {
         </div>
 
         <div style={{ display: 'flex', fontSize: 22, color: '#8A8F99' }}>
-          7 Indian languages · Data in India (ap-south-1) · GST invoicing
+          Indian languages + beyond · India, US & EU infra · GST invoicing
         </div>
       </div>
     ),

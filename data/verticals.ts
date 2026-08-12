@@ -609,7 +609,7 @@ export const verticals: Vertical[] = [
     seo: {
       title: 'Diagnostic Lab Call Automation',
       description:
-        'Automate report-status calls, home-collection bookings, and repeat-test reminders for diagnostic labs — in seven Indian languages.',
+        'Automate report-status calls, home-collection bookings, and repeat-test reminders for diagnostic labs — in Indian languages, and beyond.',
       keywords: [
         'diagnostic lab call automation',
         'home collection booking calls',
@@ -878,7 +878,7 @@ export const verticals: Vertical[] = [
       'Confirms the COD amount before the reattempt is dispatched',
       'Schedules reverse pickups and confirms the consignee will be present',
       'Writes structured outcomes back to your operations platform for every call',
-      'Runs at the concurrency an operator needs, in seven languages',
+      'Runs at the concurrency an operator needs, in Indian languages and beyond',
     ],
     sampleCall: {
       language: 'Gujarati / Hindi (code-mixed)',
@@ -1028,7 +1028,7 @@ export const verticals: Vertical[] = [
       },
       {
         q: 'Can it call parents in a regional language?',
-        a: 'Yes, in all seven, and in the code-mixed register most families actually use.',
+        a: 'Yes — in Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati, English, or any language your voice stack supports, in the code-mixed register most families actually use.',
       },
       {
         q: 'What about calling hours?',
@@ -1045,7 +1045,7 @@ export const verticals: Vertical[] = [
     seo: {
       title: 'Admission Enquiry Follow-Up Automation',
       description:
-        'Call every admission enquiry within a minute, answer fee and eligibility questions, and book the counsellor slot — in seven Indian languages.',
+        'Call every admission enquiry within a minute, answer fee and eligibility questions, and book the counsellor slot — in Indian languages, and beyond.',
       keywords: [
         'admission enquiry follow up automation',
         'education lead calling',

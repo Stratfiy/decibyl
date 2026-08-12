@@ -174,7 +174,7 @@ export function VerticalPage({ vertical }: { vertical: Vertical }) {
               </h2>
               <p className="mt-3 text-slate">
                 {tier.minutes} minutes, {tier.phoneNumbers.toLowerCase()}, telephony included, all
-                seven languages, and QA on 100% of calls. Exclusive of 18% GST.
+                Indian languages, and QA on 100% of calls. Exclusive of 18% GST.
               </p>
             </div>
             <ButtonLink href="/pricing" variant="secondary" size="lg">

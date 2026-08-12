@@ -13,7 +13,7 @@ const rows: { label: string; value: (t: Tier) => string }[] = [
   { label: 'Overage', value: (t) => (t.overageInr === null ? 'TBD' : `₹${t.overageInr}/min`) },
   { label: 'Telephony', value: () => 'Included' },
   { label: 'Phone number', value: (t) => t.phoneNumbers },
-  { label: 'Languages', value: () => 'All 7' },
+  { label: 'Languages', value: () => 'All Indian, +' },
   { label: 'Models', value: (t) => t.models },
   { label: 'Concurrent calls', value: (t) => t.concurrentCalls },
   { label: 'Campaigns', value: (t) => (t.campaigns ? '✓' : '—') },

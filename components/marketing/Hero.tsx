@@ -4,7 +4,7 @@ import { trustStrip } from '@/data/features';
 
 const stats = [
   { value: '~2.6s', label: 'end-to-end response' },
-  { value: '7 languages', label: 'code-mixed by default' },
+  { value: '7+ languages', label: 'code-mixed by default' },
   { value: '100% of calls', label: 'QA-scored, not sampled' },
 ];
 
@@ -20,7 +20,7 @@ export function Hero() {
 
       <Container className="relative">
         <div className="pt-14 pb-16 sm:pt-20 lg:pt-24 lg:pb-24">
-          <p className="t-eyebrow text-sindoor">Built in India · Runs in 7 Indian languages</p>
+          <p className="t-eyebrow text-sindoor">Built in India · Shipped for the world</p>
 
           <h1 className="t-display mt-5 max-w-4xl text-balance">
             Your customers don’t answer emails.{' '}
@@ -29,8 +29,8 @@ export function Hero() {
 
           <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
             Decibyl runs your confirmation, follow-up, and reminder calls end-to-end — in Hindi,
-            Tamil, Telugu, Kannada, Marathi, Gujarati, and English. Every call transcribed,
-            recorded, and scored.
+            Tamil, Telugu, Kannada, Marathi, Gujarati, English, and any language your voice stack
+            supports. Every call transcribed, recorded, and scored.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">

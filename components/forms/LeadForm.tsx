@@ -25,6 +25,15 @@ const promises: Record<FormType, string> = {
   contact: 'We’ll reply within one business day.',
 };
 
+/** ?topic= values used in CTAs across the site — keep in sync with every
+ *  `/contact?topic=...` link. */
+const topicLabels: Record<string, string> = {
+  managed: 'Managed tier',
+  security: 'Security question',
+  referral: 'Referral program application',
+  reseller: 'White-label reseller enquiry',
+};
+
 export function LeadForm({ variant, vertical, compact = false }: Props) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -48,11 +57,18 @@ export function LeadForm({ variant, vertical, compact = false }: Props) {
     // the lead lands pre-qualified with their volume estimate.
     const loss = params.get('monthly_loss');
     const calc = params.get('calc');
-    const note = loss
+    const lossNote = loss
       ? `Estimated monthly loss from the ${calc ?? ''} calculator: ₹${Number(loss).toLocaleString('en-IN')}.`
       : undefined;
 
-    setPrefill({ vertical: params.get('vertical') ?? vertical, note });
+    // ?topic= hand-off from CTAs like /contact?topic=referral — starts the
+    // message field with context instead of a blank box, same idea as the
+    // calculator hand-off above.
+    const topic = params.get('topic');
+    const topicLabel = topic ? topicLabels[topic] : undefined;
+    const topicNote = topicLabel ? `Re: ${topicLabel} — ` : undefined;
+
+    setPrefill({ vertical: params.get('vertical') ?? vertical, note: topicNote ?? lossNote });
   }, [vertical]);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {

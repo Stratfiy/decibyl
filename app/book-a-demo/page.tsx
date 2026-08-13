@@ -30,7 +30,7 @@ export default function BookDemoPage() {
             <ul className="mt-10 space-y-4">
               {[
                 'A real call, not a screen share of a dashboard',
-                'In Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati, or English',
+                'In Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati, English, French, Spanish, or Arabic',
                 'Transcript, recording, and QA score sent afterwards',
                 'Pricing run against your actual call volume',
               ].map((item) => (

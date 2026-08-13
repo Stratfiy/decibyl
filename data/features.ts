@@ -50,9 +50,9 @@ export const features: Feature[] = [
   },
   {
     eyebrow: 'Latency',
-    title: '~2.6 second responses',
-    body: 'Close enough to conversational that callers talk normally instead of waiting for the machine.',
-    meta: '~2.6s end to end',
+    title: 'Sub-700ms responses on select models',
+    body: 'Close enough to conversational that callers talk normally instead of waiting for the machine. Exact latency depends on the model and language selected.',
+    meta: '<700ms for select models',
   },
 ];
 
@@ -111,8 +111,8 @@ export const howItWorks: { title: string; body: string }[] = [
 
 /** Trust strip — provable facts only. */
 export const trustStrip = [
-  '~2.6s response latency',
-  '7+ languages',
+  '<700ms response latency for select models',
+  '10+ languages',
   'Data in India (ap-south-1)',
   'GST invoicing',
   'Zero markup on model costs',

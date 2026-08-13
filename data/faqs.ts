@@ -3,7 +3,7 @@ export type Faq = { q: string; a: string };
 export const homeFaqs: Faq[] = [
   {
     q: 'What languages does Decibyl support?',
-    a: 'Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati, and English live today on every plan — plus any language your voice stack supports, since Decibyl runs on Sarvam, OpenAI, Google, and ElevenLabs underneath.',
+    a: 'Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati, English, French, Spanish, and Arabic live today on every plan — plus any language your voice stack supports, since Decibyl runs on Sarvam, OpenAI, Google, and ElevenLabs underneath.',
   },
   {
     q: 'Can it handle Hinglish or code-mixed speech?',
@@ -27,7 +27,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: 'How fast does the agent respond?',
-    a: 'Around 2.6 seconds end to end, which is close enough to conversational that callers talk to it normally rather than waiting for it.',
+    a: 'Under 700ms end to end on select models — close enough to conversational that callers talk to it normally rather than waiting for it. Exact latency depends on the model and language you pick; we tell you the number for your setup before you commit to it.',
   },
   {
     q: 'Do you support inbound as well as outbound?',

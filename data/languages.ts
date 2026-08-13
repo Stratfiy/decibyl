@@ -4,7 +4,7 @@ export type Language = {
   name: string;
   /** name set in its own script */
   native: string;
-  script: 'devanagari' | 'tamil' | 'telugu' | 'kannada' | 'gujarati' | 'latin';
+  script: 'devanagari' | 'tamil' | 'telugu' | 'kannada' | 'gujarati' | 'arabic' | 'latin';
   /** Audio sample path under /public/audio. null = no production-grade clip yet.
    *  ⚠️ Ship only clips Nithish will stand behind — a bad clip does more damage
    *  than a missing one. Chips with null render without a play control. */
@@ -34,6 +34,12 @@ export const languages: Language[] = [
   { code: 'mr', name: 'Marathi', native: 'मराठी', script: 'devanagari', sample: null },
   { code: 'gu', name: 'Gujarati', native: 'ગુજરાતી', script: 'gujarati', sample: null },
   { code: 'en', name: 'English', native: 'English', script: 'latin', sample: null },
+  /** Beyond the seven Indian languages: live on the underlying voice stack
+   *  (OpenAI, Google, ElevenLabs), not custom-built the way the Indic set is —
+   *  no code-mixed register claimed for these. */
+  { code: 'fr', name: 'French', native: 'Français', script: 'latin', sample: null },
+  { code: 'es', name: 'Spanish', native: 'Español', script: 'latin', sample: null },
+  { code: 'ar', name: 'Arabic', native: 'العربية', script: 'arabic', sample: null },
 ];
 
 export const languageNames = languages.map((l) => l.name).join(', ');

@@ -42,7 +42,8 @@
   --font-body: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
   --font-indic:
     var(--font-plex-deva), var(--font-noto-tamil), var(--font-noto-telugu),
-    var(--font-noto-kannada), var(--font-noto-gujarati), var(--font-plex), sans-serif;
+    var(--font-noto-kannada), var(--font-noto-gujarati), var(--font-noto-arabic),
+    var(--font-plex), sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 
   /* ---- Layout ---- */

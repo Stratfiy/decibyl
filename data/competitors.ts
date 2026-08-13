@@ -25,7 +25,7 @@ const sharedTable = (them: {
   {
     feature: 'Indian languages',
     them: them.languages,
-    us: '7 live, code-mixed by default — plus any language your stack supports',
+    us: '10+ live (7 Indian, code-mixed by default, plus French, Spanish, Arabic) — and any language your stack supports',
   },
   { feature: 'Indian phone numbers (DIDs)', them: them.dids, us: 'Indian DIDs, Indian SIP trunking included' },
   { feature: 'INR billing + GST invoice', them: them.billing, us: 'INR-first, GST-compliant invoice via Razorpay' },

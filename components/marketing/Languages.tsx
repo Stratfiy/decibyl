@@ -4,9 +4,9 @@ import { useRef, useState } from 'react';
 import { languages } from '@/data/languages';
 
 /**
- * Seven chips in native script. A chip with a real audio sample plays it on
- * click; a chip without one is a plain chip — we ship only clips we'd stand
- * behind, and a bad clip does more damage than a missing one.
+ * One chip per language, in native script. A chip with a real audio sample
+ * plays it on click; a chip without one is a plain chip — we ship only clips
+ * we'd stand behind, and a bad clip does more damage than a missing one.
  */
 export function LanguageChips() {
   const [playing, setPlaying] = useState<string | null>(null);
@@ -40,7 +40,12 @@ export function LanguageChips() {
               className="rounded-button border border-line bg-snow px-5 py-3"
               lang={lang.code}
             >
-              <span className="t-indic text-[1.0625rem] text-ink">{lang.native}</span>
+              <span
+                className="t-indic text-[1.0625rem] text-ink"
+                dir={lang.script === 'arabic' ? 'rtl' : undefined}
+              >
+                {lang.native}
+              </span>
               {lang.native !== lang.name ? (
                 <span className="t-caption ml-2 text-iron">{lang.name}</span>
               ) : null}
@@ -60,7 +65,12 @@ export function LanguageChips() {
               <span aria-hidden="true" className="text-vermilion">
                 {playing === lang.code ? '❚❚' : '▶'}
               </span>
-              <span className="t-indic text-[1.0625rem] text-ink">{lang.native}</span>
+              <span
+                className="t-indic text-[1.0625rem] text-ink"
+                dir={lang.script === 'arabic' ? 'rtl' : undefined}
+              >
+                {lang.native}
+              </span>
               <span className="t-caption text-iron">{label !== lang.native ? lang.name : ''}</span>
             </button>
           </li>

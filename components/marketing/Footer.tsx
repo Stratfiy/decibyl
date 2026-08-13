@@ -7,6 +7,7 @@ import { competitors } from '@/data/competitors';
 const company = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Developers', href: '/developers' },
   { label: 'Case studies', href: '/case-studies' },
   { label: 'Blog', href: '/blog' },
   { label: 'Book a demo', href: '/book-a-demo' },

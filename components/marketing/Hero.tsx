@@ -3,6 +3,7 @@ import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { MeshBackground } from '@/components/ui/MeshBackground';
 import { trustStrip } from '@/data/features';
+import { site } from '@/lib/site';
 
 const stats = [
   { value: '<700ms', label: 'response, for select models' },
@@ -45,6 +46,17 @@ export function Hero() {
               See pricing
             </ButtonLink>
           </div>
+
+          <p className="mt-5 text-[0.9375rem] text-slate">
+            Or just call the agent:{' '}
+            <a
+              href={`tel:${site.demoPhone.tel}`}
+              className="font-medium text-sindoor underline-offset-4 hover:underline"
+            >
+              {site.demoPhone.display}
+            </a>
+            . Pick your language when it answers.
+          </p>
 
           {/* Glass stat cards, offset at slightly different heights. */}
           <ul className="mt-14 grid gap-4 sm:grid-cols-3">

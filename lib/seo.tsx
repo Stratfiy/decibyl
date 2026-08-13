@@ -60,6 +60,13 @@ export function organizationSchema() {
     logo: `${siteUrl}/logo.svg`,
     email: site.supportEmail,
     description: site.description,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: site.demoPhone.tel,
+      contactType: 'sales',
+      areaServed: 'IN',
+      availableLanguage: ['en', 'hi'],
+    },
     address: site.registeredAddress
       ? {
           '@type': 'PostalAddress',

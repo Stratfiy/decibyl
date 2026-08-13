@@ -58,6 +58,13 @@ export const site = {
   /** ⚠️ OPEN-ITEMS #7 — confirm before deploy. */
   supportEmail: 'hello@decibyl.ai',
   salesEmail: 'hello@decibyl.ai',
+  /** P2, 13 Aug 2026: the callable demo line — a real inbound number with a
+   *  configured demo/qualify agent on it, confirmed live. `tel` is the exact
+   *  dial string; `display` is the formatted version shown on the page. */
+  demoPhone: {
+    tel: '+918035302788',
+    display: '+91 80353 02788',
+  },
   /** Registered address is required on a GST-registered entity's site and helps
    *  local SEO. null renders a graceful fallback instead of a fake address. */
   registeredAddress: null as null | {

@@ -2,11 +2,18 @@
  * SINGLE SOURCE OF TRUTH FOR ALL PRICES.
  * Never hardcode a price in a component — import from here.
  *
- * ⚠️ UNCONFIRMED — see OPEN-ITEMS.md before deploying to production:
- *   - Growth / Scale prices are a proposal, not a decision
- *   - Overage per-minute rates are unset (render as "TBD" until confirmed)
- *   - Concurrent-call limits are estimates
- *   - `managedTiersLive` gates whether tiers sell or route to the waitlist
+ * Restructured 13 Aug 2026 per the pricing/feature-ladder spec. Positioning:
+ * Decibyl does not compete on ₹/min — it competes on what's included. Every
+ * price here should read as an inclusion comparison, not a rate quote.
+ *
+ * Internal cost floor (margin sanity only — NEVER publish these two lines):
+ *   Hindi/English stack: ₹1.74/min · Regional (Ta/Te/Kn/Ml/Bn) stack: ₹3.28/min
+ *
+ * ⚠️ STILL OPEN — see OPEN-ITEMS.md:
+ *   - Regional-language margin at Scale/Growth effective rates is thin
+ *     (25–28% gross at the ₹3.28 regional cost floor) — surcharge, fair-use
+ *     cap, or fix the stack first is still Nithish's call, not shipped here.
+ *   - `managedTiersLive` gates whether tiers sell or route to the waitlist.
  */
 
 export const GST_RATE = 0.18;
@@ -15,25 +22,49 @@ export const GST_RATE = 0.18;
  *  false → tier cards show "Opening soon" and CTA routes to /waitlist. */
 export const managedTiersLive = true;
 
-/** Indicative rate for the USD toggle. Display-only, not a billing rate. */
+/** Indicative rate for the USD toggle on the main tier table, and for BYOK
+ *  (which stays dollar-denominated — that audience is dollar-native).
+ *  Display-only, not a billing rate. */
 export const USD_RATE = 88;
 
+/** P0-1: additional number beyond what a tier includes. Same price on every
+ *  managed tier. */
+export const additionalNumberInr = 399;
+
 export type Tier = {
-  id: 'starter' | 'growth' | 'scale' | 'enterprise';
+  id: 'starter' | 'growth' | 'scale' | 'managed';
   name: string;
-  /** monthly price in INR, exclusive of GST. null = custom */
+  /** monthly price in INR, exclusive of GST. null = fully custom, no anchor. */
   priceInr: number | null;
+  /** true → render "From ₹X" instead of a bare price. Managed only: a real
+   *  anchor number, not "Custom" — the whole point of naming ₹75,000 is that
+   *  SquadStack and Gnani don't publish anything at all. */
+  startingAt?: boolean;
   tagline: string;
   minutes: string;
-  /** null until Nithish confirms — renders as "TBD" */
+  /** null = no fixed per-minute overage (Managed is custom-quoted). */
   overageInr: number | null;
   phoneNumbers: string;
   models: string;
   concurrentCalls: string;
+  /** Outbound campaigns — off on Starter, on from Growth up. */
   campaigns: boolean;
+  /** 'sampled' on Starter only. Compliance posture (DPDP, residency) is
+   *  never gated — only QA depth, outbound, and integration depth are. */
+  qaScoring: 'sampled' | 'full';
+  crmWriteback: 'webhook' | 'configured';
+  customVoice: boolean;
+  dedicatedNumberPool: boolean;
+  namedAccountContact: boolean;
   support: string;
   cta: { label: string; href: string };
   featured?: boolean;
+  /** Overrides the generic 4-line bullet list with bespoke copy. Only
+   *  Starter and Managed need this — Growth/Scale read fine off the data
+   *  fields directly. */
+  bullets?: string[];
+  /** A closing differentiation line rendered under the bullets. Managed only. */
+  note?: string;
 };
 
 export const tiers: Tier[] = [
@@ -41,27 +72,46 @@ export const tiers: Tier[] = [
     id: 'starter',
     name: 'Starter',
     priceInr: 2999,
-    tagline: 'One number, one agent, live this week.',
+    tagline: 'Your agent, built and live this week.',
     minutes: '500',
-    overageInr: null,
+    overageInr: 5.3,
     phoneNumbers: '1 phone number',
     models: 'Selected',
     concurrentCalls: '5',
     campaigns: false,
+    qaScoring: 'sampled',
+    crmWriteback: 'webhook',
+    customVoice: false,
+    dedicatedNumberPool: false,
+    namedAccountContact: false,
     support: 'Email',
     cta: { label: 'Book a demo call', href: '/book-a-demo?tier=starter' },
+    // Option A (chosen 13 Aug 2026): the platform plan, not a minute bundle —
+    // nobody computes ₹/min on a plan that isn't sold in minutes.
+    bullets: [
+      'Agent build and configuration included',
+      '1 Indian number, telephony included',
+      '500 minutes included, then ₹5.30/min',
+      'All Indian languages · 5 concurrent calls',
+      'Transcript, recording and outcome on every call',
+    ],
   },
   {
     id: 'growth',
     name: 'Growth',
     priceInr: 9999,
     tagline: 'Outbound campaigns and a real call volume.',
-    minutes: '2,000',
-    overageInr: null,
+    minutes: '2,200',
+    overageInr: 4.5,
     phoneNumbers: '3 phone numbers',
     models: 'Selected',
     concurrentCalls: '25',
     campaigns: true,
+    qaScoring: 'full',
+    crmWriteback: 'webhook',
+    customVoice: false,
+    dedicatedNumberPool: false,
+    namedAccountContact: false,
     support: 'WhatsApp',
     cta: { label: 'Book a demo call', href: '/book-a-demo?tier=growth' },
     featured: true,
@@ -69,51 +119,64 @@ export const tiers: Tier[] = [
   {
     id: 'scale',
     name: 'Scale',
-    priceInr: 24999,
+    priceInr: 34999,
     tagline: 'High concurrency, every model, priority support.',
-    minutes: '6,000',
-    overageInr: null,
+    minutes: '8,000',
+    overageInr: 4.0,
     phoneNumbers: '10 phone numbers',
     models: 'All',
     concurrentCalls: '100',
     campaigns: true,
+    qaScoring: 'full',
+    crmWriteback: 'configured',
+    customVoice: true,
+    dedicatedNumberPool: false,
+    namedAccountContact: false,
     support: 'Priority',
     cta: { label: 'Book a demo call', href: '/book-a-demo?tier=scale' },
   },
   {
-    id: 'enterprise',
-    name: 'Enterprise',
-    priceInr: null,
-    tagline: 'Volume pricing, custom models, dedicated support.',
-    minutes: 'Volume',
+    id: 'managed',
+    name: 'Managed',
+    priceInr: 75000,
+    startingAt: true,
+    tagline: 'Built, tuned and reviewed by our team.',
+    minutes: 'Custom',
     overageInr: null,
-    phoneNumbers: 'Unlimited phone numbers',
+    phoneNumbers: 'Dedicated number pool',
     models: 'All + custom',
     concurrentCalls: 'Custom',
     campaigns: true,
+    qaScoring: 'full',
+    crmWriteback: 'configured',
+    customVoice: true,
+    dedicatedNumberPool: true,
+    namedAccountContact: true,
     support: 'Dedicated',
-    cta: { label: 'Talk to us', href: '/contact?topic=enterprise' },
+    cta: { label: 'Talk to us', href: '/contact?topic=managed' },
+    bullets: [
+      'Everything in Scale',
+      'Agent designed and built for your workflows',
+      'Dedicated number pool',
+      'CRM write-back configured for your system',
+      'Monthly QA review with a named contact',
+      'Priority handoff routing and escalation paths',
+    ],
+    note: 'SquadStack and Gnani don’t publish a price. This is ours.',
   },
 ];
 
-/** Rows for the comparison table. Keep in the order the buyer scans. */
-export const comparisonRows: {
-  label: string;
-  key: keyof Tier | 'telephony' | 'languages' | 'humanTransfer' | 'tools' | 'qa';
-}[] = [
-  { label: 'Minutes included', key: 'minutes' },
-  { label: 'Overage', key: 'overageInr' },
-  { label: 'Telephony', key: 'telephony' },
-  { label: 'Phone number', key: 'phoneNumbers' },
-  { label: 'Languages', key: 'languages' },
-  { label: 'Models', key: 'models' },
-  { label: 'Concurrent calls', key: 'concurrentCalls' },
-  { label: 'Campaigns', key: 'campaigns' },
-  { label: 'Human transfer', key: 'humanTransfer' },
-  { label: 'Calendar / email tools', key: 'tools' },
-  { label: 'QA scoring', key: 'qa' },
-  { label: 'Support', key: 'support' },
-];
+/** Starter's QA row reads "Sampled" in the table — this is the one-line
+ *  explanation shown as a caption underneath, not a table cell. */
+export const starterQaCopy =
+  'Quality sampling on every agent, with full 100% call scoring from Growth.';
+
+/** P0-3: the verifiable, dated comparison — update or remove if the
+ *  competitor's page changes. Never leave a stale claim up. */
+export const scaleComparisonCallout = {
+  text: 'For context: Aixclerate publishes ₹24,999/month for 2,000 minutes. Scale is ₹34,999 for 8,000 — four times the minutes at 1.4× the price.',
+  source: "Read on their pricing page, 8 Aug 2026.",
+};
 
 export const byok = {
   headline: 'BYOK / Agency',
@@ -124,29 +187,58 @@ export const byok = {
 };
 
 /**
- * Pay-as-you-go / volume-based pricing. No monthly commitment — top up
+ * Pay-as-you-go / volume-based pricing. No monthly commitment — prepay
  * credit, the effective per-minute rate improves the more you put in at
- * once. Same shape as the managed tiers' "starting at" positioning: the
- * best rate (minRateInr) is what unlocks at the top of the range.
+ * once. INR-denominated (P0-2, 13 Aug 2026) — the pitch is India-native
+ * end to end, so the slider has to be too. USD stays only on /developers
+ * (BYOK), where the audience is dollar-native.
+ *
+ * Framed ceiling-down, not floor: the slider defaults to the entry stop,
+ * and the best rate is never quoted as a bare figure anywhere on the site
+ * — always "up to ₹X at maximum prepay". See maxRateLabel below.
  */
 export const payAsYouGo = {
   headline: 'Pay-as-you-go',
-  tagline: 'Flexible credits. Top up anytime, no commitment.',
-  minSpendUsd: 15,
-  maxSpendUsd: 3000,
-  /** rate at minSpendUsd — the "starting at ₹5/min" headline number */
-  minRateInr: 5.2,
-  /** rate at maxSpendUsd — the best rate, unlocked at the top of the range */
-  maxRateInr: 4.2,
-  body: 'Purchase credits from $15 to $3,000 — no plan to commit to, top up again whenever your balance runs low. The bigger the top-up, the lower your effective per-minute rate.',
+  tagline: 'Flexible credits. Prepay, no commitment.',
+  headlineCopy:
+    'Pay-as-you-go credits. Rate improves as you prepay — from ₹5.30/min, down to ₹4.20/min at committed volume.',
+  underSlider: 'Credits never expire. No monthly commitment. Telephony included.',
+  maxRateLabel: 'Up to ₹4.20/min at maximum prepay',
+  committedNote:
+    'Running higher volume than this? Committed-volume pricing is set with our team.',
+  committedHref: '/book-a-demo',
+  body: 'Prepay for credits — no plan to commit to, top up again whenever your balance runs low. The bigger the prepay, the lower your effective per-minute rate.',
+  /** Published tier stops — shown as ticks under the slider. */
+  tierStops: [
+    { prepayInr: 2999, rateInr: 5.3 },
+    { prepayInr: 25000, rateInr: 5.1 },
+    { prepayInr: 100000, rateInr: 4.8 },
+    { prepayInr: 500000, rateInr: 4.5 },
+    { prepayInr: 1900000, rateInr: 4.2 },
+  ],
 };
 
-/** Linear interpolation between minRateInr and maxRateInr across the spend range. */
-export function payAsYouGoRateInr(spendUsd: number): number {
-  const { minSpendUsd, maxSpendUsd, minRateInr, maxRateInr } = payAsYouGo;
-  const clamped = Math.min(Math.max(spendUsd, minSpendUsd), maxSpendUsd);
-  const t = (clamped - minSpendUsd) / (maxSpendUsd - minSpendUsd);
-  return minRateInr + t * (maxRateInr - minRateInr);
+export const payAsYouGoMinRateInr = payAsYouGo.tierStops[0].rateInr;
+export const payAsYouGoMaxRateInr = payAsYouGo.tierStops[payAsYouGo.tierStops.length - 1].rateInr;
+export const payAsYouGoMinPrepayInr = payAsYouGo.tierStops[0].prepayInr;
+export const payAsYouGoMaxPrepayInr =
+  payAsYouGo.tierStops[payAsYouGo.tierStops.length - 1].prepayInr;
+
+/** Piecewise-linear interpolation across the published tier stops — a
+ *  straight line between each adjacent pair, so the rate hits the exact
+ *  published number at every stop rather than just the two endpoints. */
+export function payAsYouGoRateInr(prepayInr: number): number {
+  const stops = payAsYouGo.tierStops;
+  const clamped = Math.min(Math.max(prepayInr, payAsYouGoMinPrepayInr), payAsYouGoMaxPrepayInr);
+  for (let i = 0; i < stops.length - 1; i++) {
+    const a = stops[i];
+    const b = stops[i + 1];
+    if (clamped >= a.prepayInr && clamped <= b.prepayInr) {
+      const t = (clamped - a.prepayInr) / (b.prepayInr - a.prepayInr);
+      return a.rateInr + t * (b.rateInr - a.rateInr);
+    }
+  }
+  return payAsYouGoMaxRateInr;
 }
 
 export function formatInr(value: number): string {
@@ -159,7 +251,8 @@ export function formatUsd(valueInr: number): string {
 
 export function tierPrice(tier: Tier, currency: 'inr' | 'usd'): string {
   if (tier.priceInr === null) return 'Custom';
-  return currency === 'inr' ? formatInr(tier.priceInr) : formatUsd(tier.priceInr);
+  const amount = currency === 'inr' ? formatInr(tier.priceInr) : formatUsd(tier.priceInr);
+  return tier.startingAt ? `From ${amount}` : amount;
 }
 
 export const starterPriceLabel = formatInr(tiers[0].priceInr as number);

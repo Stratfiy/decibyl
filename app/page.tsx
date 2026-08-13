@@ -9,7 +9,8 @@ import { IntegrationsDeck } from '@/components/marketing/Integrations';
 import { ProofStrip } from '@/components/marketing/Proof';
 import { CaseStudiesSection } from '@/components/marketing/CaseStudies';
 import { FaqList } from '@/components/marketing/Faq';
-import { Advantages, FinalCta, HowItWorks, IndianOps, PricingPreview } from '@/components/marketing/Blocks';
+import { FinalCta, HowItWorks, IndianOps, PricingPreview } from '@/components/marketing/Blocks';
+import { InclusionTable } from '@/components/marketing/InclusionTable';
 import { verticals, homepageDeckOrder, verticalHref, getVertical } from '@/data/verticals';
 import { features } from '@/data/features';
 import { homeFaqs } from '@/data/faqs';
@@ -171,9 +172,9 @@ export default function HomePage() {
         />
       </Section>
 
-      {/* Why Decibyl */}
-      <Section surface="white" ariaLabel="Why Decibyl">
-        <Advantages />
+      {/* What's actually included */}
+      <Section surface="white" ariaLabel="What's actually included">
+        <InclusionTable />
       </Section>
 
       {/* Languages */}

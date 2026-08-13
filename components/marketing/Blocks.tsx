@@ -3,7 +3,7 @@ import { Container, SectionHead } from '@/components/ui/Section';
 import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { advantages, howItWorks, indianOps } from '@/data/features';
-import { tiers, tierPrice, managedTiersLive } from '@/data/pricing';
+import { additionalNumberInr, formatInr, tiers, tierPrice, managedTiersLive } from '@/data/pricing';
 
 /* ───────────────────────────── Final CTA ───────────────────────────── */
 
@@ -159,14 +159,15 @@ export function PricingPreview() {
               <li>{tier.minutes} minutes included</li>
               <li>{tier.phoneNumbers} · telephony included</li>
               <li>All Indian languages · {tier.concurrentCalls} concurrent calls</li>
-              <li>QA scoring on 100% of calls</li>
+              <li>{tier.qaScoring === 'full' ? 'QA scoring on 100% of calls' : 'Quality-sampled QA'}</li>
             </ul>
           </Reveal>
         ))}
       </div>
 
       <p className="t-caption mt-6 text-iron">
-        All prices exclusive of 18% GST.
+        All prices exclusive of 18% GST. Additional numbers {formatInr(additionalNumberInr)}/month
+        each.
         {!managedTiersLive ? ' Managed plans are opening soon — join the waitlist.' : ''}
       </p>
 

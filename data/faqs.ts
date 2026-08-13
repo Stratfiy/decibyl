@@ -14,6 +14,10 @@ export const homeFaqs: Faq[] = [
     a: 'Not on the managed plans — telephony and models are included, and there are no API keys for you to manage. If you would rather bring your own keys, the BYOK plan is a $0.02 per-minute platform fee and you pay providers directly at their price, with zero markup from us.',
   },
   {
+    q: 'Do you mark up model costs?',
+    a: 'No. Sarvam STT/TTS runs roughly 7× cheaper than US alternatives and handles Indian languages better; Indian SIP trunking runs roughly 5× cheaper than Twilio-class providers; and there is no third-party orchestration layer sitting in the middle taking its own fee. We charge a platform fee and show the provider cost separately — check the arithmetic yourself on the pricing page rather than trusting a blended rate.',
+  },
+  {
     q: 'Do I get a GST invoice?',
     a: 'Yes. Decibyl is built by nAutomation Labs Pvt Ltd, an India-registered, GST-compliant company. Billing runs through Razorpay and every invoice is GST-compliant. All published prices are exclusive of 18% GST.',
   },
@@ -54,7 +58,11 @@ export const pricingFaqs: Faq[] = [
   },
   {
     q: 'What happens if I go over my included minutes?',
-    a: 'Overage is billed per minute on top of your plan. Overage rates are being finalised and will be published here before they apply to any account — we would rather show TBD than a number we have to walk back.',
+    a: 'Overage is billed per minute on top of your plan: ₹5.30/min on Starter, ₹4.50/min on Growth, ₹4.00/min on Scale. Managed is custom-quoted for your volume.',
+  },
+  {
+    q: 'How much does an additional phone number cost?',
+    a: 'Additional numbers are ₹399/month each. All plans include one number with telephony.',
   },
   {
     q: 'Is telephony included, or do I pay a carrier separately?',

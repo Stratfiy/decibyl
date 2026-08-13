@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BlogLayout, BlogSection, BlogStat } from '@/components/marketing/BlogLayout';
 import { FinalCta } from '@/components/marketing/Blocks';
 import { getBlogPost } from '@/data/blog';
-import { formatInr, payAsYouGo, tiers } from '@/data/pricing';
+import { formatInr, payAsYouGoMaxRateInr, payAsYouGoMinRateInr, tiers } from '@/data/pricing';
 import { JsonLd, articleSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 const meta = getBlogPost('ai-voice-agent-pricing-india')!;
@@ -75,16 +75,16 @@ export default function Post() {
             We publish the split rather than blend it. Managed plans start at{' '}
             {formatInr(starter.priceInr as number)}/month with telephony and phone numbers
             included — no separate line item to hunt for. For teams that don&rsquo;t want a
-            monthly commitment, pay-as-you-go starts at {formatInr(payAsYouGo.minRateInr)}/min and
-            improves with the size of the top-up, down to {formatInr(payAsYouGo.maxRateInr)}/min.
-            BYOK is a flat platform fee on top of whatever your own OpenAI, Deepgram, ElevenLabs,
-            or Sarvam account already charges you — you can check the arithmetic yourself, because
-            nothing is blended into a single number.
+            monthly commitment, pay-as-you-go starts at {formatInr(payAsYouGoMinRateInr)}/min and
+            improves the more you prepay, up to {formatInr(payAsYouGoMaxRateInr)}/min at maximum
+            prepay. BYOK is a flat platform fee on top of whatever your own OpenAI, Deepgram,
+            ElevenLabs, or Sarvam account already charges you — you can check the arithmetic
+            yourself, because nothing is blended into a single number.
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
             <BlogStat
-              value={`${formatInr(payAsYouGo.minRateInr)}–${formatInr(payAsYouGo.maxRateInr)}/min`}
-              label="Decibyl pay-as-you-go range, no commitment"
+              value={`${formatInr(payAsYouGoMinRateInr)}–${formatInr(payAsYouGoMaxRateInr)}/min`}
+              label="Decibyl pay-as-you-go range — up to the max rate at maximum prepay"
             />
             <BlogStat
               value="₹2–₹20/min"

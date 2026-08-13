@@ -4,14 +4,14 @@ import { PricingTable } from '@/components/marketing/PricingTable';
 import { PayAsYouGo } from '@/components/marketing/PayAsYouGo';
 import { FaqList } from '@/components/marketing/Faq';
 import { FinalCta } from '@/components/marketing/Blocks';
-import { byok, formatInr, payAsYouGo } from '@/data/pricing';
+import { additionalNumberInr, byok, formatInr, payAsYouGoMinRateInr } from '@/data/pricing';
 import { pricingFaqs } from '@/data/faqs';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Pricing — Voice AI in India, in Rupees',
   description:
-    'Managed plans from ₹2,999/month with telephony included, pay-as-you-go starting at ₹5.20/min, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
+    'Managed plans from ₹2,999/month with telephony included, pay-as-you-go starting at ₹5.30/min, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
   path: '/pricing',
   keywords: [
     'voice AI pricing India',
@@ -33,10 +33,15 @@ export default function PricingPage() {
               A platform fee you can read, and the provider cost shown separately.
             </h1>
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
-              A blended per-minute rate hides the markup taken on model costs. We don’t take one.
-              Managed plans include Indian telephony and phone numbers; pay-as-you-go starts at{' '}
-              {formatInr(payAsYouGo.minRateInr)}/min with no commitment; BYOK is for teams who want
+              Most platforms quote a rate. Here&rsquo;s what the rate has to cover: the number, the
+              telephony, the agent build, QA scoring on every call, and India data residency —
+              included, not itemised extras. Pay-as-you-go starts at{' '}
+              {formatInr(payAsYouGoMinRateInr)}/min with no commitment; BYOK is for teams who want
               to pay providers directly.
+            </p>
+            <p className="t-caption mt-4 text-iron">
+              Additional numbers {formatInr(additionalNumberInr)}/month each — every plan includes
+              one number with telephony.
             </p>
           </div>
         </Container>

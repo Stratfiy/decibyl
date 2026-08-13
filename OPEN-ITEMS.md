@@ -55,18 +55,26 @@ legal advice and have not been reviewed by counsel. Numbers I chose that you may
 
 ### 6 · Overage rate per minute per tier → `data/pricing.ts`
 
-`overageInr` is still `null` on the four managed tiers (Starter/Growth/Scale/Enterprise), so the
-comparison table still renders **TBD** for those. At ₹2,999 / 500 min you're at ₹6/min effective —
-worth checking against Sarvam + Plivo + Gemini COGS before it's public.
+**Resolved 13 Aug 2026** per the pricing/feature-ladder spec: Starter ₹5.30, Growth ₹4.50, Scale
+₹4.00. Managed stays custom-quoted (no fixed overage). These are now public on `/pricing` — still
+worth an eventual COGS check (internal floor: ₹1.74/min Hindi/English, ₹3.28/min regional), but
+they're a shipped decision, not a placeholder.
 
-The pay-as-you-go rate (`payAsYouGo` in the same file) IS set and live: ₹5.20/min at the $15
-entry point, sliding to ₹4.20/min at the $3,000 top of the range. Confirm those two numbers
-against COGS the same way — they're now public on `/pricing`, not a placeholder.
+The pay-as-you-go rate is also resolved and INR-denominated: ₹5.30/min at the ₹2,999 entry stop,
+sliding to ₹4.20/min at the ₹19,00,000 top stop. Full stop table in `data/pricing.ts`
+(`payAsYouGo.tierStops`).
+
+**Still genuinely open:** regional-language margin. At the ₹3.28/min regional cost floor, Scale's
+₹4.00 overage is 18% gross and Growth's ₹4.50 is 27% — thin, and worse than it looks once you
+account for the bundled minutes at the monthly price. Surcharge on regional overage, a fair-use
+cap on regional share of the bundle, or fixing the stack cost first is Nithish's call — nothing
+in the shipped spec resolves this, and no UI changes accordingly until it's decided.
 
 ### 7 · Growth and Scale prices, and concurrent-call limits
 
-₹9,999 / ₹24,999 and 5 / 25 / 100 concurrent calls are the brief's proposals and my guesses
-respectively. Both are in `data/pricing.ts`.
+**Resolved 13 Aug 2026**: Growth ₹9,999/2,200 min, Scale ₹34,999/8,000 min, 5 / 25 / 100
+concurrent calls. A new Managed tier (from ₹75,000/month) was also added. All four are in
+`data/pricing.ts`, shipped, not proposals.
 
 ### 8 · Calculator defaults → `components/marketing/LossCalculator.tsx`
 

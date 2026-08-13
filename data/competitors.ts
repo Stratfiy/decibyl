@@ -132,7 +132,7 @@ export const competitors: Competitor[] = [
       },
       {
         title: 'QA on 100% of calls',
-        body: 'Every call scored, not a 2% sample. In regulated verticals this is the difference between an audit position and an anecdote.',
+        body: 'Every call scored, not a 2% sample, from Growth tier up. In regulated verticals this is the difference between an audit position and an anecdote.',
       },
       {
         title: 'Full stack ownership',

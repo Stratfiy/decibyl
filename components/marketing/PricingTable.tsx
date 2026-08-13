@@ -2,7 +2,16 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { tiers, tierPrice, managedTiersLive, type Tier } from '@/data/pricing';
+import {
+  additionalNumberInr,
+  formatInr,
+  managedTiersLive,
+  scaleComparisonCallout,
+  starterQaCopy,
+  tierPrice,
+  tiers,
+  type Tier,
+} from '@/data/pricing';
 
 /** All numbers come from data/pricing.ts. Never hardcode a price here. */
 
@@ -10,16 +19,28 @@ type Currency = 'inr' | 'usd';
 
 const rows: { label: string; value: (t: Tier) => string }[] = [
   { label: 'Minutes included', value: (t) => t.minutes },
-  { label: 'Overage', value: (t) => (t.overageInr === null ? 'TBD' : `₹${t.overageInr}/min`) },
+  {
+    label: 'Overage',
+    value: (t) => (t.overageInr === null ? 'Custom' : `₹${t.overageInr.toFixed(2)}/min`),
+  },
   { label: 'Telephony', value: () => 'Included' },
   { label: 'Phone number', value: (t) => t.phoneNumbers },
+  { label: 'Additional number', value: () => `${formatInr(additionalNumberInr)}/mo each` },
   { label: 'Languages', value: () => 'All Indian, +' },
   { label: 'Models', value: (t) => t.models },
   { label: 'Concurrent calls', value: (t) => t.concurrentCalls },
-  { label: 'Campaigns', value: (t) => (t.campaigns ? '✓' : '—') },
+  { label: 'Outbound campaigns', value: (t) => (t.campaigns ? '✓' : '—') },
+  { label: 'QA scoring', value: (t) => (t.qaScoring === 'full' ? '100% of calls' : 'Sampled') },
+  {
+    label: 'CRM write-back',
+    value: (t) => (t.crmWriteback === 'configured' ? 'Configured for you' : 'Webhook'),
+  },
   { label: 'Human transfer', value: () => '✓' },
   { label: 'Calendar / email tools', value: () => '✓' },
-  { label: 'QA scoring', value: () => '✓' },
+  { label: 'DPDP consent + India residency', value: () => '✓' },
+  { label: 'Custom voice / cloning', value: (t) => (t.customVoice ? '✓' : '—') },
+  { label: 'Dedicated number pool', value: (t) => (t.dedicatedNumberPool ? '✓' : '—') },
+  { label: 'Named account contact', value: (t) => (t.namedAccountContact ? '✓' : '—') },
   { label: 'Support', value: (t) => t.support },
 ];
 
@@ -52,62 +73,88 @@ export function PricingTable() {
 
       {/* Cards — the mobile and scanning view */}
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {tiers.map((tier) => (
-          <div
-            key={tier.id}
-            className={`flex flex-col rounded-card p-7 ${
-              tier.featured ? 'bg-ink text-white' : 'border border-line bg-snow'
-            }`}
-          >
-            <p className={`t-eyebrow ${tier.featured ? 'text-ember' : 'text-sindoor'}`}>
-              {tier.name}
-            </p>
-            <p className="t-h2 mt-3 text-[2rem]">
-              {tierPrice(tier, currency)}
-              {tier.priceInr !== null ? (
-                <span
-                  className={`t-data ml-1 font-normal ${tier.featured ? 'text-white/60' : 'text-slate'}`}
-                >
-                  /mo
-                </span>
-              ) : null}
-            </p>
-            <p className={`mt-2 text-[0.9375rem] ${tier.featured ? 'text-white/70' : 'text-slate'}`}>
-              {tier.tagline}
-            </p>
+        {tiers.map((tier) => {
+          const bullets =
+            tier.bullets ?? [
+              `${tier.minutes} minutes included`,
+              tier.phoneNumbers,
+              `${tier.concurrentCalls} concurrent calls`,
+              `${tier.support} support`,
+            ];
 
-            <ul
-              className={`mt-6 space-y-2 text-[0.9375rem] ${tier.featured ? 'text-white/75' : 'text-slate'}`}
+          return (
+            <div
+              key={tier.id}
+              className={`flex flex-col rounded-card p-7 ${
+                tier.featured ? 'bg-ink text-white' : 'border border-line bg-snow'
+              }`}
             >
-              <li>{tier.minutes} minutes included</li>
-              <li>{tier.phoneNumbers}</li>
-              <li>{tier.concurrentCalls} concurrent calls</li>
-              <li>{tier.support} support</li>
-            </ul>
+              <p className={`t-eyebrow ${tier.featured ? 'text-ember' : 'text-sindoor'}`}>
+                {tier.name}
+              </p>
+              <p className="t-h2 mt-3 text-[2rem]">
+                {tierPrice(tier, currency)}
+                {tier.priceInr !== null ? (
+                  <span
+                    className={`t-data ml-1 font-normal ${tier.featured ? 'text-white/60' : 'text-slate'}`}
+                  >
+                    /mo
+                  </span>
+                ) : null}
+              </p>
+              <p className={`mt-2 text-[0.9375rem] ${tier.featured ? 'text-white/70' : 'text-slate'}`}>
+                {tier.tagline}
+              </p>
 
-            <div className="mt-auto pt-7">
-              {managedTiersLive || tier.id === 'enterprise' ? (
-                <Link
-                  href={tier.cta.href}
-                  className={`inline-flex h-11 w-full items-center justify-center rounded-button px-5 text-[0.9375rem] font-medium transition-colors ${
-                    tier.featured
-                      ? 'bg-snow text-sindoor hover:bg-peach'
-                      : 'bg-vermilion text-white hover:bg-sindoor'
+              <ul
+                className={`mt-6 space-y-2 text-[0.9375rem] ${tier.featured ? 'text-white/75' : 'text-slate'}`}
+              >
+                {bullets.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
+
+              {tier.note ? (
+                <p
+                  className={`mt-5 border-t pt-4 text-[0.875rem] italic ${
+                    tier.featured ? 'border-white/15 text-white/60' : 'border-line text-iron'
                   }`}
                 >
-                  {tier.cta.label}
-                </Link>
-              ) : (
-                <Link
-                  href={`/waitlist?tier=${tier.id}`}
-                  className="inline-flex h-11 w-full items-center justify-center rounded-button border border-line px-5 text-[0.9375rem] font-medium"
-                >
-                  Opening soon — join waitlist
-                </Link>
-              )}
+                  {tier.note}
+                </p>
+              ) : null}
+
+              <div className="mt-auto pt-7">
+                {managedTiersLive || tier.id === 'managed' ? (
+                  <Link
+                    href={tier.cta.href}
+                    className={`inline-flex h-11 w-full items-center justify-center rounded-button px-5 text-[0.9375rem] font-medium transition-colors ${
+                      tier.featured
+                        ? 'bg-snow text-sindoor hover:bg-peach'
+                        : 'bg-vermilion text-white hover:bg-sindoor'
+                    }`}
+                  >
+                    {tier.cta.label}
+                  </Link>
+                ) : (
+                  <Link
+                    href={`/waitlist?tier=${tier.id}`}
+                    className="inline-flex h-11 w-full items-center justify-center rounded-button border border-line px-5 text-[0.9375rem] font-medium"
+                  >
+                    Opening soon — join waitlist
+                  </Link>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
+      </div>
+
+      {/* Scale comparison — verifiable, dated. Update or remove if the
+          competitor's page changes; never leave a stale claim up. */}
+      <div className="mt-6 rounded-card border border-line bg-snow p-6">
+        <p className="text-[0.9375rem] text-ink">{scaleComparisonCallout.text}</p>
+        <p className="t-caption mt-1 text-iron">{scaleComparisonCallout.source}</p>
       </div>
 
       {/* Full comparison table */}
@@ -147,9 +194,9 @@ export function PricingTable() {
         </table>
       </div>
 
-      <p className="t-caption mt-5 text-iron">
-        Overage rates are marked TBD until they are final. We would rather show TBD than publish a
-        price we have to walk back.
+      <p className="t-caption mt-5 text-iron">{starterQaCopy}</p>
+      <p className="t-caption mt-2 text-iron">
+        Managed is custom-quoted for volume and workflow — talk to us for an exact number.
       </p>
     </div>
   );

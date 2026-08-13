@@ -27,8 +27,8 @@ export const features: Feature[] = [
   {
     eyebrow: 'Quality',
     title: 'QA on 100% of calls',
-    body: 'Every call scored, not a 2% sample. Sampled QA finds a bad call after it has already cost you something.',
-    meta: '100%, not 2%',
+    body: 'Every call scored, not a 2% sample. Sampled QA finds a bad call after it has already cost you something. Starter ships with quality sampling; full 100% scoring is Growth tier and above.',
+    meta: 'Growth tier and above',
   },
   {
     eyebrow: 'Record',
@@ -115,5 +115,44 @@ export const trustStrip = [
   '10+ languages',
   'Data in India (ap-south-1)',
   'GST invoicing',
-  'Zero markup on model costs',
+];
+
+/**
+ * P0-5, 13 Aug 2026: replaces the old ₹/min "why the economics work" table.
+ * Category columns, not named competitors — these don't go stale the way a
+ * named comparison does. Named comparisons live on /compare/*.
+ */
+export const inclusionComparison: {
+  feature: string;
+  decibyl: string;
+  developer: string;
+  bundle: string;
+}[] = [
+  {
+    feature: 'Indian phone number',
+    decibyl: 'Included',
+    developer: 'Buy separately',
+    bundle: '₹250–₹1,500/mo extra',
+  },
+  {
+    feature: 'Telephony minutes',
+    decibyl: 'Included',
+    developer: 'Billed separately',
+    bundle: 'Sometimes',
+  },
+  {
+    feature: 'Agent built for you',
+    decibyl: 'Included',
+    developer: 'You build it',
+    bundle: 'Setup fee, often ₹1,000–₹20,000',
+  },
+  { feature: 'QA scoring', decibyl: 'Every call', developer: 'Not offered', bundle: 'Not offered' },
+  {
+    feature: 'Data residency',
+    decibyl: 'India (ap-south-1)',
+    developer: 'US default',
+    bundle: 'Varies',
+  },
+  { feature: 'GST invoice', decibyl: 'Yes', developer: 'No INR billing', bundle: 'Yes' },
+  { feature: 'Human handoff', decibyl: 'Every plan', developer: 'Build it yourself', bundle: 'Varies' },
 ];

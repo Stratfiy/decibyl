@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Container, SectionHead } from '@/components/ui/Section';
 import { ButtonLink } from '@/components/ui/Button';
+import { Reveal } from '@/components/ui/Reveal';
 import { advantages, howItWorks, indianOps } from '@/data/features';
 import { tiers, tierPrice, managedTiersLive } from '@/data/pricing';
 
@@ -146,8 +147,8 @@ export function PricingPreview() {
       />
 
       <div className="mt-10 grid gap-5 md:grid-cols-2">
-        {preview.map((tier) => (
-          <div key={tier.id} className="rounded-card border border-line bg-snow p-8">
+        {preview.map((tier, i) => (
+          <Reveal key={tier.id} delay={i * 100} className="rounded-card border border-line bg-snow p-8">
             <p className="t-eyebrow text-sindoor">{tier.name}</p>
             <p className="t-h2 mt-3 text-[2.25rem]">
               {tierPrice(tier, 'inr')}
@@ -160,7 +161,7 @@ export function PricingPreview() {
               <li>All Indian languages · {tier.concurrentCalls} concurrent calls</li>
               <li>QA scoring on 100% of calls</li>
             </ul>
-          </div>
+          </Reveal>
         ))}
       </div>
 

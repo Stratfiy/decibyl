@@ -5,6 +5,7 @@ import { LiveTranscript } from './LiveTranscript';
 import { LossCalculator } from './LossCalculator';
 import { FaqList } from './Faq';
 import { FinalCta, HowItWorks } from './Blocks';
+import { MeshBackground } from '@/components/ui/MeshBackground';
 import { findAnyVertical, verticalHref, type Vertical } from '@/data/verticals';
 import { tiers, tierPrice } from '@/data/pricing';
 
@@ -28,6 +29,7 @@ export function VerticalPage({ vertical }: { vertical: Vertical }) {
           className="pointer-events-none absolute inset-x-0 top-0 h-[560px]"
           style={{ background: 'var(--gradient-glow)' }}
         />
+        <MeshBackground className="h-[560px] opacity-60" origin="top" />
         <Container className="relative">
           <div className="pt-12 pb-14 sm:pt-16 lg:pt-20 lg:pb-20">
             <Breadcrumbs vertical={vertical} />

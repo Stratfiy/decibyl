@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { FinalCta } from '@/components/marketing/Blocks';
+import { MeshBackground } from '@/components/ui/MeshBackground';
 import { pillars, notCertified } from '@/data/security';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
@@ -23,6 +24,7 @@ export default function SecurityPage() {
           className="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
           style={{ background: 'var(--gradient-glow)' }}
         />
+        <MeshBackground className="h-[520px] opacity-60" origin="top" />
         <Container className="relative">
           <div className="pt-14 pb-12 sm:pt-20">
             <p className="t-eyebrow text-sindoor">Security & trust</p>

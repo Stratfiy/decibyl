@@ -2,6 +2,7 @@ import { caseStudies, caseStudiesHeading, caseStudiesSub } from '@/data/caseStud
 import { anonymousProof } from '@/data/proof';
 import { SectionHead } from '@/components/ui/Section';
 import { ButtonLink } from '@/components/ui/Button';
+import { Reveal } from '@/components/ui/Reveal';
 
 /**
  * Named case studies when they exist and are consented-to; the anonymised
@@ -15,8 +16,8 @@ export function CaseStudiesSection() {
 
       {caseStudies.length > 0 ? (
         <ul className="mt-10 grid gap-6 lg:grid-cols-2">
-          {caseStudies.map((cs) => (
-            <li key={cs.slug} className="rounded-card bg-snow p-8">
+          {caseStudies.map((cs, i) => (
+            <Reveal key={cs.slug} as="li" delay={i * 100} className="rounded-card bg-snow p-8">
               <p className="t-h3 text-[1.125rem]">{cs.customer}</p>
               <p className="t-caption mt-1 text-iron">{cs.descriptor}</p>
               <p className="mt-5 text-slate">{cs.challenge}</p>
@@ -37,7 +38,7 @@ export function CaseStudiesSection() {
                   </footer>
                 </blockquote>
               ) : null}
-            </li>
+            </Reveal>
           ))}
         </ul>
       ) : (

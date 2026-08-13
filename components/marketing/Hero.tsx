@@ -1,5 +1,7 @@
 import { Container } from '@/components/ui/Section';
 import { ButtonLink } from '@/components/ui/Button';
+import { Reveal } from '@/components/ui/Reveal';
+import { MeshBackground } from '@/components/ui/MeshBackground';
 import { trustStrip } from '@/data/features';
 
 const stats = [
@@ -17,6 +19,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 top-0 h-[720px]"
         style={{ background: 'var(--gradient-glow)' }}
       />
+      <MeshBackground className="h-[720px] opacity-70" origin="bottom-left" />
 
       <Container className="relative">
         <div className="pt-14 pb-16 sm:pt-20 lg:pt-24 lg:pb-24">
@@ -46,15 +49,17 @@ export function Hero() {
           {/* Glass stat cards, offset at slightly different heights. */}
           <ul className="mt-14 grid gap-4 sm:grid-cols-3">
             {stats.map((stat, i) => (
-              <li
+              <Reveal
                 key={stat.value}
+                as="li"
+                delay={i * 100}
                 className={`glass shadow-inset-top rounded-card px-6 py-5 ${
                   i === 1 ? 'sm:mt-6' : i === 2 ? 'sm:mt-3' : ''
                 }`}
               >
                 <p className="t-data text-[1.25rem] font-semibold text-ink">{stat.value}</p>
                 <p className="t-caption mt-1 text-slate">{stat.label}</p>
-              </li>
+              </Reveal>
             ))}
           </ul>
 

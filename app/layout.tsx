@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import {
   Plus_Jakarta_Sans,
   IBM_Plex_Sans,
@@ -133,6 +134,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-IN" className={fontVars}>
       <body>
+        {/* Scroll-reveal is an enhancement, never a requirement to see the
+            page — this keeps every [data-reveal] element visible with JS
+            disabled. */}
+        <noscript>
+          <style>{`[data-reveal] { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:rounded-button focus:bg-vermilion focus:px-4 focus:py-2 focus:text-white"
@@ -143,6 +150,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <Footer />
         <JsonLd data={[organizationSchema(), softwareApplicationSchema()]} />
+        {/* "Try us now" live voice widget — loaded after the page is
+            interactive so it never blocks first paint or LCP. */}
+        <Script
+          id="decibyl-widget"
+          src="https://app.decibyl.ai/embed/decibyl-widget.js?token=emb_A7ryxkjGa-AoEHs06g557a3tLVoQbN1ieHNGnKA_U5s&environment=production&apiEndpoint=https://api.decibyl.ai"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

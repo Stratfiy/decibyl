@@ -3,8 +3,8 @@ import { ButtonLink } from '@/components/ui/Button';
 import { trustStrip } from '@/data/features';
 
 const stats = [
-  { value: '~2.6s', label: 'end-to-end response' },
-  { value: '7+ languages', label: 'code-mixed by default' },
+  { value: '<700ms', label: 'response, for select models' },
+  { value: '10+ languages', label: '7 Indian, code-mixed by default' },
   { value: '100% of calls', label: 'QA-scored, not sampled' },
 ];
 

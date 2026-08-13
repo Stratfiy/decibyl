@@ -8,6 +8,7 @@ import {
   Noto_Sans_Telugu,
   Noto_Sans_Kannada,
   Noto_Sans_Gujarati,
+  Noto_Sans_Arabic,
 } from 'next/font/google';
 import './globals.css';
 import { Nav } from '@/components/marketing/Nav';
@@ -82,6 +83,16 @@ const notoGujarati = Noto_Sans_Gujarati({
   display: 'swap',
 });
 
+/* French and Spanish read fine on IBM Plex (Latin) — no separate face needed.
+   Arabic needs its own cut, and its own reading direction; handled per-chip
+   in components/marketing/Languages.tsx. */
+const notoArabic = Noto_Sans_Arabic({
+  subsets: ['arabic'],
+  weight: ['400', '500'],
+  variable: '--font-noto-arabic',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -115,6 +126,7 @@ const fontVars = [
   notoTelugu.variable,
   notoKannada.variable,
   notoGujarati.variable,
+  notoArabic.variable,
 ].join(' ');
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

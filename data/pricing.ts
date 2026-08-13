@@ -187,6 +187,24 @@ export const byok = {
 };
 
 /**
+ * P1-3, /developers: published orchestration platform fees, USD (BYOK stays
+ * dollar-denominated — this audience is dollar-native, unlike the INR
+ * pay-as-you-go slider). Each figure read on that vendor's own public
+ * pricing page — see developerFeesCheckedNote for the date. Restate, don't
+ * paste, competitor copy; this is just the number.
+ */
+export const developerPlatformFees: { name: string; feeUsd: number; isDecibyl?: boolean }[] = [
+  { name: 'Decibyl', feeUsd: 0.02, isDecibyl: true },
+  { name: 'Plivo Voice AI Agents', feeUsd: 0.04 },
+  { name: 'Vapi', feeUsd: 0.05 },
+  { name: 'Telnyx', feeUsd: 0.05 },
+  { name: 'Retell AI', feeUsd: 0.07 },
+];
+
+export const developerFeesCheckedNote =
+  'Each figure read on that vendor’s own public pricing page, 29–30 July 2026.';
+
+/**
  * Pay-as-you-go / volume-based pricing. No monthly commitment — prepay
  * credit, the effective per-minute rate improves the more you put in at
  * once. INR-denominated (P0-2, 13 Aug 2026) — the pitch is India-native

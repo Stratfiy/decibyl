@@ -13,6 +13,7 @@ export type Competitor = {
 };
 
 const sharedTable = (them: {
+  rate: string;
   languages: string;
   dids: string;
   billing: string;
@@ -22,6 +23,11 @@ const sharedTable = (them: {
   markup: string;
   onboarding: string;
 }) => [
+  {
+    feature: 'Published rate',
+    them: them.rate,
+    us: 'See /pricing — published, not blended',
+  },
   {
     feature: 'Indian languages',
     them: them.languages,
@@ -81,6 +87,7 @@ export const competitors: Competitor[] = [
       },
     ],
     table: sharedTable({
+      rate: '$0.05/min platform fee published; realistic all-in cost runs $0.15–$0.31/min once model and telephony are added, plus $10/line/month past 10 concurrent calls and $1,000/month for HIPAA — read on their own pricing page, Aug 2026',
       languages: 'Strong English; Indian language support via third-party providers',
       dids: 'Via Twilio/Vonage — Indian DIDs need your own KYC and arrangement',
       billing: 'USD, no GST invoice',
@@ -140,6 +147,7 @@ export const competitors: Competitor[] = [
       },
     ],
     table: sharedTable({
+      rate: '₹5.52/min (6.00¢) published rate, falling to 4.51¢/min at their $3,000 top-up tier — read on their own pricing page, Aug 2026',
       languages: 'Yes — Indian languages supported',
       dids: 'Indian DIDs available',
       billing: 'INR billing available',
@@ -199,6 +207,7 @@ export const competitors: Competitor[] = [
       },
     ],
     table: sharedTable({
+      rate: '$0.07–$0.31/min published range depending on model and features; Enterprise plans start from $8,000/month — read on their own pricing page, Aug 2026',
       languages: 'Strong English; limited Indian language coverage',
       dids: 'US-first; Indian DIDs are not the primary path',
       billing: 'USD, no GST invoice',
@@ -258,6 +267,7 @@ export const competitors: Competitor[] = [
       },
     ],
     table: sharedTable({
+      rate: 'No public rate. Pricing is reached through a sales conversation, not a page you can read before one — checked Jul 2026',
       languages: '8+ languages incl. Hindi, Hinglish, Tamil, Telugu — trained on Indian contact-centre audio',
       dids: 'Not published',
       billing: 'Custom enterprise pricing, ₹5L+/year typical; GST invoicing not published',
@@ -321,6 +331,7 @@ export const competitors: Competitor[] = [
       },
     ],
     table: sharedTable({
+      rate: '$0.080/min published platform fee for the Agents platform — telephony and the LLM you choose are billed separately on top — read on their own pricing page, Jul 2026',
       languages: '31 languages (70+ across the broader voice platform); strong general multilingual, not code-mixed-specific',
       dids: 'Telephony via Twilio/SIP integration — no Indian DIDs natively included',
       billing: 'USD, $0.10–0.30/min depending on tier; no GST invoice',
@@ -384,6 +395,7 @@ export const competitors: Competitor[] = [
       },
     ],
     table: sharedTable({
+      rate: 'No public rate — their /pricing and /plans pages both return a 404, not a "contact sales" page — checked Jul 2026',
       languages: '40+ languages/dialects; 12+ Indian languages with mid-sentence code-switching',
       dids: 'Not published — enterprise telephony integration',
       billing: 'Custom/outcome-based pricing; GST invoicing not published',

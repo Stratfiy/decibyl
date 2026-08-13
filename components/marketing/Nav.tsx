@@ -7,9 +7,22 @@ import { ButtonLink } from '@/components/ui/Button';
 import { topLevelVerticals, verticalHref } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
 
+/**
+ * P1-1, 13 Aug 2026: the nav shows three verticals, not all nine — six
+ * verticals plus three clinic sub-pages against three in-progress pilots
+ * read as "we do everything, we've proven nothing." Every page still
+ * exists and still earns organic traffic; /solutions lists all nine.
+ * Standing rule for adding a fourth: see CONTRIBUTING.md.
+ */
+const featuredVerticalSlugs = ['clinics', 'real-estate', 'd2c-ndr-recovery'];
+const featuredVerticals = featuredVerticalSlugs
+  .map((slug) => topLevelVerticals.find((v) => v.slug === slug))
+  .filter((v): v is NonNullable<typeof v> => Boolean(v));
+
 const links = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Developers', href: '/developers' },
   { label: 'Case studies', href: '/case-studies' },
   { label: 'Blog', href: '/blog' },
 ];
@@ -89,7 +102,7 @@ export function Nav() {
           <Container>
             <nav aria-label="Mobile" className="grid gap-1 py-5">
               <p className="t-eyebrow mt-2 mb-1 text-iron">Solutions</p>
-              {topLevelVerticals.map((v) => (
+              {featuredVerticals.map((v) => (
                 <Link
                   key={v.slug}
                   href={verticalHref(v)}
@@ -99,6 +112,13 @@ export function Nav() {
                   {v.name}
                 </Link>
               ))}
+              <Link
+                href="/solutions"
+                onClick={() => setOpen(false)}
+                className="py-2 text-[0.9375rem] font-medium text-sindoor"
+              >
+                All industries <span aria-hidden="true">→</span>
+              </Link>
               <p className="t-eyebrow mt-4 mb-1 text-iron">Company</p>
               {links.map((l) => (
                 <Link
@@ -143,7 +163,7 @@ function SolutionsMenu() {
       </button>
       <div className="invisible absolute top-full left-0 w-64 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
         <div className="rounded-card border border-line bg-snow p-2 shadow-[var(--shadow-card)]">
-          {topLevelVerticals.map((v) => (
+          {featuredVerticals.map((v) => (
             <Link
               key={v.slug}
               href={verticalHref(v)}
@@ -152,6 +172,13 @@ function SolutionsMenu() {
               {v.name}
             </Link>
           ))}
+          <div className="my-2 border-t border-line" />
+          <Link
+            href="/solutions"
+            className="block rounded-[10px] px-3 py-2 text-[0.9375rem] font-medium text-sindoor transition-colors hover:bg-canvas"
+          >
+            All industries <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </div>
     </div>

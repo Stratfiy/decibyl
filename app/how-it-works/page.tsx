@@ -3,6 +3,7 @@ import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { HowItWorks, IndianOps, FinalCta, Advantages } from '@/components/marketing/Blocks';
 import { IntegrationsDeck } from '@/components/marketing/Integrations';
 import { LanguageChips } from '@/components/marketing/Languages';
+import { MeshBackground } from '@/components/ui/MeshBackground';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -46,6 +47,7 @@ export default function HowItWorksPage() {
           className="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
           style={{ background: 'var(--gradient-glow)' }}
         />
+        <MeshBackground className="h-[520px] opacity-60" origin="top" />
         <Container className="relative">
           <div className="pt-14 pb-12 sm:pt-20">
             <p className="t-eyebrow text-sindoor">How it works</p>

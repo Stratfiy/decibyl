@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { logos, anonymousProof, proofHeading, proofSub } from '@/data/proof';
 import { SectionHead } from '@/components/ui/Section';
+import { Reveal } from '@/components/ui/Reveal';
 
 /**
  * Named logos when consent exists, anonymised-but-true cards when it doesn't.
@@ -21,15 +22,20 @@ export function ProofStrip() {
         </ul>
       ) : (
         <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {anonymousProof.map((p) => (
-            <li key={`${p.descriptor}-${p.location}`} className="rounded-card bg-snow p-7">
+          {anonymousProof.map((p, i) => (
+            <Reveal
+              key={`${p.descriptor}-${p.location}`}
+              as="li"
+              delay={i * 80}
+              className="rounded-card bg-snow p-7"
+            >
               <p className="t-h3 text-[1.125rem]">
                 {p.descriptor}
                 {p.location ? <span className="text-slate"> · {p.location}</span> : null}
               </p>
               <p className="t-data mt-4 text-forest">{p.status}</p>
               <p className="t-caption mt-1 text-iron">{p.languages}</p>
-            </li>
+            </Reveal>
           ))}
         </ul>
       )}

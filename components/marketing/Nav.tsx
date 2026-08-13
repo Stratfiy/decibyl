@@ -19,12 +19,20 @@ const featuredVerticals = featuredVerticalSlugs
   .map((slug) => topLevelVerticals.find((v) => v.slug === slug))
   .filter((v): v is NonNullable<typeof v> => Boolean(v));
 
-const links = [
+/** Kept top-level: the two pages in the primary buyer journey. */
+const primaryLinks = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
+];
+
+/** 13 Aug 2026: consolidated into a "Company" dropdown — six top-level
+ *  links plus two dropdowns had become too much for a horizontal nav.
+ *  Security moves in here too, out of footer-only. */
+const companyLinks = [
   { label: 'Developers', href: '/developers' },
   { label: 'Partners', href: '/partners' },
   { label: 'Case studies', href: '/case-studies' },
+  { label: 'Security', href: '/security' },
   { label: 'Blog', href: '/blog' },
 ];
 
@@ -62,7 +70,7 @@ export function Nav() {
 
           <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
             <SolutionsMenu />
-            {links.map((l) => (
+            {primaryLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -71,6 +79,7 @@ export function Nav() {
                 {l.label}
               </Link>
             ))}
+            <CompanyMenu />
             <CompareMenu />
           </nav>
 
@@ -121,7 +130,7 @@ export function Nav() {
                 All industries <span aria-hidden="true">→</span>
               </Link>
               <p className="t-eyebrow mt-4 mb-1 text-iron">Company</p>
-              {links.map((l) => (
+              {[...primaryLinks, ...companyLinks].map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
@@ -180,6 +189,33 @@ function SolutionsMenu() {
           >
             All industries <span aria-hidden="true">→</span>
           </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CompanyMenu() {
+  return (
+    <div className="group relative">
+      <button
+        type="button"
+        className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink"
+        aria-haspopup="true"
+      >
+        Company
+      </button>
+      <div className="invisible absolute top-full left-0 w-56 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+        <div className="rounded-card border border-line bg-snow p-2 shadow-[var(--shadow-card)]">
+          {companyLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="block rounded-[10px] px-3 py-2 text-[0.9375rem] text-ink transition-colors hover:bg-canvas"
+            >
+              {l.label}
+            </Link>
+          ))}
         </div>
       </div>
     </div>

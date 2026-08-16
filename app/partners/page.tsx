@@ -9,9 +9,9 @@ import { referralProgram } from '@/data/referral';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Partners & Referrals — 25% + 10% Commission',
+  title: 'Partners & Referrals — 20% of First Recharge',
   description:
-    'Refer a business to Decibyl: 25% of their first payment, then 10% of everything they pay after that, for as long as they stay a customer. Built for agencies with client volume.',
+    'Refer a business to Decibyl and earn 20% of their first recharge, paid the same billing cycle. Ongoing commission and reseller terms are agreed directly — built for agencies with client volume.',
   path: '/partners',
   keywords: [
     'voice AI referral program India',
@@ -86,9 +86,10 @@ export default function PartnersPage() {
           </h2>
           <p className="mt-4 max-w-2xl text-slate">
             If you want to run Decibyl under your own name for multiple clients rather than refer
-            them to us directly, that&rsquo;s a different, deeper conversation — wholesale pricing
-            for that tier is still being finalised. Tell us what you&rsquo;re running today and
-            we&rsquo;ll loop you in when it&rsquo;s ready.
+            them to us directly, that&rsquo;s a different, deeper conversation. Wholesale rates and
+            ongoing commission are set with you directly — they depend on your volume, your
+            language mix, and how much of the account you want to own. Tell us what you&rsquo;re
+            running today and we&rsquo;ll put real numbers in front of you.
           </p>
           <div className="mt-6">
             <Link

@@ -10,7 +10,7 @@
  *   Hindi/English stack: ₹1.74/min · Regional (Ta/Te/Kn/Ml/Bn) stack: ₹3.28/min
  *
  * ⚠️ STILL OPEN — see OPEN-ITEMS.md:
- *   - Regional-language margin at Scale/Growth effective rates is thin
+ *   - Regional-language margin at Growth effective rates is thin
  *     (25–28% gross at the ₹3.28 regional cost floor) — surcharge, fair-use
  *     cap, or fix the stack first is still Nithish's call, not shipped here.
  *   - `managedTiersLive` gates whether tiers sell or route to the waitlist.
@@ -32,17 +32,16 @@ export const USD_RATE = 88;
 export const additionalNumberInr = 399;
 
 export type Tier = {
-  id: 'starter' | 'growth' | 'scale' | 'managed';
+  id: 'starter' | 'growth' | 'custom';
   name: string;
-  /** monthly price in INR, exclusive of GST. null = fully custom, no anchor. */
+  /** monthly price in INR, exclusive of GST. null = quoted, not published. */
   priceInr: number | null;
-  /** true → render "From ₹X" instead of a bare price. Managed only: a real
-   *  anchor number, not "Custom" — the whole point of naming ₹75,000 is that
-   *  SquadStack and Gnani don't publish anything at all. */
+  /** true → render "From ₹X" instead of a bare price. Unused since the
+   *  13 Aug 2026 simplification, kept for when a published anchor returns. */
   startingAt?: boolean;
   tagline: string;
   minutes: string;
-  /** null = no fixed per-minute overage (Managed is custom-quoted). */
+  /** null = no fixed per-minute overage (Custom is quoted per account). */
   overageInr: number | null;
   phoneNumbers: string;
   models: string;
@@ -59,11 +58,10 @@ export type Tier = {
   support: string;
   cta: { label: string; href: string };
   featured?: boolean;
-  /** Overrides the generic 4-line bullet list with bespoke copy. Only
-   *  Starter and Managed need this — Growth/Scale read fine off the data
-   *  fields directly. */
+  /** Overrides the generic 4-line bullet list with bespoke copy. Growth
+   *  reads fine off the data fields directly. */
   bullets?: string[];
-  /** A closing differentiation line rendered under the bullets. Managed only. */
+  /** A closing differentiation line rendered under the bullets. */
   note?: string;
 };
 
@@ -117,31 +115,11 @@ export const tiers: Tier[] = [
     featured: true,
   },
   {
-    id: 'scale',
-    name: 'Scale',
-    priceInr: 34999,
-    tagline: 'High concurrency, every model, priority support.',
-    minutes: '8,000',
-    overageInr: 4.0,
-    phoneNumbers: '10 phone numbers',
-    models: 'All',
-    concurrentCalls: '100',
-    campaigns: true,
-    qaScoring: 'full',
-    crmWriteback: 'configured',
-    customVoice: true,
-    dedicatedNumberPool: false,
-    namedAccountContact: false,
-    support: 'Priority',
-    cta: { label: 'Book a demo call', href: '/book-a-demo?tier=scale' },
-  },
-  {
-    id: 'managed',
-    name: 'Managed',
-    priceInr: 75000,
-    startingAt: true,
-    tagline: 'Built, tuned and reviewed by our team.',
-    minutes: 'Custom',
+    id: 'custom',
+    name: 'Custom',
+    priceInr: null,
+    tagline: 'Past 2,200 minutes, pricing follows your actual call pattern.',
+    minutes: 'Set with you',
     overageInr: null,
     phoneNumbers: 'Dedicated number pool',
     models: 'All + custom',
@@ -153,16 +131,16 @@ export const tiers: Tier[] = [
     dedicatedNumberPool: true,
     namedAccountContact: true,
     support: 'Dedicated',
-    cta: { label: 'Talk to us', href: '/contact?topic=managed' },
+    cta: { label: 'Schedule a call', href: '/contact?topic=custom' },
     bullets: [
-      'Everything in Scale',
+      'Everything in Growth',
+      'Volume pricing set against your real call pattern',
       'Agent designed and built for your workflows',
       'Dedicated number pool',
       'CRM write-back configured for your system',
-      'Monthly QA review with a named contact',
-      'Priority handoff routing and escalation paths',
+      'Named contact and monthly QA review',
     ],
-    note: 'SquadStack and Gnani don’t publish a price. This is ours.',
+    note: 'Everything up to ₹9,999 is published above. Past that it genuinely depends on your volume and language mix — so we quote it properly rather than guess at it on a page.',
   },
 ];
 
@@ -171,17 +149,18 @@ export const tiers: Tier[] = [
 export const starterQaCopy =
   'Quality sampling on every agent, with full 100% call scoring from Growth.';
 
-/** P0-3: the verifiable, dated comparison — update or remove if the
- *  competitor's page changes. Never leave a stale claim up. */
-export const scaleComparisonCallout = {
-  text: 'For context: Aixclerate publishes ₹24,999/month for 2,000 minutes. Scale is ₹34,999 for 8,000 — four times the minutes at 1.4× the price.',
-  source: "Read on their pricing page, 8 Aug 2026.",
+/** The verifiable, dated comparison against a published competitor price —
+ *  update or remove if their page changes. Never leave a stale claim up.
+ *  Anchored on Growth, since that's now the top published tier. */
+export const publishedComparisonCallout = {
+  text: 'For context: Aixclerate publishes ₹24,999/month for 2,000 minutes. Growth is ₹9,999 for 2,200 — more minutes at 40% of the price.',
+  source: 'Read on their pricing page, 8 Aug 2026.',
 };
 
 export const byok = {
   headline: 'BYOK / Agency',
   perMinuteUsd: 0.02,
-  trialCreditUsd: 10,
+  trialCreditUsd: 5,
   body: 'Bring your own OpenAI, Deepgram, ElevenLabs, or Sarvam keys — pay providers directly at their price. Zero markup on model costs.',
   providers: ['OpenAI', 'Deepgram', 'ElevenLabs', 'Sarvam'],
 };

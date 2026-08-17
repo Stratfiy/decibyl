@@ -58,7 +58,7 @@ export const pricingFaqs: Faq[] = [
   },
   {
     q: 'What happens if I go over my included minutes?',
-    a: 'Overage is billed per minute on top of your plan: ₹5.30/min on Starter, ₹4.50/min on Growth, ₹4.00/min on Scale. Managed is custom-quoted for your volume.',
+    a: 'Overage is billed per minute on top of your plan: ₹5.30/min on Starter and ₹4.50/min on Growth. Above Growth it is quoted against your actual volume.',
   },
   {
     q: 'How much does an additional phone number cost?',

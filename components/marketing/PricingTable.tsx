@@ -6,7 +6,7 @@ import {
   additionalNumberInr,
   formatInr,
   managedTiersLive,
-  scaleComparisonCallout,
+  publishedComparisonCallout,
   starterQaCopy,
   tierPrice,
   tiers,
@@ -72,7 +72,7 @@ export function PricingTable() {
       </div>
 
       {/* Cards — the mobile and scanning view */}
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {tiers.map((tier) => {
           const bullets =
             tier.bullets ?? [
@@ -125,7 +125,7 @@ export function PricingTable() {
               ) : null}
 
               <div className="mt-auto pt-7">
-                {managedTiersLive || tier.id === 'managed' ? (
+                {managedTiersLive || tier.id === 'custom' ? (
                   <Link
                     href={tier.cta.href}
                     className={`inline-flex h-11 w-full items-center justify-center rounded-button px-5 text-[0.9375rem] font-medium transition-colors ${
@@ -150,11 +150,11 @@ export function PricingTable() {
         })}
       </div>
 
-      {/* Scale comparison — verifiable, dated. Update or remove if the
+      {/* Published-price comparison — verifiable, dated. Update or remove if the
           competitor's page changes; never leave a stale claim up. */}
       <div className="mt-6 rounded-card border border-line bg-snow p-6">
-        <p className="text-[0.9375rem] text-ink">{scaleComparisonCallout.text}</p>
-        <p className="t-caption mt-1 text-iron">{scaleComparisonCallout.source}</p>
+        <p className="text-[0.9375rem] text-ink">{publishedComparisonCallout.text}</p>
+        <p className="t-caption mt-1 text-iron">{publishedComparisonCallout.source}</p>
       </div>
 
       {/* Full comparison table */}
@@ -196,7 +196,7 @@ export function PricingTable() {
 
       <p className="t-caption mt-5 text-iron">{starterQaCopy}</p>
       <p className="t-caption mt-2 text-iron">
-        Managed is custom-quoted for volume and workflow — talk to us for an exact number.
+        Above Growth, pricing is quoted against your real call pattern — schedule a call for an exact number.
       </p>
     </div>
   );

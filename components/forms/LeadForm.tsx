@@ -28,7 +28,7 @@ const promises: Record<FormType, string> = {
 /** ?topic= values used in CTAs across the site — keep in sync with every
  *  `/contact?topic=...` link. */
 const topicLabels: Record<string, string> = {
-  managed: 'Managed tier',
+  custom: 'Custom / high-volume pricing',
   security: 'Security question',
   referral: 'Referral program application',
   reseller: 'White-label reseller enquiry',

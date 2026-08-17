@@ -33,7 +33,7 @@ export type Vertical = {
   steps: { title: string; body: string }[];
   objections: { q: string; a: string }[];
   visibility: string[];
-  recommendedTier: 'starter' | 'growth' | 'scale';
+  recommendedTier: 'starter' | 'growth';
   siblings: string[];
   seo: { title: string; description: string; keywords: string[] };
 };
@@ -834,7 +834,7 @@ export const verticals: Vertical[] = [
       },
     ],
     visibility: sharedVisibility,
-    recommendedTier: 'scale',
+    recommendedTier: 'growth',
     siblings: ['d2c-ndr-recovery', 'real-estate'],
     seo: {
       title: 'AI Voice Agent for EMI Reminders & Collections, India',
@@ -925,7 +925,7 @@ export const verticals: Vertical[] = [
     objections: [
       {
         q: 'Can it handle our volumes?',
-        a: 'Concurrency is the point of the architecture, and limits by tier are published on the pricing page. Above Scale, volumes are priced per confirmed reattempt — talk to us.',
+        a: 'Concurrency is the point of the architecture, and limits by tier are published on the pricing page. Above Growth, volumes are priced against your real call pattern — talk to us.',
       },
       {
         q: 'How do we price this to our clients?',
@@ -941,7 +941,7 @@ export const verticals: Vertical[] = [
       },
     ],
     visibility: sharedVisibility,
-    recommendedTier: 'scale',
+    recommendedTier: 'growth',
     siblings: ['d2c-ndr-recovery', 'real-estate'],
     seo: {
       title: 'AI Voice Agent for Delivery Reattempt Calls, India',

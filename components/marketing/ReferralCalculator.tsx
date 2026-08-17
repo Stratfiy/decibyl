@@ -72,7 +72,7 @@ export function ReferralCalculator() {
             />
             <div className="t-caption mt-2 flex justify-between text-iron">
               <span>Starter</span>
-              <span>Managed</span>
+              <span>Custom</span>
             </div>
           </div>
         </div>

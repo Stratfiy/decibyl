@@ -230,13 +230,28 @@ export const tiers: Tier[] = [
  * fee, the models, and carriage. A tier with a lower platform fee subtracts
  * the difference; see `bundleRateInr`.
  *
- * Sources:
- *   Everyday ₹4.91/min — the full Sarvam bundle, confirmed 28 Aug 2026. This
- *     supersedes the ₹5.30 the site carried since 13 Aug, and the ₹8.30 in
- *     LAUNCH-CHECKLIST.md §3.2, which assumed 2,300 synthesis characters a
- *     minute where the product now derives about 405 from `CallShape`.
- *   Natural ₹9.37/min · Premium ₹25.79/min — §3.2, measured against the
- *     seeded price book at ₹96/USD with Plivo carriage.
+ * All three computed on one basis, 28 Aug 2026, rather than copied from a
+ * document. Bundles differ only in their model line, so each is Everyday plus
+ * the difference in model cost at the 1.4x managed markup:
+ *
+ *   model cost/min      Everyday ₹1.12   Natural ₹4.72   Premium ₹16.45
+ *   sell/min            ₹4.91            ₹9.95           ₹26.37
+ *
+ * Everyday ₹4.91 is founder-confirmed — the full Sarvam stack, saarika:v2.5
+ * transcription at ₹30/hour, bulbul:v2 synthesis at ₹1.50/1k characters over
+ * ~405 characters a minute, and Sarvam-105B carrying the language model at
+ * about a paisa a minute.
+ *
+ * ₹4.72 and ₹16.45 were produced by running the product's own
+ * `realtime_pricing` against its July 2026 price book, not read off a table:
+ * Gemini Live tokenises audio at roughly three times OpenAI's rate, so the
+ * two vendors' headline per-million prices cannot be compared directly and
+ * the blended figure is the only honest one. They match the independent
+ * calculation in `managed_tiers.py` exactly.
+ *
+ * This supersedes LAUNCH-CHECKLIST.md §3.2 (₹8.30 / ₹9.37 / ₹25.79), whose
+ * pipeline row assumed 2,300 synthesis characters a minute where the product
+ * now derives about 405 from `CallShape`.
  */
 export type Bundle = {
   slug: string;
@@ -255,14 +270,14 @@ export const bundles: Bundle[] = [
   {
     slug: 'natural',
     label: 'Natural',
-    blurb: 'Speech-to-speech. Replies the instant you stop talking.',
-    perMinuteInr: 9.37,
+    blurb: 'Speech-to-speech on Gemini Live. Replies the instant you stop talking.',
+    perMinuteInr: 9.95,
   },
   {
     slug: 'premium',
     label: 'Premium',
-    blurb: 'The most capable speech model. Noticeably dearer a minute.',
-    perMinuteInr: 25.79,
+    blurb: 'Speech-to-speech on OpenAI realtime. The most capable, and much the dearest.',
+    perMinuteInr: 26.37,
   },
 ];
 
@@ -334,10 +349,10 @@ export const includedCallingCaption =
 
 /** What happens when the credit runs out. There is no arrears billing in the
  *  product — no overage line, no invoice at the end of the month. The account
- *  tops up, at the pay-as-you-go rate, and calling continues. Saying anything
+ *  adds credit, is charged per model, and calling continues. Saying anything
  *  else on this page would describe a mechanism that does not exist. */
 export const outOfCreditCopy =
-  'Top up whenever you like — credit is added instantly and never expires within your billing month. There is no surprise invoice at the end of the month, because there is no overage bill: calling simply draws on the credit you have.';
+  'Top up whenever you like — credit is added instantly, and each call is charged at the rate for the model it runs on. There is no surprise invoice at the end of the month, because there is no overage bill: calling simply draws on the credit you have.';
 
 /** Starter's QA row reads "Sampled" in the table — this is the one-line
  *  explanation shown as a caption underneath, not a table cell. */
@@ -363,7 +378,7 @@ export const byok = {
 /**
  * P1-3, /developers: published orchestration platform fees, USD (BYOK stays
  * dollar-denominated — this audience is dollar-native, unlike the INR
- * pay-as-you-go slider). Each figure read on that vendor's own public
+ * credits are rupee-denominated). Each figure read on that vendor's own public
  * pricing page — see developerFeesCheckedNote for the date. Restate, don't
  * paste, competitor copy; this is just the number.
  */
@@ -379,59 +394,34 @@ export const developerFeesCheckedNote =
   'Each figure read on that vendor’s own public pricing page, 29–30 July 2026.';
 
 /**
- * Pay-as-you-go / volume-based pricing. No monthly commitment — prepay
- * credit, the effective per-minute rate improves the more you put in at
- * once. INR-denominated (P0-2, 13 Aug 2026) — the pitch is India-native
- * end to end, so the slider has to be too. USD stays only on /developers
- * (BYOK), where the audience is dollar-native.
+ * Credits, which is the whole of what a customer buys outside a plan.
  *
- * Framed ceiling-down, not floor: the slider defaults to the entry stop,
- * and the best rate is never quoted as a bare figure anywhere on the site
- * — always "up to ₹X at maximum prepay". See maxRateLabel below.
+ * This replaced a prepay rate ladder — a slider from ₹5.30/min down to
+ * ₹4.20/min at ₹19,00,000 of prepay — that described a product we do not
+ * sell. There is no per-minute prepay rate and no volume rate card. An
+ * account adds credit, and each call is charged at the rate for the model it
+ * ran on. That is it.
+ *
+ * The distinction matters more than it sounds. A rate ladder tells a customer
+ * their per-minute price is a function of how much they pay up front, so the
+ * lever is their wallet. The truth is that it is a function of which model
+ * they choose, so the lever is the bundle — and a customer who understood the
+ * ladder would optimise the wrong thing entirely.
  */
-export const payAsYouGo = {
-  headline: 'Pay-as-you-go',
-  tagline: 'Flexible credits. Prepay, no commitment.',
-  headlineCopy:
-    'Pay-as-you-go credits. Rate improves as you prepay — from ₹5.30/min, down to ₹4.20/min at committed volume.',
-  underSlider: 'Credits never expire. No monthly commitment. Telephony included.',
-  maxRateLabel: 'Up to ₹4.20/min at maximum prepay',
-  committedNote:
-    'Running higher volume than this? Committed-volume pricing is set with our team.',
-  committedHref: '/book-a-demo',
-  body: 'Prepay for credits — no plan to commit to, top up again whenever your balance runs low. The bigger the prepay, the lower your effective per-minute rate.',
-  /** Published tier stops — shown as ticks under the slider. */
-  tierStops: [
-    { prepayInr: 2999, rateInr: 5.3 },
-    { prepayInr: 25000, rateInr: 5.1 },
-    { prepayInr: 100000, rateInr: 4.8 },
-    { prepayInr: 500000, rateInr: 4.5 },
-    { prepayInr: 1900000, rateInr: 4.2 },
+export const credits = {
+  headline: 'Credits',
+  tagline: 'Add credit whenever you need it. No commitment.',
+  body: 'Outside a monthly plan you simply add credit and start calling. Each call is charged at the rate for the model it runs on, drawn from your balance — no per-minute commitment, no volume tier to negotiate, and no invoice at the end of the month.',
+  points: [
+    'Add any amount, any time — credit is available immediately.',
+    'Charged per call at the rate for the model you chose.',
+    'Nothing is billed in arrears; you spend only what you have added.',
+    'Telephony and your Indian phone number are included in the rate.',
   ],
+  committedNote:
+    'Running steady volume? A monthly plan carries a lower per-minute platform fee than credits alone, and includes phone numbers.',
+  committedHref: '/book-a-demo',
 };
-
-export const payAsYouGoMinRateInr = payAsYouGo.tierStops[0].rateInr;
-export const payAsYouGoMaxRateInr = payAsYouGo.tierStops[payAsYouGo.tierStops.length - 1].rateInr;
-export const payAsYouGoMinPrepayInr = payAsYouGo.tierStops[0].prepayInr;
-export const payAsYouGoMaxPrepayInr =
-  payAsYouGo.tierStops[payAsYouGo.tierStops.length - 1].prepayInr;
-
-/** Piecewise-linear interpolation across the published tier stops — a
- *  straight line between each adjacent pair, so the rate hits the exact
- *  published number at every stop rather than just the two endpoints. */
-export function payAsYouGoRateInr(prepayInr: number): number {
-  const stops = payAsYouGo.tierStops;
-  const clamped = Math.min(Math.max(prepayInr, payAsYouGoMinPrepayInr), payAsYouGoMaxPrepayInr);
-  for (let i = 0; i < stops.length - 1; i++) {
-    const a = stops[i];
-    const b = stops[i + 1];
-    if (clamped >= a.prepayInr && clamped <= b.prepayInr) {
-      const t = (clamped - a.prepayInr) / (b.prepayInr - a.prepayInr);
-      return a.rateInr + t * (b.rateInr - a.rateInr);
-    }
-  }
-  return payAsYouGoMaxRateInr;
-}
 
 export function formatInr(value: number): string {
   return '₹' + value.toLocaleString('en-IN');

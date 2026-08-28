@@ -57,12 +57,25 @@ the featured tier. **Read the plan row and tell me its `balance_paise`**; I will
 `tiers[1].balanceInr` and the minute estimate follows from it. Until then the site is
 selling a tier whose entitlement nobody has checked.
 
+**R4 · Pay-as-you-go was a product we do not sell.** The site carried a prepay slider running
+₹5.30/min down to ₹4.20/min at ₹19,00,000 of prepay. There is no prepay rate card and no volume
+tier: an account adds credit and each call is charged at the rate for the model it ran on. The
+slider is gone. It was the most persuasive thing on the page and it taught customers to optimise
+their wallet when the lever that actually moves their per-minute cost is which model they pick.
+
 **R3 · Everyday's rate is settled at ₹4.91/min** — the full Sarvam bundle, confirmed 28 Aug 2026.
 This supersedes both the ₹5.30 the site carried from 13 Aug and the ₹8.30 in echowave
 `LAUNCH-CHECKLIST.md` §3.2, which assumed 2,300 synthesis characters a minute where the product
-now derives about 405 from `CallShape`. Natural (₹9.37) and Premium (₹25.79) are still §3.2's
-measured figures and have not been re-checked against the same correction — worth confirming,
-since they set the low end of every minute range on the site.
+now derives about 405 from `CallShape`. Natural and Premium have now been recomputed on the same
+basis rather than copied from §3.2 — ₹9.95 and ₹26.37, against §3.2's ₹9.37 and ₹25.79. The model
+costs behind them (₹4.72 Gemini Live, ₹16.45 OpenAI realtime) came from running the product's own
+`realtime_pricing` against its July 2026 price book, and match `managed_tiers.py`'s independent
+calculation exactly.
+
+That price book carries its own expiry: `AS_OF = "2026-07"`, and its header says to treat anything
+more than a quarter old as unverified, with the OpenAI tokenisation rates named as the first thing
+to check. Both are inside the window today. When they are re-verified, these two site figures move
+with them.
 
 **R2 · The USD rate is still low.** ₹96 matches the engine, but echowave
 `REMAINING-WORK.md` A2 puts the real rate near ₹104 and calls ₹96 "roughly 8% light on

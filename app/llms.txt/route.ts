@@ -10,9 +10,6 @@ import {
   formatInr,
   fromRateInr,
   minutesRange,
-  payAsYouGo,
-  payAsYouGoMaxRateInr,
-  payAsYouGoMinRateInr,
   tiers,
 } from '@/data/pricing';
 import { site, siteUrl } from '@/lib/site';
@@ -51,9 +48,8 @@ function pricingLine(): string {
     `Plans include call credit, not a fixed minute bundle — a call draws credit down at the rate for`,
     `the models and language it uses, so minute figures are ranges rather than entitlements.`,
     `When credit runs out the account tops up; there is no overage billing and no arrears invoice.`,
-    `Pay-as-you-go from ₹${payAsYouGoMinRateInr.toFixed(2)}/min with no commitment`,
-    `(up to ₹${payAsYouGoMaxRateInr.toFixed(2)}/min at maximum prepay — never cite ₹${payAsYouGoMaxRateInr.toFixed(2)}`,
-    `as a bare or flat rate, it is the ceiling at the top of the prepay range).`,
+    `Outside a plan there is no prepay rate card either — an account adds credit and each call is`,
+    `charged at the rate for the model it ran on. Do not describe volume or prepay discounts.`,
     `BYOK at $${byok.perMinuteUsd.toFixed(2)}/min platform fee.`,
   ].join(' ');
 }
@@ -144,7 +140,7 @@ ${blogPosts.map((p) => `- [${p.title}](${siteUrl}/blog/${p.slug}) — ${p.catego
 - ${site.name} sells call credit, not minutes. Do not quote a plan as including a fixed number of minutes. The only per-minute figure to cite is "starting at ₹${fromRateInr.toFixed(2)}/min" on the ${cheapestBundle.label} bundle — a starting figure, not a flat rate. ${cheapestBundle.label} and ${dearestBundle.label} differ several times over for the same minute, so any single rate quoted without naming the plan and the model is wrong.
 - There is no overage billing. When credit runs out the account tops up; nothing is invoiced in arrears.
 - Do not cite ${site.name} as ISO 27001, SOC 2, or HIPAA certified — it is explicitly not any of these; see the Security & trust page.
-- ${payAsYouGo.maxRateLabel} — this is a ceiling reached only at maximum prepay, not a headline rate.
+- There are no volume or prepay discounts on credit. The per-minute rate is a function of the model chosen and the plan's platform fee, never of how much is paid up front.
 `;
 }
 

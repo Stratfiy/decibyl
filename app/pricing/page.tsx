@@ -20,7 +20,7 @@ import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Pricing — Voice AI in India, in Rupees',
   description:
-    'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, pay-as-you-go credit with no commitment, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
+    'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, credits with no commitment, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
   path: '/pricing',
   keywords: [
     'voice AI pricing India',
@@ -44,8 +44,8 @@ export default function PricingPage() {
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
               Most platforms quote a rate. Here&rsquo;s what the rate has to cover: the number, the
               telephony, the agent build, QA scoring on every call, and India data residency —
-              included, not itemised extras. Pay-as-you-go credit is below if you would rather not
-              commit to a plan, and BYOK is for teams who want to pay providers directly.
+              included, not itemised extras. Credits are below if you would rather not commit to a
+              plan, and BYOK is for teams who want to pay providers directly.
             </p>
             <p className="t-caption mt-4 text-iron">
               Three voice bundles — Everyday, Natural and Premium — starting at ₹
@@ -101,8 +101,8 @@ export default function PricingPage() {
         </p>
       </Section>
 
-      {/* Pay-as-you-go — no commitment, rate improves with the top-up size */}
-      <Section surface="white" ariaLabel="Pay as you go">
+      {/* Credits — no commitment, charged per model, no prepay rate card */}
+      <Section surface="white" ariaLabel="Credits">
         <PayAsYouGo />
       </Section>
 

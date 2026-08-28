@@ -28,6 +28,12 @@ export const metadata: Metadata = pageMetadata({
     'AI receptionist India',
     'voice AI platform India',
     'Hindi voice AI agent',
+    // The native Indian vocabulary for this job — see KEYWORDS.md. "AI voice
+    // worker" is the positioning and stays in the copy; these are what people
+    // actually type.
+    'AI calling agent India',
+    'AI telecaller India',
+    'voice bot India',
   ],
   ogTitle: 'The AI voice worker that answers your phone',
   ogSubtitle: 'It calls, confirms, and closes — in the language your customer speaks.',

@@ -53,6 +53,11 @@ export const metadata: Metadata = pageMetadata({
     'Vapi alternative India',
     'Bolna vs Decibyl',
     'AI calling platform India comparison',
+    // Category comparisons, not vendor ones — the two highest-intent terms the
+    // site has no page for yet. See KEYWORDS.md, Tier 2.
+    'AI voice agent vs IVR',
+    'AI voice agent vs human telecaller',
+    'IVR replacement India',
   ],
   ogTitle: 'Voice AI platforms in India, compared',
   ogSubtitle: 'Six platforms, what each is best for, and where we fit',

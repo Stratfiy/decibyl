@@ -8,7 +8,7 @@ import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Voice AI in Indian Languages',
+  title: 'Voice AI in Indian Languages — Hindi, Tamil, Telugu, Kannada',
   description:
     'Voice agents in Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati and Indian English — code-mixed by default, on an Indic speech stack. What is genuinely hard about each, and what we do about it.',
   path: '/voice-ai',
@@ -17,6 +17,8 @@ export const metadata: Metadata = pageMetadata({
     'voice AI Hindi Tamil Telugu',
     'code-mixed voice agent',
     'Indic speech AI',
+    'multilingual voice AI India',
+    'regional language voice agent India',
   ],
   ogTitle: 'Voice AI in Indian languages',
   ogSubtitle: 'Seven languages, code-mixed by default',

@@ -7,6 +7,16 @@ type MetaInput = {
   title: string;
   description: string;
   path: string;
+  /**
+   * Renders `<meta name="keywords">`, which **Google has ignored since 2009**.
+   * It is not a ranking signal and populating it will not move a position.
+   *
+   * It stays because it is a useful, greppable record of what each page is
+   * meant to target — see KEYWORDS.md, which audits the whole site from these
+   * arrays. Treat it as documentation, not optimisation: a term only actually
+   * counts once it is in the title, an h1/h2, the URL, the opening copy, or
+   * the anchor text of a link pointing at the page.
+   */
   keywords?: string[];
   ogTitle?: string;
   ogSubtitle?: string;

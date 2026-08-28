@@ -15,7 +15,7 @@ import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
  */
 
 export const metadata: Metadata = pageMetadata({
-  title: 'AI Receptionist for Indian Businesses',
+  title: 'AI Receptionist & AI Calling Agent for Indian Businesses',
   description:
     'An AI voice agent that answers your phone in the language your caller opens with — Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati and English, code-mixed by default. Indian numbers, INR billing, GST invoice.',
   path: '/ai-receptionist',
@@ -24,6 +24,8 @@ export const metadata: Metadata = pageMetadata({
     'AI phone answering India',
     'AI call answering service India',
     'virtual receptionist India',
+    'AI calling agent India',
+    'AI telecalling agent India',
   ],
   ogTitle: 'An AI receptionist that speaks your caller’s language',
   ogSubtitle: 'Eight cities, seven Indian languages, one phone number',

@@ -18,7 +18,7 @@ import { pricingFaqs } from '@/data/faqs';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Pricing — Voice AI in India, in Rupees',
+  title: 'Voice AI Pricing in India — Real INR Rates',
   description:
     'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, credits with no commitment, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
   path: '/pricing',
@@ -27,6 +27,9 @@ export const metadata: Metadata = pageMetadata({
     'AI calling cost per minute India',
     'voice agent pricing INR',
     'AI receptionist price India',
+    // The market quotes per call as often as per minute.
+    'AI calling agent price India',
+    'AI calling cost per call India',
   ],
   ogTitle: 'Published prices, in rupees, with the GST line stated',
 });

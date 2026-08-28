@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Container, Section } from '@/components/ui/Section';
 import { blogPosts, formatBlogDate } from '@/data/blog';
-import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
+import { JsonLd, blogListSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Blog — Voice AI, DPDP Compliance, and NDR Recovery in India',
@@ -60,10 +60,13 @@ export default function BlogIndexPage() {
       </Section>
 
       <JsonLd
-        data={breadcrumbSchema([
-          { name: 'Home', path: '/' },
-          { name: 'Blog', path: '/blog' },
-        ])}
+        data={[
+          blogListSchema(sorted),
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Blog', path: '/blog' },
+          ]),
+        ]}
       />
     </>
   );

@@ -166,6 +166,9 @@ export default function Post() {
             publishedAt: meta.publishedAt,
             updatedAt: meta.updatedAt,
             category: meta.category,
+            // Same card the metadata advertises, so the schema image and the
+            // social preview are one generated image rather than two.
+            ogTitle: 'Why we sell credit, not minutes',
           }),
           breadcrumbSchema([
             { name: 'Home', path: '/' },

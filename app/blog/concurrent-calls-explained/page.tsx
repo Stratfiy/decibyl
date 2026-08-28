@@ -161,6 +161,9 @@ export default function Post() {
             publishedAt: meta.publishedAt,
             updatedAt: meta.updatedAt,
             category: meta.category,
+            // Same card the metadata advertises, so the schema image and the
+            // social preview are one generated image rather than two.
+            ogTitle: 'What concurrent calls actually means',
           }),
           breadcrumbSchema([
             { name: 'Home', path: '/' },

@@ -155,6 +155,9 @@ export default function Post() {
             publishedAt: meta.publishedAt,
             updatedAt: meta.updatedAt,
             category: meta.category,
+            // Same card the metadata advertises, so the schema image and the
+            // social preview are one generated image rather than two.
+            ogTitle: 'The language menu is the bug',
           }),
           breadcrumbSchema([
             { name: 'Home', path: '/' },

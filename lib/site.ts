@@ -138,6 +138,23 @@ export const site = {
     app: 'https://inapp.decibyl.ai',
     docs: 'https://docs.decibyl.ai',
   },
+
+  /**
+   * Profiles that are unambiguously this company, for `sameAs` in the
+   * Organization schema.
+   *
+   * `sameAs` is how Google reconciles "Decibyl", "nAutomation Labs" and a
+   * LinkedIn page into one entity instead of three weak ones. For a domain
+   * nobody has linked to yet, it is the cheapest entity signal available —
+   * but only if every URL is a profile we actually control and that names
+   * this company. A wrong or aspirational URL here is worse than an absent
+   * one: it associates the entity with something that isn't us.
+   *
+   * Fill in as each profile goes live — LinkedIn company page, X, Crunchbase,
+   * GitHub org, YouTube. The schema omits the key entirely while this is
+   * empty, which is the correct behaviour for "we don't have one yet".
+   */
+  profiles: [] as string[],
 } as const;
 
 export const nav = [

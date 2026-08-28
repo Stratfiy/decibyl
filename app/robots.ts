@@ -19,7 +19,22 @@ export default function robots(): MetadataRoute.Robots {
   }
 
   return {
-    rules: [{ userAgent: '*', allow: '/', disallow: ['/api/'] }],
+    rules: [
+      {
+        userAgent: '*',
+        // `/api/og` has to stay reachable. Every page's OG and Twitter card
+        // points at it, and the crawlers that render those previews —
+        // facebookexternalhit, Twitterbot, LinkedInBot, Slackbot, WhatsApp —
+        // all read robots.txt first and refuse a disallowed image. A blanket
+        // `/api/` disallow therefore turned every share of this site into a
+        // text-only link, which is the difference between a post that gets
+        // clicked and one that doesn't. `allow` is more specific than the
+        // `disallow` below, so it wins for every crawler that supports the
+        // directive, and the lead endpoint stays closed either way.
+        allow: ['/', '/api/og'],
+        disallow: ['/api/'],
+      },
+    ],
     sitemap: `${siteUrl}/sitemap.xml`,
     host: siteUrl,
   };

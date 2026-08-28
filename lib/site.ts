@@ -55,7 +55,8 @@ export const site = {
    *  clients who need data closer to them. */
   regions: ['Mumbai (AWS ap-south-1)', 'USA', 'Europe'],
 
-  /** ⚠️ OPEN-ITEMS #7 — confirm before deploy. */
+  /** Confirmed 28 Aug 2026. One inbox for support and sales, deliberately —
+   *  two addresses on a team this size is two places a mail goes unread. */
   supportEmail: 'hello@decibyl.ai',
   salesEmail: 'hello@decibyl.ai',
   /** P2, 13 Aug 2026: the callable demo line — a real inbound number with a
@@ -65,14 +66,37 @@ export const site = {
     tel: '+918035302788',
     display: '+91 80353 02788',
   },
-  /** Registered address is required on a GST-registered entity's site and helps
-   *  local SEO. null renders a graceful fallback instead of a fake address. */
-  registeredAddress: null as null | {
-    street: string;
+  /**
+   * Where the company operates from, for the footer and the `PostalAddress` in
+   * the Organization schema.
+   *
+   * Locality only, by decision on 28 Aug 2026 — a street and a postcode are
+   * not going on a public marketing site. That is enough for the two jobs this
+   * field does here: it gives search engines a place to associate the entity
+   * with, which an India-first company selling to Indian buyers wants, and it
+   * tells a visitor where we actually are.
+   *
+   * `street` and `postalCode` stay in the type as optional. A GST-registered
+   * entity does have to show its full registered address somewhere, and when
+   * that goes up it belongs here rather than in a second copy — see
+   * OPEN-ITEMS.md #4.
+   */
+  registeredAddress: {
+    locality: 'Hosur',
+    region: null,
+    country: 'India',
+    /** ISO 3166-1 alpha-2, for schema.org. */
+    countryCode: 'IN',
+    street: null,
+    postalCode: null,
+  } as {
     locality: string;
-    region: string;
-    postalCode: string;
-  },
+    region: string | null;
+    country: string;
+    countryCode: string;
+    street: string | null;
+    postalCode: string | null;
+  } | null,
 
   external: {
     app: 'https://inapp.decibyl.ai',

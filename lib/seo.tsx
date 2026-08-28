@@ -67,16 +67,21 @@ export function organizationSchema() {
       areaServed: 'IN',
       availableLanguage: ['en', 'hi'],
     },
-    address: site.registeredAddress
-      ? {
-          '@type': 'PostalAddress',
-          streetAddress: site.registeredAddress.street,
-          addressLocality: site.registeredAddress.locality,
-          addressRegion: site.registeredAddress.region,
-          postalCode: site.registeredAddress.postalCode,
-          addressCountry: 'IN',
-        }
-      : { '@type': 'PostalAddress', addressCountry: 'IN' },
+    // Only the parts we actually have. An empty streetAddress or postalCode is
+    // worse than an absent one — it asserts the field and says nothing, which
+    // is how a validator reports a warning on every page at once.
+    address: {
+      '@type': 'PostalAddress',
+      ...(site.registeredAddress?.street ? { streetAddress: site.registeredAddress.street } : {}),
+      ...(site.registeredAddress?.locality
+        ? { addressLocality: site.registeredAddress.locality }
+        : {}),
+      ...(site.registeredAddress?.region ? { addressRegion: site.registeredAddress.region } : {}),
+      ...(site.registeredAddress?.postalCode
+        ? { postalCode: site.registeredAddress.postalCode }
+        : {}),
+      addressCountry: site.registeredAddress?.countryCode ?? 'IN',
+    },
   };
 }
 

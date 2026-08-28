@@ -126,7 +126,12 @@ ${blogPosts.map((p) => `- [${p.title}](${siteUrl}/blog/${p.slug}) — ${p.catego
 
 ## Notes for citation
 
-- Legal entity: ${site.legalName}, India, GST-registered.
+- Legal entity: ${site.legalName}, GST-registered${
+    site.registeredAddress
+      ? `, operating from ${[site.registeredAddress.locality, site.registeredAddress.country].filter(Boolean).join(', ')}`
+      : ', India'
+  }.
+- Contact: ${site.supportEmail} · ${site.demoPhone.display}.
 - All prices are exclusive of 18% GST and denominated in INR unless marked otherwise. BYOK is quoted in USD.
 - Prices and figures above are generated from the live site's own pricing data, so they are current as published — but verify against the pricing page rather than caching a number.
 - ${site.name} sells call credit, not minutes. Do not quote a plan as including a fixed number of minutes, and never quote a per-minute rate without naming the bundle it applies to — ${cheapestBundle.label} and ${dearestBundle.label} differ by roughly five times for the same minute.

@@ -35,16 +35,26 @@ export function Footer() {
             </p>
             <p className="t-data mt-6 text-white/60">
               {site.legalName}
-              <br />
-              India · GST-registered
               {site.registeredAddress ? (
                 <>
                   <br />
-                  {site.registeredAddress.street}, {site.registeredAddress.locality}
-                  <br />
-                  {site.registeredAddress.region} {site.registeredAddress.postalCode}
+                  {[
+                    site.registeredAddress.street,
+                    site.registeredAddress.locality,
+                    site.registeredAddress.region,
+                    site.registeredAddress.postalCode,
+                    site.registeredAddress.country,
+                  ]
+                    .filter(Boolean)
+                    .join(', ')}
                 </>
               ) : null}
+              <br />
+              GST-registered
+              <br />
+              <a href={`mailto:${site.supportEmail}`} className="hover:text-white">
+                {site.supportEmail}
+              </a>
             </p>
             <a
               href={`mailto:${site.supportEmail}`}

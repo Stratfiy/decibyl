@@ -50,7 +50,7 @@ export const pageDates: Record<string, string> = {
  *  move when that file does. Kept separate from the map above because the
  *  route list is derived, not enumerated. */
 /* GENERATED:DERIVED:START */
-export const verticalsUpdatedAt = '2026-08-17';
+export const verticalsUpdatedAt = '2026-08-28';
 export const competitorsUpdatedAt = '2026-08-28';
 /* GENERATED:DERIVED:END */
 

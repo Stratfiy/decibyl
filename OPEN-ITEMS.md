@@ -95,9 +95,21 @@ waitlist.
 
 ### 4 · Registered address + support email → `lib/site.ts`
 
-`supportEmail` is currently `hello@decibyl.ai` — confirm or change. `registeredAddress` is `null`,
-so the footer and the `Organization` schema render without one. A GST-registered entity needs a
-visible address, and it helps local SEO. Fill in the object and both update.
+**Resolved 28 Aug 2026, with one part deliberately left out.** `supportEmail` is confirmed as
+`hello@decibyl.ai` (sales too — one inbox on purpose). `registeredAddress` is now set to
+**Hosur, India**, and the footer, the `Organization` schema's `PostalAddress`, and `llms.txt`
+all read from it.
+
+**Locality only, by decision.** No street and no postcode go on the public site. That is enough
+for what the field does here — it associates the entity with a place, which an India-first
+company selling to Indian buyers wants, and it tells a visitor where we are. `street` and
+`postalCode` remain in the type as optional, and the schema omits any part that is absent rather
+than emitting an empty field.
+
+**Still genuinely open:** a GST-registered entity has to show its full registered address
+somewhere. That is a legal question, not a design one. When it goes up, set the two remaining
+fields here rather than writing the address into a page — everything already reads from this
+object. Worth putting to the same lawyer who reviews the legal pages (#5).
 
 ### 5 · Legal pages need a lawyer's eye
 

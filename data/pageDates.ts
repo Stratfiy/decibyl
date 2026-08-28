@@ -26,18 +26,18 @@ export const SITE_EPOCH = '2026-08-12';
  */
 /* GENERATED:START */
 export const pageDates: Record<string, string> = {
-  '/': '2026-08-13',
+  '/': '2026-08-28',
   '/pricing': '2026-08-28',
   '/how-it-works': '2026-08-13',
-  '/solutions': '2026-08-12',
+  '/solutions': '2026-08-17',
   '/case-studies': '2026-08-13',
   '/security': '2026-08-13',
-  '/developers': '2026-08-13',
+  '/developers': '2026-08-28',
   '/partners': '2026-08-16',
-  '/blog': '2026-08-12',
-  '/book-a-demo': '2026-08-13',
-  '/waitlist': '2026-08-12',
-  '/contact': '2026-08-12',
+  '/blog': '2026-08-28',
+  '/book-a-demo': '2026-08-17',
+  '/waitlist': '2026-08-17',
+  '/contact': '2026-08-17',
   '/legal/privacy': '2026-08-12',
   '/legal/terms': '2026-08-28',
   '/legal/dpdp': '2026-08-12',
@@ -51,7 +51,7 @@ export const pageDates: Record<string, string> = {
  *  route list is derived, not enumerated. */
 /* GENERATED:DERIVED:START */
 export const verticalsUpdatedAt = '2026-08-17';
-export const competitorsUpdatedAt = '2026-08-13';
+export const competitorsUpdatedAt = '2026-08-28';
 /* GENERATED:DERIVED:END */
 
 /** The date to claim for `path`, or the epoch if we have no better answer. */

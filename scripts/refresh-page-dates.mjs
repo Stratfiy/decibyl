@@ -21,30 +21,41 @@ import { dirname, join } from 'node:path';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const target = join(root, 'data', 'pageDates.ts');
 
-/** Route → the file whose git history dates it. */
+/** Mirrors SITE_EPOCH in data/pageDates.ts — the oldest date we would claim. */
+const EPOCH = '2026-08-12';
+
+/**
+ * Route → every file whose content the page renders. The date claimed is the
+ * newest across the set.
+ *
+ * Listing only the `page.tsx` is not enough and the first run proved it:
+ * /pricing came back as 13 Aug on a day its prices had just changed, because
+ * the edit was in data/pricing.ts and the route file had not been touched.
+ * A page is its data and its components, not just its entry file.
+ */
 const ROUTES = {
-  '/': 'app/page.tsx',
-  '/pricing': 'app/pricing/page.tsx',
-  '/how-it-works': 'app/how-it-works/page.tsx',
-  '/solutions': 'app/solutions/page.tsx',
-  '/case-studies': 'app/case-studies/page.tsx',
-  '/security': 'app/security/page.tsx',
-  '/developers': 'app/developers/page.tsx',
-  '/partners': 'app/partners/page.tsx',
-  '/blog': 'app/blog/page.tsx',
-  '/book-a-demo': 'app/book-a-demo/page.tsx',
-  '/waitlist': 'app/waitlist/page.tsx',
-  '/contact': 'app/contact/page.tsx',
-  '/legal/privacy': 'app/legal/privacy/page.tsx',
-  '/legal/terms': 'app/legal/terms/page.tsx',
-  '/legal/dpdp': 'app/legal/dpdp/page.tsx',
-  '/legal/refund': 'app/legal/refund/page.tsx',
-  '/compare': 'app/compare/page.tsx',
+  '/': ['app/page.tsx', 'components/marketing/Blocks.tsx', 'components/marketing/Hero.tsx', 'data/pricing.ts', 'data/faqs.ts', 'data/proof.ts'],
+  '/pricing': ['app/pricing/page.tsx', 'components/marketing/PricingTable.tsx', 'components/marketing/PayAsYouGo.tsx', 'data/pricing.ts', 'data/faqs.ts'],
+  '/how-it-works': ['app/how-it-works/page.tsx', 'data/integrations.ts', 'data/languages.ts'],
+  '/solutions': ['app/solutions/page.tsx', 'data/verticals.ts'],
+  '/case-studies': ['app/case-studies/page.tsx', 'data/caseStudies.ts'],
+  '/security': ['app/security/page.tsx', 'data/security.ts'],
+  '/developers': ['app/developers/page.tsx', 'data/pricing.ts'],
+  '/partners': ['app/partners/page.tsx', 'data/referral.ts'],
+  '/blog': ['app/blog/page.tsx', 'data/blog.ts'],
+  '/book-a-demo': ['app/book-a-demo/page.tsx', 'components/forms/LeadForm.tsx'],
+  '/waitlist': ['app/waitlist/page.tsx', 'components/forms/LeadForm.tsx'],
+  '/contact': ['app/contact/page.tsx', 'components/forms/LeadForm.tsx'],
+  '/legal/privacy': ['app/legal/privacy/page.tsx'],
+  '/legal/terms': ['app/legal/terms/page.tsx'],
+  '/legal/dpdp': ['app/legal/dpdp/page.tsx'],
+  '/legal/refund': ['app/legal/refund/page.tsx'],
+  '/compare': ['app/compare/page.tsx', 'data/competitors.ts'],
 };
 
 const DERIVED = {
-  verticalsUpdatedAt: 'data/verticals.ts',
-  competitorsUpdatedAt: 'data/competitors.ts',
+  verticalsUpdatedAt: ['data/verticals.ts', 'components/marketing/VerticalPage.tsx'],
+  competitorsUpdatedAt: ['data/competitors.ts', 'app/compare/[competitor]/page.tsx'],
 };
 
 /** Last commit date for a path, as YYYY-MM-DD, or null if git has nothing.
@@ -74,21 +85,28 @@ function replaceBlock(source, name, body) {
   return source.replace(pattern, `${start}\n${body}\n${end}`);
 }
 
+/** The newest commit date across a set of files, or null if git knows none.
+ *  ISO dates sort lexicographically, so a plain string compare is correct. */
+function newestDate(files) {
+  const dates = files.map(lastCommitDate).filter(Boolean);
+  return dates.length ? dates.sort().at(-1) : null;
+}
+
 let missing = 0;
 
-const entries = Object.entries(ROUTES).map(([route, file]) => {
-  const date = lastCommitDate(file);
+const entries = Object.entries(ROUTES).map(([route, files]) => {
+  const date = newestDate(files);
   if (!date) {
     missing += 1;
-    console.warn(`  no git date for ${file} — keeping the epoch fallback for ${route}`);
+    console.warn(`  no git date for ${route} — keeping the epoch fallback`);
   }
-  return `  '${route}': '${date ?? '2026-08-12'}',`;
+  return `  '${route}': '${date ?? EPOCH}',`;
 });
 
-const derived = Object.entries(DERIVED).map(([name, file]) => {
-  const date = lastCommitDate(file);
+const derived = Object.entries(DERIVED).map(([name, files]) => {
+  const date = newestDate(files);
   if (!date) missing += 1;
-  return `export const ${name} = '${date ?? '2026-08-12'}';`;
+  return `export const ${name} = '${date ?? EPOCH}';`;
 });
 
 let source = readFileSync(target, 'utf8');

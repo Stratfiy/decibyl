@@ -1,6 +1,8 @@
 /** Site-wide constants. Change once, changes everywhere. */
 
-const FALLBACK_URL = 'https://decibyl.ai';
+/** The one domain this site is ever served from in production. Google is told
+ *  this and nothing else. */
+const CANONICAL_URL = 'https://decibyl.ai';
 
 /** Coerce whatever we were handed into a usable origin, or give up cleanly.
  *  Accepts a bare host ("decibyl.ai", "my-app.vercel.app") as well as a full URL. */
@@ -18,24 +20,57 @@ function toOrigin(value: string): string | null {
 /**
  * Resolve the canonical site URL.
  *
+ * **A production build always says decibyl.ai**, and that is the important
+ * part. Every canonical tag, every `<loc>` in the sitemap, the `sitemap:` line
+ * in robots.txt, and every absolute URL in the JSON-LD is built from this one
+ * value. If it resolves to anything else on a production build, Google is told
+ * the real pages live somewhere they do not, and the domain does not index.
+ *
+ * It used to fall through to `VERCEL_PROJECT_PRODUCTION_URL` before reaching
+ * the known domain, which is a coin-flip: that variable is whatever Vercel
+ * considers the project's production domain, and this repository is connected
+ * to *two* Vercel projects. The one that does not own decibyl.ai resolves it to
+ * a `.vercel.app` host — a green deploy that quietly publishes a whole site of
+ * canonicals pointing at the wrong origin. Vercel's own variables are now used
+ * only for previews, where a guessed origin is harmless and correct.
+ *
  * `??` is NOT enough here: Vercel offers to import env vars from .env.example
  * and fills them in EMPTY, so NEXT_PUBLIC_SITE_URL arrives as '' rather than
  * undefined. `??` only falls back on undefined, so siteUrl became '' and
  * metadataBase's `new URL('')` threw — failing the deploy while collecting
  * page data. Every branch below is guarded, and a malformed value degrades to
- * the fallback instead of breaking the build.
+ * the canonical domain instead of breaking the build.
  */
 function resolveSiteUrl(): string {
+  // An explicit setting always wins — it is the only way to move the domain.
+  const explicit = toOrigin(process.env.NEXT_PUBLIC_SITE_URL ?? '');
+  if (explicit) return explicit;
+
+  // A production build is decibyl.ai, whichever project built it.
+  if (process.env.VERCEL_ENV === 'production') return CANONICAL_URL;
+
+  // Previews and branch deploys describe themselves; nothing indexes them.
   return (
-    toOrigin(process.env.NEXT_PUBLIC_SITE_URL ?? '') ??
-    // Vercel sets these automatically — a preview deploy needs no config at all.
     toOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL ?? '') ??
     toOrigin(process.env.VERCEL_URL ?? '') ??
-    FALLBACK_URL
+    CANONICAL_URL
   );
 }
 
 export const siteUrl = resolveSiteUrl();
+
+/** True only on the real production build of the real domain.
+ *
+ *  Used to keep preview deploys out of the index, and to keep a preview's
+ *  `noindex` from ever reaching production. `VERCEL_ENV` is unset when running
+ *  locally, so `npm run dev` is treated as non-production, which is right. */
+export const isProductionSite =
+  process.env.VERCEL_ENV === 'production' ||
+  // Off Vercel entirely (a local build), the canonical domain means production.
+  // On Vercel, only VERCEL_ENV counts: NEXT_PUBLIC_SITE_URL is commonly set for
+  // every environment at once, and a preview that inherits it would otherwise
+  // both claim to be decibyl.ai and invite Google to index the claim.
+  (!process.env.VERCEL_ENV && siteUrl === CANONICAL_URL);
 
 export const site = {
   name: 'Decibyl',
@@ -107,6 +142,7 @@ export const site = {
 
 export const nav = [
   { label: 'Solutions', href: '/solutions/clinics' },
+  { label: 'Languages', href: '/voice-ai' },
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Compare', href: '/compare' },

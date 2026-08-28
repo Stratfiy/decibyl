@@ -63,6 +63,42 @@ export const blogPosts: BlogPostMeta[] = [
     publishedAt: '2026-08-12',
     readingMinutes: 6,
   },
+  {
+    slug: 'trai-dnd-rules-ai-voice-calls',
+    title: 'TRAI, DND and the 9-to-9 Window: What Automated Calling in India Has to Obey',
+    description:
+      'Do-not-disturb scrubbing and the TCCCPR calling window are not delivery details — they are the two rules that decide whether an outbound campaign is lawful. What they require, and where implementations quietly get them wrong.',
+    category: 'Compliance',
+    publishedAt: '2026-08-28',
+    readingMinutes: 8,
+  },
+  {
+    slug: 'credit-not-minutes-voice-ai-billing',
+    title: 'Why We Sell Credit, Not Minutes — and Why Nobody Can Honestly Sell You Minutes',
+    description:
+      'A minute of voice AI has no single price. The model decides it, and the spread is more than five to one, which makes every "500 minutes included" on every pricing page in this market a number somebody had to round.',
+    category: 'Pricing',
+    publishedAt: '2026-08-28',
+    readingMinutes: 7,
+  },
+  {
+    slug: 'concurrent-calls-explained',
+    title: 'What Concurrent Calls Actually Means, and How Many You Need',
+    description:
+      'The number every voice AI vendor puts on a pricing table and nobody explains. What it limits, what happens when you hit it, and the arithmetic for working out your own.',
+    category: 'Technical',
+    publishedAt: '2026-08-28',
+    readingMinutes: 6,
+  },
+  {
+    slug: 'language-menu-is-the-bug',
+    title: 'If Your Voice Agent Asks the Caller to Pick a Language, You Have Built an IVR',
+    description:
+      '“Press 1 for Hindi” is the thing the caller was trying to escape. Why code-mixed speech has to be the default register on an Indian phone line, and what it costs to bolt on afterwards.',
+    category: 'Product',
+    publishedAt: '2026-08-28',
+    readingMinutes: 7,
+  },
 ];
 
 export function formatBlogDate(iso: string): string {

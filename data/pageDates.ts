@@ -33,7 +33,7 @@ export const pageDates: Record<string, string> = {
   '/case-studies': '2026-08-13',
   '/security': '2026-08-13',
   '/developers': '2026-08-28',
-  '/partners': '2026-08-16',
+  '/partners': '2026-08-28',
   '/blog': '2026-08-28',
   '/book-a-demo': '2026-08-17',
   '/waitlist': '2026-08-17',
@@ -43,6 +43,8 @@ export const pageDates: Record<string, string> = {
   '/legal/dpdp': '2026-08-12',
   '/legal/refund': '2026-08-12',
   '/compare': '2026-08-28',
+  '/ai-receptionist': '2026-08-28',
+  '/voice-ai': '2026-08-28',
 };
 /* GENERATED:END */
 
@@ -52,6 +54,8 @@ export const pageDates: Record<string, string> = {
 /* GENERATED:DERIVED:START */
 export const verticalsUpdatedAt = '2026-08-28';
 export const competitorsUpdatedAt = '2026-08-28';
+export const citiesUpdatedAt = '2026-08-28';
+export const languagePagesUpdatedAt = '2026-08-28';
 /* GENERATED:DERIVED:END */
 
 /** The date to claim for `path`, or the epoch if we have no better answer. */

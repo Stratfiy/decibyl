@@ -33,7 +33,7 @@ export const pageDates: Record<string, string> = {
   '/case-studies': '2026-08-13',
   '/security': '2026-08-13',
   '/developers': '2026-08-28',
-  '/partners': '2026-08-16',
+  '/partners': '2026-08-28',
   '/blog': '2026-08-28',
   '/book-a-demo': '2026-08-17',
   '/waitlist': '2026-08-17',

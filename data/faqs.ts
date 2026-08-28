@@ -57,12 +57,20 @@ export const pricingFaqs: Faq[] = [
     a: 'Connected call time, billed on the actual duration of calls the agent handles. Ringing time is not billed.',
   },
   {
-    q: 'What happens if I go over my included minutes?',
-    a: 'Overage is billed per minute on top of your plan: ₹5.30/min on Starter and ₹4.50/min on Growth. Above Growth it is quoted against your actual volume.',
+    q: 'What happens when my included credit runs out?',
+    a: 'You top up, and calling continues. Credit is added instantly, and there is no overage bill and no invoice at the end of the month — calling simply draws on the credit you have, so you can never be billed for a month you did not intend to spend. Unused plan credit does not carry into the next billing month.',
+  },
+  {
+    q: 'Why is the included calling shown as a range of minutes?',
+    a: 'Because a minute is not one price, and the biggest factor is which voice you choose. Everyday runs an Indic-optimised pipeline and is the cheapest a minute. Natural and Premium are speech-to-speech models that reply the instant you stop talking, and Premium — the most capable speech model available — costs around five times what Everyday does for the same minute. Regional languages also cost more than Hindi or English on any bundle. The range shows the dearest and cheapest ends so you can see the real spread before you pick.',
+  },
+  {
+    q: 'Which voice bundle should I start on?',
+    a: 'Everyday, for almost everyone. It is the best option we have on Indian languages and the cheapest to run, so it gives you the most calling for the same credit. Move to Natural if the pause before the agent replies matters for your use case, and to Premium only when speech quality is genuinely the deciding factor — at its rate a Starter plan buys around a hundred minutes rather than several hundred.',
   },
   {
     q: 'How much does an additional phone number cost?',
-    a: 'Additional numbers are ₹399/month each. All plans include one number with telephony.',
+    a: 'Additional numbers are ₹559/month each, exclusive of GST. Every plan includes at least one number with telephony.',
   },
   {
     q: 'Is telephony included, or do I pay a carrier separately?',

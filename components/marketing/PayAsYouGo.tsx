@@ -1,108 +1,43 @@
-'use client';
-
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
-import { ButtonLink } from '@/components/ui/Button';
-import {
-  payAsYouGo,
-  payAsYouGoMaxPrepayInr,
-  payAsYouGoMinPrepayInr,
-  payAsYouGoRateInr,
-} from '@/data/pricing';
+import { credits } from '@/data/pricing';
 
-const inr = (n: number) => '₹' + n.toLocaleString('en-IN');
-/** Rates always show two decimals — ₹5.30, not ₹5.3 — to match the
- *  published tier-stop figures everywhere else on the site. */
-const inrRate = (n: number) =>
-  '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-/** Log-scale slider: the prepay range spans ~₹3K to ~₹19L, a ~630× range —
- *  a linear slider would squeeze the SMB end (where most buyers actually
- *  are) into a sliver. Position 0–100 maps geometrically instead. */
-const logMin = Math.log(payAsYouGoMinPrepayInr);
-const logMax = Math.log(payAsYouGoMaxPrepayInr);
-const posToPrepay = (pos: number) => Math.round(Math.exp(logMin + (pos / 100) * (logMax - logMin)));
-const prepayToPos = (prepay: number) => ((Math.log(prepay) - logMin) / (logMax - logMin)) * 100;
-
+/**
+ * Credits, without a rate slider.
+ *
+ * This was a prepay ladder — drag a slider from ₹2,999 to ₹19,00,000 and watch
+ * a per-minute rate fall from ₹5.30 to ₹4.20. It was persuasive and it
+ * described a product that does not exist. There is no prepay rate card: an
+ * account adds credit and each call is charged at the rate for the model it
+ * ran on.
+ *
+ * Losing the slider loses an interaction, and that is the right trade. The
+ * slider taught the customer that their per-minute price is a function of how
+ * much they pay up front, when it is a function of which model they pick — so
+ * anyone who learned from it optimised the wrong lever.
+ */
 export function PayAsYouGo() {
-  // Defaults to the entry stop — ceiling-down framing, never pre-loaded at
-  // the best rate.
-  const [pos, setPos] = useState(0);
-
-  const { prepay, rate, minutes } = useMemo(() => {
-    const p = posToPrepay(pos);
-    const r = payAsYouGoRateInr(p);
-    return { prepay: p, rate: r, minutes: Math.round(p / r) };
-  }, [pos]);
-
   return (
-    <div className="rounded-panel bg-snow p-6 shadow-[var(--shadow-card)] sm:p-9">
-      <p className="t-eyebrow text-sindoor">{payAsYouGo.headline}</p>
-      <h3 className="t-h2 mt-3 max-w-2xl text-[1.5rem] leading-snug sm:text-[1.75rem]">
-        {payAsYouGo.headlineCopy}
-      </h3>
-
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_minmax(260px,340px)] lg:gap-12">
-        <div>
-          <label htmlFor="payg-prepay" className="flex items-baseline justify-between gap-4">
-            <span className="text-[0.9375rem] font-medium text-ink">Prepay amount</span>
-            <span className="t-data text-sindoor tabular-nums">{inr(prepay)}</span>
-          </label>
-          <input
-            id="payg-prepay"
-            type="range"
-            className="slider mt-3"
-            min={0}
-            max={100}
-            step={0.5}
-            value={pos}
-            onChange={(e) => setPos(Number(e.target.value))}
-            style={{ ['--fill' as string]: `${pos}%` }}
-          />
-          <div className="t-caption mt-2 flex justify-between text-iron">
-            {payAsYouGo.tierStops.map((stop) => (
-              <span
-                key={stop.prepayInr}
-                className="cursor-pointer hover:text-sindoor"
-                onClick={() => setPos(prepayToPos(stop.prepayInr))}
-              >
-                {inr(stop.prepayInr)}
-              </span>
-            ))}
-          </div>
-          <p className="t-caption mt-4 text-iron">{payAsYouGo.underSlider}</p>
-        </div>
-
-        <div className="rounded-card bg-canvas p-6">
-          <dl className="space-y-3">
-            <div className="flex items-baseline justify-between gap-3">
-              <dt className="text-[0.9375rem] text-slate">Rate at this prepay</dt>
-              <dd className="t-data font-semibold text-ink tabular-nums">{inrRate(rate)}/min</dd>
-            </div>
-            <div className="flex items-baseline justify-between gap-3">
-              <dt className="text-[0.9375rem] text-slate">Minutes</dt>
-              <dd className="t-data font-semibold text-ink tabular-nums">
-                {minutes.toLocaleString('en-IN')}
-              </dd>
-            </div>
-          </dl>
-          <p className="t-caption mt-4 border-t border-line pt-4 text-iron">
-            {payAsYouGo.maxRateLabel}
-          </p>
-        </div>
+    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
+      <div>
+        <p className="t-eyebrow text-sindoor">{credits.headline}</p>
+        <h2 className="t-h2 mt-3 text-balance">{credits.tagline}</h2>
+        <p className="t-body-lg mt-5 text-slate text-pretty">{credits.body}</p>
       </div>
 
-      <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <ButtonLink href="/book-a-demo?tier=payg" variant="secondary">
-          Prepay and start calling
-        </ButtonLink>
-        <p className="text-[0.9375rem] text-slate">
-          {payAsYouGo.committedNote}{' '}
-          <Link
-            href={payAsYouGo.committedHref}
-            className="text-sindoor underline-offset-4 hover:underline"
-          >
-            Talk to our team
+      <div className="rounded-card border border-line bg-snow p-8">
+        <ul className="flex flex-col gap-4">
+          {credits.points.map((point) => (
+            <li key={point} className="flex gap-3 text-[0.9375rem] text-slate">
+              <span aria-hidden="true" className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-vermilion" />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+
+        <p className="t-caption mt-7 border-t border-line pt-6 text-iron">
+          {credits.committedNote}{' '}
+          <Link href={credits.committedHref} className="text-sindoor hover:underline">
+            Book a demo
           </Link>
           .
         </p>

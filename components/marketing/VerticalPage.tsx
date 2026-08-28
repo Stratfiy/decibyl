@@ -7,7 +7,7 @@ import { FaqList } from './Faq';
 import { FinalCta, HowItWorks } from './Blocks';
 import { MeshBackground } from '@/components/ui/MeshBackground';
 import { findAnyVertical, verticalHref, type Vertical } from '@/data/verticals';
-import { tiers, tierPrice } from '@/data/pricing';
+import { includedCallingLabel, tiers, tierPrice } from '@/data/pricing';
 
 /**
  * The shared template. Ten blocks, same order every time — that consistency is
@@ -175,8 +175,8 @@ export function VerticalPage({ vertical }: { vertical: Vertical }) {
                 <span className="t-data ml-1 font-normal text-slate">/month</span>
               </h2>
               <p className="mt-3 text-slate">
-                {tier.minutes} minutes, {tier.phoneNumbers.toLowerCase()}, telephony included, all
-                Indian languages, and{' '}
+                {includedCallingLabel(tier)}, {tier.phoneNumbers.toLowerCase()}, telephony
+                included, all Indian languages, and{' '}
                 {tier.qaScoring === 'full' ? 'QA on 100% of calls' : 'quality-sampled QA'}.
                 Exclusive of 18% GST.
               </p>

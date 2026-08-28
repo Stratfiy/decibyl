@@ -55,8 +55,15 @@ export default function TermsPage() {
         <ul>
           <li>Plans are billed monthly in advance, in INR, through Razorpay.</li>
           <li>All published prices are exclusive of 18% GST, which is added at invoicing.</li>
-          <li>Minutes included in a plan do not carry over to the next month.</li>
-          <li>Overage, where applicable, is billed in arrears at the rate in your order form.</li>
+          <li>
+            A plan includes call credit rather than a fixed number of minutes. Calls draw that
+            credit down at the rate for the models and language used, and unused credit does not
+            carry over to the next month.
+          </li>
+          <li>
+            There is no overage billing. When a plan&rsquo;s credit is exhausted, calling continues
+            only against credit you add; nothing is billed in arrears.
+          </li>
           <li>On BYOK you pay your model and speech providers directly, at their price.</li>
         </ul>
       </LegalSection>

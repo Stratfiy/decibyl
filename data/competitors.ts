@@ -3,6 +3,11 @@ export type Competitor = {
   name: string;
   /** Who they are genuinely best for. Be fair — a technical buyer fact-checks. */
   summaryThem: string;
+  /** One line for the /compare hub table. A faithful compression of
+   *  `summaryThem`, never a new claim — the hub is the page most likely to be
+   *  quoted by an answer engine, so nothing may appear here that the detail
+   *  page does not already say at length. */
+  bestFor: string;
   summaryUs: string;
   strongerThem: { title: string; body: string }[];
   strongerUs: { title: string; body: string }[];
@@ -50,6 +55,8 @@ export const competitors: Competitor[] = [
       'Vapi is a mature, developer-first voice platform with a large ecosystem, good documentation, and instant self-serve signup. If you are building in the US or Europe, want to pick your own STT/LLM/TTS stack, and your callers speak English, Vapi is a strong and well-supported default — and it will keep getting better faster than a smaller platform can.',
     summaryUs:
       'Decibyl is built India-first. Indian languages with code-mixed speech as the normal case, Indian telephony, INR billing with a GST invoice, and data resident in Mumbai by default — with US and EU infrastructure available for teams serving customers outside India too. If your callers speak Hindi or Tamil and your finance team needs a GST invoice, that combination is the whole reason we exist; it just doesn\'t stop there.',
+    bestFor:
+      'English-language builders in the US or EU who want to choose every layer of the stack themselves.',
     strongerThem: [
       {
         title: 'Larger ecosystem and more mature docs',
@@ -114,6 +121,8 @@ export const competitors: Competitor[] = [
       'Bolna is an Indian voice AI platform with real Indian-language support and a self-serve product that gets you calling quickly. They have been in market longer than we have and have a wider set of live customers. For a team that wants an Indian platform with instant signup and does not need to see the model economics, Bolna is a reasonable choice.',
     summaryUs:
       'We compete on the cost structure and on what you can audit. We own the stack end to end with no orchestration layer in the middle, we publish a platform fee with the provider cost shown separately rather than a blended per-minute rate, and we score 100% of calls rather than a sample.',
+    bestFor:
+      'Indian teams who want instant self-serve signup and do not need to see the model economics.',
     strongerThem: [
       {
         title: 'Longer in market',
@@ -174,6 +183,8 @@ export const competitors: Competitor[] = [
       'Retell is a polished, developer-friendly voice platform with strong English conversation quality and a clean product experience. For English-language use cases in North America — appointment setting, qualification, support triage — it is a genuinely good product with a mature dashboard.',
     summaryUs:
       'Retell is built for English-speaking markets. If your calls are in Hindi, Tamil, or Telugu, mix two languages in a sentence, need an Indian number, and have to appear on a GST invoice, you are working against the grain of the product rather than with it.',
+    bestFor:
+      'English-language appointment setting and qualification in North America, on a mature dashboard.',
     strongerThem: [
       {
         title: 'English conversation quality and latency tuning',
@@ -234,6 +245,8 @@ export const competitors: Competitor[] = [
       'SquadStack builds voice AI specifically for high-volume Indian sales, lending, and activation outreach, trained on a reported 600M+ minutes of real Indian contact-centre audio. If you are a large consumer brand replacing a telecalling team at serious scale — SquadStack cites 40 lakh+ calls a day across its customer base — it has the training data and the omnichannel tooling (call, WhatsApp, SMS, in-app) that a smaller platform will not have built yet.',
     summaryUs:
       'Decibyl publishes its prices and gets you live in about half a day. SquadStack runs on custom enterprise pricing — reported to start around ₹5 lakh+ a year — reached through a sales conversation, not a page you can read before one.',
+    bestFor:
+      'Large consumer brands replacing a telecalling team at contact-centre scale.',
     strongerThem: [
       {
         title: 'Scale and training data',
@@ -294,6 +307,8 @@ export const competitors: Competitor[] = [
       'ElevenLabs is widely regarded as the voice-quality leader in the market — Expressive Mode adapts tone to conversation context, RAG is built into the platform natively, and you can plug in Gemini, Claude, or GPT as the reasoning layer directly. It already has real enterprise traction in India: Cars24, Razorpay, and Unacademy use ElevenLabs Agents for domain-specific assistants. To be precise about what is being compared here: Decibyl uses ElevenLabs as one of the voice providers in its own stack, alongside Sarvam, OpenAI, and Google. This page compares against ElevenLabs’ own Agents platform — the end-to-end orchestration product — not against the underlying voice models Decibyl may call on.',
     summaryUs:
       'Decibyl is built around Indian telephony, INR billing with a GST invoice, and code-mixed Hinglish and Tanglish as the default register — not a general multilingual capability configured toward it.',
+    bestFor:
+      'Teams where raw voice quality and expressiveness outrank cost and Indian telephony.',
     strongerThem: [
       {
         title: 'Voice quality leadership',
@@ -358,6 +373,8 @@ export const competitors: Competitor[] = [
       'Gnani is a serious India-built enterprise voice AI company, and the most compliance-heavy platform on this page: SOC 2, ISO 27001, GDPR, HIPAA, and PCI DSS certifications, with cloud, private cloud, on-premises, and air-gapped deployment options. Its speech models handle 12+ Indian languages with genuine mid-sentence code-switching, reportedly trained on 14 million hours of real telephonic audio, and it is proven at large regulated enterprises — HDFC Bank, Airtel, and Tata Motors are named customers. If your procurement process requires a specific certificate or your compliance mandate rules out cloud entirely, this is the most direct answer on this page, and Decibyl is honest that it is not there yet — see Security & trust.',
     summaryUs:
       'Decibyl publishes its prices and is live in about half a day. Gnani does not publish pricing and runs a reported 3–6 month enterprise sales cycle with an 8–16 week deployment — built for a different kind of buyer and a different kind of timeline.',
+    bestFor:
+      'Enterprises whose procurement requires SOC 2, ISO 27001, HIPAA, or an air-gapped deployment.',
     strongerThem: [
       {
         title: 'Compliance certifications Decibyl does not have',

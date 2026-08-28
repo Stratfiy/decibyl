@@ -23,7 +23,7 @@ export const referralProgram = {
     },
     {
       title: 'They recharge, you earn 20%',
-      body: 'The moment their first payment clears — a managed plan’s first month, or a pay-as-you-go top-up — you get 20% of it, paid out the same billing cycle.',
+      body: 'The moment their first payment clears — a managed plan’s first month, or a credit top-up — you get 20% of it, paid out the same billing cycle.',
     },
     {
       title: 'Sending more than one? Let’s talk',

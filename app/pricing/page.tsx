@@ -4,14 +4,23 @@ import { PricingTable } from '@/components/marketing/PricingTable';
 import { PayAsYouGo } from '@/components/marketing/PayAsYouGo';
 import { FaqList } from '@/components/marketing/Faq';
 import { FinalCta } from '@/components/marketing/Blocks';
-import { additionalNumberInr, byok, formatInr, payAsYouGoMinRateInr } from '@/data/pricing';
+import {
+  additionalNumberInr,
+  bundles,
+  byok,
+  cheapestBundle,
+  dearestBundle,
+  formatInr,
+  fromRateInr,
+  fromRateNote,
+} from '@/data/pricing';
 import { pricingFaqs } from '@/data/faqs';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Pricing — Voice AI in India, in Rupees',
   description:
-    'Managed plans from ₹2,999/month with telephony included, pay-as-you-go starting at ₹5.30/min, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
+    'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, credits with no commitment, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
   path: '/pricing',
   keywords: [
     'voice AI pricing India',
@@ -35,13 +44,16 @@ export default function PricingPage() {
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
               Most platforms quote a rate. Here&rsquo;s what the rate has to cover: the number, the
               telephony, the agent build, QA scoring on every call, and India data residency —
-              included, not itemised extras. Pay-as-you-go starts at{' '}
-              {formatInr(payAsYouGoMinRateInr)}/min with no commitment; BYOK is for teams who want
-              to pay providers directly.
+              included, not itemised extras. Credits are below if you would rather not commit to a
+              plan, and BYOK is for teams who want to pay providers directly.
+            </p>
+            <p className="t-caption mt-4 text-iron">
+              Three voice bundles — Everyday, Natural and Premium — starting at ₹
+              {fromRateInr.toFixed(2)}/min.
             </p>
             <p className="t-caption mt-4 text-iron">
               Additional numbers {formatInr(additionalNumberInr)}/month each — every plan includes
-              one number with telephony.
+              at least one number with telephony.
             </p>
           </div>
         </Container>
@@ -51,8 +63,46 @@ export default function PricingPage() {
         <PricingTable />
       </Section>
 
-      {/* Pay-as-you-go — no commitment, rate improves with the top-up size */}
-      <Section surface="white" ariaLabel="Pay as you go">
+      {/* The bundles. This is the half of the pricing story that makes the
+          minute range on the table above legible: the plan sets the credit,
+          the bundle sets how fast it is spent. */}
+      <Section surface="white" ariaLabel="Voice bundles">
+        <SectionHead
+          eyebrow="What sets the rate"
+          title="Three voices to build your agent on"
+          sub="Your plan decides how much credit you get. The voice you pick decides how far it goes — it is the single biggest factor in your bill, so it is on the price page rather than buried in the product."
+        />
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {bundles.map((b) => (
+            <div
+              key={b.slug}
+              className={`rounded-card p-7 ${
+                b.slug === cheapestBundle.slug
+                  ? 'border-2 border-sindoor bg-snow'
+                  : 'border border-line bg-snow'
+              }`}
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <p className="font-display text-[1.15rem] font-bold">{b.label}</p>
+                {b.slug === cheapestBundle.slug ? (
+                  <span className="t-eyebrow text-sindoor">Start here</span>
+                ) : null}
+              </div>
+              <p className="mt-3 text-[0.9375rem] text-slate">{b.blurb}</p>
+            </div>
+          ))}
+        </div>
+        <p className="t-caption mt-6 text-iron">
+          {cheapestBundle.label} is where almost everyone should start — it is the best option we
+          have on Indian languages as well as the cheapest a minute. {dearestBundle.label} is for
+          when speech quality is genuinely the deciding factor, and costs several times as much a
+          minute, which is why the included-calling figures above are a range rather than one
+          number. {fromRateNote}
+        </p>
+      </Section>
+
+      {/* Credits — no commitment, charged per model, no prepay rate card */}
+      <Section surface="white" ariaLabel="Credits">
         <PayAsYouGo />
       </Section>
 

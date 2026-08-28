@@ -14,6 +14,39 @@
  *     (25–28% gross at the ₹3.28 regional cost floor) — surcharge, fair-use
  *     cap, or fix the stack first is still Nithish's call, not shipped here.
  *   - `managedTiersLive` gates whether tiers sell or route to the waitlist.
+ *
+ * ─────────────────────────────────────────────────────────────────────────
+ * CONTRACT WITH THE BILLING ENGINE — read before changing a figure here.
+ * ─────────────────────────────────────────────────────────────────────────
+ *
+ * **A plan grants rupees, not minutes.** There is no `included_minutes`,
+ * `minute_allowance` or `bundled_minutes` anywhere in the echowave codebase.
+ * A plan grants `balance_paise` (`api/services/billing/subscription_plans.py`)
+ * and each call draws that balance down by its *composed* cost: the pulsed
+ * platform fee, plus the LLM, STT and TTS actually consumed at their own rates,
+ * plus carriage, marked up (`api/services/billing/costing.py`). Two calls of
+ * identical length can cost different amounts — different model, different
+ * language, different number of turns.
+ *
+ * So a bare "N minutes included" is a promise the engine cannot keep. ₹/min on
+ * this page is an **average for a Hindi/English call**, and every minute figure
+ * below carries that qualifier for a reason: the internal stack floor is
+ * ₹1.74/min for Hindi/English but ₹3.28/min for regional (Ta/Te/Kn/Ml/Bn), so
+ * a Tamil clinic — the exact buyer `/solutions/clinics` targets — exhausts the
+ * same balance in materially fewer minutes.
+ *
+ * Figures here that must track a product constant, and the file that owns each:
+ *
+ *   every tier's `priceInr`, `balanceInr`, `platformFeeInr` and phone-number
+ *     count ← scripts/seed_subscription_plans.py, which is the ladder as sold
+ *   `tiers[0]` also ← STARTER_PLAN_{PRICE,BALANCE}_PAISE (api/constants.py),
+ *     the two the deployment seeds before an operator runs that script
+ *   `additionalNumberInr`  ← NUMBER_RENTAL_PRICE_PAISE    (api/constants.py)
+ *   `USD_RATE`             ← DEFAULT_USD_INR_PAISE        (billing/money.py)
+ *   `byok.perMinuteUsd`    ← DEFAULT_PLATFORM_RATE_MICROS_USD (billing/money.py)
+ *
+ * If one of those moves in echowave and not here, the site quotes a price the
+ * bank does not collect. That is the failure this block exists to catch.
  */
 
 export const GST_RATE = 0.18;
@@ -24,15 +57,31 @@ export const managedTiersLive = true;
 
 /** Indicative rate for the USD toggle on the main tier table, and for BYOK
  *  (which stays dollar-denominated — that audience is dollar-native).
- *  Display-only, not a billing rate. */
-export const USD_RATE = 88;
+ *  Display-only, not a billing rate.
+ *
+ *  Raised 28 Aug 2026 from 88 to 96 to match the engine's own fallback
+ *  (`DEFAULT_USD_INR_PAISE = 9_600`, echowave `api/services/billing/money.py`).
+ *  At 88 the site quoted international buyers a *higher* dollar figure than the
+ *  business needs — ₹9,999 read as $114 rather than $104.
+ *
+ *  ⚠️ Still low. echowave `REMAINING-WORK.md` A2 puts the real rate near ₹104
+ *  and calls the ₹96 fallback "roughly 8% light on every charge". Move both
+ *  together once an operator puts a live rate on file — a display rate that
+ *  disagrees with the billing rate is how a quote and an invoice come apart. */
+export const USD_RATE = 96;
 
 /** P0-1: additional number beyond what a tier includes. Same price on every
- *  managed tier. */
-export const additionalNumberInr = 399;
+ *  managed tier.
+ *
+ *  Corrected 28 Aug 2026 from ₹399 to ₹559. ₹399 was never a price the product
+ *  could charge: the billing engine rents an extra number at
+ *  `NUMBER_RENTAL_PRICE_PAISE` (echowave `api/constants.py`), which is ₹559 net
+ *  — "confirmed on the account, not a list price", against ₹250 of Plivo cost.
+ *  The site was under-quoting a recurring line by ₹160/month/number. */
+export const additionalNumberInr = 559;
 
 export type Tier = {
-  id: 'starter' | 'growth' | 'custom';
+  id: 'starter' | 'growth' | 'scale' | 'custom';
   name: string;
   /** monthly price in INR, exclusive of GST. null = quoted, not published. */
   priceInr: number | null;
@@ -40,9 +89,16 @@ export type Tier = {
    *  13 Aug 2026 simplification, kept for when a published anchor returns. */
   startingAt?: boolean;
   tagline: string;
-  minutes: string;
-  /** null = no fixed per-minute overage (Custom is quoted per account). */
-  overageInr: number | null;
+  /** Rupees of call credit the plan grants — the figure the engine settles in.
+   *  Must equal the plan row's `balance_paise / 100`. null = not yet confirmed
+   *  against the plan row; see the note on `minutes`. */
+  balanceInr: number | null;
+  /** Per-minute platform fee for this tier, in rupees. This is the number the
+   *  ladder actually discounts — `platform_rate_mpaise` on the plan row. Every
+   *  other per-minute figure on this page is derived from it plus the bundle
+   *  the customer picks. */
+  platformFeeInr: number | null;
+
   phoneNumbers: string;
   models: string;
   concurrentCalls: string;
@@ -71,8 +127,8 @@ export const tiers: Tier[] = [
     name: 'Starter',
     priceInr: 2999,
     tagline: 'Your agent, built and live this week.',
-    minutes: '500',
-    overageInr: 5.3,
+    balanceInr: 2500,
+    platformFeeInr: 2.5,
     phoneNumbers: '1 phone number',
     models: 'Selected',
     concurrentCalls: '5',
@@ -84,12 +140,10 @@ export const tiers: Tier[] = [
     namedAccountContact: false,
     support: 'Email',
     cta: { label: 'Book a demo call', href: '/book-a-demo?tier=starter' },
-    // Option A (chosen 13 Aug 2026): the platform plan, not a minute bundle —
-    // nobody computes ₹/min on a plan that isn't sold in minutes.
     bullets: [
       'Agent build and configuration included',
       '1 Indian number, telephony included',
-      '500 minutes included, then ₹5.30/min',
+      '₹2,500 of call credit included',
       'All Indian languages · 5 concurrent calls',
       'Transcript, recording and outcome on every call',
     ],
@@ -97,11 +151,11 @@ export const tiers: Tier[] = [
   {
     id: 'growth',
     name: 'Growth',
-    priceInr: 9999,
-    tagline: 'Outbound campaigns and a real call volume.',
-    minutes: '2,200',
-    overageInr: 4.5,
-    phoneNumbers: '3 phone numbers',
+    priceInr: 7999,
+    tagline: 'Two numbers and enough calling to run a real campaign.',
+    balanceInr: 7200,
+    platformFeeInr: 2.0,
+    phoneNumbers: '2 phone numbers',
     models: 'Selected',
     concurrentCalls: '25',
     campaigns: true,
@@ -115,12 +169,31 @@ export const tiers: Tier[] = [
     featured: true,
   },
   {
+    id: 'scale',
+    name: 'Scale',
+    priceInr: 19999,
+    tagline: 'Four numbers, a large knowledge base, and volume calling.',
+    balanceInr: 18500,
+    platformFeeInr: 1.5,
+    phoneNumbers: '4 phone numbers',
+    models: 'All + custom',
+    concurrentCalls: '100',
+    campaigns: true,
+    qaScoring: 'full',
+    crmWriteback: 'configured',
+    customVoice: true,
+    dedicatedNumberPool: false,
+    namedAccountContact: true,
+    support: 'Priority',
+    cta: { label: 'Book a demo call', href: '/book-a-demo?tier=scale' },
+  },
+  {
     id: 'custom',
     name: 'Custom',
     priceInr: null,
-    tagline: 'Past 2,200 minutes, pricing follows your actual call pattern.',
-    minutes: 'Set with you',
-    overageInr: null,
+    tagline: 'Past Scale, pricing follows your actual call pattern.',
+    balanceInr: null,
+    platformFeeInr: null,
     phoneNumbers: 'Dedicated number pool',
     models: 'All + custom',
     concurrentCalls: 'Custom',
@@ -133,16 +206,153 @@ export const tiers: Tier[] = [
     support: 'Dedicated',
     cta: { label: 'Schedule a call', href: '/contact?topic=custom' },
     bullets: [
-      'Everything in Growth',
+      'Everything in Scale',
       'Volume pricing set against your real call pattern',
       'Agent designed and built for your workflows',
       'Dedicated number pool',
       'CRM write-back configured for your system',
       'Named contact and monthly QA review',
     ],
-    note: 'Everything up to ₹9,999 is published above. Past that it genuinely depends on your volume and language mix — so we quote it properly rather than guess at it on a page.',
+    note: 'Everything up to ₹19,999 is published above. Past that it genuinely depends on your volume and language mix — so we quote it properly rather than guess at it on a page.',
   },
 ];
+
+/**
+ * The three voice bundles, and what a minute costs on each.
+ *
+ * This is the missing half of the pricing story, and the reason a single
+ * minute figure was never sayable. A bundle chooses the speech stack, and the
+ * stacks are not close to each other: Everyday runs a pipeline built on Indic
+ * models, Natural and Premium are speech-to-speech, and Premium is roughly
+ * five times the price of Everyday for the same minute.
+ *
+ * `perMinuteInr` is the all-in charge at Starter's platform fee (₹2.50) — the
+ * fee, the models, and carriage. A tier with a lower platform fee subtracts
+ * the difference; see `bundleRateInr`.
+ *
+ * All three computed on one basis, 28 Aug 2026, rather than copied from a
+ * document. Bundles differ only in their model line, so each is Everyday plus
+ * the difference in model cost at the 1.4x managed markup:
+ *
+ *   model cost/min      Everyday ₹1.12   Natural ₹4.72   Premium ₹16.45
+ *   sell/min            ₹4.91            ₹9.95           ₹26.37
+ *
+ * Everyday ₹4.91 is founder-confirmed — the full Sarvam stack, saarika:v2.5
+ * transcription at ₹30/hour, bulbul:v2 synthesis at ₹1.50/1k characters over
+ * ~405 characters a minute, and Sarvam-105B carrying the language model at
+ * about a paisa a minute.
+ *
+ * ₹4.72 and ₹16.45 were produced by running the product's own
+ * `realtime_pricing` against its July 2026 price book, not read off a table:
+ * Gemini Live tokenises audio at roughly three times OpenAI's rate, so the
+ * two vendors' headline per-million prices cannot be compared directly and
+ * the blended figure is the only honest one. They match the independent
+ * calculation in `managed_tiers.py` exactly.
+ *
+ * This supersedes LAUNCH-CHECKLIST.md §3.2 (₹8.30 / ₹9.37 / ₹25.79), whose
+ * pipeline row assumed 2,300 synthesis characters a minute where the product
+ * now derives about 405 from `CallShape`.
+ */
+export type Bundle = {
+  slug: string;
+  label: string;
+  blurb: string;
+  perMinuteInr: number;
+};
+
+export const bundles: Bundle[] = [
+  {
+    slug: 'everyday',
+    label: 'Everyday',
+    blurb: 'The full Sarvam stack — best on Indian languages, and the cheapest to run.',
+    perMinuteInr: 4.91,
+  },
+  {
+    slug: 'natural',
+    label: 'Natural',
+    blurb: 'Speech-to-speech on Gemini Live. Replies the instant you stop talking.',
+    perMinuteInr: 9.95,
+  },
+  {
+    slug: 'premium',
+    label: 'Premium',
+    blurb: 'Speech-to-speech on OpenAI realtime. The most capable, and much the dearest.',
+    perMinuteInr: 26.37,
+  },
+];
+
+/**
+ * The one per-minute number the site leads with, and the only one it prints
+ * large.
+ *
+ * A minute does not have a single price — that is the whole finding behind the
+ * credit model — so quoting three exact rates on a marketing page invites the
+ * reader to compare the wrong number and anchors them on the dearest one. The
+ * page states a floor with an asterisk instead, and lets the minute *ranges*
+ * carry the spread, which they do honestly without publishing a rate card.
+ *
+ * ₹4.91 is Everyday, the full Sarvam stack — the cheapest bundle at its own
+ * published rate. Growth and Scale carry a lower per-minute platform fee and
+ * so run below it, which is why this reads "starting at" rather than "from a
+ * flat".
+ */
+export const fromRateInr = 4.91;
+
+export const fromRateNote =
+  'Everyday · Natural · Premium — starting at ₹4.91/min. Which one you pick decides how far your credit goes.';
+
+export const cheapestBundle = bundles[0];
+export const dearestBundle = bundles[bundles.length - 1];
+
+/** Roughly how many minutes a tier's credit buys on `bundle`. An estimate to
+ *  show, never an entitlement to bill against — the same words the product's
+ *  own `/agent-options/minutes` endpoint uses about its version of this.
+ *
+ *  Computed at the bundle's base rate for every tier, deliberately. Growth and
+ *  Scale carry a lower per-minute platform fee, so they genuinely go further
+ *  than these figures — but publishing a rate per tier per bundle is a rate
+ *  card, and the page is not trying to be one. Understating is the safe
+ *  direction; a customer finding they got more minutes than the page implied
+ *  has never once complained. */
+export function approximateMinutes(tier: Tier, bundle: Bundle): number | null {
+  if (tier.balanceInr === null || bundle.perMinuteInr <= 0) return null;
+  return Math.round(tier.balanceInr / bundle.perMinuteInr);
+}
+
+function roundToTen(value: number): number {
+  return Math.round(value / 10) * 10;
+}
+
+/** The minute range a tier's credit buys, dearest bundle to cheapest. */
+export function minutesRange(tier: Tier): { low: number; high: number } | null {
+  const high = approximateMinutes(tier, cheapestBundle);
+  const low = approximateMinutes(tier, dearestBundle);
+  if (high === null || low === null) return null;
+  return { low: roundToTen(low), high: roundToTen(high) };
+}
+
+/** One label for "what calling the plan includes", used by every surface so
+ *  the range can never be dropped in one place and kept in another. */
+export function includedCallingLabel(tier: Tier): string {
+  if (tier.balanceInr === null) return 'Set with you';
+  const range = minutesRange(tier);
+  if (!range) return `${formatInr(tier.balanceInr)} of call credit`;
+  return `${formatInr(tier.balanceInr)} · ${range.low.toLocaleString('en-IN')}–${range.high.toLocaleString('en-IN')} min`;
+}
+
+/** Why the figure is a range, shown once wherever the range is. Not small
+ *  print for its own sake: the spread between the cheapest and dearest bundle
+ *  is roughly five to one, and a customer who picks Premium expecting Everyday
+ *  minutes is a support ticket the product's own launch checklist predicted. */
+export const includedCallingCaption =
+  'Plans include call credit, not a fixed minute bundle. How far it goes depends on the voice you choose — Everyday is the cheapest a minute and best on Indian languages; Premium is the most capable speech model and around five times the price. Regional languages cost more per minute than Hindi or English on any bundle.';
+
+/** What happens when the credit runs out. There is no arrears billing in the
+ *  product — no overage line, no invoice at the end of the month. The account
+ *  adds credit, is charged per model, and calling continues. Saying anything
+ *  else on this page would describe a mechanism that does not exist. */
+export const outOfCreditCopy =
+  'Top up whenever you like — credit is added instantly, and each call is charged at the rate for the model it runs on. There is no surprise invoice at the end of the month, because there is no overage bill: calling simply draws on the credit you have.';
 
 /** Starter's QA row reads "Sampled" in the table — this is the one-line
  *  explanation shown as a caption underneath, not a table cell. */
@@ -153,7 +363,7 @@ export const starterQaCopy =
  *  update or remove if their page changes. Never leave a stale claim up.
  *  Anchored on Growth, since that's now the top published tier. */
 export const publishedComparisonCallout = {
-  text: 'For context: Aixclerate publishes ₹24,999/month for 2,000 minutes. Growth is ₹9,999 for 2,200 — more minutes at 40% of the price.',
+  text: 'For context: Aixclerate publishes ₹24,999/month for 2,000 minutes. Scale is ₹19,999 and Growth ₹7,999 — and unlike a minute bundle, unused credit is not the only thing you are buying.',
   source: 'Read on their pricing page, 8 Aug 2026.',
 };
 
@@ -168,7 +378,7 @@ export const byok = {
 /**
  * P1-3, /developers: published orchestration platform fees, USD (BYOK stays
  * dollar-denominated — this audience is dollar-native, unlike the INR
- * pay-as-you-go slider). Each figure read on that vendor's own public
+ * credits are rupee-denominated). Each figure read on that vendor's own public
  * pricing page — see developerFeesCheckedNote for the date. Restate, don't
  * paste, competitor copy; this is just the number.
  */
@@ -184,59 +394,34 @@ export const developerFeesCheckedNote =
   'Each figure read on that vendor’s own public pricing page, 29–30 July 2026.';
 
 /**
- * Pay-as-you-go / volume-based pricing. No monthly commitment — prepay
- * credit, the effective per-minute rate improves the more you put in at
- * once. INR-denominated (P0-2, 13 Aug 2026) — the pitch is India-native
- * end to end, so the slider has to be too. USD stays only on /developers
- * (BYOK), where the audience is dollar-native.
+ * Credits, which is the whole of what a customer buys outside a plan.
  *
- * Framed ceiling-down, not floor: the slider defaults to the entry stop,
- * and the best rate is never quoted as a bare figure anywhere on the site
- * — always "up to ₹X at maximum prepay". See maxRateLabel below.
+ * This replaced a prepay rate ladder — a slider from ₹5.30/min down to
+ * ₹4.20/min at ₹19,00,000 of prepay — that described a product we do not
+ * sell. There is no per-minute prepay rate and no volume rate card. An
+ * account adds credit, and each call is charged at the rate for the model it
+ * ran on. That is it.
+ *
+ * The distinction matters more than it sounds. A rate ladder tells a customer
+ * their per-minute price is a function of how much they pay up front, so the
+ * lever is their wallet. The truth is that it is a function of which model
+ * they choose, so the lever is the bundle — and a customer who understood the
+ * ladder would optimise the wrong thing entirely.
  */
-export const payAsYouGo = {
-  headline: 'Pay-as-you-go',
-  tagline: 'Flexible credits. Prepay, no commitment.',
-  headlineCopy:
-    'Pay-as-you-go credits. Rate improves as you prepay — from ₹5.30/min, down to ₹4.20/min at committed volume.',
-  underSlider: 'Credits never expire. No monthly commitment. Telephony included.',
-  maxRateLabel: 'Up to ₹4.20/min at maximum prepay',
-  committedNote:
-    'Running higher volume than this? Committed-volume pricing is set with our team.',
-  committedHref: '/book-a-demo',
-  body: 'Prepay for credits — no plan to commit to, top up again whenever your balance runs low. The bigger the prepay, the lower your effective per-minute rate.',
-  /** Published tier stops — shown as ticks under the slider. */
-  tierStops: [
-    { prepayInr: 2999, rateInr: 5.3 },
-    { prepayInr: 25000, rateInr: 5.1 },
-    { prepayInr: 100000, rateInr: 4.8 },
-    { prepayInr: 500000, rateInr: 4.5 },
-    { prepayInr: 1900000, rateInr: 4.2 },
+export const credits = {
+  headline: 'Credits',
+  tagline: 'Add credit whenever you need it. No commitment.',
+  body: 'Outside a monthly plan you simply add credit and start calling. Each call is charged at the rate for the model it runs on, drawn from your balance — no per-minute commitment, no volume tier to negotiate, and no invoice at the end of the month.',
+  points: [
+    'Add any amount, any time — credit is available immediately.',
+    'Charged per call at the rate for the model you chose.',
+    'Nothing is billed in arrears; you spend only what you have added.',
+    'Telephony and your Indian phone number are included in the rate.',
   ],
+  committedNote:
+    'Running steady volume? A monthly plan carries a lower per-minute platform fee than credits alone, and includes phone numbers.',
+  committedHref: '/book-a-demo',
 };
-
-export const payAsYouGoMinRateInr = payAsYouGo.tierStops[0].rateInr;
-export const payAsYouGoMaxRateInr = payAsYouGo.tierStops[payAsYouGo.tierStops.length - 1].rateInr;
-export const payAsYouGoMinPrepayInr = payAsYouGo.tierStops[0].prepayInr;
-export const payAsYouGoMaxPrepayInr =
-  payAsYouGo.tierStops[payAsYouGo.tierStops.length - 1].prepayInr;
-
-/** Piecewise-linear interpolation across the published tier stops — a
- *  straight line between each adjacent pair, so the rate hits the exact
- *  published number at every stop rather than just the two endpoints. */
-export function payAsYouGoRateInr(prepayInr: number): number {
-  const stops = payAsYouGo.tierStops;
-  const clamped = Math.min(Math.max(prepayInr, payAsYouGoMinPrepayInr), payAsYouGoMaxPrepayInr);
-  for (let i = 0; i < stops.length - 1; i++) {
-    const a = stops[i];
-    const b = stops[i + 1];
-    if (clamped >= a.prepayInr && clamped <= b.prepayInr) {
-      const t = (clamped - a.prepayInr) / (b.prepayInr - a.prepayInr);
-      return a.rateInr + t * (b.rateInr - a.rateInr);
-    }
-  }
-  return payAsYouGoMaxRateInr;
-}
 
 export function formatInr(value: number): string {
   return '₹' + value.toLocaleString('en-IN');

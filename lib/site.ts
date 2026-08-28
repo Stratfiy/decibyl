@@ -55,7 +55,8 @@ export const site = {
    *  clients who need data closer to them. */
   regions: ['Mumbai (AWS ap-south-1)', 'USA', 'Europe'],
 
-  /** ⚠️ OPEN-ITEMS #7 — confirm before deploy. */
+  /** Confirmed 28 Aug 2026. One inbox for support and sales, deliberately —
+   *  two addresses on a team this size is two places a mail goes unread. */
   supportEmail: 'hello@decibyl.ai',
   salesEmail: 'hello@decibyl.ai',
   /** P2, 13 Aug 2026: the callable demo line — a real inbound number with a
@@ -65,14 +66,38 @@ export const site = {
     tel: '+918035302788',
     display: '+91 80353 02788',
   },
-  /** Registered address is required on a GST-registered entity's site and helps
-   *  local SEO. null renders a graceful fallback instead of a fake address. */
-  registeredAddress: null as null | {
-    street: string;
+  /**
+   * Where the company operates from, for the footer and the `PostalAddress` in
+   * the Organization schema.
+   *
+   * The full registered address, confirmed 28 Aug 2026. It satisfies the
+   * GST-registered entity's obligation to display it, and it is the strongest
+   * local signal available to a company nobody has heard of yet: a complete
+   * PostalAddress with a locality, a region and a postcode is what associates
+   * the entity with a real place.
+   *
+   * Every part is optional in the type and the schema omits whatever is
+   * absent, so a future change of address is one edit here and nowhere else.
+   */
+  registeredAddress: {
+    street: 'No. 86/18, Brindhavan Nagar',
+    locality: 'Hosur',
+    // Hosur 635109 is in Krishnagiri district, Tamil Nadu. Stated because a
+    // PostalAddress without a region is weaker for local search, and because
+    // an Indian reader expects the state on a registered address.
+    region: 'Tamil Nadu',
+    postalCode: '635109',
+    country: 'India',
+    /** ISO 3166-1 alpha-2, for schema.org. */
+    countryCode: 'IN',
+  } as {
     locality: string;
-    region: string;
-    postalCode: string;
-  },
+    region: string | null;
+    country: string;
+    countryCode: string;
+    street: string | null;
+    postalCode: string | null;
+  } | null,
 
   external: {
     app: 'https://inapp.decibyl.ai',
@@ -84,5 +109,5 @@ export const nav = [
   { label: 'Solutions', href: '/solutions/clinics' },
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'Compare', href: '/compare/vapi' },
+  { label: 'Compare', href: '/compare' },
 ];

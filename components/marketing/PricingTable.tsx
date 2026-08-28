@@ -5,7 +5,11 @@ import { useState } from 'react';
 import {
   additionalNumberInr,
   formatInr,
+  fromRateNote,
+  includedCallingCaption,
+  includedCallingLabel,
   managedTiersLive,
+  outOfCreditCopy,
   publishedComparisonCallout,
   starterQaCopy,
   tierPrice,
@@ -18,11 +22,8 @@ import {
 type Currency = 'inr' | 'usd';
 
 const rows: { label: string; value: (t: Tier) => string }[] = [
-  { label: 'Minutes included', value: (t) => t.minutes },
-  {
-    label: 'Overage',
-    value: (t) => (t.overageInr === null ? 'Custom' : `₹${t.overageInr.toFixed(2)}/min`),
-  },
+  { label: 'Included calling', value: (t) => includedCallingLabel(t) },
+  { label: 'When credit runs out', value: () => 'Top up — no overage bill' },
   { label: 'Telephony', value: () => 'Included' },
   { label: 'Phone number', value: (t) => t.phoneNumbers },
   { label: 'Additional number', value: () => `${formatInr(additionalNumberInr)}/mo each` },
@@ -76,7 +77,7 @@ export function PricingTable() {
         {tiers.map((tier) => {
           const bullets =
             tier.bullets ?? [
-              `${tier.minutes} minutes included`,
+              includedCallingLabel(tier),
               tier.phoneNumbers,
               `${tier.concurrentCalls} concurrent calls`,
               `${tier.support} support`,
@@ -194,7 +195,10 @@ export function PricingTable() {
         </table>
       </div>
 
-      <p className="t-caption mt-5 text-iron">{starterQaCopy}</p>
+      <p className="t-caption mt-5 text-iron">{includedCallingCaption}</p>
+      <p className="t-caption mt-2 text-iron">{outOfCreditCopy}</p>
+      <p className="t-caption mt-2 text-iron">{fromRateNote}</p>
+      <p className="t-caption mt-2 text-iron">{starterQaCopy}</p>
       <p className="t-caption mt-2 text-iron">
         Above Growth, pricing is quoted against your real call pattern — schedule a call for an exact number.
       </p>

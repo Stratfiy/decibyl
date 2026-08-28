@@ -16,6 +16,13 @@ export type BlogPostMeta = {
   category: string;
   /** ISO date, e.g. '2026-08-12' */
   publishedAt: string;
+  /** ISO date of the last substantive revision. Omit while a post is
+   *  untouched since publication — `articleSchema` then reports
+   *  `dateModified` equal to `datePublished`, which is the truth.
+   *  Set it when the prose or a figure inside the post actually changes;
+   *  a post that says it was revised and was not is worse than one that
+   *  says nothing. */
+  updatedAt?: string;
   readingMinutes: number;
 };
 

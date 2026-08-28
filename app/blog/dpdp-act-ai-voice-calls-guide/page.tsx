@@ -112,6 +112,7 @@ export default function Post() {
             description: meta.description,
             path: `/blog/${meta.slug}`,
             publishedAt: meta.publishedAt,
+            updatedAt: meta.updatedAt,
             category: meta.category,
           }),
           breadcrumbSchema([

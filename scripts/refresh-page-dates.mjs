@@ -51,11 +51,15 @@ const ROUTES = {
   '/legal/dpdp': ['app/legal/dpdp/page.tsx'],
   '/legal/refund': ['app/legal/refund/page.tsx'],
   '/compare': ['app/compare/page.tsx', 'data/competitors.ts'],
+  '/ai-receptionist': ['app/ai-receptionist/page.tsx', 'data/cities.ts'],
+  '/voice-ai': ['app/voice-ai/page.tsx', 'data/languagePages.ts'],
 };
 
 const DERIVED = {
   verticalsUpdatedAt: ['data/verticals.ts', 'components/marketing/VerticalPage.tsx'],
   competitorsUpdatedAt: ['data/competitors.ts', 'app/compare/[competitor]/page.tsx'],
+  citiesUpdatedAt: ['data/cities.ts', 'app/ai-receptionist/[city]/page.tsx'],
+  languagePagesUpdatedAt: ['data/languagePages.ts', 'app/voice-ai/[language]/page.tsx'],
 };
 
 /** Last commit date for a path, as YYYY-MM-DD, or null if git has nothing.

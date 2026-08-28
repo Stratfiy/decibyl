@@ -2,6 +2,8 @@ import { languages } from '@/data/languages';
 import { topLevelVerticals, clinicSubVerticals } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
 import { blogPosts } from '@/data/blog';
+import { cities } from '@/data/cities';
+import { languagePages, languageRecord, languageSlug } from '@/data/languagePages';
 import {
   bundles,
   byok,
@@ -97,6 +99,22 @@ ${topLevelVerticals
     const suffix = subs.length ? ` (${subs.map((s) => s.name).join(', ')})` : '';
     return `- [${v.name}](${siteUrl}/solutions/${v.slug})${suffix}`;
   })
+  .join('\n')}
+
+## By language
+
+Each page names what is genuinely hard about that language for a voice agent, rather than listing it as supported. Code-mixing is the default register on all of them.
+
+- [All languages](${siteUrl}/voice-ai)
+${languagePages
+  .map((p) => `- [${languageRecord(p)?.name} voice AI](${siteUrl}/voice-ai/${languageSlug(p)}): ${p.hardPart.title.toLowerCase()}`)
+  .join('\n')}
+
+## By city
+
+- [AI receptionist](${siteUrl}/ai-receptionist)
+${cities
+  .map((c) => `- [AI receptionist in ${c.name}](${siteUrl}/ai-receptionist/${c.slug}): ${c.state} — ${c.languages.length} languages on one line`)
   .join('\n')}
 
 ## Compare

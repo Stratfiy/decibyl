@@ -3,7 +3,15 @@ import { siteUrl } from '@/lib/site';
 import { topLevelVerticals, clinicSubVerticals } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
 import { blogPosts } from '@/data/blog';
-import { competitorsUpdatedAt, lastModified, verticalsUpdatedAt } from '@/data/pageDates';
+import { cities } from '@/data/cities';
+import { languagePages, languageSlug } from '@/data/languagePages';
+import {
+  citiesUpdatedAt,
+  competitorsUpdatedAt,
+  languagePagesUpdatedAt,
+  lastModified,
+  verticalsUpdatedAt,
+} from '@/data/pageDates';
 
 /**
  * Every date here is a real edit date, not the build time.
@@ -25,6 +33,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/how-it-works', priority: 0.8, freq: 'monthly' },
     { path: '/solutions', priority: 0.8, freq: 'monthly' },
     { path: '/compare', priority: 0.85, freq: 'monthly' },
+    { path: '/ai-receptionist', priority: 0.85, freq: 'monthly' },
+    { path: '/voice-ai', priority: 0.85, freq: 'monthly' },
     { path: '/case-studies', priority: 0.6, freq: 'monthly' },
     { path: '/security', priority: 0.6, freq: 'monthly' },
     { path: '/developers', priority: 0.7, freq: 'monthly' },
@@ -62,6 +72,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...competitors.map((c) => ({
       url: `${siteUrl}/compare/${c.slug}`,
       lastModified: new Date(competitorsUpdatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+    // Programmatic long-tail. Both sets render from one data file each, so
+    // they move when it does.
+    ...cities.map((c) => ({
+      url: `${siteUrl}/ai-receptionist/${c.slug}`,
+      lastModified: new Date(citiesUpdatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+    ...languagePages.map((p) => ({
+      url: `${siteUrl}/voice-ai/${languageSlug(p)}`,
+      lastModified: new Date(languagePagesUpdatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),

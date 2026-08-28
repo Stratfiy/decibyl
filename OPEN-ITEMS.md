@@ -6,6 +6,64 @@ things here should block a public one.
 
 ---
 
+## Reconciled against the product, 28 Aug 2026
+
+The site's prices were read against the billing engine in `Stratfiy/echowave-redesign`
+for the first time. Three things were wrong on this side and are now fixed; two are
+decisions only you can make.
+
+### Fixed here
+
+| What | Was | Now | Why |
+|---|---|---|---|
+| Additional number | ₹399/mo | **₹559/mo** | `NUMBER_RENTAL_PRICE_PAISE` is ₹559 net, "confirmed on the account, not a list price", against ₹250 of Plivo cost. ₹399 was never collectable. Appeared on the home page, `/pricing` and the pricing FAQ — under-quoting a recurring line by 29%. |
+| USD display rate | ₹88 | **₹96** | Matches the engine's `DEFAULT_USD_INR_PAISE`. At 88 we quoted international buyers a *higher* dollar figure than we need: ₹9,999 read as $114 instead of $104. |
+| "500 minutes included" | minute bundle | **₹2,500 credit · ~470 min Hindi/English** | See below. |
+
+### The minutes problem, and why the copy changed
+
+**There is no minute allowance anywhere in the product.** No `included_minutes`,
+`minute_allowance` or `bundled_minutes` exists in the echowave codebase. A plan grants
+`balance_paise` — rupees — and each call draws that down by its *composed* cost: pulsed
+platform fee + the LLM, STT and TTS actually consumed at their own rates + carriage,
+marked up (`api/services/billing/costing.py`). Two calls of the same length can cost
+different amounts.
+
+So "500 minutes included, then ₹5.30/min" was a promise the engine could not keep, in
+two separate ways:
+
+1. **The arithmetic never worked.** Starter grants ₹2,500 (`STARTER_PLAN_BALANCE_PAISE`).
+   At the published ₹5.30/min that is ~470 minutes, not 500 — a ~6% overstatement before
+   anything else goes wrong.
+2. **Regional languages break it much harder.** The internal stack floor is ₹1.74/min
+   Hindi/English but ₹3.28/min regional. A Tamil clinic — the exact buyer
+   `/solutions/clinics` and `/solutions/clinics/ivf-fertility` are written for — exhausts
+   the same ₹2,500 in materially fewer minutes than the page implied.
+
+Every minute figure on the site now carries the Hindi/English qualifier, and the unit is
+stated as credit. `data/pricing.ts` carries a CONTRACT block naming which product
+constant each figure must track, so the next drift is catchable by reading one file.
+
+Note this is the positioning you already chose — the Starter comment dated 13 Aug 2026
+says "the platform plan, not a minute bundle". The bullets just hadn't caught up.
+
+### Open — needs your decision
+
+**R1 · Growth's entitlement is unverified.** `ensure_seeded` in echowave creates the
+`starter` plan only. A Growth row can be created by an operator through
+`/superadmin/billing`, and one may well exist in production — but nothing in either
+repository proves what balance it grants. `/pricing` currently sells Growth at ₹9,999 as
+the featured tier. **Read the plan row and tell me its `balance_paise`**; I will set
+`tiers[1].balanceInr` and the minute estimate follows from it. Until then the site is
+selling a tier whose entitlement nobody has checked.
+
+**R2 · The USD rate is still low.** ₹96 matches the engine, but echowave
+`REMAINING-WORK.md` A2 puts the real rate near ₹104 and calls ₹96 "roughly 8% light on
+every charge". Both need to move together — a display rate that disagrees with the
+billing rate is how a quote and an invoice come apart. This is item A2 on their side.
+
+---
+
 ## Blocking — do not launch publicly without these
 
 ### 1 · Integration status tiers → `data/integrations.ts`
@@ -88,7 +146,9 @@ Defaults that match reality make the whole page credible. Currently:
 
 ### 9 · USD conversion rate → `data/pricing.ts`
 
-`USD_RATE = 88`, display-only for the pricing toggle. Update or wire to a rate source.
+**Partly resolved 28 Aug 2026**: raised 88 → 96 to match the engine's own constant. Still
+below the ~₹104 real rate — see R2 above. Wiring it to a rate source remains the right
+end state; today it is a hand-maintained figure in two repositories that must agree.
 
 ---
 

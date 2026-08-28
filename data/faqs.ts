@@ -57,12 +57,16 @@ export const pricingFaqs: Faq[] = [
     a: 'Connected call time, billed on the actual duration of calls the agent handles. Ringing time is not billed.',
   },
   {
-    q: 'What happens if I go over my included minutes?',
-    a: 'Overage is billed per minute on top of your plan: ₹5.30/min on Starter and ₹4.50/min on Growth. Above Growth it is quoted against your actual volume.',
+    q: 'What happens when my included calling runs out?',
+    a: 'Your plan includes call credit rather than a fixed minute bundle, and calls draw it down as they happen. Once it is used, calling continues at ₹5.30/min on Starter and ₹4.50/min on Growth. Above Growth it is quoted against your actual volume. Credit does not carry into the next month.',
+  },
+  {
+    q: 'Why do you quote credit instead of a flat number of minutes?',
+    a: 'Because a minute is not one price. What a call costs depends on the language, the models it uses and how many turns it takes — a Tamil call costs more per minute than a Hindi or English one. Quoting credit means the number on your invoice matches the number on this page. The minute figures here are estimates for Hindi and English, and we say so rather than quoting a bundle we would have to qualify later.',
   },
   {
     q: 'How much does an additional phone number cost?',
-    a: 'Additional numbers are ₹399/month each. All plans include one number with telephony.',
+    a: 'Additional numbers are ₹559/month each, exclusive of GST. Every plan includes at least one number with telephony.',
   },
   {
     q: 'Is telephony included, or do I pay a carrier separately?',

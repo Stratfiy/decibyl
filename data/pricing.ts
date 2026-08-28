@@ -14,6 +14,37 @@
  *     (25–28% gross at the ₹3.28 regional cost floor) — surcharge, fair-use
  *     cap, or fix the stack first is still Nithish's call, not shipped here.
  *   - `managedTiersLive` gates whether tiers sell or route to the waitlist.
+ *
+ * ─────────────────────────────────────────────────────────────────────────
+ * CONTRACT WITH THE BILLING ENGINE — read before changing a figure here.
+ * ─────────────────────────────────────────────────────────────────────────
+ *
+ * **A plan grants rupees, not minutes.** There is no `included_minutes`,
+ * `minute_allowance` or `bundled_minutes` anywhere in the echowave codebase.
+ * A plan grants `balance_paise` (`api/services/billing/subscription_plans.py`)
+ * and each call draws that balance down by its *composed* cost: the pulsed
+ * platform fee, plus the LLM, STT and TTS actually consumed at their own rates,
+ * plus carriage, marked up (`api/services/billing/costing.py`). Two calls of
+ * identical length can cost different amounts — different model, different
+ * language, different number of turns.
+ *
+ * So a bare "N minutes included" is a promise the engine cannot keep. ₹/min on
+ * this page is an **average for a Hindi/English call**, and every minute figure
+ * below carries that qualifier for a reason: the internal stack floor is
+ * ₹1.74/min for Hindi/English but ₹3.28/min for regional (Ta/Te/Kn/Ml/Bn), so
+ * a Tamil clinic — the exact buyer `/solutions/clinics` targets — exhausts the
+ * same balance in materially fewer minutes.
+ *
+ * Figures here that must track a product constant, and the file that owns each:
+ *
+ *   `tiers[0].balanceInr`  ← STARTER_PLAN_BALANCE_PAISE   (api/constants.py)
+ *   `tiers[0].priceInr`    ← STARTER_PLAN_PRICE_PAISE     (api/constants.py)
+ *   `additionalNumberInr`  ← NUMBER_RENTAL_PRICE_PAISE    (api/constants.py)
+ *   `USD_RATE`             ← DEFAULT_USD_INR_PAISE        (billing/money.py)
+ *   `byok.perMinuteUsd`    ← DEFAULT_PLATFORM_RATE_MICROS_USD (billing/money.py)
+ *
+ * If one of those moves in echowave and not here, the site quotes a price the
+ * bank does not collect. That is the failure this block exists to catch.
  */
 
 export const GST_RATE = 0.18;
@@ -24,12 +55,28 @@ export const managedTiersLive = true;
 
 /** Indicative rate for the USD toggle on the main tier table, and for BYOK
  *  (which stays dollar-denominated — that audience is dollar-native).
- *  Display-only, not a billing rate. */
-export const USD_RATE = 88;
+ *  Display-only, not a billing rate.
+ *
+ *  Raised 28 Aug 2026 from 88 to 96 to match the engine's own fallback
+ *  (`DEFAULT_USD_INR_PAISE = 9_600`, echowave `api/services/billing/money.py`).
+ *  At 88 the site quoted international buyers a *higher* dollar figure than the
+ *  business needs — ₹9,999 read as $114 rather than $104.
+ *
+ *  ⚠️ Still low. echowave `REMAINING-WORK.md` A2 puts the real rate near ₹104
+ *  and calls the ₹96 fallback "roughly 8% light on every charge". Move both
+ *  together once an operator puts a live rate on file — a display rate that
+ *  disagrees with the billing rate is how a quote and an invoice come apart. */
+export const USD_RATE = 96;
 
 /** P0-1: additional number beyond what a tier includes. Same price on every
- *  managed tier. */
-export const additionalNumberInr = 399;
+ *  managed tier.
+ *
+ *  Corrected 28 Aug 2026 from ₹399 to ₹559. ₹399 was never a price the product
+ *  could charge: the billing engine rents an extra number at
+ *  `NUMBER_RENTAL_PRICE_PAISE` (echowave `api/constants.py`), which is ₹559 net
+ *  — "confirmed on the account, not a list price", against ₹250 of Plivo cost.
+ *  The site was under-quoting a recurring line by ₹160/month/number. */
+export const additionalNumberInr = 559;
 
 export type Tier = {
   id: 'starter' | 'growth' | 'custom';
@@ -40,6 +87,14 @@ export type Tier = {
    *  13 Aug 2026 simplification, kept for when a published anchor returns. */
   startingAt?: boolean;
   tagline: string;
+  /** Rupees of call credit the plan grants — the figure the engine settles in.
+   *  Must equal the plan row's `balance_paise / 100`. null = not yet confirmed
+   *  against the plan row; see the note on `minutes`. */
+  balanceInr: number | null;
+  /** Approximate minutes that credit buys **on a Hindi/English call**. An
+   *  estimate derived from `overageInr`, never an entitlement — see the
+   *  contract block at the top of this file. Always rendered with the language
+   *  qualifier; never as a bare "N minutes included". */
   minutes: string;
   /** null = no fixed per-minute overage (Custom is quoted per account). */
   overageInr: number | null;
@@ -71,7 +126,12 @@ export const tiers: Tier[] = [
     name: 'Starter',
     priceInr: 2999,
     tagline: 'Your agent, built and live this week.',
-    minutes: '500',
+    // ₹2,500 is STARTER_PLAN_BALANCE_PAISE — the figure the engine actually
+    // grants, and the only one on this page confirmed against a plan row.
+    // ₹2,500 ÷ ₹5.30 ≈ 470 min, so the old "500 minutes" overstated even the
+    // Hindi/English case by ~6% before any regional call was made.
+    balanceInr: 2500,
+    minutes: '~470',
     overageInr: 5.3,
     phoneNumbers: '1 phone number',
     models: 'Selected',
@@ -89,7 +149,7 @@ export const tiers: Tier[] = [
     bullets: [
       'Agent build and configuration included',
       '1 Indian number, telephony included',
-      '500 minutes included, then ₹5.30/min',
+      '₹2,500 of calling included — about 470 min Hindi/English',
       'All Indian languages · 5 concurrent calls',
       'Transcript, recording and outcome on every call',
     ],
@@ -99,7 +159,14 @@ export const tiers: Tier[] = [
     name: 'Growth',
     priceInr: 9999,
     tagline: 'Outbound campaigns and a real call volume.',
-    minutes: '2,200',
+    // ⚠️ UNCONFIRMED. No Growth plan is seeded in echowave — `ensure_seeded`
+    // creates `starter` only. A Growth row can exist, created by an operator
+    // through /superadmin/billing (routes/billing_dashboard.py), but nothing in
+    // either repository proves what balance it grants. Until somebody reads the
+    // row, this page is selling a tier whose entitlement is unverified.
+    // Set balanceInr to that row's balance_paise / 100 the moment it is known.
+    balanceInr: null,
+    minutes: '~2,200',
     overageInr: 4.5,
     phoneNumbers: '3 phone numbers',
     models: 'Selected',
@@ -119,6 +186,7 @@ export const tiers: Tier[] = [
     name: 'Custom',
     priceInr: null,
     tagline: 'Past 2,200 minutes, pricing follows your actual call pattern.',
+    balanceInr: null,
     minutes: 'Set with you',
     overageInr: null,
     phoneNumbers: 'Dedicated number pool',
@@ -143,6 +211,24 @@ export const tiers: Tier[] = [
     note: 'Everything up to ₹9,999 is published above. Past that it genuinely depends on your volume and language mix — so we quote it properly rather than guess at it on a page.',
   },
 ];
+
+/** One label for "what calling the plan includes", used by every surface so
+ *  the qualifier can never be dropped in one place and kept in another.
+ *
+ *  Renders the credit where it is confirmed and the minute estimate always
+ *  attributed to Hindi/English — the two things the old "500 minutes included"
+ *  left out. */
+export function includedCallingLabel(tier: Tier): string {
+  if (tier.balanceInr === null && !/^~/.test(tier.minutes)) return tier.minutes;
+  const approx = `${tier.minutes} min Hindi/English`;
+  return tier.balanceInr === null ? approx : `${formatInr(tier.balanceInr)} · ${approx}`;
+}
+
+/** Why the minute figures are estimates, shown once wherever they are. Not
+ *  small print for its own sake: it is the difference between a Tamil clinic
+ *  feeling misled in week three and knowing what it bought on day one. */
+export const includedCallingCaption =
+  'Plans include call credit, not a fixed minute bundle. Minute figures are for Hindi and English — regional-language calls cost more per minute and use the credit faster.';
 
 /** Starter's QA row reads "Sampled" in the table — this is the one-line
  *  explanation shown as a caption underneath, not a table cell. */

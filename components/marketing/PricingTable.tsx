@@ -5,6 +5,8 @@ import { useState } from 'react';
 import {
   additionalNumberInr,
   formatInr,
+  includedCallingCaption,
+  includedCallingLabel,
   managedTiersLive,
   publishedComparisonCallout,
   starterQaCopy,
@@ -18,7 +20,7 @@ import {
 type Currency = 'inr' | 'usd';
 
 const rows: { label: string; value: (t: Tier) => string }[] = [
-  { label: 'Minutes included', value: (t) => t.minutes },
+  { label: 'Included calling', value: (t) => includedCallingLabel(t) },
   {
     label: 'Overage',
     value: (t) => (t.overageInr === null ? 'Custom' : `₹${t.overageInr.toFixed(2)}/min`),
@@ -76,7 +78,7 @@ export function PricingTable() {
         {tiers.map((tier) => {
           const bullets =
             tier.bullets ?? [
-              `${tier.minutes} minutes included`,
+              includedCallingLabel(tier),
               tier.phoneNumbers,
               `${tier.concurrentCalls} concurrent calls`,
               `${tier.support} support`,
@@ -194,7 +196,8 @@ export function PricingTable() {
         </table>
       </div>
 
-      <p className="t-caption mt-5 text-iron">{starterQaCopy}</p>
+      <p className="t-caption mt-5 text-iron">{includedCallingCaption}</p>
+      <p className="t-caption mt-2 text-iron">{starterQaCopy}</p>
       <p className="t-caption mt-2 text-iron">
         Above Growth, pricing is quoted against your real call pattern — schedule a call for an exact number.
       </p>

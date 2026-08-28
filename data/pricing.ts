@@ -273,6 +273,26 @@ export const bundles: Bundle[] = [
 /** The platform fee the bundle rates above are quoted at. */
 const BUNDLE_RATE_BASIS_FEE_INR = 2.5;
 
+/**
+ * The one per-minute number the site leads with, and the only one it prints
+ * large.
+ *
+ * A minute does not have a single price — that is the whole finding behind the
+ * credit model — so quoting three exact rates on a marketing page invites the
+ * reader to compare the wrong number and anchors them on the dearest one. The
+ * page states a floor with an asterisk instead, and lets the minute *ranges*
+ * carry the spread, which they do honestly without publishing a rate card.
+ *
+ * ₹4.50 is deliberately conservative: the true floor is Everyday on Scale at
+ * ₹4.30/min, so nobody can be charged less than we imply. The exact per-bundle
+ * rates stay in `bundles` because the ranges are computed from them — they are
+ * simply no longer rendered as a table of prices.
+ */
+export const fromRateInr = 4.5;
+
+export const fromRateNote =
+  'From ₹4.50/min on select models. What a minute costs depends on the model and language you choose: your plan sets the credit, the model sets how far it goes.';
+
 export const cheapestBundle = bundles[0];
 export const dearestBundle = bundles[bundles.length - 1];
 

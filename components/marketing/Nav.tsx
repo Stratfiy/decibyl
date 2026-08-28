@@ -253,7 +253,7 @@ function Logo() {
   return (
     <span className="flex items-center gap-2">
       <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-        <rect width="26" height="26" rx="8" fill="#F0431C" />
+        <rect width="26" height="26" rx="8" fill="#E15B53" />
         <rect x="6" y="11" width="2.5" height="4" rx="1.25" fill="white" />
         <rect x="10.5" y="7.5" width="2.5" height="11" rx="1.25" fill="white" />
         <rect x="15" y="9.5" width="2.5" height="7" rx="1.25" fill="white" />

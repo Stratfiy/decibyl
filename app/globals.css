@@ -9,10 +9,18 @@
   --color-iron: #676c77; /* darkened from #8A8F99 — helper text must clear 4.5:1 on canvas */
   --color-line: #e2e4e9;
 
-  /* ---- Brand ---- */
-  --color-vermilion: #f0431c;
-  --color-ember: #ff7a2f;
-  --color-sindoor: #c42d0e;
+  /* ---- Brand ----
+     Moved off the orange family on 28 Aug 2026. Vermilion is the requested
+     #e15b53; sindoor and ember are its dark and light relatives at the same
+     hue, chosen against the contrast floor rather than picked by eye:
+     sindoor clears 5.50:1 on canvas (the orange it replaced managed 5.16),
+     and ember reads 7.44:1 on ink (was 6.70). White on vermilion is 3.61:1,
+     the same deliberate exception the old #f0431c carried at 3.80 — it is
+     the signature of the system, and switching primary buttons to sindoor
+     would take them to 6.00:1 if that trade is ever worth making. */
+  --color-vermilion: #e15b53;
+  --color-ember: #ee9086;
+  --color-sindoor: #ab3f38;
   --color-saffron: #ffb627; /* MONEY ONLY — on dark surfaces */
   --color-saffron-deep: #a85e00; /* MONEY ONLY — same role on light surfaces, readable */
   --color-forest: #146b5a;
@@ -35,7 +43,7 @@
   /* ---- Shadow ---- */
   --shadow-card: rgba(33, 24, 20, 0.06) 0px 2px 40px 0px;
   --shadow-lift: rgba(33, 24, 20, 0.12) 0px 8px 44px 0px;
-  --shadow-warm: rgba(240, 67, 28, 0.18) 0px 10px 40px -8px;
+  --shadow-warm: rgba(225, 91, 83, 0.18) 0px 10px 40px -8px;
 
   /* ---- Type ---- */
   --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
@@ -51,9 +59,9 @@
 }
 
 :root {
-  --gradient-hero: linear-gradient(96deg, #f0431c 0%, #ff7a2f 55%, #ffb627 100%);
-  --gradient-panel: linear-gradient(150deg, #c42d0e 0%, #f0431c 100%);
-  --gradient-glow: radial-gradient(60% 60% at 50% 0%, rgba(240, 67, 28, 0.18), transparent 70%);
+  --gradient-hero: linear-gradient(96deg, #e15b53 0%, #ee9086 55%, #ffb627 100%);
+  --gradient-panel: linear-gradient(150deg, #ab3f38 0%, #e15b53 100%);
+  --gradient-glow: radial-gradient(60% 60% at 50% 0%, rgba(225, 91, 83, 0.18), transparent 70%);
   --glass-bg: rgba(255, 255, 255, 0.62);
   --glass-border: rgba(255, 255, 255, 0.85);
   --glass-blur: 18px;

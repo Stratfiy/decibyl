@@ -11,6 +11,8 @@ import {
   cheapestBundle,
   dearestBundle,
   formatInr,
+  fromRateInr,
+  fromRateNote,
   payAsYouGoMinRateInr,
 } from '@/data/pricing';
 import { pricingFaqs } from '@/data/faqs';
@@ -46,6 +48,9 @@ export default function PricingPage() {
               included, not itemised extras. Pay-as-you-go starts at{' '}
               {formatInr(payAsYouGoMinRateInr)}/min with no commitment; BYOK is for teams who want
               to pay providers directly.
+            </p>
+            <p className="t-caption mt-4 text-iron">
+              Calling from ₹{fromRateInr.toFixed(2)}/min on select models.
             </p>
             <p className="t-caption mt-4 text-iron">
               Additional numbers {formatInr(additionalNumberInr)}/month each — every plan includes
@@ -84,21 +89,18 @@ export default function PricingPage() {
                   <span className="t-eyebrow text-sindoor">Start here</span>
                 ) : null}
               </div>
-              <p className="t-h2 mt-3 text-[1.75rem]">
-                ₹{b.perMinuteInr.toFixed(2)}
-                <span className="t-data ml-1 font-normal text-slate">/min</span>
-              </p>
               <p className="mt-3 text-[0.9375rem] text-slate">{b.blurb}</p>
             </div>
           ))}
         </div>
         <p className="t-caption mt-6 text-iron">
-          Rates shown at Starter&rsquo;s platform fee and exclusive of GST; Growth and Scale are
-          ₹0.50 and ₹1.00 a minute cheaper on every bundle, because the platform fee is what the
-          ladder discounts. {cheapestBundle.label} is the best option we have on Indian languages
-          as well as the cheapest — {dearestBundle.label} is for when speech quality is genuinely
-          the deciding factor.
+          {cheapestBundle.label} is the best option we have on Indian languages as well as the
+          cheapest a minute, so it is where almost everyone should start.{' '}
+          {dearestBundle.label} is for when speech quality is genuinely the deciding factor — it
+          is several times the price a minute, which is why the included-calling figures above are
+          a range rather than one number.
         </p>
+        <p className="t-caption mt-2 text-iron">{fromRateNote}</p>
       </Section>
 
       {/* Pay-as-you-go — no commitment, rate improves with the top-up size */}

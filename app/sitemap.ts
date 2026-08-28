@@ -3,15 +3,28 @@ import { siteUrl } from '@/lib/site';
 import { topLevelVerticals, clinicSubVerticals } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
 import { blogPosts } from '@/data/blog';
+import { competitorsUpdatedAt, lastModified, verticalsUpdatedAt } from '@/data/pageDates';
 
+/**
+ * Every date here is a real edit date, not the build time.
+ *
+ * This file used to set `lastModified: now` on all 31 non-blog URLs, so every
+ * deploy told Google the whole site had just changed. A sitemap that always
+ * claims everything is fresh says nothing, and the pages that genuinely did
+ * change lose the signal they should have carried. Dates now come from
+ * `data/pageDates.ts`, which is regenerated from git with `npm run dates`.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
-  const staticPaths: { path: string; priority: number; freq: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
+  const staticPaths: {
+    path: string;
+    priority: number;
+    freq: MetadataRoute.Sitemap[number]['changeFrequency'];
+  }[] = [
     { path: '/', priority: 1, freq: 'weekly' },
     { path: '/pricing', priority: 0.9, freq: 'weekly' },
     { path: '/how-it-works', priority: 0.8, freq: 'monthly' },
     { path: '/solutions', priority: 0.8, freq: 'monthly' },
+    { path: '/compare', priority: 0.85, freq: 'monthly' },
     { path: '/case-studies', priority: 0.6, freq: 'monthly' },
     { path: '/security', priority: 0.6, freq: 'monthly' },
     { path: '/developers', priority: 0.7, freq: 'monthly' },
@@ -29,31 +42,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticPaths.map((p) => ({
       url: `${siteUrl}${p.path}`,
-      lastModified: now,
+      lastModified: lastModified(p.path),
       changeFrequency: p.freq,
       priority: p.priority,
     })),
+    // Vertical pages all render from data/verticals.ts, so they move when it does.
     ...topLevelVerticals.map((v) => ({
       url: `${siteUrl}/solutions/${v.slug}`,
-      lastModified: now,
+      lastModified: new Date(verticalsUpdatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.9,
     })),
     ...clinicSubVerticals.map((v) => ({
       url: `${siteUrl}/solutions/clinics/${v.slug}`,
-      lastModified: now,
+      lastModified: new Date(verticalsUpdatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
     ...competitors.map((c) => ({
       url: `${siteUrl}/compare/${c.slug}`,
-      lastModified: now,
+      lastModified: new Date(competitorsUpdatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
     ...blogPosts.map((p) => ({
       url: `${siteUrl}/blog/${p.slug}`,
-      lastModified: new Date(p.publishedAt),
+      lastModified: new Date(p.updatedAt ?? p.publishedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.65,
     })),

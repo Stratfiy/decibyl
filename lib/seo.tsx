@@ -121,6 +121,8 @@ export function articleSchema(input: {
   description: string;
   path: string;
   publishedAt: string;
+  /** Only when the post genuinely changed — see BlogPostMeta.updatedAt. */
+  updatedAt?: string;
   category: string;
 }) {
   return {
@@ -129,7 +131,7 @@ export function articleSchema(input: {
     headline: input.title,
     description: input.description,
     datePublished: input.publishedAt,
-    dateModified: input.publishedAt,
+    dateModified: input.updatedAt ?? input.publishedAt,
     articleSection: input.category,
     author: { '@type': 'Organization', name: site.legalName },
     publisher: { '@type': 'Organization', name: site.name },

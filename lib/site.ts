@@ -84,5 +84,5 @@ export const nav = [
   { label: 'Solutions', href: '/solutions/clinics' },
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'Compare', href: '/compare/vapi' },
+  { label: 'Compare', href: '/compare' },
 ];

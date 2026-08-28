@@ -92,6 +92,7 @@ export function Footer() {
           </FooterCol>
 
           <FooterCol title="Compare & legal">
+            <FooterLink href="/compare">All platforms compared</FooterLink>
             {competitors.map((c) => (
               <FooterLink key={c.slug} href={`/compare/${c.slug}`}>
                 vs {c.name}

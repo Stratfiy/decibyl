@@ -102,9 +102,11 @@ then add `<Analytics />` from `@vercel/analytics/next` to `app/layout.tsx`.
 
 ### 6 · Verify the deploy
 
-- [ ] `https://decibyl.ai/sitemap.xml` lists all 23 routes
-- [ ] `https://decibyl.ai/robots.txt` points at the sitemap
-- [ ] Submit the sitemap in Google Search Console
+- [ ] `https://decibyl.ai/sitemap.xml` lists all 57 routes
+- [ ] `https://decibyl.ai/robots.txt` points at the sitemap, and allows `/api/og`
+- [ ] `https://decibyl.ai/feed.xml` lists every blog post
+- [ ] Search Console: verify the domain property and submit the sitemap — the full
+      runbook, and what to do for the twelve weeks after, is in [`SEO.md`](SEO.md)
 - [ ] Submit a test lead on `/book-a-demo` and confirm the row lands in Supabase → **Table
       Editor → leads**
 - [ ] `curl -I https://decibyl.ai/` returns `x-vercel-cache` and `200`
@@ -256,6 +258,16 @@ Gujarati. IBM ships a Plex Tamil cut but Google Fonts doesn't serve it, so Tamil
    deliberately conservative — anything not provable from the brief is marked `coming`. An
    unmarked logo you can't deliver costs you the deal and the referral.
 4. **Sample calls are labelled as illustrations**, not as recordings of real customer calls.
+
+---
+
+## Search and distribution
+
+Every technical SEO signal this site ships — canonicals, the 57-URL sitemap, the schema
+graph, `llms.txt`, the RSS feed, preview-deploy exclusion — is listed with its source file
+in [`SEO.md`](SEO.md), along with the Google Search Console setup and the monthly loop that
+actually moves impressions. Read it before adding pages: the programmatic routes only earn
+their keep if each one says something its siblings don't.
 
 ---
 

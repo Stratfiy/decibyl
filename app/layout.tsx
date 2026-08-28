@@ -15,7 +15,7 @@ import './globals.css';
 import { Nav } from '@/components/marketing/Nav';
 import { Footer } from '@/components/marketing/Footer';
 import { site, siteUrl } from '@/lib/site';
-import { JsonLd, organizationSchema, softwareApplicationSchema } from '@/lib/seo';
+import { JsonLd, organizationSchema, softwareApplicationSchema, webSiteSchema } from '@/lib/seo';
 
 /* Self-hosted via next/font — no render-blocking font CDN, no CLS on load. */
 
@@ -104,6 +104,11 @@ export const metadata: Metadata = {
   applicationName: site.name,
   authors: [{ name: site.legalName }],
   robots: { index: true, follow: true },
+  // Advertises the blog feed on every page, which is where feed readers and
+  // aggregators look for it — a feed nothing links to is a feed nobody finds.
+  alternates: {
+    types: { 'application/rss+xml': [{ url: '/feed.xml', title: `${site.name} Blog` }] },
+  },
   icons: {
     icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
   },
@@ -149,7 +154,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main id="main">{children}</main>
         <Footer />
-        <JsonLd data={[organizationSchema(), softwareApplicationSchema()]} />
+        <JsonLd data={[organizationSchema(), webSiteSchema(), softwareApplicationSchema()]} />
         {/* "Try us now" live voice widget — loaded after the page is
             interactive so it never blocks first paint or LCP. */}
         <Script

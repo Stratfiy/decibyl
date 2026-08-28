@@ -13,7 +13,6 @@ import {
   formatInr,
   fromRateInr,
   fromRateNote,
-  payAsYouGoMinRateInr,
 } from '@/data/pricing';
 import { pricingFaqs } from '@/data/faqs';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
@@ -21,7 +20,7 @@ import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Pricing — Voice AI in India, in Rupees',
   description:
-    'Managed plans from ₹2,999/month with telephony included, pay-as-you-go starting at ₹5.30/min, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
+    'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, pay-as-you-go credit with no commitment, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
   path: '/pricing',
   keywords: [
     'voice AI pricing India',
@@ -45,12 +44,12 @@ export default function PricingPage() {
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
               Most platforms quote a rate. Here&rsquo;s what the rate has to cover: the number, the
               telephony, the agent build, QA scoring on every call, and India data residency —
-              included, not itemised extras. Pay-as-you-go starts at{' '}
-              {formatInr(payAsYouGoMinRateInr)}/min with no commitment; BYOK is for teams who want
-              to pay providers directly.
+              included, not itemised extras. Pay-as-you-go credit is below if you would rather not
+              commit to a plan, and BYOK is for teams who want to pay providers directly.
             </p>
             <p className="t-caption mt-4 text-iron">
-              Calling from ₹{fromRateInr.toFixed(2)}/min on select models.
+              Three voice bundles — Everyday, Natural and Premium — starting at ₹
+              {fromRateInr.toFixed(2)}/min.
             </p>
             <p className="t-caption mt-4 text-iron">
               Additional numbers {formatInr(additionalNumberInr)}/month each — every plan includes
@@ -70,8 +69,8 @@ export default function PricingPage() {
       <Section surface="white" ariaLabel="Voice bundles">
         <SectionHead
           eyebrow="What sets the rate"
-          title="Three voices, and a five-to-one spread between them"
-          sub="Your plan decides how much credit you get. The voice you pick decides how far it goes. This is the single biggest factor in your bill, so it is on the price page rather than buried in the product."
+          title="Three voices to build your agent on"
+          sub="Your plan decides how much credit you get. The voice you pick decides how far it goes — it is the single biggest factor in your bill, so it is on the price page rather than buried in the product."
         />
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {bundles.map((b) => (
@@ -94,13 +93,12 @@ export default function PricingPage() {
           ))}
         </div>
         <p className="t-caption mt-6 text-iron">
-          {cheapestBundle.label} is the best option we have on Indian languages as well as the
-          cheapest a minute, so it is where almost everyone should start.{' '}
-          {dearestBundle.label} is for when speech quality is genuinely the deciding factor — it
-          is several times the price a minute, which is why the included-calling figures above are
-          a range rather than one number.
+          {cheapestBundle.label} is where almost everyone should start — it is the best option we
+          have on Indian languages as well as the cheapest a minute. {dearestBundle.label} is for
+          when speech quality is genuinely the deciding factor, and costs several times as much a
+          minute, which is why the included-calling figures above are a range rather than one
+          number. {fromRateNote}
         </p>
-        <p className="t-caption mt-2 text-iron">{fromRateNote}</p>
       </Section>
 
       {/* Pay-as-you-go — no commitment, rate improves with the top-up size */}

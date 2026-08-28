@@ -70,25 +70,26 @@ export const site = {
    * Where the company operates from, for the footer and the `PostalAddress` in
    * the Organization schema.
    *
-   * Locality only, by decision on 28 Aug 2026 — a street and a postcode are
-   * not going on a public marketing site. That is enough for the two jobs this
-   * field does here: it gives search engines a place to associate the entity
-   * with, which an India-first company selling to Indian buyers wants, and it
-   * tells a visitor where we actually are.
+   * The full registered address, confirmed 28 Aug 2026. It satisfies the
+   * GST-registered entity's obligation to display it, and it is the strongest
+   * local signal available to a company nobody has heard of yet: a complete
+   * PostalAddress with a locality, a region and a postcode is what associates
+   * the entity with a real place.
    *
-   * `street` and `postalCode` stay in the type as optional. A GST-registered
-   * entity does have to show its full registered address somewhere, and when
-   * that goes up it belongs here rather than in a second copy — see
-   * OPEN-ITEMS.md #4.
+   * Every part is optional in the type and the schema omits whatever is
+   * absent, so a future change of address is one edit here and nowhere else.
    */
   registeredAddress: {
+    street: 'No. 86/18, Brindhavan Nagar',
     locality: 'Hosur',
-    region: null,
+    // Hosur 635109 is in Krishnagiri district, Tamil Nadu. Stated because a
+    // PostalAddress without a region is weaker for local search, and because
+    // an Indian reader expects the state on a registered address.
+    region: 'Tamil Nadu',
+    postalCode: '635109',
     country: 'India',
     /** ISO 3166-1 alpha-2, for schema.org. */
     countryCode: 'IN',
-    street: null,
-    postalCode: null,
   } as {
     locality: string;
     region: string | null;

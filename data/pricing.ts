@@ -230,17 +230,13 @@ export const tiers: Tier[] = [
  * fee, the models, and carriage. A tier with a lower platform fee subtracts
  * the difference; see `bundleRateInr`.
  *
- * Sources, all from the product repo rather than assumed here:
- *   Natural  ₹9.37/min  · Premium ₹25.79/min — LAUNCH-CHECKLIST.md §3.2,
- *     measured against the seeded price book at ₹96/USD with Plivo carriage.
- *   Everyday ₹5.30/min  — the rate this site has published since 13 Aug.
- *
- * ⚠️ Everyday is the least certain of the three. §3.2 lists the Sarvam pipeline
- * at ₹8.30/min, but that table assumes 2,300 synthesis characters a minute, and
- * the product has since derived the real figure from `CallShape` at ~405 —
- * the old number was about six times human speech and roughly doubled the
- * Everyday quote. ₹5.30 sits between the two and is already public. Settle it
- * with `scripts/pricing/measure.sql` §1 rather than by argument.
+ * Sources:
+ *   Everyday ₹4.91/min — the full Sarvam bundle, confirmed 28 Aug 2026. This
+ *     supersedes the ₹5.30 the site carried since 13 Aug, and the ₹8.30 in
+ *     LAUNCH-CHECKLIST.md §3.2, which assumed 2,300 synthesis characters a
+ *     minute where the product now derives about 405 from `CallShape`.
+ *   Natural ₹9.37/min · Premium ₹25.79/min — §3.2, measured against the
+ *     seeded price book at ₹96/USD with Plivo carriage.
  */
 export type Bundle = {
   slug: string;
@@ -253,8 +249,8 @@ export const bundles: Bundle[] = [
   {
     slug: 'everyday',
     label: 'Everyday',
-    blurb: 'Best on Indian languages, and the cheapest to run.',
-    perMinuteInr: 5.3,
+    blurb: 'The full Sarvam stack — best on Indian languages, and the cheapest to run.',
+    perMinuteInr: 4.91,
   },
   {
     slug: 'natural',
@@ -270,9 +266,6 @@ export const bundles: Bundle[] = [
   },
 ];
 
-/** The platform fee the bundle rates above are quoted at. */
-const BUNDLE_RATE_BASIS_FEE_INR = 2.5;
-
 /**
  * The one per-minute number the site leads with, and the only one it prints
  * large.
@@ -283,36 +276,32 @@ const BUNDLE_RATE_BASIS_FEE_INR = 2.5;
  * page states a floor with an asterisk instead, and lets the minute *ranges*
  * carry the spread, which they do honestly without publishing a rate card.
  *
- * ₹4.50 is deliberately conservative: the true floor is Everyday on Scale at
- * ₹4.30/min, so nobody can be charged less than we imply. The exact per-bundle
- * rates stay in `bundles` because the ranges are computed from them — they are
- * simply no longer rendered as a table of prices.
+ * ₹4.91 is Everyday, the full Sarvam stack — the cheapest bundle at its own
+ * published rate. Growth and Scale carry a lower per-minute platform fee and
+ * so run below it, which is why this reads "starting at" rather than "from a
+ * flat".
  */
-export const fromRateInr = 4.5;
+export const fromRateInr = 4.91;
 
 export const fromRateNote =
-  'From ₹4.50/min on select models. What a minute costs depends on the model and language you choose: your plan sets the credit, the model sets how far it goes.';
+  'Everyday · Natural · Premium — starting at ₹4.91/min. Which one you pick decides how far your credit goes.';
 
 export const cheapestBundle = bundles[0];
 export const dearestBundle = bundles[bundles.length - 1];
 
-/** What a minute on `bundle` costs an account on `tier`.
- *
- *  The platform fee is an additive line on every call, so a tier that charges
- *  ₹1.50 rather than ₹2.50 makes every bundle exactly ₹1.00 a minute cheaper.
- *  That is the whole of what the ladder discounts — see `platformFeeInr`. */
-export function bundleRateInr(tier: Tier, bundle: Bundle): number | null {
-  if (tier.platformFeeInr === null) return null;
-  return bundle.perMinuteInr - (BUNDLE_RATE_BASIS_FEE_INR - tier.platformFeeInr);
-}
-
 /** Roughly how many minutes a tier's credit buys on `bundle`. An estimate to
  *  show, never an entitlement to bill against — the same words the product's
- *  own `/agent-options/minutes` endpoint uses about its version of this. */
+ *  own `/agent-options/minutes` endpoint uses about its version of this.
+ *
+ *  Computed at the bundle's base rate for every tier, deliberately. Growth and
+ *  Scale carry a lower per-minute platform fee, so they genuinely go further
+ *  than these figures — but publishing a rate per tier per bundle is a rate
+ *  card, and the page is not trying to be one. Understating is the safe
+ *  direction; a customer finding they got more minutes than the page implied
+ *  has never once complained. */
 export function approximateMinutes(tier: Tier, bundle: Bundle): number | null {
-  const rate = bundleRateInr(tier, bundle);
-  if (rate === null || tier.balanceInr === null || rate <= 0) return null;
-  return Math.round(tier.balanceInr / rate);
+  if (tier.balanceInr === null || bundle.perMinuteInr <= 0) return null;
+  return Math.round(tier.balanceInr / bundle.perMinuteInr);
 }
 
 function roundToTen(value: number): number {

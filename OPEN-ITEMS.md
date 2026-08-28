@@ -57,6 +57,13 @@ the featured tier. **Read the plan row and tell me its `balance_paise`**; I will
 `tiers[1].balanceInr` and the minute estimate follows from it. Until then the site is
 selling a tier whose entitlement nobody has checked.
 
+**R3 · Everyday's rate is settled at ₹4.91/min** — the full Sarvam bundle, confirmed 28 Aug 2026.
+This supersedes both the ₹5.30 the site carried from 13 Aug and the ₹8.30 in echowave
+`LAUNCH-CHECKLIST.md` §3.2, which assumed 2,300 synthesis characters a minute where the product
+now derives about 405 from `CallShape`. Natural (₹9.37) and Premium (₹25.79) are still §3.2's
+measured figures and have not been re-checked against the same correction — worth confirming,
+since they set the low end of every minute range on the site.
+
 **R2 · The USD rate is still low.** ₹96 matches the engine, but echowave
 `REMAINING-WORK.md` A2 puts the real rate near ₹104 and calls ₹96 "roughly 8% light on
 every charge". Both need to move together — a display rate that disagrees with the
@@ -100,16 +107,13 @@ waitlist.
 **Hosur, India**, and the footer, the `Organization` schema's `PostalAddress`, and `llms.txt`
 all read from it.
 
-**Locality only, by decision.** No street and no postcode go on the public site. That is enough
-for what the field does here — it associates the entity with a place, which an India-first
-company selling to Indian buyers wants, and it tells a visitor where we are. `street` and
-`postalCode` remain in the type as optional, and the schema omits any part that is absent rather
-than emitting an empty field.
+The full registered address is now published — No. 86/18, Brindhavan Nagar, Hosur 635109, Tamil
+Nadu, India — which closes the GST display obligation as well as the SEO gap. Every part is
+optional in the type and the schema omits whatever is absent, so a change of address is one edit
+in `lib/site.ts` and nowhere else.
 
-**Still genuinely open:** a GST-registered entity has to show its full registered address
-somewhere. That is a legal question, not a design one. When it goes up, set the two remaining
-fields here rather than writing the address into a page — everything already reads from this
-object. Worth putting to the same lawyer who reviews the legal pages (#5).
+Tamil Nadu was added rather than supplied: Hosur 635109 is in Krishnagiri district. Correct it if
+the registered entity records a different state.
 
 ### 5 · Legal pages need a lawyer's eye
 

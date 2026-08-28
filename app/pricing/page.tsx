@@ -4,7 +4,15 @@ import { PricingTable } from '@/components/marketing/PricingTable';
 import { PayAsYouGo } from '@/components/marketing/PayAsYouGo';
 import { FaqList } from '@/components/marketing/Faq';
 import { FinalCta } from '@/components/marketing/Blocks';
-import { additionalNumberInr, byok, formatInr, payAsYouGoMinRateInr } from '@/data/pricing';
+import {
+  additionalNumberInr,
+  bundles,
+  byok,
+  cheapestBundle,
+  dearestBundle,
+  formatInr,
+  payAsYouGoMinRateInr,
+} from '@/data/pricing';
 import { pricingFaqs } from '@/data/faqs';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
@@ -41,7 +49,7 @@ export default function PricingPage() {
             </p>
             <p className="t-caption mt-4 text-iron">
               Additional numbers {formatInr(additionalNumberInr)}/month each — every plan includes
-              one number with telephony.
+              at least one number with telephony.
             </p>
           </div>
         </Container>
@@ -49,6 +57,48 @@ export default function PricingPage() {
 
       <Section surface="canvas" className="pt-0" ariaLabel="Plans">
         <PricingTable />
+      </Section>
+
+      {/* The bundles. This is the half of the pricing story that makes the
+          minute range on the table above legible: the plan sets the credit,
+          the bundle sets how fast it is spent. */}
+      <Section surface="white" ariaLabel="Voice bundles">
+        <SectionHead
+          eyebrow="What sets the rate"
+          title="Three voices, and a five-to-one spread between them"
+          sub="Your plan decides how much credit you get. The voice you pick decides how far it goes. This is the single biggest factor in your bill, so it is on the price page rather than buried in the product."
+        />
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {bundles.map((b) => (
+            <div
+              key={b.slug}
+              className={`rounded-card p-7 ${
+                b.slug === cheapestBundle.slug
+                  ? 'border-2 border-sindoor bg-snow'
+                  : 'border border-line bg-snow'
+              }`}
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <p className="font-display text-[1.15rem] font-bold">{b.label}</p>
+                {b.slug === cheapestBundle.slug ? (
+                  <span className="t-eyebrow text-sindoor">Start here</span>
+                ) : null}
+              </div>
+              <p className="t-h2 mt-3 text-[1.75rem]">
+                ₹{b.perMinuteInr.toFixed(2)}
+                <span className="t-data ml-1 font-normal text-slate">/min</span>
+              </p>
+              <p className="mt-3 text-[0.9375rem] text-slate">{b.blurb}</p>
+            </div>
+          ))}
+        </div>
+        <p className="t-caption mt-6 text-iron">
+          Rates shown at Starter&rsquo;s platform fee and exclusive of GST; Growth and Scale are
+          ₹0.50 and ₹1.00 a minute cheaper on every bundle, because the platform fee is what the
+          ladder discounts. {cheapestBundle.label} is the best option we have on Indian languages
+          as well as the cheapest — {dearestBundle.label} is for when speech quality is genuinely
+          the deciding factor.
+        </p>
       </Section>
 
       {/* Pay-as-you-go — no commitment, rate improves with the top-up size */}

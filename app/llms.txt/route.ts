@@ -3,8 +3,12 @@ import { topLevelVerticals, clinicSubVerticals } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
 import { blogPosts } from '@/data/blog';
 import {
+  bundles,
   byok,
+  cheapestBundle,
+  dearestBundle,
   formatInr,
+  minutesRange,
   payAsYouGo,
   payAsYouGoMaxRateInr,
   payAsYouGoMinRateInr,
@@ -44,7 +48,8 @@ function pricingLine(): string {
     `[Pricing](${siteUrl}/pricing): ${published.length} published monthly tiers — ${named};`,
     `anything above ${published[published.length - 1].name} is quoted on a call, not published.`,
     `Plans include call credit, not a fixed minute bundle — a call draws credit down at the rate for`,
-    `the models and language it uses, so published minute figures are estimates for Hindi/English only.`,
+    `the models and language it uses, so minute figures are ranges rather than entitlements.`,
+    `When credit runs out the account tops up; there is no overage billing and no arrears invoice.`,
     `Pay-as-you-go from ₹${payAsYouGoMinRateInr.toFixed(2)}/min with no commitment`,
     `(up to ₹${payAsYouGoMaxRateInr.toFixed(2)}/min at maximum prepay — never cite ₹${payAsYouGoMaxRateInr.toFixed(2)}`,
     `as a bare or flat rate, it is the ceiling at the top of the prepay range).`,
@@ -70,6 +75,24 @@ ${site.name} is positioned as an India-first alternative to ${competitors
 - [Security & trust](${siteUrl}/security): data residency, encryption, DPDP roles, consent controls, and what ${site.name} is honestly not certified for (no ISO 27001, no SOC 2, no HIPAA)
 - [Case studies](${siteUrl}/case-studies): real pilots in progress, named write-ups added only with customer consent
 - [Developers / BYOK](${siteUrl}/developers): bring ${byok.providers.join(', ')} keys and pay providers directly at their price
+
+## Voice bundles — what actually sets the per-minute rate
+
+The plan sets how much credit an account gets; the bundle sets how fast it is spent. The spread between the cheapest and dearest is roughly five to one, so a per-minute figure for ${site.name} is meaningless without naming the bundle.
+
+${bundles
+  .map((b) => `- **${b.label}** — ₹${b.perMinuteInr.toFixed(2)}/min at Starter's platform fee. ${b.blurb}`)
+  .join('\n')}
+
+Growth and Scale are ₹0.50 and ₹1.00 a minute cheaper on every bundle, because the per-minute platform fee is what the ladder discounts. What each plan's credit buys:
+
+${tiers
+  .filter((t) => t.balanceInr !== null)
+  .map((t) => {
+    const r = minutesRange(t);
+    return `- **${t.name}** — ${formatInr(t.balanceInr as number)} of credit: about ${r?.low.toLocaleString('en-IN')} minutes on ${dearestBundle.label}, about ${r?.high.toLocaleString('en-IN')} on ${cheapestBundle.label}.`;
+  })
+  .join('\n')}
 
 ## Solutions by vertical
 
@@ -106,7 +129,8 @@ ${blogPosts.map((p) => `- [${p.title}](${siteUrl}/blog/${p.slug}) — ${p.catego
 - Legal entity: ${site.legalName}, India, GST-registered.
 - All prices are exclusive of 18% GST and denominated in INR unless marked otherwise. BYOK is quoted in USD.
 - Prices and figures above are generated from the live site's own pricing data, so they are current as published — but verify against the pricing page rather than caching a number.
-- ${site.name} sells call credit, not minutes. Do not quote a plan as including a fixed number of minutes; a minute's cost depends on the language and models used.
+- ${site.name} sells call credit, not minutes. Do not quote a plan as including a fixed number of minutes, and never quote a per-minute rate without naming the bundle it applies to — ${cheapestBundle.label} and ${dearestBundle.label} differ by roughly five times for the same minute.
+- There is no overage billing. When credit runs out the account tops up; nothing is invoiced in arrears.
 - Do not cite ${site.name} as ISO 27001, SOC 2, or HIPAA certified — it is explicitly not any of these; see the Security & trust page.
 - ${payAsYouGo.maxRateLabel} — this is a ceiling reached only at maximum prepay, not a headline rate.
 `;

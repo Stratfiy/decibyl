@@ -60,7 +60,10 @@ export default function TermsPage() {
             credit down at the rate for the models and language used, and unused credit does not
             carry over to the next month.
           </li>
-          <li>Overage, where applicable, is billed in arrears at the rate in your order form.</li>
+          <li>
+            There is no overage billing. When a plan&rsquo;s credit is exhausted, calling continues
+            only against credit you add; nothing is billed in arrears.
+          </li>
           <li>On BYOK you pay your model and speech providers directly, at their price.</li>
         </ul>
       </LegalSection>

@@ -4,10 +4,13 @@ import Link from 'next/link';
 import { useState } from 'react';
 import {
   additionalNumberInr,
+  bundleRateInr,
+  bundles,
   formatInr,
   includedCallingCaption,
   includedCallingLabel,
   managedTiersLive,
+  outOfCreditCopy,
   publishedComparisonCallout,
   starterQaCopy,
   tierPrice,
@@ -21,10 +24,17 @@ type Currency = 'inr' | 'usd';
 
 const rows: { label: string; value: (t: Tier) => string }[] = [
   { label: 'Included calling', value: (t) => includedCallingLabel(t) },
-  {
-    label: 'Overage',
-    value: (t) => (t.overageInr === null ? 'Custom' : `₹${t.overageInr.toFixed(2)}/min`),
-  },
+  // One row per bundle, because the bundle is what actually sets the rate —
+  // a single "per minute" row was the fiction that made the old minute
+  // bundle unsayable in the first place.
+  ...bundles.map((b) => ({
+    label: `${b.label} — per minute`,
+    value: (t: Tier) => {
+      const rate = bundleRateInr(t, b);
+      return rate === null ? 'Quoted' : `₹${rate.toFixed(2)}`;
+    },
+  })),
+  { label: 'When credit runs out', value: () => 'Top up — no overage bill' },
   { label: 'Telephony', value: () => 'Included' },
   { label: 'Phone number', value: (t) => t.phoneNumbers },
   { label: 'Additional number', value: () => `${formatInr(additionalNumberInr)}/mo each` },
@@ -197,6 +207,7 @@ export function PricingTable() {
       </div>
 
       <p className="t-caption mt-5 text-iron">{includedCallingCaption}</p>
+      <p className="t-caption mt-2 text-iron">{outOfCreditCopy}</p>
       <p className="t-caption mt-2 text-iron">{starterQaCopy}</p>
       <p className="t-caption mt-2 text-iron">
         Above Growth, pricing is quoted against your real call pattern — schedule a call for an exact number.

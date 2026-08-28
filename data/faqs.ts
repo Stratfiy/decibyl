@@ -57,12 +57,16 @@ export const pricingFaqs: Faq[] = [
     a: 'Connected call time, billed on the actual duration of calls the agent handles. Ringing time is not billed.',
   },
   {
-    q: 'What happens when my included calling runs out?',
-    a: 'Your plan includes call credit rather than a fixed minute bundle, and calls draw it down as they happen. Once it is used, calling continues at ₹5.30/min on Starter and ₹4.50/min on Growth. Above Growth it is quoted against your actual volume. Credit does not carry into the next month.',
+    q: 'What happens when my included credit runs out?',
+    a: 'You top up, and calling continues. Credit is added instantly, and there is no overage bill and no invoice at the end of the month — calling simply draws on the credit you have, so you can never be billed for a month you did not intend to spend. Unused plan credit does not carry into the next billing month.',
   },
   {
-    q: 'Why do you quote credit instead of a flat number of minutes?',
-    a: 'Because a minute is not one price. What a call costs depends on the language, the models it uses and how many turns it takes — a Tamil call costs more per minute than a Hindi or English one. Quoting credit means the number on your invoice matches the number on this page. The minute figures here are estimates for Hindi and English, and we say so rather than quoting a bundle we would have to qualify later.',
+    q: 'Why is the included calling shown as a range of minutes?',
+    a: 'Because a minute is not one price, and the biggest factor is which voice you choose. Everyday runs an Indic-optimised pipeline and is the cheapest a minute. Natural and Premium are speech-to-speech models that reply the instant you stop talking, and Premium — the most capable speech model available — costs around five times what Everyday does for the same minute. Regional languages also cost more than Hindi or English on any bundle. The range shows the dearest and cheapest ends so you can see the real spread before you pick.',
+  },
+  {
+    q: 'Which voice bundle should I start on?',
+    a: 'Everyday, for almost everyone. It is the best option we have on Indian languages and the cheapest to run, so it gives you the most calling for the same credit. Move to Natural if the pause before the agent replies matters for your use case, and to Premium only when speech quality is genuinely the deciding factor — at its rate a Starter plan buys around a hundred minutes rather than several hundred.',
   },
   {
     q: 'How much does an additional phone number cost?',

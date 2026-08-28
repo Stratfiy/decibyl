@@ -144,7 +144,7 @@ export function IndianOps() {
 /* ───────────────────────────── Pricing preview ───────────────────────────── */
 
 export function PricingPreview() {
-  const preview = tiers.filter((t) => t.id === 'starter' || t.id === 'growth');
+  const preview = tiers.filter((t) => t.priceInr !== null);
 
   return (
     <div>
@@ -154,7 +154,7 @@ export function PricingPreview() {
         sub="Telephony and phone numbers included. No markup on model costs — we charge a platform fee and show the provider cost separately."
       />
 
-      <div className="mt-10 grid gap-5 md:grid-cols-2">
+      <div className="mt-10 grid gap-5 md:grid-cols-3">
         {preview.map((tier, i) => (
           <Reveal key={tier.id} delay={i * 100} className="rounded-card border border-line bg-snow p-8">
             <p className="t-eyebrow text-sindoor">{tier.name}</p>

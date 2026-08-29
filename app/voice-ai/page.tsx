@@ -8,9 +8,9 @@ import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Voice AI in Indian Languages',
+  title: 'Multilingual AI Voice Agents for Indian Languages',
   description:
-    'Voice agents in Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati and Indian English — code-mixed by default, on an Indic speech stack. What is genuinely hard about each, and what we do about it.',
+    'Multilingual AI voice agents in Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati and Indian English—built for code-mixed business calls in India.',
   path: '/voice-ai',
   keywords: [
     'Indian language voice AI',
@@ -45,7 +45,7 @@ export default function LanguageHub() {
             </nav>
 
             <h1 className="t-display mt-6 max-w-4xl text-balance">
-              Seven Indian languages, and what is genuinely hard about each
+              Multilingual AI voice agents for Indian languages
             </h1>
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
               Most platforms list Indian languages as a checkbox. The interesting question is not

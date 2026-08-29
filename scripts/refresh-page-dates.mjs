@@ -38,6 +38,7 @@ const ROUTES = {
   '/pricing': ['app/pricing/page.tsx', 'components/marketing/PricingTable.tsx', 'components/marketing/PayAsYouGo.tsx', 'data/pricing.ts', 'data/faqs.ts'],
   '/how-it-works': ['app/how-it-works/page.tsx', 'data/integrations.ts', 'data/languages.ts'],
   '/solutions': ['app/solutions/page.tsx', 'data/verticals.ts'],
+  '/use-cases': ['app/use-cases/page.tsx', 'app/use-cases/[useCase]/page.tsx', 'data/useCases.ts'],
   '/case-studies': ['app/case-studies/page.tsx', 'data/caseStudies.ts'],
   '/security': ['app/security/page.tsx', 'data/security.ts'],
   '/developers': ['app/developers/page.tsx', 'data/pricing.ts'],

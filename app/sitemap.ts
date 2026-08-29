@@ -5,6 +5,7 @@ import { competitors } from '@/data/competitors';
 import { blogPosts } from '@/data/blog';
 import { cities } from '@/data/cities';
 import { languagePages, languageSlug } from '@/data/languagePages';
+import { useCases } from '@/data/useCases';
 import {
   citiesUpdatedAt,
   competitorsUpdatedAt,
@@ -32,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/pricing', priority: 0.9, freq: 'weekly' },
     { path: '/how-it-works', priority: 0.8, freq: 'monthly' },
     { path: '/solutions', priority: 0.8, freq: 'monthly' },
+    { path: '/use-cases', priority: 0.85, freq: 'monthly' },
     { path: '/compare', priority: 0.85, freq: 'monthly' },
     { path: '/ai-receptionist', priority: 0.85, freq: 'monthly' },
     { path: '/voice-ai', priority: 0.85, freq: 'monthly' },
@@ -88,6 +90,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(languagePagesUpdatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
+    })),
+    ...useCases.map((item) => ({
+      url: `${siteUrl}/use-cases/${item.slug}`,
+      lastModified: lastModified('/use-cases'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
     })),
     ...blogPosts.map((p) => ({
       url: `${siteUrl}/blog/${p.slug}`,

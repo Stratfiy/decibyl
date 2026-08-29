@@ -6,6 +6,7 @@ import { Container } from '@/components/ui/Section';
 import { ButtonLink } from '@/components/ui/Button';
 import { topLevelVerticals, verticalHref } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
+import { useCases } from '@/data/useCases';
 
 /**
  * P1-1, 13 Aug 2026: the nav shows three verticals, not all nine — six
@@ -70,6 +71,7 @@ export function Nav() {
 
           <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
             <SolutionsMenu />
+            <UseCasesMenu />
             {primaryLinks.map((l) => (
               <Link
                 key={l.href}
@@ -129,6 +131,13 @@ export function Nav() {
               >
                 All industries <span aria-hidden="true">→</span>
               </Link>
+              <p className="t-eyebrow mt-4 mb-1 text-iron">Use cases</p>
+              {useCases.map((item) => (
+                <Link key={item.slug} href={`/use-cases/${item.slug}`} onClick={() => setOpen(false)} className="py-2 text-[0.9375rem] text-ink">
+                  {item.name}
+                </Link>
+              ))}
+              <Link href="/use-cases" onClick={() => setOpen(false)} className="py-2 text-[0.9375rem] font-medium text-sindoor">All use cases →</Link>
               <p className="t-eyebrow mt-4 mb-1 text-iron">Company</p>
               {[...primaryLinks, ...companyLinks].map((l) => (
                 <Link
@@ -158,6 +167,21 @@ export function Nav() {
         </div>
       ) : null}
     </header>
+  );
+}
+
+function UseCasesMenu() {
+  return (
+    <div className="group relative">
+      <button type="button" className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink" aria-haspopup="true">Use cases</button>
+      <div className="invisible absolute top-full left-0 w-72 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+        <div className="rounded-card border border-line bg-snow p-2 shadow-[var(--shadow-card)]">
+          {useCases.map((item) => <Link key={item.slug} href={`/use-cases/${item.slug}`} className="block rounded-[10px] px-3 py-2 text-[0.9375rem] text-ink transition-colors hover:bg-canvas">{item.name}</Link>)}
+          <div className="my-2 border-t border-line" />
+          <Link href="/use-cases" className="block rounded-[10px] px-3 py-2 text-[0.9375rem] font-medium text-sindoor hover:bg-canvas">All use cases →</Link>
+        </div>
+      </div>
+    </div>
   );
 }
 

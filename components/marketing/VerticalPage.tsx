@@ -81,7 +81,7 @@ export function VerticalPage({ vertical }: { vertical: Vertical }) {
       {/* 4 · What the agent does */}
       <Section surface="white" ariaLabel="What the agent does">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
-          <SectionHead title="What the agent does" />
+          <SectionHead title={`AI voice agent use cases for ${vertical.name}`} />
           <div>
             <ul className="space-y-4">
               {vertical.capabilities.map((cap) => (
@@ -203,6 +203,11 @@ export function VerticalPage({ vertical }: { vertical: Vertical }) {
             </div>
           </div>
         ) : null}
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/use-cases" className="rounded-button border border-line bg-snow px-5 py-2.5 text-[0.9375rem] hover:border-vermilion">Business call workflows →</Link>
+          <Link href="/voice-ai" className="rounded-button border border-line bg-snow px-5 py-2.5 text-[0.9375rem] hover:border-vermilion">Indian-language voice agents →</Link>
+        </div>
       </Section>
 
       {/* 10 · CTA, vertical pre-filled */}

@@ -17,12 +17,13 @@ import { homeFaqs } from '@/data/faqs';
 import { JsonLd, faqSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'AI Voice Worker for India — Calls Handled End-to-End | Decibyl',
+  title: 'AI Voice Agents for Indian Businesses',
   description:
-    'Decibyl builds AI voice workers that run your confirmation, follow-up and reminder calls end-to-end — not a tool that assists a human doing it. Indian languages, and beyond.',
+    'AI voice agents for Indian businesses: automate sales calls, lead qualification, customer support, appointment booking and reminders in Hindi, Tamil, English and more.',
   path: '/',
   keywords: [
-    'AI voice worker India',
+    'AI voice agents for business',
+    'AI voice agents India',
     'voice AI agent India',
     'AI calling software India',
     'AI receptionist India',

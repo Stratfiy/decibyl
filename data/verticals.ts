@@ -54,7 +54,7 @@ export const verticals: Vertical[] = [
     cardPain: 'Failed deliveries that were one call away',
     cardLanguages: 'हिन्दी · EN',
     eyebrow: 'For D2C brands, COD sellers, and e-commerce ops',
-    h1: "Your COD orders don't fail at delivery. They fail at the phone call.",
+    h1: 'AI voice agents for D2C NDR recovery and COD confirmation.',
     sub: 'A courier makes one attempt, marks it NDR, and the order starts its journey back to you. Decibyl calls the buyer within minutes — confirms the address, confirms the COD amount, books the reattempt, and writes the outcome back to your OMS.',
     leaks: [
       {
@@ -148,7 +148,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['logistics', 'clinics'],
     seo: {
-      title: 'AI Voice Agent for NDR Recovery & COD Confirmation, India',
+      title: 'AI Voice Agents for D2C NDR & COD Calls, India',
       description:
         'Automated NDR recovery and COD confirmation calls in Hindi, Tamil, Telugu and English. Call the buyer within minutes, confirm the reattempt, cut RTO.',
       keywords: [
@@ -170,7 +170,7 @@ export const verticals: Vertical[] = [
     cardPain: 'Missed calls and no-shows',
     cardLanguages: 'தமிழ் · हिन्दी',
     eyebrow: 'For clinics, dental practices, and diagnostic centres',
-    h1: 'Every missed call is an appointment that went to another clinic.',
+    h1: 'AI voice agents for clinics that answer, book, and follow up.',
     sub: 'Your front desk is with a patient, on another line, or gone for the day. Decibyl answers, books into your calendar, and calls back the no-shows — in Tamil, Hindi, Kannada, Telugu, Marathi, Gujarati, or English.',
     leaks: [
       {
@@ -268,7 +268,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'starter',
     siblings: ['d2c-ndr-recovery', 'education'],
     seo: {
-      title: 'AI Voice Agent for Clinics in India | AI Receptionist',
+      title: 'AI Voice Agents for Clinics in India | AI Receptionist',
       description:
         'An AI receptionist that answers every clinic call in Tamil, Hindi, Kannada and English, books into your calendar, and calls back no-shows.',
       keywords: [
@@ -291,7 +291,7 @@ export const verticals: Vertical[] = [
     cardPain: 'Evening enquiries that hit voicemail',
     cardLanguages: 'தமிழ் · हिन्दी',
     eyebrow: 'For dental practices and orthodontic clinics',
-    h1: 'Dental practices lose appointments to voicemail every evening.',
+    h1: 'AI voice agents for dental clinics that answer and book appointments.',
     sub: 'Cost enquiries come in after work, hygiene recalls need chasing, and post-procedure check-ins never get made. Decibyl answers, quotes from your fee list, books the slot, and makes the recall calls.',
     leaks: [
       {
@@ -384,7 +384,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'starter',
     siblings: ['ivf-fertility', 'diagnostics'],
     seo: {
-      title: 'AI Voice Agent for Dental Clinics in India',
+      title: 'AI Voice Agents for Dental Clinics in India',
       description:
         'Answer evening cost enquiries, run hygiene recalls, and confirm appointments automatically — in Tamil, Hindi and English.',
       keywords: [
@@ -403,7 +403,7 @@ export const verticals: Vertical[] = [
     cardPain: 'Enquiries that need an answer today',
     cardLanguages: 'हिन्दी · EN',
     eyebrow: 'For fertility centres and IVF clinics',
-    h1: 'Fertility enquiries need an answer the day they call.',
+    h1: 'AI voice agents for fertility and IVF enquiry follow-up.',
     sub: 'A couple researching IVF calls four centres in an evening and books with whoever answered kindly and first. Decibyl answers every one of those calls, books the consultation, and hands anything sensitive to your counsellor immediately.',
     leaks: [
       {
@@ -499,7 +499,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'starter',
     siblings: ['dental', 'diagnostics'],
     seo: {
-      title: 'AI Voice Agent for Fertility & IVF Clinics, India',
+      title: 'AI Voice Agents for Fertility & IVF Clinics, India',
       description:
         'Answer every IVF enquiry the day it comes in, book the counsellor consultation, and transfer anything sensitive to a human immediately.',
       keywords: [
@@ -518,7 +518,7 @@ export const verticals: Vertical[] = [
     cardPain: 'High call volume, low complexity',
     cardLanguages: 'हिन्दी · தமிழ்',
     eyebrow: 'For diagnostic centres and pathology labs',
-    h1: 'Report-ready calls, home-collection bookings, and repeat test reminders.',
+    h1: 'AI voice agents for diagnostic labs, bookings, and report-status calls.',
     sub: 'A lab runs hundreds of short, repetitive calls a day — is my report ready, do I need to fast, can you collect from home. That is the strongest automation fit in healthcare, and it is where Decibyl pays for itself fastest.',
     leaks: [
       {
@@ -611,7 +611,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['dental', 'ivf-fertility'],
     seo: {
-      title: 'AI Voice Agent for Diagnostic Labs in India',
+      title: 'AI Voice Agents for Diagnostic Labs in India',
       description:
         'Automate report-status calls, home-collection bookings, and repeat-test reminders for diagnostic labs — in Indian languages, and beyond.',
       keywords: [
@@ -631,7 +631,7 @@ export const verticals: Vertical[] = [
     cardPain: 'Portal leads that went cold',
     cardLanguages: 'हिन्दी · मराठी',
     eyebrow: 'For developers, brokerages, and channel partners',
-    h1: 'You paid for that portal lead. It went cold in eleven minutes.',
+    h1: 'AI voice agents for real estate leads—call every enquiry while intent is fresh.',
     sub: 'The same enquiry was sold to four of your competitors. Whoever calls first has the conversation. Decibyl calls within 60 seconds, qualifies budget, locality, timeline and possession, and books the site visit.',
     leaks: [
       {
@@ -723,7 +723,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['lending-collections', 'education'],
     seo: {
-      title: 'AI Voice Agent for Real Estate Leads, India',
+      title: 'AI Voice Agents for Real Estate in India',
       description:
         'Call every portal lead within 60 seconds, qualify budget and timeline, and book the site visit — in Hindi, Marathi and English.',
       keywords: [
@@ -744,7 +744,7 @@ export const verticals: Vertical[] = [
     cardPain: 'EMI reminders on record',
     cardLanguages: 'हिन्दी · తెలుగు',
     eyebrow: 'For NBFCs, lenders, and collections teams',
-    h1: 'Reminder calls that stay polite, on-script, and on record.',
+    h1: 'AI voice agents for EMI reminders and early collections.',
     sub: 'Early-bucket accounts usually need a nudge, not pressure. Decibyl makes the reminder call on a fixed script, sends the payment link mid-call, captures the promise to pay, and transfers to a human on any dispute or hardship. Every call recorded and scored.',
     leaks: [
       {
@@ -837,7 +837,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['d2c-ndr-recovery', 'real-estate'],
     seo: {
-      title: 'AI Voice Agent for EMI Reminders & Collections, India',
+      title: 'AI Voice Agents for EMI Reminders & Collections, India',
       description:
         'On-script EMI reminder and soft-recovery calls, recorded and QA-scored on 100% of calls, with human transfer on any dispute or hardship.',
       keywords: [
@@ -858,7 +858,7 @@ export const verticals: Vertical[] = [
     cardPain: 'Reattempts nobody confirmed',
     cardLanguages: 'हिन्दी · ગુજરાતી',
     eyebrow: 'For 3PLs, couriers, and delivery operators',
-    h1: "One delivery attempt isn't a delivery attempt.",
+    h1: 'AI voice agents for logistics delivery and reattempt calls.',
     sub: 'Decibyl runs the confirmation layer between the failed attempt and the reattempt — at operator scale, priced per confirmed reattempt rather than per seat.',
     leaks: [
       {
@@ -944,7 +944,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['d2c-ndr-recovery', 'real-estate'],
     seo: {
-      title: 'AI Voice Agent for Delivery Reattempt Calls, India',
+      title: 'AI Voice Agents for Logistics & Delivery Calls, India',
       description:
         'Automated NDR and reattempt confirmation calls for 3PLs and couriers — address correction, COD confirmation, and a recording on every call.',
       keywords: [
@@ -964,7 +964,7 @@ export const verticals: Vertical[] = [
     cardPain: 'Enquiries nobody called back',
     cardLanguages: 'EN · हिन्दी',
     eyebrow: 'For colleges, institutes, and edtech admissions teams',
-    h1: 'Admission enquiries go cold over a weekend.',
+    h1: 'AI voice agents for education and admissions follow-up.',
     sub: 'A form filled on Friday evening gets a call on Monday afternoon, by which point the student has spoken to three other institutes. Decibyl calls immediately, answers fee and eligibility questions, and books the counsellor slot.',
     leaks: [
       {
@@ -1051,7 +1051,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['real-estate', 'clinics'],
     seo: {
-      title: 'AI Voice Agent for Admission Enquiry Follow-Up, India',
+      title: 'AI Voice Agents for Education & Admissions, India',
       description:
         'Call every admission enquiry within a minute, answer fee and eligibility questions, and book the counsellor slot — in Indian languages, and beyond.',
       keywords: [

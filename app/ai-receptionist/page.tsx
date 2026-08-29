@@ -15,15 +15,16 @@ import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
  */
 
 export const metadata: Metadata = pageMetadata({
-  title: 'AI Receptionist for Indian Businesses',
+  title: 'AI Receptionist for Appointment Booking in India',
   description:
-    'An AI voice agent that answers your phone in the language your caller opens with — Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati and English, code-mixed by default. Indian numbers, INR billing, GST invoice.',
+    'An AI receptionist that answers business calls, books appointments and routes customers in Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati and English.',
   path: '/ai-receptionist',
   keywords: [
     'AI receptionist India',
     'AI phone answering India',
     'AI call answering service India',
     'virtual receptionist India',
+    'AI appointment booking agent India',
   ],
   ogTitle: 'An AI receptionist that speaks your caller’s language',
   ogSubtitle: 'Eight cities, seven Indian languages, one phone number',
@@ -48,13 +49,14 @@ export default function ReceptionistHub() {
             </nav>
 
             <h1 className="t-display mt-6 max-w-4xl text-balance">
-              An AI receptionist that answers in the language your caller opens with
+              AI receptionist for phone answering and appointment booking
             </h1>
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
               Not a menu. Not &ldquo;press 1 for Hindi&rdquo;. The caller talks, and the agent
               keeps up — including when they switch language halfway through a sentence, which in
               most of India is simply how people speak. Every call is transcribed, recorded and
-              scored, and the number is an Indian one with telephony included.
+              scored. It can answer questions, check approved availability, book appointments and
+              route calls on an Indian number with telephony included.
             </p>
             <p className="t-caption mt-4 text-iron">
               Try it before reading any further: {site.demoPhone.display} is a live number answered

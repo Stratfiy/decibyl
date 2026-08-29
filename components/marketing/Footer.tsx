@@ -3,6 +3,7 @@ import { Container } from '@/components/ui/Section';
 import { site } from '@/lib/site';
 import { topLevelVerticals, clinicSubVerticals, verticalHref } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
+import { useCases } from '@/data/useCases';
 
 const company = [
   { label: 'How it works', href: '/how-it-works' },
@@ -67,7 +68,7 @@ export function Footer() {
           <FooterCol title="Solutions">
             {topLevelVerticals.map((v) => (
               <FooterLink key={v.slug} href={verticalHref(v)}>
-                {v.name}
+                AI voice agents for {v.slug === 'd2c-ndr-recovery' ? 'D2C' : v.slug === 'lending-collections' ? 'collections' : v.name.toLowerCase()}
               </FooterLink>
             ))}
             {clinicSubVerticals.map((v) => (
@@ -75,9 +76,12 @@ export function Footer() {
                 {v.name}
               </FooterLink>
             ))}
+            <FooterLink href="/voice-ai">Multilingual AI voice agents</FooterLink>
           </FooterCol>
 
           <FooterCol title="Company">
+            <FooterLink href="/use-cases">AI voice agent use cases</FooterLink>
+            {useCases.map((item) => <FooterLink key={item.slug} href={`/use-cases/${item.slug}`}>{item.name}</FooterLink>)}
             {company.map((l) => (
               <FooterLink key={l.href} href={l.href}>
                 {l.label}

@@ -59,7 +59,7 @@ export const languagePages: LanguagePage[] = [
     ],
     cities: ['delhi-ncr', 'mumbai', 'hyderabad'],
     seo: {
-      title: 'Hindi Voice AI — Hinglish Calls, Handled as the Normal Case',
+      title: 'Hindi AI Voice Agent for Hinglish Business Calls',
       description:
         'A voice agent that answers and makes calls in Hindi with Hinglish as the default register, not a mode. Indian numbers, INR billing, GST invoicing.',
       keywords: ['Hindi voice AI', 'Hinglish voice agent', 'Hindi AI calling', 'AI voice agent Hindi India'],
@@ -88,7 +88,7 @@ export const languagePages: LanguagePage[] = [
     ],
     cities: ['chennai', 'hosur', 'bangalore'],
     seo: {
-      title: 'Tamil Voice AI — Tanglish Calls, Built Indic-First',
+      title: 'Tamil AI Voice Agent for Tamil & Tanglish Calls',
       description:
         'A voice agent that answers and makes calls in Tamil, with Tanglish as the default register. Built on an Indic speech stack, with Indian numbers and GST invoicing.',
       keywords: ['Tamil voice AI', 'Tanglish voice agent', 'Tamil AI calling', 'AI voice agent Tamil Nadu'],
@@ -117,7 +117,7 @@ export const languagePages: LanguagePage[] = [
     ],
     cities: ['hyderabad', 'bangalore', 'chennai'],
     seo: {
-      title: 'Telugu Voice AI — Calls in Telugu, Hindi and English',
+      title: 'Telugu AI Voice Agent for Business Calls',
       description:
         'A voice agent that answers and makes calls in Telugu, code-mixed with Hindi and English by default. Indic speech stack, Indian numbers, GST invoicing.',
       keywords: ['Telugu voice AI', 'Telugu AI calling', 'AI voice agent Hyderabad', 'AI voice agent Telangana'],
@@ -146,7 +146,7 @@ export const languagePages: LanguagePage[] = [
     ],
     cities: ['bangalore', 'hosur'],
     seo: {
-      title: 'Kannada Voice AI — Bangalore Calls, Five Languages, One Line',
+      title: 'Kannada AI Voice Agent for Business Calls',
       description:
         'A voice agent that answers calls in Kannada alongside English, Tamil, Telugu and Hindi, with no language menu. Indic speech stack, Indian numbers, GST invoicing.',
       keywords: ['Kannada voice AI', 'Kannada AI calling', 'AI voice agent Bangalore', 'AI receptionist Karnataka'],
@@ -175,7 +175,7 @@ export const languagePages: LanguagePage[] = [
     ],
     cities: ['pune', 'mumbai'],
     seo: {
-      title: 'Marathi Voice AI — Calls in Marathi, Not Hindi With a Marathi Label',
+      title: 'Marathi AI Voice Agent for Business Calls',
       description:
         'A voice agent that answers and makes calls in Marathi, code-mixed with Hindi and English. Indic speech stack, data resident in Mumbai, GST invoicing.',
       keywords: ['Marathi voice AI', 'Marathi AI calling', 'AI voice agent Pune', 'AI receptionist Maharashtra'],
@@ -204,7 +204,7 @@ export const languagePages: LanguagePage[] = [
     ],
     cities: ['ahmedabad', 'mumbai'],
     seo: {
-      title: 'Gujarati Voice AI — A Voice That Sounds Gujarati',
+      title: 'Gujarati AI Voice Agent for Business Calls',
       description:
         'A voice agent that answers and makes calls in Gujarati on an Indic speech stack, rather than a general multilingual voice. Indian numbers, GST invoicing.',
       keywords: ['Gujarati voice AI', 'Gujarati AI calling', 'AI voice agent Ahmedabad', 'AI receptionist Gujarat'],
@@ -233,7 +233,7 @@ export const languagePages: LanguagePage[] = [
     ],
     cities: ['bangalore', 'delhi-ncr', 'mumbai'],
     seo: {
-      title: 'English Voice AI for India — Indian English, Not American English',
+      title: 'English AI Voice Agent for Indian Business Calls',
       description:
         'A voice agent that handles Indian English properly: lakh and crore, digits in pairs, Indian place names, and code-mixing with every Indian language.',
       keywords: ['Indian English voice AI', 'AI call answering India English', 'AI voice agent India', 'English AI receptionist India'],

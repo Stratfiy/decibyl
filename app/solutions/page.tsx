@@ -6,7 +6,7 @@ import { topLevelVerticals, clinicSubVerticals, verticalHref } from '@/data/vert
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'AI Voice Agent Solutions by Industry, India',
+  title: 'AI Voice Agents by Industry and Use Case, India',
   description:
     'AI voice agents for D2C and NDR recovery, clinics, real estate, lending and collections, logistics, and education — in Indian languages, and beyond.',
   path: '/solutions',
@@ -24,11 +24,11 @@ export default function SolutionsIndex() {
           <div className="pt-14 pb-10 sm:pt-20">
             <p className="t-eyebrow text-sindoor">Solutions</p>
             <h1 className="t-display mt-4 max-w-3xl text-balance">
-              Same engine. Different conversation.
+              AI voice agents built for your industry.
             </h1>
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
-              The agent is the same in every one of these. What changes is the script, the
-              transfer rules, and the outcome we write back.
+              Clinics, real estate, D2C, lending, logistics and education each need different
+              scripts, integrations, transfer rules and measurable call outcomes.
             </p>
           </div>
         </Container>

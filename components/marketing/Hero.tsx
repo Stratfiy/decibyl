@@ -24,18 +24,18 @@ export function Hero() {
 
       <Container className="relative">
         <div className="pt-14 pb-16 sm:pt-20 lg:pt-24 lg:pb-24">
-          <p className="t-eyebrow text-sindoor">AI voice workers · Built in India, shipped for the world</p>
+          <p className="t-eyebrow text-sindoor">AI voice agents for business · Built in India</p>
 
           <h1 className="t-display mt-5 max-w-4xl text-balance">
-            Your customers don’t answer emails.{' '}
-            <span className="gradient-text">They answer the phone.</span>
+            AI voice agents for Indian businesses.{' '}
+            <span className="gradient-text">They answer, call, and follow up.</span>
           </h1>
 
           <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
-            Decibyl is an AI voice worker — it runs your confirmation, follow-up, and reminder
-            calls end-to-end, not a tool that assists a human doing it. Hindi, Tamil, Telugu,
-            Kannada, Marathi, Gujarati, English, and any language your voice stack supports. Every
-            call transcribed, recorded, and scored.
+            Decibyl builds multilingual AI voice agents that handle inbound and outbound business
+            calls end-to-end—from sales follow-up and lead qualification to customer support,
+            appointment booking, confirmations, and reminders. Hindi, Tamil, Telugu, Kannada,
+            Marathi, Gujarati, English, and beyond. Every call transcribed, recorded, and scored.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">

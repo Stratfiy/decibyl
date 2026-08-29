@@ -106,7 +106,7 @@ export default async function LanguagePage({
               {record.codeMixed ? ` · ${record.codeMixed}` : ''}
             </p>
             <h1 className="t-display mt-4 max-w-4xl text-balance">
-              Voice AI that actually works in {record.name}
+              {record.name} AI voice agent for real business calls
             </h1>
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">{page.why}</p>
           </div>

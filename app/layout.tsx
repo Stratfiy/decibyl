@@ -110,8 +110,15 @@ export const metadata: Metadata = {
     types: { 'application/rss+xml': [{ url: '/feed.xml', title: `${site.name} Blog` }] },
   },
   icons: {
-    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-48.png', type: 'image/png', sizes: '48x48' },
+      { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+    ],
+    shortcut: ['/favicon.ico'],
+    apple: [{ url: '/apple-touch-icon.png', type: 'image/png', sizes: '180x180' }],
   },
+  manifest: '/manifest.webmanifest',
   verification: {
     google: 'j8NFMFrj2shPvdT9CObTaU84Zu-MdPhtMOxpmSEprcE',
   },

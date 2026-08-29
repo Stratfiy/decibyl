@@ -98,8 +98,10 @@ export function organizationSchema() {
     // silently ineligible for the knowledge panel.
     logo: {
       '@type': 'ImageObject',
-      url: `${siteUrl}/logo.svg`,
-      contentUrl: `${siteUrl}/logo.svg`,
+      url: `${siteUrl}/logo.png`,
+      contentUrl: `${siteUrl}/logo.png`,
+      width: 512,
+      height: 512,
     },
     email: site.supportEmail,
     description: site.description,

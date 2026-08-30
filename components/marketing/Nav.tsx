@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Container } from '@/components/ui/Section';
-import { ButtonLink } from '@/components/ui/Button';
 import { topLevelVerticals, verticalHref } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
 import { useCases } from '@/data/useCases';
@@ -88,9 +87,12 @@ export function Nav() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <ButtonLink href="/book-a-demo" variant="primary" className="hidden lg:inline-flex">
-              Book a demo
-            </ButtonLink>
+            <Link
+              href="/book-a-demo"
+              className="hidden rounded-full border border-white/25 bg-white/[0.07] px-4 py-2 text-[0.78rem] font-medium text-white/90 transition-colors hover:bg-white/15 lg:inline-flex"
+            >
+              Book demo
+            </Link>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -161,9 +163,13 @@ export function Nav() {
                   Decibyl vs {c.name}
                 </Link>
               ))}
-              <ButtonLink href="/book-a-demo" className="mt-4" size="lg">
-                Book a demo
-              </ButtonLink>
+              <Link
+                href="/book-a-demo"
+                onClick={() => setOpen(false)}
+                className="mt-4 rounded-full bg-sindoor px-5 py-3 text-center font-medium text-white"
+              >
+                Book demo
+              </Link>
             </nav>
           </Container>
         </div>

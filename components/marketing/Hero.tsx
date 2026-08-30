@@ -1,13 +1,16 @@
 'use client';
 
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 type NetworkInformation = { saveData?: boolean };
 
 export function Hero() {
   const sceneRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const playedDuringVisit = useRef(false);
   const reducedMotion = useReducedMotion();
+  const sceneIsVisible = useInView(sceneRef, { amount: 0.35 });
   const [canPlayVideo, setCanPlayVideo] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sceneRef,
@@ -28,6 +31,28 @@ export function Hero() {
     setCanPlayVideo(!reducedMotion && !connection?.saveData);
   }, [reducedMotion]);
 
+  useEffect(() => {
+    if (!sceneIsVisible) {
+      playedDuringVisit.current = false;
+      return;
+    }
+
+    if (!canPlayVideo || playedDuringVisit.current) return;
+
+    const playFromStart = () => {
+      const video = videoRef.current;
+      if (!video || document.visibilityState !== 'visible' || playedDuringVisit.current) return;
+      video.currentTime = 0;
+      void video.play().then(() => {
+        playedDuringVisit.current = true;
+      }).catch(() => undefined);
+    };
+
+    playFromStart();
+    document.addEventListener('visibilitychange', playFromStart);
+    return () => document.removeEventListener('visibilitychange', playFromStart);
+  }, [canPlayVideo, sceneIsVisible]);
+
   return (
     <section
       ref={sceneRef}
@@ -42,8 +67,8 @@ export function Hero() {
         >
           {canPlayVideo ? (
             <video
+              ref={videoRef}
               className="h-full w-full object-cover object-[68%_center] sm:object-center"
-              autoPlay
               muted
               playsInline
               preload="auto"

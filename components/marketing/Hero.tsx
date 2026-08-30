@@ -2,7 +2,6 @@
 
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { heroTypographySrc } from '@/data/heroTypography';
 
 type NetworkInformation = { saveData?: boolean };
 
@@ -20,7 +19,6 @@ export function Hero() {
   const titleY = useTransform(scrollYProgress, [0, 0.72, 1], [0, reducedMotion ? 0 : -72, reducedMotion ? 0 : -150]);
   const titleX = useTransform(scrollYProgress, [0, 1], [0, reducedMotion ? 0 : 46]);
   const titleScale = useTransform(scrollYProgress, [0, 0.72, 1], [1, 0.96, reducedMotion ? 1 : 0.84]);
-  const titleRotate = useTransform(scrollYProgress, [0, 1], [-1.6, reducedMotion ? -1.6 : 1.8]);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.76, 1], [1, 0.96, 0]);
   const cueOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
@@ -73,25 +71,35 @@ export function Hero() {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-[#160c08]/70 via-[#160c08]/12 to-transparent"
         />
 
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[min(46vw,560px)] bg-gradient-to-r from-[#f7f1ea]/95 via-[#f7f1ea]/72 to-transparent max-sm:w-[88vw]"
+        />
+
         <motion.div
-          className="absolute bottom-[clamp(4.5rem,8vh,6.5rem)] left-[clamp(1.25rem,3.5vw,4rem)] z-20 w-[clamp(17rem,30vw,34rem)] origin-bottom-left max-sm:bottom-[5.5rem] max-sm:w-[min(76vw,24rem)]"
+          className="absolute top-[48%] left-[clamp(1.5rem,6vw,7rem)] z-20 w-[min(27vw,350px)] -translate-y-1/2 origin-left max-sm:top-[56%] max-sm:left-6 max-sm:w-[min(68vw,18.5rem)]"
           style={{
             x: titleX,
             y: titleY,
             scale: titleScale,
-            rotate: titleRotate,
             opacity: titleOpacity,
           }}
         >
-          <h1>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={heroTypographySrc}
-              alt="Your AI voice agent"
-              className="h-auto w-full select-none object-contain object-left-bottom drop-shadow-[0_18px_26px_rgba(12,7,6,0.42)]"
-              draggable={false}
-            />
+          <p className="mb-4 font-mono text-[0.58rem] font-semibold tracking-[0.2em] text-[#7a6259] uppercase">
+            01 / 06 · Meet Decibyl
+          </p>
+          <h1 className="font-display text-[clamp(2.35rem,4vw,4.4rem)] leading-[0.92] font-semibold tracking-[-0.055em] text-[#241b18] max-sm:text-[2.6rem]">
+            Your AI
+            <br />
+            voice agent.
           </h1>
+          <p className="mt-5 max-w-[31ch] text-[0.92rem] leading-relaxed text-[#564943] max-sm:text-[0.84rem]">
+            Handles customer calls, qualifies leads and books appointments—in every language your customers speak.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2 text-[0.64rem] font-medium text-[#4b3c36]">
+            <span className="rounded-full bg-white/60 px-3 py-1.5">Always available</span>
+            <span className="rounded-full bg-white/60 px-3 py-1.5">10+ languages</span>
+          </div>
         </motion.div>
 
         <motion.div

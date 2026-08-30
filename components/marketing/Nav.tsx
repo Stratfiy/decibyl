@@ -59,12 +59,14 @@ export function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-colors duration-200 ${
-        scrolled ? 'glass border-b border-line' : 'border-b border-transparent'
+      className={`fixed top-3 left-1/2 z-50 w-[min(1180px,calc(100%-1.5rem))] -translate-x-1/2 rounded-[1.4rem] border backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-300 ${
+        scrolled
+          ? 'border-white/90 bg-white/[0.88] shadow-[0_12px_40px_rgba(33,24,20,0.14)]'
+          : 'border-white/70 bg-white/[0.66] shadow-[0_8px_28px_rgba(33,24,20,0.09)]'
       }`}
     >
       <Container>
-        <div className="flex h-16 items-center justify-between gap-6">
+        <div className="flex h-14 items-center justify-between gap-5">
           <Link href="/" className="flex items-center gap-2" aria-label="Decibyl home">
             <Logo />
           </Link>
@@ -110,7 +112,7 @@ export function Nav() {
       </Container>
 
       {open ? (
-        <div id="mobile-nav" className="border-t border-line bg-snow lg:hidden">
+        <div id="mobile-nav" className="rounded-b-[1.35rem] border-t border-line bg-white/[0.96] lg:hidden">
           <Container>
             <nav aria-label="Mobile" className="grid gap-1 py-5">
               <p className="t-eyebrow mt-2 mb-1 text-iron">Solutions</p>

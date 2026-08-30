@@ -1,7 +1,16 @@
 'use client';
 
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
+import {
+  motion,
+  useInView,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+
+type NetworkInformation = { saveData?: boolean };
 
 const needs = [
   {
@@ -32,7 +41,10 @@ const needs = [
 
 export function NeedSelectorScene() {
   const sceneRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const reducedMotion = useReducedMotion();
+  const sceneIsVisible = useInView(sceneRef, { amount: 0.35, once: true });
+  const [canPlayVideo, setCanPlayVideo] = useState(false);
   const [activeId, setActiveId] = useState<(typeof needs)[number]['id']>('clinic');
   const active = needs.find((need) => need.id === activeId) ?? needs[0];
   const { scrollYProgress } = useScroll({
@@ -45,6 +57,16 @@ export function NeedSelectorScene() {
   const panelY = useTransform(scrollYProgress, [0, 1], [reducedMotion ? 0 : 14, reducedMotion ? 0 : -18]);
   const panelOpacity = useTransform(scrollYProgress, [0, 0.16, 0.88, 1], [0, 1, 1, 0]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
+  useEffect(() => {
+    const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
+    setCanPlayVideo(!reducedMotion && !connection?.saveData);
+  }, [reducedMotion]);
+
+  useEffect(() => {
+    if (!sceneIsVisible || !canPlayVideo) return;
+    void videoRef.current?.play().catch(() => undefined);
+  }, [canPlayVideo, sceneIsVisible]);
 
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (reducedMotion) return;
@@ -65,12 +87,26 @@ export function NeedSelectorScene() {
           className="absolute -inset-[2%] origin-center"
           style={{ scale: worldScale, x: worldX }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/media/scene-two/decibyl-business-selector.png"
-            alt=""
-            className="h-full w-full object-cover object-center max-sm:object-[72%_center]"
-          />
+          {canPlayVideo ? (
+            <video
+              ref={videoRef}
+              className="h-full w-full object-cover object-center max-sm:object-[72%_center]"
+              muted
+              playsInline
+              preload="metadata"
+              poster="/media/scene-two/decibyl-business-selector.png"
+              onEnded={(event) => event.currentTarget.pause()}
+            >
+              <source src="/media/scene-two/decibyl-business-selector.mp4" type="video/mp4" />
+            </video>
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src="/media/scene-two/decibyl-business-selector.png"
+              alt=""
+              className="h-full w-full object-cover object-center max-sm:object-[72%_center]"
+            />
+          )}
         </motion.div>
 
         <div

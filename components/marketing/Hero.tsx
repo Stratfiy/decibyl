@@ -31,7 +31,7 @@ export function Hero() {
   return (
     <section
       ref={sceneRef}
-      className="relative h-[180svh] bg-[#17100d]"
+      className="relative h-[125svh] bg-[#17100d]"
       aria-label="Meet your Decibyl AI voice agent"
     >
       <div className="sticky top-0 h-[100svh] min-h-[620px] overflow-hidden bg-[#17100d]">
@@ -45,9 +45,9 @@ export function Hero() {
               className="h-full w-full object-cover object-[68%_center] sm:object-center"
               autoPlay
               muted
-              loop
               playsInline
               preload="auto"
+              onEnded={(event) => event.currentTarget.pause()}
               poster="/media/scene-one/decibyl-office-welcome-poster.webp"
             >
               <source src="/media/scene-one/decibyl-office-welcome.mp4" type="video/mp4" />

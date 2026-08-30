@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { heroTypographySrc } from '@/data/heroTypography';
 
 type NetworkInformation = { saveData?: boolean };
 
@@ -73,7 +74,7 @@ export function Hero() {
         />
 
         <motion.div
-          className="absolute bottom-[clamp(4.5rem,8vh,7rem)] left-[clamp(1rem,3vw,3.25rem)] z-20 w-[min(62vw,950px)] origin-bottom-left max-sm:bottom-[5.25rem] max-sm:w-[94vw]"
+          className="absolute bottom-[clamp(4.5rem,8vh,6.5rem)] left-[clamp(1.25rem,3.5vw,4rem)] z-20 w-[clamp(17rem,30vw,34rem)] origin-bottom-left max-sm:bottom-[5.5rem] max-sm:w-[min(76vw,24rem)]"
           style={{
             x: titleX,
             y: titleY,
@@ -82,15 +83,12 @@ export function Hero() {
             opacity: titleOpacity,
           }}
         >
-          <p className="mb-3 pl-2 font-mono text-[0.65rem] font-semibold tracking-[0.24em] text-white/80 uppercase drop-shadow-md sm:text-xs">
-            AI voice agents for Indian businesses
-          </p>
           <h1>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/media/scene-one/decibyl-true-3d-headline.png"
-              alt="Your AI voice agent. Always ready to answer."
-              className="h-auto w-full select-none object-contain object-left-bottom drop-shadow-[0_24px_34px_rgba(39,10,11,0.34)]"
+              src={heroTypographySrc}
+              alt="Your AI voice agent"
+              className="h-auto w-full select-none object-contain object-left-bottom drop-shadow-[0_18px_26px_rgba(12,7,6,0.42)]"
               draggable={false}
             />
           </h1>

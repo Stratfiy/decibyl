@@ -40,8 +40,8 @@ export function NeedSelectorScene() {
     offset: ['start start', 'end end'],
   });
 
-  const worldScale = useTransform(scrollYProgress, [0, 1], [1.08, reducedMotion ? 1.08 : 1.22]);
-  const worldX = useTransform(scrollYProgress, [0, 1], ['-2%', reducedMotion ? '-2%' : '-8%']);
+  const worldScale = useTransform(scrollYProgress, [0, 1], [1.01, reducedMotion ? 1.01 : 1.12]);
+  const worldX = useTransform(scrollYProgress, [0, 1], ['0%', reducedMotion ? '0%' : '-3.5%']);
   const panelY = useTransform(scrollYProgress, [0, 0.75, 1], [26, 0, reducedMotion ? 0 : -48]);
   const panelOpacity = useTransform(scrollYProgress, [0, 0.16, 0.88, 1], [0, 1, 1, 0]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
@@ -55,25 +55,33 @@ export function NeedSelectorScene() {
       <div className="sticky top-0 h-[100svh] min-h-[620px] overflow-hidden bg-[#17100d]">
         <motion.div
           aria-hidden="true"
-          className="absolute -inset-[5%] origin-center"
+          className="absolute -inset-[2%] origin-center"
           style={{ scale: worldScale, x: worldX }}
         >
-          <video
-            className="h-full w-full object-cover object-[58%_center] max-sm:object-[54%_center]"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/media/scene-one/decibyl-office-welcome-poster.webp"
-          >
-            <source src="/media/scene-one/decibyl-office-welcome.mp4" type="video/mp4" />
-          </video>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/media/scene-two/decibyl-business-selector.png"
+            alt=""
+            className="h-full w-full object-cover object-center max-sm:object-[72%_center]"
+          />
         </motion.div>
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(18,10,7,0.18),transparent_42%,rgba(247,241,234,0.96)_100%)] max-sm:bg-[linear-gradient(0deg,rgba(247,241,234,0.97)_0%,rgba(247,241,234,0.74)_38%,transparent_70%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(247,241,234,0.08),transparent_48%,rgba(247,241,234,0.04))] max-sm:bg-[linear-gradient(0deg,rgba(247,241,234,0.98)_0%,rgba(247,241,234,0.82)_35%,transparent_67%)]"
+        />
+
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-[36.2%] left-[76.7%] z-10 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#ff776c]/65 max-sm:top-[35%] max-sm:left-[62%]"
+          animate={reducedMotion ? undefined : { scale: [0.8, 2.15], opacity: [0.7, 0] }}
+          transition={{ duration: 2.1, repeat: Infinity, ease: 'easeOut' }}
+        />
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-[36.2%] left-[76.7%] z-10 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff6f63]/35 shadow-[0_0_22px_rgba(255,102,91,0.65)] max-sm:top-[35%] max-sm:left-[62%]"
+          animate={reducedMotion ? undefined : { scale: [0.9, 1.18, 0.9], opacity: [0.72, 1, 0.72] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
         />
 
         <motion.div

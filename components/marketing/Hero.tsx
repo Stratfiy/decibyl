@@ -14,7 +14,7 @@ export function Hero() {
   const [canPlayVideo, setCanPlayVideo] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sceneRef,
-    offset: ['start start', 'end end'],
+    offset: ['start start', 'end start'],
   });
 
   const worldScale = useTransform(scrollYProgress, [0, 1], [1, reducedMotion ? 1 : 1.16]);
@@ -56,10 +56,10 @@ export function Hero() {
   return (
     <section
       ref={sceneRef}
-      className="relative h-[125svh] bg-[#17100d]"
+      className="relative h-[100svh] min-h-[620px] bg-[#17100d]"
       aria-label="Meet your Decibyl AI voice agent"
     >
-      <div className="sticky top-0 h-[100svh] min-h-[620px] overflow-hidden bg-[#17100d]">
+      <div className="relative h-full overflow-hidden bg-[#17100d]">
         <motion.div
           aria-hidden="true"
           className="absolute -inset-[4%] origin-center"

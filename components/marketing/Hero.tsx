@@ -28,6 +28,9 @@ export function Hero() {
   const sceneScale = useTransform(scrollYProgress, [0, 1], [1, reducedMotion ? 1 : 1.075]);
   const copyY = useTransform(scrollYProgress, [0, 0.72], [0, reducedMotion ? 0 : -34]);
   const copyOpacity = useTransform(scrollYProgress, [0, 0.64, 0.92], [1, 1, 0]);
+  const titleRotateX = useTransform(scrollYProgress, [0, 0.82], [0, reducedMotion ? 0 : 9]);
+  const titleRotateY = useTransform(scrollYProgress, [0, 0.82], [-2.5, reducedMotion ? -2.5 : 5]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.82], [1, reducedMotion ? 1 : 0.94]);
   const greetingY = useTransform(scrollYProgress, [0, 0.48, 0.82], [18, 18, 0]);
   const greetingOpacity = useTransform(scrollYProgress, [0, 0.42, 0.72], [0, 0, 1]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
@@ -85,12 +88,27 @@ export function Hero() {
             style={{ y: copyY, opacity: copyOpacity }}
           >
             <p className="t-eyebrow text-sindoor">AI voice agents for Indian businesses</p>
-            <h1 className="mt-5 max-w-[11ch] font-display text-[clamp(3.15rem,6.1vw,5.75rem)] leading-[0.93] font-bold tracking-[-0.055em] text-balance text-ink max-sm:text-[clamp(2.9rem,14vw,4rem)]">
-              Your AI voice agent.
-              <span className="mt-2 block font-normal tracking-[-0.045em] text-vermilion">
-                Always ready to answer.
-              </span>
-            </h1>
+
+            <div className="mt-5 [perspective:1200px]">
+              <motion.h1
+                className="max-w-[11ch] font-display text-[clamp(3.15rem,6.1vw,5.75rem)] leading-[0.93] font-bold tracking-[-0.055em] text-balance max-sm:text-[clamp(2.9rem,14vw,4rem)]"
+                style={{
+                  rotateX: titleRotateX,
+                  rotateY: titleRotateY,
+                  scale: titleScale,
+                  transformOrigin: 'left center',
+                  transformStyle: 'preserve-3d',
+                }}
+              >
+                <DepthText text="Your AI voice agent." faceColor="#201915" edgeColor="#8b7668" />
+                <DepthText
+                  text="Always ready to answer."
+                  faceColor="#e95a52"
+                  edgeColor="#8f2928"
+                  className="mt-2 font-normal tracking-[-0.045em]"
+                />
+              </motion.h1>
+            </div>
 
             <p className="mt-6 max-w-[560px] text-[clamp(1rem,1.35vw,1.2rem)] leading-relaxed text-ink/72 text-pretty max-sm:mt-4 max-sm:line-clamp-3">
               Decibyl handles customer calls, qualifies leads, books appointments and completes
@@ -155,6 +173,50 @@ export function Hero() {
         </div>
       </div>
     </section>
+  );
+}
+
+function DepthText({
+  text,
+  faceColor,
+  edgeColor,
+  className = '',
+}: {
+  text: string;
+  faceColor: string;
+  edgeColor: string;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`relative block ${className}`}
+      style={{ transformStyle: 'preserve-3d' }}
+    >
+      {[7, 6, 5, 4, 3, 2, 1].map((depth) => (
+        <span
+          key={depth}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 block select-none"
+          style={{
+            color: edgeColor,
+            transform: `translate3d(${depth * 1.15}px, ${depth * 1.45}px, ${-depth}px)`,
+            opacity: 0.86 + depth * 0.02,
+          }}
+        >
+          {text}
+        </span>
+      ))}
+      <span
+        className="relative block"
+        style={{
+          color: faceColor,
+          transform: 'translateZ(1px)',
+          textShadow: '0 12px 24px rgba(55, 31, 22, 0.18)',
+        }}
+      >
+        {text}
+      </span>
+    </span>
   );
 }
 

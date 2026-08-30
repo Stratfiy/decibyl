@@ -59,14 +59,14 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed top-3 left-1/2 z-50 w-[min(1180px,calc(100%-1.5rem))] -translate-x-1/2 rounded-[1.4rem] border backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-300 ${
+      className={`fixed top-4 left-1/2 z-50 w-[min(1040px,calc(100%-1.25rem))] -translate-x-1/2 rounded-[1.15rem] border backdrop-blur-2xl transition-[background-color,border-color,box-shadow] duration-300 ${
         scrolled
-          ? 'border-white/90 bg-white/[0.88] shadow-[0_12px_40px_rgba(33,24,20,0.14)]'
-          : 'border-white/70 bg-white/[0.66] shadow-[0_8px_28px_rgba(33,24,20,0.09)]'
+          ? 'border-white/30 bg-[#211713]/[0.82] shadow-[0_14px_42px_rgba(15,8,6,0.28)]'
+          : 'border-white/25 bg-[#211713]/[0.62] shadow-[0_10px_30px_rgba(15,8,6,0.18)]'
       }`}
     >
       <Container>
-        <div className="flex h-14 items-center justify-between gap-5">
+        <div className="flex h-12 items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2" aria-label="Decibyl home">
             <Logo />
           </Link>
@@ -78,7 +78,7 @@ export function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors hover:text-ink"
+                className="rounded-button px-3 py-2 text-[0.9375rem] text-white/75 transition-colors hover:text-white"
               >
                 {l.label}
               </Link>
@@ -96,7 +96,7 @@ export function Nav() {
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="mobile-nav"
-              className="flex h-11 w-11 items-center justify-center rounded-button border border-line bg-snow lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-button border border-white/25 bg-white/10 text-white lg:hidden"
             >
               <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
               <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
@@ -175,7 +175,7 @@ export function Nav() {
 function UseCasesMenu() {
   return (
     <div className="group relative">
-      <button type="button" className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink" aria-haspopup="true">Use cases</button>
+      <button type="button" className="rounded-button px-3 py-2 text-[0.9375rem] text-white/75 transition-colors group-hover:text-white" aria-haspopup="true">Use cases</button>
       <div className="invisible absolute top-full left-0 w-72 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
         <div className="rounded-card border border-line bg-snow p-2 shadow-[var(--shadow-card)]">
           {useCases.map((item) => <Link key={item.slug} href={`/use-cases/${item.slug}`} className="block rounded-[10px] px-3 py-2 text-[0.9375rem] text-ink transition-colors hover:bg-canvas">{item.name}</Link>)}
@@ -192,7 +192,7 @@ function SolutionsMenu() {
     <div className="group relative">
       <button
         type="button"
-        className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink"
+        className="rounded-button px-3 py-2 text-[0.9375rem] text-white/75 transition-colors group-hover:text-white"
         aria-haspopup="true"
       >
         Solutions
@@ -226,7 +226,7 @@ function CompanyMenu() {
     <div className="group relative">
       <button
         type="button"
-        className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink"
+        className="rounded-button px-3 py-2 text-[0.9375rem] text-white/75 transition-colors group-hover:text-white"
         aria-haspopup="true"
       >
         Company
@@ -253,7 +253,7 @@ function CompareMenu() {
     <div className="group relative">
       <button
         type="button"
-        className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink"
+        className="rounded-button px-3 py-2 text-[0.9375rem] text-white/75 transition-colors group-hover:text-white"
         aria-haspopup="true"
       >
         Compare
@@ -279,7 +279,7 @@ function Logo() {
   return (
     <span className="flex items-center gap-2">
       <img src="/favicon-48.png" width="26" height="26" alt="" aria-hidden="true" />
-      <span className="font-display text-[1.15rem] font-bold tracking-tight text-ink">Decibyl</span>
+      <span className="font-display text-[1.08rem] font-bold tracking-tight text-white">Decibyl</span>
     </span>
   );
 }

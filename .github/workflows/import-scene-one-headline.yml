@@ -22,6 +22,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq imagemagick
           mkdir -p public/media/scene-one
           curl --fail --silent --show-error --location \
             --output /tmp/headline-source.png \

@@ -1,0 +1,43 @@
+name: Import approved Scene 1 headline
+
+on:
+  push:
+    branches:
+      - codex/scene-one-cinematic
+    paths:
+      - .github/workflows/import-scene-one-headline.yml
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/scene-one-cinematic
+      - name: Download and prepare transparent headline
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/media/scene-one
+          curl --fail --silent --show-error --location \
+            --output /tmp/headline-source.png \
+            "https://tempfile.aiquickdraw.com/workers/images/image_ec1e5cc26e0f8c2b4eb477912bbeb7f2.png"
+          convert /tmp/headline-source.png \
+            -fx '(max(r,max(g,b))-min(r,min(g,b)))>0.025?1:0' \
+            /tmp/headline-mask.png
+          convert /tmp/headline-source.png /tmp/headline-mask.png \
+            -alpha off -compose CopyOpacity -composite -trim +repage \
+            public/media/scene-one/decibyl-true-3d-headline.png
+      - name: Commit approved asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/media/scene-one/decibyl-true-3d-headline.png
+          git commit -m "feat(hero): add approved true 3D headline asset"
+          git push origin HEAD:codex/scene-one-cinematic

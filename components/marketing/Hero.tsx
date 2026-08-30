@@ -1,90 +1,176 @@
-import { Container } from '@/components/ui/Section';
+'use client';
+
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { ButtonLink } from '@/components/ui/Button';
-import { Reveal } from '@/components/ui/Reveal';
-import { MeshBackground } from '@/components/ui/MeshBackground';
+import { Container } from '@/components/ui/Section';
 import { trustStrip } from '@/data/features';
 import { site } from '@/lib/site';
 
-const stats = [
-  { value: '<700ms', label: 'response, for select models' },
-  { value: '10+ languages', label: '7 Indian, code-mixed by default' },
-  { value: '100% of calls', label: 'QA-scored, not sampled' },
+const languages = [
+  { short: 'EN', label: 'English' },
+  { short: 'हि', label: 'Hindi' },
+  { short: 'த', label: 'Tamil' },
+  { short: 'తె', label: 'Telugu' },
 ];
 
+type NetworkInformation = { saveData?: boolean };
+
 export function Hero() {
+  const sceneRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+  const [canPlayVideo, setCanPlayVideo] = useState(false);
+  const { scrollYProgress } = useScroll({
+    target: sceneRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, reducedMotion ? 1 : 1.075]);
+  const copyY = useTransform(scrollYProgress, [0, 0.72], [0, reducedMotion ? 0 : -34]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.64, 0.92], [1, 1, 0]);
+  const greetingY = useTransform(scrollYProgress, [0, 0.48, 0.82], [18, 18, 0]);
+  const greetingOpacity = useTransform(scrollYProgress, [0, 0.42, 0.72], [0, 0, 1]);
+  const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
+  useEffect(() => {
+    const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
+    setCanPlayVideo(!reducedMotion && !connection?.saveData);
+  }, [reducedMotion]);
+
   return (
-    <section className="relative overflow-hidden bg-canvas" aria-label="Introduction">
-      {/* The glow the glass stat cards need something to blur against. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[720px]"
-        style={{ background: 'var(--gradient-glow)' }}
-      />
-      <MeshBackground className="h-[720px] opacity-70" origin="bottom-left" />
-
-      <Container className="relative">
-        <div className="pt-14 pb-16 sm:pt-20 lg:pt-24 lg:pb-24">
-          <p className="t-eyebrow text-sindoor">AI voice agents for business · Built in India</p>
-
-          <h1 className="t-display mt-5 max-w-4xl text-balance">
-            AI voice agents for Indian businesses.{' '}
-            <span className="gradient-text">They answer, call, and follow up.</span>
-          </h1>
-
-          <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
-            Decibyl builds multilingual AI voice agents that handle inbound and outbound business
-            calls end-to-end—from sales follow-up and lead qualification to customer support,
-            appointment booking, confirmations, and reminders. Hindi, Tamil, Telugu, Kannada,
-            Marathi, Gujarati, English, and beyond. Every call transcribed, recorded, and scored.
-          </p>
-
-          <div className="mt-9 flex flex-wrap gap-3">
-            <ButtonLink href="/book-a-demo" size="lg">
-              Book a demo call
-            </ButtonLink>
-            <ButtonLink href="/pricing" variant="secondary" size="lg">
-              See pricing
-            </ButtonLink>
-          </div>
-
-          <p className="mt-5 text-[0.9375rem] text-slate">
-            Or just call the agent:{' '}
-            <a
-              href={`tel:${site.demoPhone.tel}`}
-              className="font-medium text-sindoor underline-offset-4 hover:underline"
+    <section
+      ref={sceneRef}
+      className="relative h-[145svh] bg-[#f4eee6]"
+      aria-label="Meet your Decibyl AI voice agent"
+    >
+      <div className="sticky top-16 h-[calc(100svh-4rem)] min-h-[620px] overflow-hidden bg-[#f4eee6] max-sm:min-h-[640px]">
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0 origin-center"
+          style={{ scale: sceneScale }}
+        >
+          {canPlayVideo ? (
+            <video
+              className="h-full w-full object-cover object-[67%_center] sm:object-center"
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              poster="/media/scene-one/decibyl-office-welcome-poster.webp"
             >
-              {site.demoPhone.display}
-            </a>
-            . Pick your language when it answers.
-          </p>
+              <source src="/media/scene-one/decibyl-office-welcome.mp4" type="video/mp4" />
+            </video>
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src="/media/scene-one/decibyl-office-welcome-poster.webp"
+              alt=""
+              className="h-full w-full object-cover object-[67%_center] sm:object-center"
+            />
+          )}
+        </motion.div>
 
-          {/* Glass stat cards, offset at slightly different heights. */}
-          <ul className="mt-14 grid gap-4 sm:grid-cols-3">
-            {stats.map((stat, i) => (
-              <Reveal
-                key={stat.value}
-                as="li"
-                delay={i * 100}
-                className={`glass shadow-inset-top rounded-card px-6 py-5 ${
-                  i === 1 ? 'sm:mt-6' : i === 2 ? 'sm:mt-3' : ''
-                }`}
-              >
-                <p className="t-data text-[1.25rem] font-semibold text-ink">{stat.value}</p>
-                <p className="t-caption mt-1 text-slate">{stat.label}</p>
-              </Reveal>
-            ))}
-          </ul>
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,244,238,0.98)_0%,rgba(248,244,238,0.91)_31%,rgba(248,244,238,0.25)_56%,rgba(248,244,238,0.02)_78%)] max-sm:bg-[linear-gradient(180deg,rgba(248,244,238,0.08)_0%,rgba(248,244,238,0.05)_34%,rgba(248,244,238,0.88)_61%,rgba(248,244,238,0.99)_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#f4eee6] to-transparent"
+        />
 
-          <p className="t-data mt-12 flex flex-wrap gap-x-3 gap-y-1 text-iron">
-            {trustStrip.map((item, i) => (
-              <span key={item}>
-                {item}
-                {i < trustStrip.length - 1 ? <span className="ml-3 text-line">·</span> : null}
+        <Container className="relative h-full">
+          <motion.div
+            className="absolute top-1/2 left-5 z-10 max-w-[620px] -translate-y-1/2 sm:left-6 max-sm:top-auto max-sm:right-5 max-sm:bottom-8 max-sm:translate-y-0"
+            style={{ y: copyY, opacity: copyOpacity }}
+          >
+            <p className="t-eyebrow text-sindoor">AI voice agents for Indian businesses</p>
+            <h1 className="mt-5 max-w-[11ch] font-display text-[clamp(3.15rem,6.1vw,5.75rem)] leading-[0.93] font-bold tracking-[-0.055em] text-balance text-ink max-sm:text-[clamp(2.9rem,14vw,4rem)]">
+              Your AI voice agent.
+              <span className="mt-2 block font-normal tracking-[-0.045em] text-vermilion">
+                Always ready to answer.
               </span>
-            ))}
-          </p>
+            </h1>
+
+            <p className="mt-6 max-w-[560px] text-[clamp(1rem,1.35vw,1.2rem)] leading-relaxed text-ink/72 text-pretty max-sm:mt-4 max-sm:line-clamp-3">
+              Decibyl handles customer calls, qualifies leads, books appointments and completes
+              follow-ups—in Hindi, Tamil, Telugu, Kannada, Marathi, Gujarati, English and more.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3 max-sm:mt-5">
+              <ButtonLink href="/book-a-demo" size="lg">
+                Build my voice agent <span aria-hidden="true">→</span>
+              </ButtonLink>
+              <a
+                href={`tel:${site.demoPhone.tel}`}
+                className="inline-flex h-13 items-center gap-2 rounded-button border border-ink/15 bg-white/72 px-6 font-medium text-ink backdrop-blur-md transition-colors hover:bg-white"
+              >
+                <MicIcon />
+                Talk to Decibyl
+              </a>
+            </div>
+
+            <p className="t-data mt-5 text-ink/58 max-sm:hidden">
+              {trustStrip.join(' · ')}
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="glass absolute right-6 bottom-8 z-20 w-[min(390px,calc(100%-3rem))] rounded-panel border-white/90 p-5 shadow-lift max-sm:hidden"
+            style={{ y: greetingY, opacity: greetingOpacity }}
+          >
+            <div className="flex items-start gap-4">
+              <span className="relative mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-vermilion text-white shadow-warm">
+                <span className="absolute inset-0 animate-ping rounded-full bg-vermilion/20" />
+                <WaveIcon />
+              </span>
+              <div>
+                <p className="t-eyebrow text-sindoor">Decibyl is listening</p>
+                <p className="mt-1 font-display text-lg font-semibold leading-snug text-ink">
+                  Hi! How can I help your business today?
+                </p>
+              </div>
+            </div>
+            <div className="mt-4 flex gap-2" aria-label="Choose a language">
+              {languages.map((language) => (
+                <span
+                  key={language.label}
+                  title={language.label}
+                  className="t-indic flex h-9 min-w-9 items-center justify-center rounded-full border border-ink/10 bg-white/80 px-2 text-sm font-medium text-ink"
+                >
+                  {language.short}
+                </span>
+              ))}
+              <span className="ml-auto self-center text-xs font-medium text-slate">Speak naturally</span>
+            </div>
+          </motion.div>
+        </Container>
+
+        <div className="absolute inset-x-0 bottom-0 z-30 h-1 bg-ink/5" aria-hidden="true">
+          <motion.div className="h-full bg-vermilion" style={{ width: progressWidth }} />
         </div>
-      </Container>
+        <div className="absolute bottom-5 left-1/2 z-20 -translate-x-1/2 text-center max-sm:hidden" aria-hidden="true">
+          <p className="t-eyebrow text-ink/45">Scroll to enter the office</p>
+          <span className="mx-auto mt-2 block h-8 w-px bg-ink/20" />
+        </div>
+      </div>
     </section>
+  );
+}
+
+function MicIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <rect x="6" y="2" width="6" height="9" rx="3" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M3.75 8.75a5.25 5.25 0 0 0 10.5 0M9 14v2M6.5 16h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function WaveIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M4 11.5v-3m4 6v-9m4 8v-7m4 5v-3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
   );
 }

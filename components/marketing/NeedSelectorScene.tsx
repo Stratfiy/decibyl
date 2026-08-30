@@ -5,39 +5,39 @@ import { useRef, useState } from 'react';
 
 const needs = [
   {
-    id: 'answer',
-    label: 'Answer every call',
-    detail: 'Inbound calls are answered instantly, even after hours.',
-    result: 'No missed caller',
+    id: 'clinic',
+    label: 'Clinics & healthcare',
+    detail: 'Answer patients, qualify enquiries, book appointments and send reminders.',
+    result: 'Clinic world selected',
   },
   {
-    id: 'qualify',
-    label: 'Qualify new leads',
-    detail: 'Every enquiry is understood, scored and routed to the right person.',
-    result: 'Sales-ready lead',
+    id: 'realestate',
+    label: 'Real estate',
+    detail: 'Respond to portal leads, qualify buyers and schedule property visits.',
+    result: 'Property world selected',
   },
   {
-    id: 'book',
-    label: 'Book appointments',
-    detail: 'Availability is checked and the appointment is confirmed while they are still on the call.',
-    result: 'Calendar confirmed',
+    id: 'd2c',
+    label: 'D2C & ecommerce',
+    detail: 'Confirm orders, recover failed deliveries and handle support calls.',
+    result: 'Commerce world selected',
   },
   {
-    id: 'recover',
-    label: 'Recover failed orders',
-    detail: 'The buyer is called in their language and the delivery is rescheduled.',
-    result: 'Order recovered',
+    id: 'other',
+    label: 'Other business',
+    detail: 'Build an inbound or outbound voice workflow around your exact process.',
+    result: 'Custom world selected',
   },
 ] as const;
 
 export function NeedSelectorScene() {
   const sceneRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
-  const [activeId, setActiveId] = useState<(typeof needs)[number]['id']>('answer');
+  const [activeId, setActiveId] = useState<(typeof needs)[number]['id']>('clinic');
   const active = needs.find((need) => need.id === activeId) ?? needs[0];
   const { scrollYProgress } = useScroll({
     target: sceneRef,
-    offset: ['start start', 'end end'],
+    offset: ['start end', 'end start'],
   });
 
   const worldScale = useTransform(scrollYProgress, [0, 1], [1.01, reducedMotion ? 1.01 : 1.12]);
@@ -56,10 +56,10 @@ export function NeedSelectorScene() {
   return (
     <section
       ref={sceneRef}
-      className="relative h-[138svh] bg-[#17100d]"
-      aria-label="Choose what your voice agent should handle"
+      className="relative h-[100svh] min-h-[620px] bg-[#17100d]"
+      aria-label="Choose your business type"
     >
-      <div className="sticky top-0 h-[100svh] min-h-[620px] overflow-hidden bg-[#17100d]">
+      <div className="relative h-full overflow-hidden bg-[#17100d]">
         <motion.div
           aria-hidden="true"
           className="absolute -inset-[2%] origin-center"
@@ -96,15 +96,15 @@ export function NeedSelectorScene() {
           style={{ y: panelY, opacity: panelOpacity }}
         >
           <p className="mb-4 font-mono text-[0.58rem] font-semibold tracking-[0.2em] text-[#7a6259] uppercase">
-            02 / 06 · Start with the job
+            02 / 06 · Choose your world
           </p>
           <h2 className="font-display text-[clamp(1.95rem,3vw,3.15rem)] leading-[0.94] font-semibold tracking-[-0.052em] text-[#241b18] max-sm:text-[2.25rem]">
-            What should
+            What kind of
             <br />
-            Decibyl handle?
+            business are you?
           </h2>
 
-          <div className="mt-5 grid gap-2" role="group" aria-label="Choose a business need">
+          <div className="mt-5 grid gap-2" role="group" aria-label="Choose your business type">
             {needs.map((need) => {
               const selected = need.id === activeId;
               return (

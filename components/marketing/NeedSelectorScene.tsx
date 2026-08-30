@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 
 const needs = [
@@ -42,14 +42,21 @@ export function NeedSelectorScene() {
 
   const worldScale = useTransform(scrollYProgress, [0, 1], [1.01, reducedMotion ? 1.01 : 1.12]);
   const worldX = useTransform(scrollYProgress, [0, 1], ['0%', reducedMotion ? '0%' : '-3.5%']);
-  const panelY = useTransform(scrollYProgress, [0, 0.75, 1], [26, 0, reducedMotion ? 0 : -48]);
+  const panelY = useTransform(scrollYProgress, [0, 1], [reducedMotion ? 0 : 14, reducedMotion ? 0 : -18]);
   const panelOpacity = useTransform(scrollYProgress, [0, 0.16, 0.88, 1], [0, 1, 1, 0]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    if (reducedMotion) return;
+    const index = Math.min(needs.length - 1, Math.floor(latest * needs.length));
+    const nextId = needs[index].id;
+    setActiveId((current) => (current === nextId ? current : nextId));
+  });
 
   return (
     <section
       ref={sceneRef}
-      className="relative h-[165svh] bg-[#17100d]"
+      className="relative h-[138svh] bg-[#17100d]"
       aria-label="Choose what your voice agent should handle"
     >
       <div className="sticky top-0 h-[100svh] min-h-[620px] overflow-hidden bg-[#17100d]">
@@ -85,19 +92,19 @@ export function NeedSelectorScene() {
         />
 
         <motion.div
-          className="absolute top-1/2 right-[clamp(1.5rem,5vw,6rem)] z-20 w-[min(30vw,370px)] -translate-y-1/2 max-sm:top-auto max-sm:right-5 max-sm:bottom-16 max-sm:w-[calc(100%-2.5rem)] max-sm:translate-y-0"
+          className="absolute top-1/2 left-[clamp(2rem,6vw,7rem)] z-20 w-[min(26vw,340px)] -translate-y-1/2 max-sm:top-auto max-sm:right-5 max-sm:bottom-12 max-sm:left-5 max-sm:w-auto max-sm:translate-y-0"
           style={{ y: panelY, opacity: panelOpacity }}
         >
           <p className="mb-4 font-mono text-[0.58rem] font-semibold tracking-[0.2em] text-[#7a6259] uppercase">
             02 / 06 · Start with the job
           </p>
-          <h2 className="font-display text-[clamp(2.1rem,3.5vw,3.8rem)] leading-[0.94] font-semibold tracking-[-0.052em] text-[#241b18] max-sm:text-[2.25rem]">
+          <h2 className="font-display text-[clamp(1.95rem,3vw,3.15rem)] leading-[0.94] font-semibold tracking-[-0.052em] text-[#241b18] max-sm:text-[2.25rem]">
             What should
             <br />
             Decibyl handle?
           </h2>
 
-          <div className="mt-6 grid gap-2" role="group" aria-label="Choose a business need">
+          <div className="mt-5 grid gap-2" role="group" aria-label="Choose a business need">
             {needs.map((need) => {
               const selected = need.id === activeId;
               return (
@@ -123,7 +130,7 @@ export function NeedSelectorScene() {
 
           <motion.div
             key={active.id}
-            initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-5 border-l border-[#f06359]/60 pl-4"
           >

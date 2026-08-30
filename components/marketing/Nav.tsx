@@ -59,14 +59,14 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed top-4 left-1/2 z-50 w-[min(1040px,calc(100%-1.25rem))] -translate-x-1/2 rounded-[1.15rem] border backdrop-blur-2xl transition-[background-color,border-color,box-shadow] duration-300 ${
+      className={`fixed top-3 left-1/2 z-50 w-[min(940px,calc(100%-2rem))] -translate-x-1/2 rounded-full border backdrop-blur-2xl transition-[background-color,border-color,box-shadow] duration-300 ${
         scrolled
           ? 'border-white/30 bg-[#211713]/[0.82] shadow-[0_14px_42px_rgba(15,8,6,0.28)]'
           : 'border-white/25 bg-[#211713]/[0.62] shadow-[0_10px_30px_rgba(15,8,6,0.18)]'
       }`}
     >
       <Container>
-        <div className="flex h-12 items-center justify-between gap-4">
+        <div className="flex h-10 items-center justify-between gap-3">
           <Link href="/" className="flex items-center gap-2" aria-label="Decibyl home">
             <Logo />
           </Link>
@@ -88,7 +88,7 @@ export function Nav() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <ButtonLink href="/book-a-demo" variant="primary" className="hidden sm:inline-flex">
+            <ButtonLink href="/book-a-demo" variant="primary" className="hidden lg:inline-flex">
               Book a demo
             </ButtonLink>
             <button
@@ -96,7 +96,7 @@ export function Nav() {
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="mobile-nav"
-              className="flex h-11 w-11 items-center justify-center rounded-button border border-white/25 bg-white/10 text-white lg:hidden"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/[0.06] text-white lg:hidden"
             >
               <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
               <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
@@ -278,8 +278,8 @@ function CompareMenu() {
 function Logo() {
   return (
     <span className="flex items-center gap-2">
-      <img src="/favicon-48.png" width="26" height="26" alt="" aria-hidden="true" />
-      <span className="font-display text-[1.08rem] font-bold tracking-tight text-white">Decibyl</span>
+      <img src="/favicon-48.png" width="22" height="22" alt="" aria-hidden="true" />
+      <span className="font-display text-[0.98rem] font-semibold tracking-tight text-white">Decibyl</span>
     </span>
   );
 }

@@ -24,7 +24,9 @@
   position: sticky;
   top: 0;
   height: 100svh;
-  min-height: 620px;
+  /* Never taller than the viewport: a fixed 620px floor overflowed a 568px-tall
+     phone and pushed the copy off-screen. */
+  min-height: min(620px, 100svh);
   overflow: hidden;
   background: #ead8cb;
   --sp: 0; /* whole-story progress 0→1 */
@@ -41,7 +43,12 @@
   inset: 0;
   display: grid;
   align-items: center;
+  /* Below the two-column breakpoint the diorama takes the flexible row and the
+     copy takes a natural one underneath it. They are never stacked on top of
+     each other: overlaying text on the art needed a scrim heavy enough to hide
+     the art, and on a tablet the copy landed squarely across the plinth. */
   grid-template-columns: 1fr;
+  grid-template-rows: minmax(0, 1fr) auto;
   opacity: 0;
   visibility: hidden;
   transition:
@@ -60,6 +67,7 @@
 @media (min-width: 900px) {
   .scene {
     grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+    grid-template-rows: 1fr;
     gap: clamp(1rem, 3vw, 3rem);
     padding-inline: clamp(1.5rem, 5vw, 5.5rem);
   }
@@ -75,15 +83,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
   min-height: 0;
-  padding-block: clamp(6.5rem, 15vh, 9rem) clamp(4rem, 10vh, 6rem);
+  min-width: 0;
+  padding-block: clamp(5.5rem, 13vh, 8rem) 0;
+  padding-inline: clamp(1.25rem, 5vw, 3rem);
 }
 
 @media (min-width: 900px) {
   .artCol {
     grid-column: 2;
+    height: 100%;
     padding-block: clamp(5rem, 12vh, 7rem) clamp(3rem, 8vh, 5rem);
+    padding-inline: 0;
   }
 }
 
@@ -133,18 +144,64 @@
   filter: drop-shadow(0 22px 36px rgba(96, 66, 52, 0.14));
 }
 
+/* On a short phone the copy is the tallest thing in the scene, and a plate at
+   its natural size pushes into it. Cap the art's share of the viewport so the
+   flexible row can actually yield — measured across 360-430px wide devices,
+   where an uncapped plate overlapped the headline. */
+@media (max-width: 899px) {
+  .artCol {
+    max-height: 44svh;
+  }
+
+  .plateMedia,
+  .plateDrawn {
+    max-height: 40svh;
+    width: auto;
+  }
+}
+
+/* Short viewports — small phones, and landscape phones — need the art to give
+   up more room again, because the copy's height barely changes with the screen. */
+@media (max-height: 660px) and (max-width: 899px) {
+  .artCol {
+    max-height: 34svh;
+    padding-block: clamp(3.75rem, 10vh, 5rem) 0;
+  }
+
+  .plateMedia,
+  .plateDrawn {
+    max-height: 30svh;
+  }
+
+  .title {
+    font-size: clamp(1.6rem, 6.5vw, 2.1rem);
+  }
+
+  .lead {
+    font-size: 0.9rem;
+  }
+}
+
 /* ---------------------------------------------------------------- copy ----- */
 
 .copyCol {
   position: relative;
   z-index: 2;
   grid-column: 1;
-  grid-row: 1;
-  align-self: center;
+  grid-row: 2;
+  align-self: start;
   max-width: 32rem;
-  padding-inline: clamp(1.5rem, 6vw, 0rem);
+  padding: 0 clamp(1.5rem, 6vw, 3rem) clamp(3rem, 8vh, 4.5rem);
   transform: translate3d(0, 22px, 0);
   transition: transform 660ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 900px) {
+  .copyCol {
+    grid-row: 1;
+    align-self: center;
+    padding: 0;
+  }
 }
 
 .scene[data-state='active'] .copyCol {
@@ -153,28 +210,6 @@
 
 .scene[data-state='past'] .copyCol {
   transform: translate3d(0, -28px, 0);
-}
-
-@media (max-width: 899px) {
-  .copyCol {
-    align-self: end;
-    padding-bottom: clamp(3.5rem, 9vh, 5rem);
-  }
-
-  /* On one column the copy sits over the diorama, so it takes the scrim the
-     reference uses — bottom-weighted, since the art reads from the top. */
-  .copyCol::before {
-    content: '';
-    position: absolute;
-    inset: -20% -8% -60% -8%;
-    z-index: -1;
-    background: linear-gradient(
-      to bottom,
-      rgba(234, 216, 203, 0) 0%,
-      rgba(234, 216, 203, 0.84) 24%,
-      rgba(234, 216, 203, 0.97) 58%
-    );
-  }
 }
 
 /* ----------------------------------------------------------------- type ---- */
@@ -553,7 +588,13 @@
 
 /* ================================================== reduced motion ======== */
 
-@media (prefers-reduced-motion: reduce) {
+/* Two audiences get the stacked document instead of the pinned story: anyone
+   who asked for reduced motion, and anyone on a viewport too short to hold a
+   chapter. Below ~620px of height the diorama and its copy cannot both fit,
+   and something has to be cut off — a landscape phone at 390px tall is the
+   clear case. Rather than crop the art or the words, the story stops pinning
+   and simply becomes a page. Nothing is lost either way. */
+@media (prefers-reduced-motion: reduce), (max-height: 620px) {
   .story {
     height: auto;
   }
@@ -577,7 +618,10 @@
     position: static;
     transform: none;
     margin: 1.25rem auto 0;
+    /* `width: max-content` here overflowed a 320px screen — seven pills are
+       wider than the viewport. It stays scrollable instead. */
     width: max-content;
+    max-width: calc(100% - 2rem);
   }
 
   .voice {

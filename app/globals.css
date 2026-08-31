@@ -76,6 +76,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Only the scroll story lays down `scroll-snap-align` points, so this snaps
+     there and nowhere else. `proximity` leaves the reader free to scroll past
+     or out; `mandatory` would trap them. */
+  scroll-snap-type: y proximity;
   -webkit-text-size-adjust: 100%;
 }
 

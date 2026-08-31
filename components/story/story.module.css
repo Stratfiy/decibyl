@@ -37,6 +37,25 @@
   --sp: 0; /* whole-story progress 0→1 */
 }
 
+/* Chapters have to hold. Without snapping, one trackpad flick covers two or
+   three of them and the story fast-forwards — you never land on a chapter, you
+   pass through it.
+
+   The snap points are 1px markers laid down the scroll length, one per chapter.
+   `scroll-snap-type` goes on the scroller (html, in globals.css) but nothing
+   else on the page carries `scroll-snap-align`, so snapping only ever happens
+   near these — the marketing page below scrolls freely. `proximity`, not
+   `mandatory`: mandatory fights the reader when they want to leave, and makes
+   the "skip the story" link feel broken. */
+.snapPoint {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  scroll-snap-align: start;
+}
+
 /* ---------------------------------------------------------------- stage ---- */
 
 /* Each chapter is one self-contained scene: its own diorama and its own copy,

@@ -163,6 +163,17 @@ export function ScrollStory({ needs, call, phone }: Props) {
       style={{ '--story-h': `${ACTS * CHAPTER_SCROLL_VH}svh` } as React.CSSProperties}
       aria-label="The Decibyl story"
     >
+      {/* One snap marker per chapter, so a flick lands on a chapter instead of
+          sailing through three. See `.snapPoint`. */}
+      {chapters.map((c, i) => (
+        <span
+          key={`snap-${c.id}`}
+          className={styles.snapPoint}
+          style={{ top: `${i * CHAPTER_SCROLL_VH}svh` }}
+          aria-hidden="true"
+        />
+      ))}
+
       <div ref={stageRef} className={styles.stage} data-story-stage>
         {chapters.map((c, i) => (
           <div key={c.id} className={styles.scene} data-story-scene data-state={state(i)}>

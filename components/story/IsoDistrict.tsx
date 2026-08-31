@@ -64,30 +64,97 @@ export function IsoDistrict({ variant, className }: Props) {
         </linearGradient>
       </defs>
 
-      <g transform="translate(160 122)">
-        {/* The island plate. */}
-        <path d="M0-58 116 6 0 70-116 6Z" fill={`url(#ground-${variant})`} />
-        <path d="M-116 6 0 70 0 84-116 20Z" fill="#d3c5b2" />
-        <path d="M116 6 0 70 0 84 116 20Z" fill="#c6b7a2" />
+      <g transform="translate(160 118)">
+        {/* The island plate, with a lit rim so it reads as a solid slab
+            rather than a flat diamond. */}
+        <path d="M0-60 120 6 0 72-120 6Z" fill={`url(#ground-${variant})`} />
+        <path d="M-120 6 0 72 0 88-120 22Z" fill="#d3c5b2" />
+        <path d="M120 6 0 72 0 88 120 22Z" fill="#c3b49f" />
+        <path d="M0-60 120 6 116 8 0-56-116 8-120 6Z" fill="#fffdfa" opacity="0.55" />
 
         {/* A road threading the plate, the way the reference island does. */}
         <path
-          d="M-72 14 -20 44 24 20 74 48"
+          d="M-78 12 -22 46 26 20 78 50"
           fill="none"
-          stroke="#f7f2ea"
-          strokeWidth="9"
+          stroke="#f8f4ec"
+          strokeWidth="10"
           strokeLinecap="round"
           strokeLinejoin="round"
-          opacity="0.9"
         />
 
         {shape.blocks.map(([x, y, w, h], i) => (
           <Block key={i} x={x} y={y} w={w} h={h} variant={variant} />
         ))}
 
+        <Scatter variant={variant} />
         <Props kind={shape.props} />
       </g>
     </svg>
+  );
+}
+
+/* A deterministic little PRNG. The scatter has to be identical on the server
+   and in the browser or React tears the tree down over a hydration mismatch,
+   so nothing here may touch Math.random. */
+function seeded(key: string) {
+  let h = 2166136261;
+  for (let i = 0; i < key.length; i++) {
+    h ^= key.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return () => {
+    h ^= h << 13;
+    h ^= h >>> 17;
+    h ^= h << 5;
+    return ((h >>> 0) % 1000) / 1000;
+  };
+}
+
+/** Trees and passers-by. Populating the island is most of what separates a
+ *  diorama from a diagram. */
+function Scatter({ variant }: { variant: string }) {
+  const rand = seeded(variant);
+  const trees = Array.from({ length: 7 }, () => {
+    /* Place on the plate in isometric space, then reject anything that would
+       land on the road or under the buildings by keeping to the outer ring. */
+    const t = rand() * 2 - 1;
+    const edge = 0.62 + rand() * 0.3;
+    const x = t * 108 * edge;
+    const y = (1 - Math.abs(t)) * 56 * edge * (rand() > 0.5 ? 1 : -1) + 14;
+    return { x, y, s: 0.75 + rand() * 0.5 };
+  });
+
+  const figures = Array.from({ length: 3 }, () => ({
+    x: (rand() * 2 - 1) * 62,
+    y: 20 + rand() * 26,
+    coral: rand() > 0.55,
+  }));
+
+  return (
+    <g>
+      {trees.map((t, i) => (
+        <g key={`t${i}`} transform={`translate(${t.x.toFixed(1)} ${t.y.toFixed(1)}) scale(${t.s.toFixed(2)})`}>
+          <ellipse cx="0" cy="2" rx="7" ry="3.5" fill="#000" opacity="0.06" />
+          <rect x="-1.5" y="-6" width="3" height="8" rx="1.5" fill="#b9a68d" />
+          <circle cx="0" cy="-11" r="7" fill="#cfdcc9" />
+          <circle cx="-2" cy="-13" r="4.5" fill="#dfe9d9" />
+        </g>
+      ))}
+      {figures.map((f, i) => (
+        <g key={`f${i}`} transform={`translate(${f.x.toFixed(1)} ${f.y.toFixed(1)})`}>
+          <ellipse cx="0" cy="1" rx="4" ry="2" fill="#000" opacity="0.07" />
+          <rect
+            x="-2.5"
+            y="-9"
+            width="5"
+            height="10"
+            rx="2.5"
+            fill={f.coral ? 'var(--color-vermilion)' : '#a8968a'}
+          />
+          <circle cx="0" cy="-11.5" r="3" fill="#e8d9c9" />
+        </g>
+      ))}
+    </g>
   );
 }
 

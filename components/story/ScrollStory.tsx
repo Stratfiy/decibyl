@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { buttonClass } from '@/components/ui/Button';
 import { BuildBadge } from './BuildBadge';
 import { IsoDistrict } from './IsoDistrict';
+import { SplitText } from './SplitText';
 import styles from './story.module.css';
 
 /* ============================================================================
@@ -41,7 +42,10 @@ type Chapter = {
   id: string;
   nav: string;
   eyebrow: string;
-  title: React.ReactNode;
+  /** Plain text — it is split into words for the reveal, so it cannot be JSX. */
+  title: string;
+  /** How many leading words take the extruded brand treatment. */
+  highlight?: number;
   lead: string;
   chips: string[];
   /** Rendered plate path, once the Kie drafts land. */
@@ -55,6 +59,26 @@ type Chapter = {
 };
 
 const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
+
+/* Each language in its own script, because writing "Tamil" in Latin letters is
+   the same move as a language menu — it asks the reader to take our word for it.
+   Latin labels are interleaved so the strip is still readable to everyone. */
+const LANGUAGE_STRIP = [
+  { label: 'हिन्दी', indic: true },
+  { label: 'Hindi' },
+  { label: 'தமிழ்', indic: true },
+  { label: 'Tamil' },
+  { label: 'తెలుగు', indic: true },
+  { label: 'Telugu' },
+  { label: 'ಕನ್ನಡ', indic: true },
+  { label: 'Kannada' },
+  { label: 'मराठी', indic: true },
+  { label: 'Marathi' },
+  { label: 'ગુજરાતી', indic: true },
+  { label: 'Gujarati' },
+  { label: 'English' },
+  { label: 'Hinglish · Tanglish' },
+];
 
 /** Scroll length per chapter, in svh. */
 const CHAPTER_SCROLL_VH = 88;
@@ -203,22 +227,30 @@ export function ScrollStory({ needs, call, phone }: Props) {
               </div>
             </div>
 
-            <div className={styles.copyCol}>
+            <div className={`${styles.copyCol} ${styles.cascade}`}>
               <p className={styles.count}>
                 {String(i + 1).padStart(2, '0')} / {String(ACTS).padStart(2, '0')}
               </p>
               <p className={styles.eyebrow}>{c.eyebrow}</p>
               {i === 0 ? (
-                <h1 className={styles.title}>{c.title}</h1>
+                <h1 className={styles.title}>
+                  <SplitText text={c.title} highlight={c.highlight} />
+                </h1>
               ) : (
-                <h2 className={styles.title}>{c.title}</h2>
+                <h2 className={styles.title}>
+                  <SplitText text={c.title} highlight={c.highlight} />
+                </h2>
               )}
               <p className={styles.lead}>{c.lead}</p>
 
               {c.chips.length > 0 && (
                 <div className={styles.chips}>
-                  {c.chips.map((chip) => (
-                    <span key={chip} className={styles.chip}>
+                  {c.chips.map((chip, ci) => (
+                    <span
+                      key={chip}
+                      className={styles.chip}
+                      style={{ '--i': ci } as React.CSSProperties}
+                    >
                       {chip}
                     </span>
                   ))}
@@ -317,6 +349,17 @@ export function ScrollStory({ needs, call, phone }: Props) {
           Scroll to begin
         </p>
 
+        {/* The languages, running. Duplicated once so the -50% loop is seamless. */}
+        <div className={styles.marquee} aria-hidden="true">
+          <div className={styles.marqueeTrack}>
+            {[...LANGUAGE_STRIP, ...LANGUAGE_STRIP].map((item, li) => (
+              <span key={li} className={styles.marqueeItem} data-indic={item.indic || undefined}>
+                {item.label}
+              </span>
+            ))}
+          </div>
+        </div>
+
         <div className={styles.progressTrack} aria-hidden="true">
           <div className={styles.progressFill} />
         </div>
@@ -395,13 +438,8 @@ function buildChapters(
       id: 'street',
       nav: 'The street',
       eyebrow: 'AI voice agents · Built in India',
-      title: (
-        <>
-          <span className={styles.extrude}>AI voice agents</span>
-          <br />
-          for Indian businesses.
-        </>
-      ),
+      title: 'AI voice agents for Indian businesses.',
+      highlight: 3,
       lead: 'Decibyl answers your phone, qualifies the lead, books the appointment and makes the follow-up call. Every call transcribed, recorded and scored.',
       chips: ['Always available', 'Inbound and outbound', '10+ languages'],
       drawn: 'street',

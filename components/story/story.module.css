@@ -128,19 +128,29 @@
   justify-content: center;
   max-width: 100%;
   max-height: 100%;
-  transform: translate3d(0, 30px, 0) scale(0.965);
-  transition: transform 860ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 54px, 0) scale(0.9);
+  filter: blur(6px);
+  transition:
+    transform 980ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 700ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
 
 /* Once the chapter lands the plate settles, then drifts a little further as
    the reader keeps scrolling through it. */
+/* Parallax: the plate keeps travelling for the whole chapter, not just on
+   entry, so the scroll itself is doing something rather than only switching
+   slides. -54px across a chapter is enough to read as depth against copy that
+   is holding still. */
 .scene[data-state='active'] .plate {
-  transform: translate3d(0, calc(var(--drift, 0) * -20px), 0) scale(1);
+  transform: translate3d(0, calc(var(--drift, 0) * -54px), 0) scale(1);
+  filter: blur(0);
+  transition-delay: 60ms;
 }
 
 .scene[data-state='past'] .plate {
-  transform: translate3d(0, -36px, 0) scale(1.035);
+  transform: translate3d(0, -70px, 0) scale(1.06);
+  filter: blur(6px);
 }
 
 /* The plates carry their own flat cream backdrop, sampled at #ead8cb, and the
@@ -237,6 +247,132 @@
 
 .scene[data-state='past'] .copyCol {
   transform: translate3d(0, -28px, 0);
+}
+
+/* ================================================== reveal choreography ==== */
+
+/* The copy does not arrive as a block. Eyebrow, headline words, lead, chips and
+   actions cascade, and each headline word resolves out of a blur. Everything is
+   CSS keyed off the parent scene's state, so scrolling costs nothing extra.
+
+   The stagger step is deliberately short. At 100ms per word — the figure the
+   prompt libraries reach for — a seven-word headline takes 700ms to finish
+   arriving, which is long enough to feel like waiting rather than like motion.
+   60ms reads as one gesture. */
+.word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translate3d(0, 0.5em, 0);
+  transition:
+    opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scene[data-state='active'] .word {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+  transition-delay: calc(var(--i, 0) * 60ms + 120ms);
+}
+
+/* The rest of the block follows the headline in, in reading order. */
+.cascade > * {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 640ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scene[data-state='active'] .cascade > * {
+  opacity: 1;
+  transform: none;
+}
+
+.scene[data-state='active'] .cascade > *:nth-child(1) { transition-delay: 40ms; }
+.scene[data-state='active'] .cascade > *:nth-child(2) { transition-delay: 90ms; }
+.scene[data-state='active'] .cascade > *:nth-child(3) { transition-delay: 420ms; }
+.scene[data-state='active'] .cascade > *:nth-child(4) { transition-delay: 500ms; }
+.scene[data-state='active'] .cascade > *:nth-child(5) { transition-delay: 570ms; }
+.scene[data-state='active'] .cascade > *:nth-child(6) { transition-delay: 640ms; }
+.scene[data-state='active'] .cascade > *:nth-child(n + 7) { transition-delay: 700ms; }
+
+/* Chips arrive individually rather than as a row. */
+.chip {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0) scale(0.96);
+  transition:
+    opacity 460ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scene[data-state='active'] .chip {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i, 0) * 70ms + 560ms);
+}
+
+/* --------------------------------------------------------------- marquee ---- */
+
+/* A voice company's languages, running continuously under the story. It is the
+   one piece of motion here that is not scroll-driven, and it earns that: it is
+   the product's actual claim, moving. */
+.marquee {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 3px;
+  z-index: 3;
+  overflow: hidden;
+  padding-block: 0.7rem;
+  border-top: 1px solid rgba(70, 54, 46, 0.1);
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  gap: 2.5rem;
+  animation: marqueeRun 38s linear infinite;
+}
+
+.marqueeItem {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(70, 54, 46, 0.5);
+  white-space: nowrap;
+}
+
+.marqueeItem[data-indic='true'] {
+  font-family: var(--font-indic);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.82rem;
+  color: rgba(70, 54, 46, 0.62);
+}
+
+/* The track holds the list twice, so -50% is exactly one loop. */
+@keyframes marqueeRun {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (max-width: 899px) {
+  .marquee {
+    display: none;
+  }
 }
 
 /* ----------------------------------------------------------------- type ---- */
@@ -556,6 +692,7 @@
   position: absolute;
   inset-inline: 0;
   bottom: 0;
+  /* Above the language strip, which occupies the very bottom edge. */
   z-index: 6;
   height: 3px;
   background: rgba(70, 54, 46, 0.1);
@@ -572,7 +709,7 @@
 .cue {
   position: absolute;
   left: 50%;
-  bottom: 1.4rem;
+  bottom: 3.6rem;
   transform: translateX(-50%);
   z-index: 6;
   font-family: var(--font-mono);
@@ -587,7 +724,7 @@
 
 .skip {
   position: absolute;
-  bottom: 1.25rem;
+  bottom: 3.4rem;
   right: clamp(1.25rem, 4vw, 2.5rem);
   z-index: 7;
   border-radius: 999px;
@@ -706,6 +843,19 @@
   .plateMedia {
     width: min(100%, 30rem);
     max-height: none;
+  }
+
+  .word,
+  .cascade > *,
+  .chip {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+
+  .marqueeTrack {
+    animation: none;
   }
 
   .copyCol,

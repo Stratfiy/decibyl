@@ -32,18 +32,15 @@ export function Hero() {
           className="absolute -inset-[4%] origin-center"
           style={{ scale: worldScale, x: worldX }}
         >
-          <video
+          {/* Animated WebP avoids browser autoplay and hydration failures in the opening scene. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/media/scene-one/decibyl-office-welcome-hd.webp?v=20260831b"
+            alt=""
             className="h-full w-full object-cover object-[68%_center] sm:object-center"
-            autoPlay
-            muted
-            playsInline
-            preload="auto"
-            onCanPlay={(event) => void event.currentTarget.play().catch(() => undefined)}
-            onEnded={(event) => event.currentTarget.pause()}
-            poster="/media/scene-one/decibyl-office-welcome-poster.webp"
-          >
-            <source src="/media/scene-one/decibyl-office-welcome.mp4?v=20260831" type="video/mp4" />
-          </video>
+            fetchPriority="high"
+            decoding="async"
+          />
         </motion.div>
 
         <div

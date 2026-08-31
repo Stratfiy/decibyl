@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Container } from '@/components/ui/Section';
-import { ButtonLink } from '@/components/ui/Button';
 import { topLevelVerticals, verticalHref } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
 import { useCases } from '@/data/useCases';
@@ -59,12 +58,14 @@ export function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-colors duration-200 ${
-        scrolled ? 'glass border-b border-line' : 'border-b border-transparent'
+      className={`fixed top-3 left-1/2 z-50 w-[min(940px,calc(100%-2rem))] -translate-x-1/2 rounded-full border backdrop-blur-2xl transition-[background-color,border-color,box-shadow] duration-300 ${
+        scrolled
+          ? 'border-white/30 bg-[#211713]/[0.82] shadow-[0_14px_42px_rgba(15,8,6,0.28)]'
+          : 'border-white/25 bg-[#211713]/[0.62] shadow-[0_10px_30px_rgba(15,8,6,0.18)]'
       }`}
     >
       <Container>
-        <div className="flex h-16 items-center justify-between gap-6">
+        <div className="flex h-10 items-center justify-between gap-3">
           <Link href="/" className="flex items-center gap-2" aria-label="Decibyl home">
             <Logo />
           </Link>
@@ -76,7 +77,7 @@ export function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors hover:text-ink"
+                className="rounded-button px-3 py-2 text-[0.9375rem] text-white/75 transition-colors hover:text-white"
               >
                 {l.label}
               </Link>
@@ -86,15 +87,18 @@ export function Nav() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <ButtonLink href="/book-a-demo" variant="primary" className="hidden sm:inline-flex">
-              Book a demo
-            </ButtonLink>
+            <Link
+              href="/book-a-demo"
+              className="hidden rounded-full border border-white/25 bg-white/[0.07] px-4 py-2 text-[0.78rem] font-medium text-white/90 transition-colors hover:bg-white/15 lg:inline-flex"
+            >
+              Book demo
+            </Link>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="mobile-nav"
-              className="flex h-11 w-11 items-center justify-center rounded-button border border-line bg-snow lg:hidden"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/[0.06] text-white lg:hidden"
             >
               <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
               <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
@@ -110,7 +114,7 @@ export function Nav() {
       </Container>
 
       {open ? (
-        <div id="mobile-nav" className="border-t border-line bg-snow lg:hidden">
+        <div id="mobile-nav" className="rounded-b-[1.35rem] border-t border-line bg-white/[0.96] lg:hidden">
           <Container>
             <nav aria-label="Mobile" className="grid gap-1 py-5">
               <p className="t-eyebrow mt-2 mb-1 text-iron">Solutions</p>
@@ -159,9 +163,13 @@ export function Nav() {
                   Decibyl vs {c.name}
                 </Link>
               ))}
-              <ButtonLink href="/book-a-demo" className="mt-4" size="lg">
-                Book a demo
-              </ButtonLink>
+              <Link
+                href="/book-a-demo"
+                onClick={() => setOpen(false)}
+                className="mt-4 rounded-full bg-sindoor px-5 py-3 text-center font-medium text-white"
+              >
+                Book demo
+              </Link>
             </nav>
           </Container>
         </div>
@@ -173,7 +181,7 @@ export function Nav() {
 function UseCasesMenu() {
   return (
     <div className="group relative">
-      <button type="button" className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink" aria-haspopup="true">Use cases</button>
+      <button type="button" className="rounded-button px-3 py-2 text-[0.9375rem] text-white/75 transition-colors group-hover:text-white" aria-haspopup="true">Use cases</button>
       <div className="invisible absolute top-full left-0 w-72 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
         <div className="rounded-card border border-line bg-snow p-2 shadow-[var(--shadow-card)]">
           {useCases.map((item) => <Link key={item.slug} href={`/use-cases/${item.slug}`} className="block rounded-[10px] px-3 py-2 text-[0.9375rem] text-ink transition-colors hover:bg-canvas">{item.name}</Link>)}
@@ -190,7 +198,7 @@ function SolutionsMenu() {
     <div className="group relative">
       <button
         type="button"
-        className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink"
+        className="rounded-button px-3 py-2 text-[0.9375rem] text-white/75 transition-colors group-hover:text-white"
         aria-haspopup="true"
       >
         Solutions
@@ -224,7 +232,7 @@ function CompanyMenu() {
     <div className="group relative">
       <button
         type="button"
-        className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink"
+        className="rounded-button px-3 py-2 text-[0.9375rem] text-white/75 transition-colors group-hover:text-white"
         aria-haspopup="true"
       >
         Company
@@ -251,7 +259,7 @@ function CompareMenu() {
     <div className="group relative">
       <button
         type="button"
-        className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink"
+        className="rounded-button px-3 py-2 text-[0.9375rem] text-white/75 transition-colors group-hover:text-white"
         aria-haspopup="true"
       >
         Compare
@@ -276,8 +284,8 @@ function CompareMenu() {
 function Logo() {
   return (
     <span className="flex items-center gap-2">
-      <img src="/favicon-48.png" width="26" height="26" alt="" aria-hidden="true" />
-      <span className="font-display text-[1.15rem] font-bold tracking-tight text-ink">Decibyl</span>
+      <img src="/favicon-48.png" width="22" height="22" alt="" aria-hidden="true" />
+      <span className="font-display text-[0.98rem] font-semibold tracking-tight text-white">Decibyl</span>
     </span>
   );
 }

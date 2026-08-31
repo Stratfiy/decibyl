@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { Hero } from '@/components/marketing/Hero';
+import { NeedSelectorScene } from '@/components/marketing/NeedSelectorScene';
 import { LiveTranscript } from '@/components/marketing/LiveTranscript';
 import { SlideDeck, type DeckItem } from '@/components/marketing/SlideDeck';
 import { LossCalculator } from '@/components/marketing/LossCalculator';
@@ -85,6 +86,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <NeedSelectorScene />
 
       {/* The one dark element on the page. */}
       <section aria-label="Sample call" className="bg-canvas pb-16 sm:pb-20 lg:pb-24">

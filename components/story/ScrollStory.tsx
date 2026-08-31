@@ -90,8 +90,16 @@ export function ScrollStory({ needs, call, phone }: Props) {
       const travel = section.offsetHeight - stage.offsetHeight;
       if (travel <= 0) return;
 
-      const p = clamp(-section.getBoundingClientRect().top / travel, 0, 1);
+      const rect = section.getBoundingClientRect();
+      const p = clamp(-rect.top / travel, 0, 1);
       stage.style.setProperty('--sp', p.toFixed(4));
+
+      /* Tell the page the story currently owns the viewport, so the header can
+         stay transparent over it and the cream reads edge to edge. Cleared the
+         moment the story is behind us, so the rest of the page — and every
+         other page — keeps the normal glass header. */
+      const owns = rect.top <= 0 && rect.bottom > stage.offsetHeight * 0.5;
+      document.documentElement.dataset.storyHero = owns ? 'true' : 'false';
 
       const raw = p * ACTS;
       const index = clamp(Math.floor(raw), 0, ACTS - 1);
@@ -112,6 +120,7 @@ export function ScrollStory({ needs, call, phone }: Props) {
       if (frame) cancelAnimationFrame(frame);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
+      delete document.documentElement.dataset.storyHero;
     };
   }, [ACTS]);
 

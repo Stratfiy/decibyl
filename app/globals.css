@@ -94,6 +94,20 @@ body {
   color: #fff;
 }
 
+/* ---------- Floating header over a full-bleed hero ----------
+   The home page opens on a full-bleed cream story and the header floats over
+   it. Once scrolled, the header normally turns to glass — over the story that
+   reads as a bar again and breaks the edge-to-edge fill, so it is suppressed
+   for as long as the story owns the viewport. `ScrollStory` sets the attribute
+   while it is on screen and clears it on the way out, so every other page and
+   the rest of this one keep the glass exactly as before. */
+html[data-story-hero='true'] header.glass {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+
 /* ---------- Focus ring: vermilion, visible, everywhere ---------- */
 :focus-visible {
   outline: 2px solid var(--color-vermilion);

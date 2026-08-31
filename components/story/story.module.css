@@ -14,9 +14,14 @@
    document — every chapter is server-rendered, nothing is scroll-only.
    ============================================================================ */
 
+/* The header is sticky, so it sits in flow and leaves a band of the cool page
+   canvas above the story. Pulling the story up by the header's height lets the
+   cream run to the very top of the viewport and the nav float over it. The
+   stage pins at `top: 0` regardless, so the fill covers the full screen. */
 .story {
   position: relative;
   height: var(--story-h);
+  margin-top: -4rem;
   background: #ead8cb;
 }
 
@@ -597,6 +602,8 @@
 @media (prefers-reduced-motion: reduce), (max-height: 620px) {
   .story {
     height: auto;
+    /* No pinning here, so the header would sit on top of the first chapter. */
+    padding-top: 4rem;
   }
 
   .stage {

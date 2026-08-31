@@ -6,6 +6,37 @@ things here should block a public one.
 
 ---
 
+## A third-party trademark is baked into a Scene 2 render, 31 Aug 2026
+
+`public/media/scene-two/decibyl-business-selector.png` — the Kie plate that ran
+full-bleed behind the old hero — has a **clearly legible Amazon smile logo** on
+one of its parcels, along with barcodes and garbled printed text on the others.
+
+Two separate problems.
+
+**It must not be published.** A competitor's mark on our own homepage implies a
+customer or partner relationship we do not have, and it is not ours to display.
+The plate is already out of `public/` on this branch, but it is still on
+`origin/codex/scene-one-cinematic`, and the approved Scene 2 *motion* request
+fetches it as its `image_url` — so anything animated from it inherits the mark.
+Retire the plate rather than reuse it; a re-render needs the parcels called out
+as plain and unbranded in the prompt.
+
+**It silently breaks generation.** Passing it as an `image_input` reference makes
+the model reproduce the trade dress, and Google's policy classifier then rejects
+the result with "violated Google's Generative AI Prohibited Use policy" and no
+indication of the cause. This cost two failed runs before the pattern showed:
+chapters without parcels rendered fine from the same reference, chapters with
+parcels failed every time regardless of wording.
+
+The general rule this earns: **check a reference image for third-party marks
+before using it as an `image_input`.** These renders are generated from
+real-world training data and will happily invent a recognisable logo on a
+cardboard box. Every prompt in the current request now forbids branding
+explicitly, but the reference matters more than the prompt.
+
+---
+
 ## The opening scroll story, 31 Aug 2026
 
 The home page opens with a scroll story: each chapter is its own miniature

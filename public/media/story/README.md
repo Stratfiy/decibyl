@@ -9,13 +9,18 @@ drawn art rather than showing a broken image.
 
 | Filename | Chapter |
 |---|---|
-| `decibyl-room-01-the-answer.png` | 03 · The answer |
-| `decibyl-room-02-the-clinic.png` | 04 · Clinics |
-| `decibyl-room-03-the-commerce.png` | 06 · Commerce |
+| `decibyl-room-01-the-answer.webp` | 03 · The answer |
+| `decibyl-room-02-the-clinic.webp` | 04 · Clinics |
+| `decibyl-room-03-the-commerce.webp` | 06 · Commerce |
 
 Source: `decibyl-town-finals-2026-08-31` in `Stratfiy/decibyl-ai-ops`, rendered by
 the guarded Kie workflow. The runner uploads a GitHub Actions artifact; download
 it from the workflow run page and copy the PNGs here.
+
+**Save as WebP, not PNG.** These render at 2K and go straight into a marketing
+page. At 1600px the same plate is 1363 KB as PNG and 37 KB as WebP — a 37x
+difference for no visible loss on a soft-shaded 3D render with no hard edges or
+text. `sharp` is already a dependency; the resize is two lines.
 
 Two things to do before committing a plate:
 

@@ -17,7 +17,7 @@
 .story {
   position: relative;
   height: var(--story-h);
-  background: #f7f2ec;
+  background: #ead8cb;
 }
 
 .stage {
@@ -26,23 +26,8 @@
   height: 100svh;
   min-height: 620px;
   overflow: hidden;
-  background: #f7f2ec;
+  background: #ead8cb;
   --sp: 0; /* whole-story progress 0→1 */
-}
-
-/* A soft warm bloom that shifts across the ground as the story runs, so the
-   cream never sits completely flat between chapters. */
-.ground {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      52% 58% at calc(28% + var(--sp) * 44%) 42%,
-      rgba(225, 91, 83, 0.1),
-      transparent 70%
-    ),
-    radial-gradient(70% 60% at 50% 108%, rgba(180, 150, 128, 0.16), transparent 72%);
 }
 
 /* ---------------------------------------------------------------- stage ---- */
@@ -123,13 +108,22 @@
   transform: translate3d(0, -36px, 0) scale(1.035);
 }
 
+/* The plates carry their own flat cream backdrop, sampled at #ead8cb, and the
+   story ground is set to exactly that. Feathering alone could not fix this: a
+   radial mask on a 16:9 plate never reaches the corners, so the rectangle kept
+   showing. Matching the ground is also what the reference does — the diorama
+   appears to float because there is nothing behind it to see. */
 .plateMedia {
   max-width: 100%;
   max-height: 100%;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 26px 42px rgba(96, 66, 52, 0.16));
+  /* A light feather as insurance: the ground matches the plates exactly today,
+     but a future render whose backdrop is a shade off should still dissolve
+     rather than show a rectangle. */
+  -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 52%, #000 72%, transparent 100%);
+  mask-image: radial-gradient(ellipse 92% 88% at 50% 52%, #000 72%, transparent 100%);
 }
 
 /* The drawn stand-in occupies the exact slot a rendered plate will. */
@@ -176,9 +170,9 @@
     z-index: -1;
     background: linear-gradient(
       to bottom,
-      rgba(247, 242, 236, 0) 0%,
-      rgba(247, 242, 236, 0.84) 24%,
-      rgba(247, 242, 236, 0.97) 58%
+      rgba(234, 216, 203, 0) 0%,
+      rgba(234, 216, 203, 0.84) 24%,
+      rgba(234, 216, 203, 0.97) 58%
     );
   }
 }
@@ -190,7 +184,7 @@
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.26em;
-  color: rgba(70, 54, 46, 0.42);
+  color: rgba(60, 44, 36, 0.55);
 }
 
 .eyebrow {
@@ -571,7 +565,7 @@
     overflow: visible;
   }
 
-  .ground,
+
   .rail,
   .progressTrack,
   .cue,

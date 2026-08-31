@@ -154,8 +154,6 @@ export function ScrollStory({ needs, call, phone }: Props) {
       aria-label="The Decibyl story"
     >
       <div ref={stageRef} className={styles.stage}>
-        <div className={styles.ground} aria-hidden="true" />
-
         {chapters.map((c, i) => (
           <div key={c.id} className={styles.scene} data-state={state(i)}>
             <div className={styles.artCol}>
@@ -324,8 +322,8 @@ export function ScrollStory({ needs, call, phone }: Props) {
  *  drawn stand-in to the render with no code change, and a missing file falls
  *  back rather than breaking. See `public/media/story/README.md`. */
 const VERTICAL_PLATE: Record<string, string> = {
-  clinics: '/media/story/decibyl-room-02-the-clinic.png',
-  'd2c-ndr-recovery': '/media/story/decibyl-room-03-the-commerce.png',
+  clinics: '/media/story/decibyl-room-02-the-clinic.webp',
+  'd2c-ndr-recovery': '/media/story/decibyl-room-03-the-commerce.webp',
 };
 
 /** How each vertical is told, keyed by slug. A vertical with no entry still
@@ -408,7 +406,7 @@ function buildChapters(
       title: 'The call you didn’t answer was the sale.',
       lead: 'Two lines, one receptionist, and a customer who decided to buy at nine at night. Decibyl picks up on the first ring instead — not a menu, but a voice that asks what they need and does the next thing about it.',
       chips: ['Answers on ring one', 'Books and confirms', 'Calls back too'],
-      art: '/media/story/decibyl-room-01-the-answer.png',
+      art: '/media/story/decibyl-room-01-the-answer.webp',
       drawn: 'switchboard',
       href: '/how-it-works',
       linkLabel: 'How it works',

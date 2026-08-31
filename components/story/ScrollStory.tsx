@@ -65,6 +65,14 @@ export function ScrollStory({ needs, call, phone }: Props) {
 
   const [act, setAct] = useState(0);
   const [narrating, setNarrating] = useState(false);
+  /* Chapters whose rendered plate is missing or failed to decode. They fall
+     back to the drawn isometric, so a half-delivered set of renders degrades
+     one chapter at a time instead of breaking the story. */
+  const [artFailed, setArtFailed] = useState<Record<string, true>>({});
+
+  const markArtFailed = useCallback((id: string) => {
+    setArtFailed((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
+  }, []);
 
   const chapters = buildChapters(needs, call);
   const ACTS = chapters.length;
@@ -152,7 +160,7 @@ export function ScrollStory({ needs, call, phone }: Props) {
           <div key={c.id} className={styles.scene} data-state={state(i)}>
             <div className={styles.artCol}>
               <div className={styles.plate}>
-                {c.art ? (
+                {c.art && !artFailed[c.id] ? (
                   <img
                     src={c.art}
                     alt=""
@@ -160,6 +168,15 @@ export function ScrollStory({ needs, call, phone }: Props) {
                     fetchPriority={i === 0 ? 'high' : undefined}
                     loading={i === 0 ? undefined : 'lazy'}
                     decoding="async"
+                    onError={() => markArtFailed(c.id)}
+                    /* `onError` alone is not enough: the browser starts
+                       fetching the server-rendered <img> before React
+                       hydrates, so a 404 fires its error event with no
+                       handler attached yet and the broken image sticks.
+                       Re-check the decoded state when the node mounts. */
+                    ref={(node) => {
+                      if (node?.complete && node.naturalWidth === 0) markArtFailed(c.id);
+                    }}
                   />
                 ) : (
                   <IsoDistrict variant={c.drawn} className={styles.plateDrawn} />
@@ -302,6 +319,15 @@ export function ScrollStory({ needs, call, phone }: Props) {
    rule for the same reason.
    --------------------------------------------------------------------------- */
 
+/** Rendered plates per vertical, keyed by slug. These paths are wired ahead of
+ *  the files existing: dropping the PNG in makes the chapter switch from the
+ *  drawn stand-in to the render with no code change, and a missing file falls
+ *  back rather than breaking. See `public/media/story/README.md`. */
+const VERTICAL_PLATE: Record<string, string> = {
+  clinics: '/media/story/decibyl-room-02-the-clinic.png',
+  'd2c-ndr-recovery': '/media/story/decibyl-room-03-the-commerce.png',
+};
+
 /** How each vertical is told, keyed by slug. A vertical with no entry still
  *  gets a chapter, built from its own card copy. */
 const VERTICAL_CHAPTER: Record<string, { nav: string; title: string; chips: string[] }> = {
@@ -335,6 +361,7 @@ function buildChapters(
       title: told?.title ?? need.label,
       lead: need.pain,
       chips: told?.chips ?? [],
+      art: VERTICAL_PLATE[need.id],
       drawn: need.id,
       href: need.href,
     };
@@ -381,6 +408,7 @@ function buildChapters(
       title: 'The call you didn’t answer was the sale.',
       lead: 'Two lines, one receptionist, and a customer who decided to buy at nine at night. Decibyl picks up on the first ring instead — not a menu, but a voice that asks what they need and does the next thing about it.',
       chips: ['Answers on ring one', 'Books and confirms', 'Calls back too'],
+      art: '/media/story/decibyl-room-01-the-answer.png',
       drawn: 'switchboard',
       href: '/how-it-works',
       linkLabel: 'How it works',

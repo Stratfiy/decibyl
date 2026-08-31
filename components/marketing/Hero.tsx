@@ -1,17 +1,11 @@
 'use client';
 
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-
-type NetworkInformation = { saveData?: boolean };
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 export function Hero() {
   const sceneRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const playedDuringVisit = useRef(false);
   const reducedMotion = useReducedMotion();
-  const sceneIsVisible = useInView(sceneRef, { amount: 0.35 });
-  const [canPlayVideo, setCanPlayVideo] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sceneRef,
     offset: ['start start', 'end start'],
@@ -26,33 +20,6 @@ export function Hero() {
   const cueOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
-  useEffect(() => {
-    const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
-    setCanPlayVideo(!reducedMotion && !connection?.saveData);
-  }, [reducedMotion]);
-
-  useEffect(() => {
-    if (!sceneIsVisible) {
-      playedDuringVisit.current = false;
-      return;
-    }
-
-    if (!canPlayVideo || playedDuringVisit.current) return;
-
-    const playFromStart = () => {
-      const video = videoRef.current;
-      if (!video || document.visibilityState !== 'visible' || playedDuringVisit.current) return;
-      video.currentTime = 0;
-      void video.play().then(() => {
-        playedDuringVisit.current = true;
-      }).catch(() => undefined);
-    };
-
-    playFromStart();
-    document.addEventListener('visibilitychange', playFromStart);
-    return () => document.removeEventListener('visibilitychange', playFromStart);
-  }, [canPlayVideo, sceneIsVisible]);
-
   return (
     <section
       ref={sceneRef}
@@ -65,26 +32,18 @@ export function Hero() {
           className="absolute -inset-[4%] origin-center"
           style={{ scale: worldScale, x: worldX }}
         >
-          {canPlayVideo ? (
-            <video
-              ref={videoRef}
-              className="h-full w-full object-cover object-[68%_center] sm:object-center"
-              muted
-              playsInline
-              preload="auto"
-              onEnded={(event) => event.currentTarget.pause()}
-              poster="/media/scene-one/decibyl-office-welcome-poster.webp"
-            >
-              <source src="/media/scene-one/decibyl-office-welcome.mp4" type="video/mp4" />
-            </video>
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src="/media/scene-one/decibyl-office-welcome-poster.webp"
-              alt=""
-              className="h-full w-full object-cover object-[68%_center] sm:object-center"
-            />
-          )}
+          <video
+            className="h-full w-full object-cover object-[68%_center] sm:object-center"
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            onCanPlay={(event) => void event.currentTarget.play().catch(() => undefined)}
+            onEnded={(event) => event.currentTarget.pause()}
+            poster="/media/scene-one/decibyl-office-welcome-poster.webp"
+          >
+            <source src="/media/scene-one/decibyl-office-welcome.mp4?v=20260831" type="video/mp4" />
+          </video>
         </motion.div>
 
         <div

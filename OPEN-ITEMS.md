@@ -6,38 +6,50 @@ things here should block a public one.
 
 ---
 
-## The opening scroll world, 31 Aug 2026
+## The opening scroll story, 31 Aug 2026
 
-The home page now opens with a six-chapter scroll world built on the Kie-rendered 3D plates
-(`components/story/`). Three things about it are unresolved.
+The home page opens with a scroll story: each chapter is its own miniature
+isometric diorama on a light cream ground, with its copy beside it
+(`components/story/`). Four things about it are unresolved.
 
-**Rendered media is committed to Git, against our own storage policy.**
-`company/storage-policy.md` in `Stratfiy/decibyl-ai-ops` says rendered media belongs in the
-private R2 bucket `decibyl-ai-ops`, with only manifests, provenance and checksums in Git.
-`public/media/` currently holds 2.1 MB of plates and loops, because Next serves `public/`
-directly and the alternative needs an R2 public custom domain or a Worker route that does not
-exist yet. `Stratfiy/decibyl-ai-ops#4` (`feat/kie-r2-video-engine`) is the ingestion engine
-that closes this; it is written and unmerged. **Until it lands, do not add further media here** —
-2.1 MB is tolerable, 20 MB is not.
+**The dioramas are not rendered yet.** Every chapter currently draws a vector
+isometric stand-in (`IsoDistrict.tsx`) into the exact slot a rendered plate
+will fill. Three plates are approved and waiting to run —
+`decibyl-town-drafts-2026-08-31` in `Stratfiy/decibyl-ai-ops`, three 2K
+generations at 36 credits against a 36 cap. **They only render when the
+execution PR is opened**, because the guarded workflow triggers on
+`pull_request`; per the pipeline README that PR is closed, not merged, once
+the artifact is preserved. Wiring a plate in is a one-line `art:` on the
+chapter in `buildChapters`.
 
-**The masters are only on one unmerged branch.** The 5.4 MB scene-two plate and the 3.0 MB
-`decibyl-true-3d-headline.png` live on `origin/codex/scene-one-cinematic` and were deliberately
-not carried over — `public/` is deployed and publicly served, and neither master is used at
-runtime. What ships here are derivatives: a 28 KB poster resized from the plate, and the loops.
-If that branch is ever deleted the masters go with it, so they need to reach R2 before then.
+**The three vertical chapters need a second request.** At 12 credits each they
+do not fit under the 40-credit per-request ceiling alongside the first three.
+Until they render, clinics, property and commerce keep their drawn stand-ins —
+which is survivable, because the drawn art is on-brand rather than a grey box.
 
-**The 3D headline PNG is unused, on purpose.** It renders the words "your AI voice agent,
-always to answer" — which is not grammatical, cannot re-flow, cannot be translated, and cannot
-be indexed. The scroll world sets its H1 in real type with a CSS extrude instead
-(`.extrude` in `story.module.css`). If a rendered headline is ever wanted, it needs a re-render
-with copy that survives being read.
+**The chapter count is deliberately not fixed.** It is whatever
+`buildChapters` returns: a spine of arguments only we can make, plus one
+chapter per vertical passed in from `app/page.tsx`. Three verticals, not nine,
+for exactly the reason the nav gives in `components/marketing/Nav.tsx`. Adding
+a slug there grows the story; nothing is hard-coded to a count. Seven chapters
+is roughly six screens of scroll before the page proper — the chapter rail,
+the side rail and "Skip the story" all jump past it, but this has not been
+measured against real traffic. `CHAPTER_SCROLL_VH` is the dial to turn if
+scroll depth or demo bookings drop, before anyone starts deleting chapters.
 
-**Scroll length.** Six chapters is roughly five screens of scroll before the page proper. The
-chapter rail, the left rail and the "Skip the story" link all jump past it, and
-`prefers-reduced-motion` collapses the whole thing to a stacked document — but this has not been
-measured against real traffic. If the home page's scroll depth or demo-booking rate drops after
-this ships, shortening `ACT_SCROLL_VH` in `StoryHero.tsx` is the first dial to turn, not
-removing chapters.
+**Narration is wired but silent.** The "Hear the story" control, the per-chapter
+audio swap and the stop-on-chapter-change behaviour all work; no chapter has an
+`audio:` clip yet. Nothing autoplays and nothing ever should — browsers block it
+and readers hate it. When the voice tracks are cut, drop an mp3 per chapter and
+set `audio:`. Given what we sell, the narrator should be one of our own agents.
+
+**The 3D office renders were dropped from `public/`.** The earlier pass used
+them as a full-bleed background under a dark wash, which read as wallpaper with
+text on it rather than as a designed page. The scroll story does not reference
+them, so 2.1 MB of unused media is no longer deployed. Both the derivatives and
+the multi-megabyte masters remain on `origin/codex/scene-one-cinematic`; they
+still belong in R2 rather than in Git, and `Stratfiy/decibyl-ai-ops#4` is the
+ingestion engine that would put them there.
 
 ---
 

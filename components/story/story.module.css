@@ -1,312 +1,185 @@
 /* ============================================================================
-   Scroll world — the opening sequence.
+   The Decibyl scroll story.
 
-   Structure follows the "scroll world" pattern: one continuous 3D world, a
-   camera that flies to a new region per chapter, a chapter rail across the
-   top, and a progress rail down the left. Copy rides on a soft scrim over
-   the world rather than in a separate band.
+   Six chapters, each its own miniature diorama sitting on a light cream
+   ground with the copy on a soft scrim to its left. The ground is light on
+   purpose: an earlier pass ran a dark wash over one looping video and the
+   result read as wallpaper with text on top rather than as a designed page.
 
-   Pinning is `position: sticky`, not a JS-driven pin. There is no scroll
-   library here on purpose: this site ships zero motion dependencies and the
-   whole sequence costs one passive scroll listener that writes one custom
-   property per frame. Everything else is CSS transitions keyed off the
-   active chapter.
+   Motion: one passive scroll listener writing two custom properties. The
+   diorama drifts and settles per chapter; everything else is a CSS transition
+   keyed off the active chapter. No motion library.
 
-   `prefers-reduced-motion` and no-JS both collapse this into a plain stacked
-   document with every chapter visible. Nothing is only reachable by scrolling.
+   `prefers-reduced-motion` and no-JS both collapse this to a stacked
+   document — every chapter is server-rendered, nothing is scroll-only.
    ============================================================================ */
 
 .story {
   position: relative;
   height: var(--story-h);
-  background: #17100d;
+  background: #f7f2ec;
 }
 
-/* The one element that stays on screen. */
 .stage {
   position: sticky;
   top: 0;
   height: 100svh;
-  min-height: 580px;
+  min-height: 620px;
   overflow: hidden;
-  background: #17100d;
-  --sp: 0; /* whole-world progress, 0→1 */
+  background: #f7f2ec;
+  --sp: 0; /* whole-story progress 0→1 */
 }
 
-/* ---------------------------------------------------------------- world ---- */
-
-/* The rendered plate. The camera target is set per chapter as an inline
-   transform, so moving between chapters reads as one continuous fly-through
-   of a single world rather than a cut between two images. */
-.world {
-  position: absolute;
-  inset: 0;
-  transition: transform 1300ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-.worldPlate {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.worldPlate[data-on='true'] {
-  opacity: 1;
-}
-
-.worldMedia {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Portrait crops a 16:9 plate to roughly its middle third. Centred, that is
-   the empty doorway; the character lives right of centre in both plates. */
-@media (max-width: 767px) {
-  .worldMedia {
-    object-position: 74% center;
-  }
-}
-
-/* The animated pass fades in over the still once it has actually decoded, so
-   the cheap poster is the LCP element and the heavy loop never blocks it. */
-.worldMotion {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 600ms ease-out;
-}
-
-.worldMotion[data-ready='true'] {
-  opacity: 1;
-}
-
-/* Vignette. Keeps the eye at the centre of the frame and stops the plate
-   edges from going flat when the camera pushes in. */
-.vignette {
+/* A soft warm bloom that shifts across the ground as the story runs, so the
+   cream never sits completely flat between chapters. */
+.ground {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(
-    circle at 62% 44%,
-    transparent 24%,
-    rgba(23, 16, 13, 0.2) 72%,
-    rgba(23, 16, 13, 0.46) 100%
-  );
+  background:
+    radial-gradient(
+      52% 58% at calc(28% + var(--sp) * 44%) 42%,
+      rgba(225, 91, 83, 0.1),
+      transparent 70%
+    ),
+    radial-gradient(70% 60% at 50% 108%, rgba(180, 150, 128, 0.16), transparent 72%);
 }
 
-/* Chapters that need UI legibility pull the world back behind a wash. */
-.wash {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: rgba(20, 12, 9, 0.66);
-  opacity: 0;
-  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* ---------------------------------------------------------------- stage ---- */
 
-.wash[data-on='true'] {
-  opacity: 1;
-}
-
-/* -------------------------------------------------------------- chapters ---- */
-
-/* The chapter rail. Names the worlds, and doubles as the table of contents —
-   every chapter is one click away, so the sequence is never a scroll trap. */
-.chapters {
-  position: absolute;
-  top: clamp(4.75rem, 11vh, 6.5rem);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 6;
-  display: flex;
-  gap: 4px;
-  padding: 4px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(23, 16, 13, 0.42);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  max-width: calc(100vw - 2rem);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.chapters::-webkit-scrollbar {
-  display: none;
-}
-
-@supports not (backdrop-filter: blur(1px)) {
-  .chapters {
-    background: rgba(23, 16, 13, 0.86);
-  }
-}
-
-.chapter {
-  flex: none;
-  border-radius: 999px;
-  padding: 0.44rem 0.85rem;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: rgba(255, 246, 241, 0.62);
-  cursor: pointer;
-  transition:
-    background-color 200ms ease-out,
-    color 200ms ease-out;
-}
-
-.chapter:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.chapter[data-active='true'] {
-  background: var(--color-vermilion);
-  color: #fff;
-}
-
-/* ------------------------------------------------------------ left rail ---- */
-
-/* Vertical progress. Ticks mark the chapters; the thumb tracks real scroll. */
-.rail {
-  position: absolute;
-  left: clamp(0.85rem, 2.4vw, 1.75rem);
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 0.9rem 0.55rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(23, 16, 13, 0.36);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-@media (max-width: 767px) {
-  .rail {
-    display: none;
-  }
-}
-
-.railTick {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.28);
-  transition:
-    background-color 260ms ease-out,
-    transform 260ms ease-out;
-  cursor: pointer;
-}
-
-.railTick[data-active='true'] {
-  background: var(--color-vermilion);
-  transform: scale(1.6);
-}
-
-.railTick[data-done='true'] {
-  background: rgba(238, 144, 134, 0.75);
-}
-
-/* ---------------------------------------------------------------- panel ---- */
-
-/* The copy plate. A soft light wash over the world, exactly wide enough for
-   a comfortable measure, so type never sits directly on render detail. */
-.panelLayer {
+/* Each chapter is one self-contained scene: its own diorama and its own copy,
+   in one element. They stack absolutely while pinned and fall into ordinary
+   document flow under reduced motion — which only pairs art with the right
+   words if the two live together in the DOM. */
+.scene {
   position: absolute;
   inset: 0;
   display: grid;
   align-items: center;
-  z-index: 4;
-}
-
-.panelScrim {
-  position: absolute;
-  inset-block: 0;
-  left: 0;
-  width: min(56vw, 680px);
-  pointer-events: none;
-  background: linear-gradient(
-    to right,
-    rgba(248, 244, 239, 0.96) 0%,
-    rgba(248, 244, 239, 0.9) 38%,
-    rgba(248, 244, 239, 0.62) 68%,
-    rgba(248, 244, 239, 0) 100%
-  );
-  opacity: 0;
-  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.panelScrim[data-on='true'] {
-  opacity: 1;
-}
-
-@media (max-width: 767px) {
-  .panelScrim {
-    width: 100%;
-    background: linear-gradient(
-      to bottom,
-      rgba(248, 244, 239, 0.32) 0%,
-      rgba(248, 244, 239, 0.82) 30%,
-      rgba(248, 244, 239, 0.9) 100%
-    );
-  }
-}
-
-.act {
-  grid-area: 1 / 1;
-  z-index: 1;
-  padding-inline: clamp(1.5rem, 6vw, 7rem);
-  padding-block: clamp(8rem, 18vh, 11rem) clamp(4rem, 9vh, 6rem);
-  align-self: center;
+  grid-template-columns: 1fr;
   opacity: 0;
   visibility: hidden;
-  transform: translate3d(0, 30px, 0);
   transition:
-    opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 660ms cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0s linear 520ms;
+    opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 560ms;
 }
 
-.act[data-state='active'] {
+.scene[data-state='active'] {
   opacity: 1;
   visibility: visible;
-  transform: none;
   transition:
-    opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 660ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
     visibility 0s;
 }
 
-/* Leaving upward reads as the camera moving past, not as a fade-out. */
-.act[data-state='past'] {
-  transform: translate3d(0, -42px, 0) scale(0.975);
-}
-
-@media (max-width: 767px) {
-  .act {
-    align-self: end;
+@media (min-width: 900px) {
+  .scene {
+    grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+    gap: clamp(1rem, 3vw, 3rem);
+    padding-inline: clamp(1.5rem, 5vw, 5.5rem);
   }
 }
 
-.actInner {
-  max-width: min(31rem, 42vw);
+/* ---------------------------------------------------------------- art ------ */
+
+/* The diorama sits in its own column rather than behind the copy. That is the
+   whole difference between a designed page and text over a background video. */
+.artCol {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 0;
+  padding-block: clamp(6.5rem, 15vh, 9rem) clamp(4rem, 10vh, 6rem);
 }
 
-@media (max-width: 767px) {
-  .actInner {
-    max-width: none;
+@media (min-width: 900px) {
+  .artCol {
+    grid-column: 2;
+    padding-block: clamp(5rem, 12vh, 7rem) clamp(3rem, 8vh, 5rem);
+  }
+}
+
+.plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
+  transform: translate3d(0, 30px, 0) scale(0.965);
+  transition: transform 860ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Once the chapter lands the plate settles, then drifts a little further as
+   the reader keeps scrolling through it. */
+.scene[data-state='active'] .plate {
+  transform: translate3d(0, calc(var(--drift, 0) * -20px), 0) scale(1);
+}
+
+.scene[data-state='past'] .plate {
+  transform: translate3d(0, -36px, 0) scale(1.035);
+}
+
+.plateMedia {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 26px 42px rgba(96, 66, 52, 0.16));
+}
+
+/* The drawn stand-in occupies the exact slot a rendered plate will. */
+.plateDrawn {
+  width: min(100%, 42rem);
+  height: auto;
+  filter: drop-shadow(0 22px 36px rgba(96, 66, 52, 0.14));
+}
+
+/* ---------------------------------------------------------------- copy ----- */
+
+.copyCol {
+  position: relative;
+  z-index: 2;
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  max-width: 32rem;
+  padding-inline: clamp(1.5rem, 6vw, 0rem);
+  transform: translate3d(0, 22px, 0);
+  transition: transform 660ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scene[data-state='active'] .copyCol {
+  transform: none;
+}
+
+.scene[data-state='past'] .copyCol {
+  transform: translate3d(0, -28px, 0);
+}
+
+@media (max-width: 899px) {
+  .copyCol {
+    align-self: end;
+    padding-bottom: clamp(3.5rem, 9vh, 5rem);
+  }
+
+  /* On one column the copy sits over the diorama, so it takes the scrim the
+     reference uses — bottom-weighted, since the art reads from the top. */
+  .copyCol::before {
+    content: '';
+    position: absolute;
+    inset: -20% -8% -60% -8%;
+    z-index: -1;
+    background: linear-gradient(
+      to bottom,
+      rgba(247, 242, 236, 0) 0%,
+      rgba(247, 242, 236, 0.84) 24%,
+      rgba(247, 242, 236, 0.97) 58%
+    );
   }
 }
 
@@ -314,45 +187,44 @@
 
 .count {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.24em;
-  color: rgba(33, 24, 20, 0.42);
-}
-
-.countOnDark {
-  color: rgba(255, 246, 241, 0.42);
+  letter-spacing: 0.26em;
+  color: rgba(70, 54, 46, 0.42);
 }
 
 .eyebrow {
-  margin-top: 0.9rem;
+  margin-top: 0.85rem;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.19em;
   text-transform: uppercase;
   color: var(--color-sindoor);
 }
 
-.eyebrowOnDark {
-  color: var(--color-ember);
+.title {
+  margin-top: 0.7rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.7vw, 3.35rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--color-ink);
+  text-wrap: balance;
 }
 
-/* The Kie render shipped a 3D headline as a 3 MB PNG of the words "your AI
-   voice agent, always to answer". This is the same look built from real text:
-   selectable, translatable, indexable, and it re-flows at every breakpoint
-   instead of pixelating. The extrude is a stack of shadows stepping toward
-   sindoor. Reserved for the H1 — once per page, like the gradient rule. */
-/* The extrude steps down-and-right, the way the rendered lettering is lit,
-   and lands on sindoor. Whole-pixel steps only — fractional offsets are what
-   make a CSS extrude look blurred rather than solid. */
-/* An extrude needs air the flat headline does not: at the display face's
-   -0.04em the depth fills the counters and the words close up, so this line
-   runs near-neutral tracking and carries its own leading. */
+/* Real text with a CSS extrude, standing in for the 3 MB rendered-lettering
+   PNG the Kie set shipped: selectable, translatable, indexable, and it
+   re-flows. Once per page, same discipline as the gradient rule.
+
+   An extrude needs air the flat face does not — at -0.035em the depth fills
+   the counters — so this line runs near-neutral tracking. Whole-pixel steps
+   only; fractional offsets read as blur rather than as a solid side. */
 .extrude {
   display: inline-block;
   letter-spacing: -0.012em;
-  margin-bottom: 0.1em;
+  margin-bottom: 0.08em;
   color: var(--color-vermilion);
   text-shadow:
     1px 1px 0 #d95048,
@@ -360,7 +232,7 @@
     3px 3px 0 #c13f37,
     4px 4px 0 #b93932,
     5px 5px 0 var(--color-sindoor),
-    7px 9px 16px rgba(74, 26, 22, 0.28);
+    7px 9px 16px rgba(74, 26, 22, 0.22);
 }
 
 @media (max-width: 767px) {
@@ -369,61 +241,34 @@
       1px 1px 0 #d95048,
       2px 2px 0 #c53f38,
       3px 3px 0 var(--color-sindoor),
-      4px 6px 12px rgba(74, 26, 22, 0.26);
+      4px 6px 12px rgba(74, 26, 22, 0.2);
   }
 }
 
-.title {
-  margin-top: 0.75rem;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2.1rem, 3.9vw, 3.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-  color: var(--color-ink);
-  text-wrap: balance;
-}
-
-.titleOnDark {
-  color: #fdf8f4;
-}
-
 .lead {
-  margin-top: 1.15rem;
-  max-width: 36ch;
+  margin-top: 1.1rem;
+  max-width: 38ch;
   font-size: 1rem;
   line-height: 1.62;
-  color: #4a3b35;
+  color: #55463f;
   text-wrap: pretty;
 }
 
-.leadOnDark {
-  color: rgba(255, 246, 241, 0.8);
-}
-
-/* Chips. The reference's "fresh-cooked pearls / brewed hourly" row — three
-   short proofs under the copy, never a sentence. */
 .chips {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
-  margin-top: 1.4rem;
+  margin-top: 1.35rem;
 }
 
 .chip {
   border-radius: 999px;
-  border: 1px solid rgba(33, 24, 20, 0.12);
-  background: rgba(255, 255, 255, 0.72);
-  padding: 0.4rem 0.8rem;
-  font-size: 0.74rem;
+  border: 1px solid rgba(33, 24, 20, 0.11);
+  background: rgba(255, 255, 255, 0.76);
+  padding: 0.4rem 0.82rem;
+  font-size: 0.76rem;
   font-weight: 500;
   color: #4a3b35;
-}
-
-.chipOnDark {
-  border-color: rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 246, 241, 0.86);
 }
 
 .actions {
@@ -449,53 +294,153 @@
   text-decoration: underline;
 }
 
-.footnote {
-  margin-top: 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: rgba(255, 246, 241, 0.45);
+.chapterLink {
+  display: inline-block;
+  margin-top: 1.3rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-sindoor);
+  text-underline-offset: 4px;
 }
 
-/* ------------------------------------------------------------------ orb ---- */
+.chapterLink:hover {
+  text-decoration: underline;
+}
 
-/* The coral orb the character holds in both plates, rebuilt as UI so it can
-   react to the chapter instead of being baked into the render. */
-.orbRow {
+/* ------------------------------------------------------------ chapter nav -- */
+
+.nav {
+  position: absolute;
+  top: clamp(4.75rem, 11vh, 6.25rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
   display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  margin-top: 1.6rem;
+  gap: 3px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(33, 24, 20, 0.09);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 6px 22px -12px rgba(70, 46, 36, 0.4);
+  max-width: calc(100vw - 2rem);
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .nav {
+    background: rgba(255, 255, 255, 0.96);
+  }
+}
+
+.navItem {
+  flex: none;
+  border-radius: 999px;
+  padding: 0.42rem 0.82rem;
+  font-family: var(--font-mono);
+  font-size: 0.61rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #7a6459;
+  cursor: pointer;
+  transition:
+    background-color 200ms ease-out,
+    color 200ms ease-out;
+}
+
+.navItem:hover {
+  color: var(--color-ink);
+  background: rgba(33, 24, 20, 0.05);
+}
+
+.navItem[data-active='true'] {
+  background: var(--color-vermilion);
+  color: #fff;
+}
+
+/* -------------------------------------------------------------- narration -- */
+
+/* Decibyl sells a voice. The story gets narrated by one — but only when asked:
+   audio that starts itself is hostile, and browsers block it anyway. */
+.voice {
+  position: absolute;
+  top: clamp(4.75rem, 11vh, 6.25rem);
+  right: clamp(1.25rem, 4vw, 2.5rem);
+  z-index: 7;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(33, 24, 20, 0.1);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 6px 22px -12px rgba(70, 46, 36, 0.4);
+  padding: 0.4rem 0.9rem 0.4rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a3b35;
+  cursor: pointer;
+  transition: border-color 180ms ease-out;
+}
+
+.voice:hover {
+  border-color: rgba(225, 91, 83, 0.5);
+}
+
+.voice[data-on='true'] {
+  border-color: var(--color-vermilion);
+}
+
+@media (max-width: 899px) {
+  .voice {
+    top: auto;
+    bottom: 1.25rem;
+    right: 1rem;
+  }
+}
+
+/* The orb from the plates, echoed as real UI. It is the narrator's level
+   meter when narration is on, and a slow idle pulse when it is off. */
 .orb {
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: 26px;
+  height: 26px;
   flex: none;
 }
 
 .orbCore {
   position: absolute;
-  inset: 30%;
+  inset: 27%;
   border-radius: 999px;
   background: radial-gradient(circle at 36% 32%, #ff9d90, var(--color-vermilion) 62%, #c0403a 100%);
-  box-shadow: 0 0 26px rgba(225, 91, 83, 0.6);
 }
 
 .orbRing {
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  border: 1.5px solid rgba(238, 144, 134, 0.5);
+  border: 1.5px solid rgba(225, 91, 83, 0.5);
   animation: orbPulse 2.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 .orbRing:nth-child(2) {
-  animation-delay: 0.93s;
+  animation-delay: 1.4s;
 }
 
-.orbRing:nth-child(3) {
-  animation-delay: 1.86s;
+.voice[data-on='true'] .orbRing {
+  animation-duration: 1.4s;
 }
 
 @keyframes orbPulse {
@@ -503,234 +448,53 @@
     transform: scale(0.5);
     opacity: 0;
   }
-  22% {
-    opacity: 0.8;
+  25% {
+    opacity: 0.85;
   }
   100% {
-    transform: scale(1.12);
+    transform: scale(1.16);
     opacity: 0;
   }
 }
 
-.wave {
+/* ------------------------------------------------------------------- hud --- */
+
+.rail {
+  position: absolute;
+  right: clamp(0.85rem, 2.2vw, 1.6rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
   display: flex;
-  align-items: center;
-  gap: 4px;
-  height: 42px;
-}
-
-.waveBar {
-  width: 4px;
-  border-radius: 999px;
-  background: linear-gradient(to top, var(--color-vermilion), var(--color-ember));
-  animation: waveMove 1.15s ease-in-out infinite alternate;
-}
-
-@keyframes waveMove {
-  from {
-    transform: scaleY(0.26);
-  }
-  to {
-    transform: scaleY(1);
-  }
-}
-
-/* ------------------------------------------------------------- ring pips ---- */
-
-.pips {
-  display: flex;
+  flex-direction: column;
   gap: 9px;
-  align-items: center;
-  margin-top: 1.6rem;
 }
 
-.pip {
-  width: 11px;
-  height: 11px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(238, 144, 134, 0.5);
-  transition:
-    background-color 240ms ease-out,
-    transform 240ms ease-out,
-    border-color 240ms ease-out;
-}
-
-.pip[data-lit='true'] {
-  background: var(--color-ember);
-  transform: scale(1.25);
-}
-
-.pipLabel {
-  margin-left: 0.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 246, 241, 0.5);
-  transition: color 240ms ease-out;
-}
-
-.pipLabel[data-missed='true'] {
-  color: var(--color-ember);
-}
-
-/* ------------------------------------------------------------ transcript ---- */
-
-.transcript {
-  margin-top: 1.5rem;
-  border-radius: var(--radius-panel);
-  border: 1px solid rgba(255, 255, 255, 0.13);
-  background: rgba(28, 19, 15, 0.68);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: clamp(1rem, 2vw, 1.4rem);
-  box-shadow: 0 18px 60px -22px rgba(0, 0, 0, 0.7);
-}
-
-@supports not (backdrop-filter: blur(1px)) {
-  .transcript {
-    background: rgba(28, 19, 15, 0.94);
+@media (max-width: 899px) {
+  .rail {
+    display: none;
   }
 }
 
-.line {
-  display: flex;
-  gap: 10px;
-  align-items: baseline;
-  padding-block: 6px;
-  opacity: 0;
-  transform: translate3d(0, 8px, 0);
-  transition:
-    opacity 400ms ease-out,
-    transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.line[data-shown='true'] {
-  opacity: 1;
-  transform: none;
-}
-
-.lineWho {
-  flex: none;
-  width: 4.25rem;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--color-ember);
-}
-
-.lineWhoCaller {
-  color: rgba(255, 246, 241, 0.45);
-}
-
-.lineText {
-  font-size: 0.92rem;
-  line-height: 1.56;
-  color: rgba(255, 246, 241, 0.9);
-}
-
-/* -------------------------------------------------------------- selector ---- */
-
-.needList {
-  display: grid;
-  gap: 7px;
-  margin-top: 1.4rem;
-}
-
-.need {
-  display: block;
-  width: 100%;
-  text-align: left;
-  border-radius: 16px;
-  border: 1px solid rgba(33, 24, 20, 0.1);
-  background: rgba(255, 255, 255, 0.68);
-  padding: 0.8rem 1rem;
-  transition:
-    border-color 180ms ease-out,
-    background-color 180ms ease-out,
-    transform 180ms ease-out,
-    box-shadow 180ms ease-out;
-}
-
-.need:hover {
-  transform: translateX(3px);
-  border-color: rgba(225, 91, 83, 0.45);
-}
-
-.need[data-active='true'] {
-  background: #fff;
-  border-color: var(--color-vermilion);
-  box-shadow: var(--shadow-warm);
-}
-
-.needLabel {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.98rem;
-  color: var(--color-ink);
-}
-
-.needDetail {
-  display: block;
-  margin-top: 2px;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: #5f5049;
-}
-
-/* --------------------------------------------------------------- outcome ---- */
-
-.outcomeChip {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 1.5rem;
+.railTick {
+  width: 6px;
+  height: 6px;
   border-radius: 999px;
-  background: rgba(20, 107, 90, 0.18);
-  border: 1px solid rgba(20, 107, 90, 0.45);
-  color: #7fe3c7;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  padding: 0.5rem 1rem;
+  background: rgba(70, 54, 46, 0.2);
+  transition:
+    background-color 260ms ease-out,
+    transform 260ms ease-out;
+  cursor: pointer;
 }
 
-.stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.75rem;
-  margin-top: 1.6rem;
+.railTick[data-active='true'] {
+  background: var(--color-vermilion);
+  transform: scale(1.65);
 }
 
-.statValue {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #fdf8f4;
+.railTick[data-done='true'] {
+  background: rgba(225, 91, 83, 0.42);
 }
-
-.statLabel {
-  display: block;
-  margin-top: 2px;
-  max-width: 16ch;
-  font-size: 0.76rem;
-  line-height: 1.4;
-  color: rgba(255, 246, 241, 0.55);
-}
-
-.money {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  color: var(--color-saffron);
-}
-
-/* -------------------------------------------------------------------- hud ---- */
 
 .progressTrack {
   position: absolute;
@@ -738,7 +502,7 @@
   bottom: 0;
   z-index: 6;
   height: 3px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(70, 54, 46, 0.1);
   pointer-events: none;
 }
 
@@ -751,70 +515,50 @@
 
 .cue {
   position: absolute;
-  right: clamp(1.25rem, 4vw, 2.5rem);
-  bottom: 1.5rem;
+  left: 50%;
+  bottom: 1.4rem;
+  transform: translateX(-50%);
   z-index: 6;
-  display: flex;
-  align-items: flex-end;
-  gap: 0.7rem;
-  color: #fff;
   font-family: var(--font-mono);
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
-  opacity: calc(1 - var(--sp) * 6);
+  color: rgba(70, 54, 46, 0.45);
+  opacity: calc(1 - var(--sp) * 8);
   pointer-events: none;
 }
 
-.cueRule {
-  display: block;
-  width: 1px;
-  height: 2.4rem;
-  background: rgba(255, 255, 255, 0.6);
-}
-
-/* The world is six chapters long. Anyone who does not want it gets one tab
-   stop out, at the very top of the sequence. */
 .skip {
   position: absolute;
-  top: clamp(4.75rem, 11vh, 6.5rem);
+  bottom: 1.25rem;
   right: clamp(1.25rem, 4vw, 2.5rem);
   z-index: 7;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  background: rgba(23, 16, 13, 0.42);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(33, 24, 20, 0.1);
+  background: rgba(255, 255, 255, 0.78);
+  color: #5f5049;
   font-family: var(--font-mono);
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 0.46rem 0.85rem;
-  transition:
-    background-color 160ms ease-out,
-    color 160ms ease-out;
+  padding: 0.44rem 0.85rem;
+  transition: color 160ms ease-out;
 }
 
 .skip:hover {
-  background: rgba(23, 16, 13, 0.72);
-  color: #fff;
+  color: var(--color-ink);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 899px) {
   .skip {
     display: none;
   }
 }
 
-/* ====================================================== reduced motion ===== */
+/* ================================================== reduced motion ======== */
 
-/* Same words, same order, no pinning and no scroll maths. Each chapter
-   becomes an ordinary stacked section. This is also what anyone without
-   JavaScript gets past the first chapter, so nothing here is unreachable. */
 @media (prefers-reduced-motion: reduce) {
   .story {
     height: auto;
@@ -827,45 +571,75 @@
     overflow: visible;
   }
 
-  .world,
-  .vignette,
-  .wash,
-  .panelScrim,
-  .cue,
+  .ground,
   .rail,
-  .progressTrack {
+  .progressTrack,
+  .cue,
+  .skip {
     display: none;
   }
 
-  .panelLayer {
-    position: static;
-    display: block;
-  }
-
-  .chapters {
+  .nav {
     position: static;
     transform: none;
     margin: 1.25rem auto 0;
     width: max-content;
   }
 
-  .act {
+  .voice {
     position: static;
+    margin: 1rem auto 0;
+    display: flex;
+    width: max-content;
+  }
+
+  .orbRing {
+    animation: none;
+  }
+
+  /* Each chapter becomes an ordinary stacked section: its diorama, then its
+     own words, in document order. */
+  .scene {
+    position: static;
+    display: block;
     opacity: 1;
     visibility: visible;
+    transition: none;
+    padding: clamp(2.5rem, 6vh, 4rem) clamp(1.5rem, 6vw, 5rem);
+    border-bottom: 1px solid rgba(33, 24, 20, 0.08);
+  }
+
+  .artCol {
+    display: block;
+    height: auto;
+    padding: 0 0 1.75rem;
+  }
+
+  .plate,
+  .scene[data-state='active'] .plate,
+  .scene[data-state='past'] .plate {
+    display: block;
     transform: none;
     transition: none;
-    padding-block: clamp(3rem, 7vh, 4.5rem);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    max-height: none;
   }
 
-  /* Chapters whose copy is written for the light scrim need the light ground
-     back, now that the scrim itself is gone. */
-  .act[data-tone='light'] {
-    background: #f8f4ef;
+  .plateDrawn,
+  .plateMedia {
+    width: min(100%, 30rem);
+    max-height: none;
   }
 
-  .actInner {
+  .copyCol,
+  .scene[data-state='active'] .copyCol,
+  .scene[data-state='past'] .copyCol {
     max-width: 46rem;
+    padding: 0;
+    transform: none;
+    transition: none;
+  }
+
+  .copyCol::before {
+    display: none;
   }
 }

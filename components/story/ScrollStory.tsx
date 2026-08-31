@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { buttonClass } from '@/components/ui/Button';
+import { BuildBadge } from './BuildBadge';
 import { IsoDistrict } from './IsoDistrict';
 import styles from './story.module.css';
 
@@ -162,9 +163,9 @@ export function ScrollStory({ needs, call, phone }: Props) {
       style={{ '--story-h': `${ACTS * CHAPTER_SCROLL_VH}svh` } as React.CSSProperties}
       aria-label="The Decibyl story"
     >
-      <div ref={stageRef} className={styles.stage}>
+      <div ref={stageRef} className={styles.stage} data-story-stage>
         {chapters.map((c, i) => (
-          <div key={c.id} className={styles.scene} data-state={state(i)}>
+          <div key={c.id} className={styles.scene} data-story-scene data-state={state(i)}>
             <div className={styles.artCol}>
               <div className={styles.plate}>
                 {c.art && !artFailed[c.id] ? (
@@ -279,6 +280,9 @@ export function ScrollStory({ needs, call, phone }: Props) {
           {narrating ? 'Stop narration' : 'Hear the story'}
         </button>
         <audio ref={audioRef} preload="none" />
+
+        {/* Temporary — remove before merge. See BuildBadge.tsx. */}
+        <BuildBadge />
 
         <div className={styles.rail} aria-hidden="true">
           {chapters.map((c, i) => (

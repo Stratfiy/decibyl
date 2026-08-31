@@ -25,6 +25,9 @@
   background: #ead8cb;
 }
 
+/* A slow continuous drift across the entire story, independent of any one
+   chapter. It is a few pixels, and it is the difference between a background
+   that is alive and one that is a colour. */
 .stage {
   position: sticky;
   top: 0;
@@ -138,14 +141,26 @@
 
 /* Once the chapter lands the plate settles, then drifts a little further as
    the reader keeps scrolling through it. */
-/* Parallax: the plate keeps travelling for the whole chapter, not just on
-   entry, so the scroll itself is doing something rather than only switching
-   slides. -54px across a chapter is enough to read as depth against copy that
-   is holding still. */
+/* The camera.
+
+   This is what the reference actually does and what "plain" meant: the diorama
+   is not a slide that swaps, it is a model the camera moves around. Across a
+   chapter it pushes in (1.0 → 1.09), rises, and drifts a little sideways — all
+   driven by `--drift`, which the scroll listener writes continuously rather
+   than per chapter.
+
+   No transition on the transform while a chapter is active: `--drift` is
+   already a smooth function of scroll position, so easing it as well makes the
+   camera lag the finger. Easing returns for the enter and exit states, where
+   there is a real state change to smooth. */
 .scene[data-state='active'] .plate {
-  transform: translate3d(0, calc(var(--drift, 0) * -54px), 0) scale(1);
+  transform:
+    translate3d(calc(var(--drift, 0) * -18px), calc(var(--drift, 0) * -54px), 0)
+    scale(calc(1 + var(--drift, 0) * 0.09));
   filter: blur(0);
-  transition-delay: 60ms;
+  transition:
+    filter 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .scene[data-state='past'] .plate {
@@ -241,8 +256,12 @@
   }
 }
 
+/* The copy counter-moves against the camera. Opposite directions at different
+   rates is what reads as depth; both moving together just reads as the page
+   sliding. */
 .scene[data-state='active'] .copyCol {
-  transform: none;
+  transform: translate3d(0, calc(var(--drift, 0) * 14px), 0);
+  transition: none;
 }
 
 .scene[data-state='past'] .copyCol {

@@ -128,9 +128,11 @@ export function ScrollStory({ needs, call, phone }: Props) {
 
       const raw = p * ACTS;
       const index = clamp(Math.floor(raw), 0, ACTS - 1);
-      /* Drift inside the chapter, so the diorama keeps moving even while the
-         chapter itself is held. */
-      stage.style.setProperty('--drift', (raw - index).toFixed(3));
+      /* Position within the chapter, signed and centred: -0.5 entering, 0 at
+         rest, +0.5 leaving. Centring it matters — an unsigned 0→1 makes the
+         camera snap back to its start at every chapter boundary, which is
+         exactly the jolt that made this read as a slideshow. */
+      stage.style.setProperty('--drift', (raw - index - 0.5).toFixed(3));
       setAct(index);
     };
 
@@ -193,7 +195,12 @@ export function ScrollStory({ needs, call, phone }: Props) {
         <span
           key={`snap-${c.id}`}
           className={styles.snapPoint}
-          style={{ top: `${i * CHAPTER_SCROLL_VH}svh` }}
+          /* Half a chapter down, not at its start. Snapping to the start
+             parks the camera at one end of its travel, so every chapter rests
+             on the same slightly-pulled-back framing; landing mid-chapter
+             rests it at the neutral composition and leaves room to move either
+             way during a scroll. */
+          style={{ top: `${(i + 0.5) * CHAPTER_SCROLL_VH}svh` }}
           aria-hidden="true"
         />
       ))}

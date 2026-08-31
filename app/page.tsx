@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
-import { Hero } from '@/components/marketing/Hero';
+import { StoryHero } from '@/components/story/StoryHero';
 import { LiveTranscript } from '@/components/marketing/LiveTranscript';
 import { SlideDeck, type DeckItem } from '@/components/marketing/SlideDeck';
 import { LossCalculator } from '@/components/marketing/LossCalculator';
@@ -15,6 +15,7 @@ import { verticals, homepageDeckOrder, verticalHref, getVertical } from '@/data/
 import { features } from '@/data/features';
 import { homeFaqs } from '@/data/faqs';
 import { JsonLd, faqSchema, pageMetadata } from '@/lib/seo';
+import { site } from '@/lib/site';
 
 export const metadata: Metadata = pageMetadata({
   title: 'AI Voice Agents for Indian Businesses',
@@ -57,8 +58,34 @@ const painPoints = [
   },
 ];
 
+/* The three claims the opening sequence is allowed to make. Each one is
+   provable and already carried by the rest of the page — see the content
+   rules in README.md. */
+const storyStats = [
+  { value: '<700ms', label: 'response, for select models' },
+  { value: '10+ languages', label: '7 Indian, code-mixed by default' },
+  { value: '100% of calls', label: 'QA-scored, not sampled' },
+];
+
+/** The worlds offered in story chapter 05. Three featured verticals plus the
+ *  catch-all, matching the nav's featured set. */
+const storyNeedSlugs = ['clinics', 'real-estate', 'd2c-ndr-recovery'];
+
 export default function HomePage() {
   const ndr = getVertical('d2c-ndr-recovery')!;
+
+  const storyNeeds = [
+    ...storyNeedSlugs.map((slug) => {
+      const v = verticals.find((x) => x.slug === slug && !x.parent)!;
+      return { id: v.slug, label: v.cardTitle, detail: v.cardPain, href: verticalHref(v) };
+    }),
+    {
+      id: 'other',
+      label: 'Something else',
+      detail: 'Build an inbound or outbound voice workflow around your exact process.',
+      href: '/solutions',
+    },
+  ];
 
   const useCaseCards: DeckItem[] = homepageDeckOrder.map((slug) => {
     const v = verticals.find((x) => x.slug === slug && !x.parent)!;
@@ -84,10 +111,25 @@ export default function HomePage() {
 
   return (
     <>
-      <Hero />
+      <StoryHero
+        needs={storyNeeds}
+        call={{
+          language: ndr.sampleCall.language,
+          lines: ndr.sampleCall.lines,
+          outcome: ndr.sampleCall.outcome,
+          duration: ndr.sampleCall.duration,
+          qaScore: ndr.sampleCall.qaScore,
+        }}
+        phone={site.demoPhone}
+        stats={storyStats}
+      />
 
-      {/* The one dark element on the page. */}
-      <section aria-label="Sample call" className="bg-canvas pb-16 sm:pb-20 lg:pb-24">
+      {/* Where "Skip the story" lands. */}
+      <section
+        id="story-end"
+        aria-label="Sample call"
+        className="scroll-mt-24 bg-canvas pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pb-24"
+      >
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
             <div>

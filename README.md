@@ -227,16 +227,28 @@ No new component.
 
 Tokens live in `app/globals.css` under `@theme`. The short version:
 
-- **Vermilion `#F0431C` is the only action colour.** Every primary button, every link, every
-  active state. There is no second action colour.
+- **Vermilion `#E15B53` is the only action colour.** Every primary button, every link, every
+  active state. There is no second action colour. (This note said `#F0431C` until 31 Aug 2026;
+  the token moved off the orange family on 28 Aug and the prose had not caught up. `globals.css`
+  is the source of truth — the comment above the brand tokens explains the contrast maths.)
 - **Saffron `#FFB627` appears only on numbers that represent money.** That restraint is what makes
   the calculator output land.
-- **Canvas stays cool (`#F4F5F7`), never cream.** Warm cream plus muted orange is the single most
-  recognisable AI-generated look on the internet; the cool floor under a hot accent is what makes
-  this read as designed.
+- **Canvas stays cool (`#F4F5F7`), never cream** — for the *page*. Warm cream plus muted orange is
+  the single most recognisable AI-generated look on the internet, and the cool floor under a hot
+  accent is what makes this read as designed.
+
+  **The one exception is the opening scroll world**, which is a full-bleed rendered set and reads
+  as film, not as page furniture. Its cream is the lighting of a room rather than a background
+  colour, and it earns the exception by being unmistakably art-directed rather than a default.
+  The rule still binds everything below it, and the UI *inside* the world — buttons, links, the
+  progress bar, the chapter rail — stays on vermilion. Nothing else on the site goes cream.
 - **Pill buttons at `999px`**, pastel surfaces on card backgrounds only, gradient text on the hero
   headline once per page, no gradient on a button fill.
-- **Motion budget: the transcript panel.** Everything else is a 150ms fade or nothing.
+- **The extruded headline is the scroll world's H1 and nothing else.** Same once-per-page
+  discipline as gradient text; the two never appear together.
+- **Motion budget: the transcript panel, plus the opening scroll world.** Everything else is a
+  150ms fade or nothing. The world is one passive scroll listener and CSS transitions — if a
+  motion library ever appears in `package.json` for a marketing surface, that is a regression.
 
 Contrast note: vermilion on white is ~4.0:1 — fine for large text, buttons, and links at 16px+,
 **not** for body copy. Body text is always `--color-ink` `#211814`.

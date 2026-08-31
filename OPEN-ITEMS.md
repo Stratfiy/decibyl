@@ -6,6 +6,41 @@ things here should block a public one.
 
 ---
 
+## The opening scroll world, 31 Aug 2026
+
+The home page now opens with a six-chapter scroll world built on the Kie-rendered 3D plates
+(`components/story/`). Three things about it are unresolved.
+
+**Rendered media is committed to Git, against our own storage policy.**
+`company/storage-policy.md` in `Stratfiy/decibyl-ai-ops` says rendered media belongs in the
+private R2 bucket `decibyl-ai-ops`, with only manifests, provenance and checksums in Git.
+`public/media/` currently holds 2.1 MB of plates and loops, because Next serves `public/`
+directly and the alternative needs an R2 public custom domain or a Worker route that does not
+exist yet. `Stratfiy/decibyl-ai-ops#4` (`feat/kie-r2-video-engine`) is the ingestion engine
+that closes this; it is written and unmerged. **Until it lands, do not add further media here** —
+2.1 MB is tolerable, 20 MB is not.
+
+**The masters are only on one unmerged branch.** The 5.4 MB scene-two plate and the 3.0 MB
+`decibyl-true-3d-headline.png` live on `origin/codex/scene-one-cinematic` and were deliberately
+not carried over — `public/` is deployed and publicly served, and neither master is used at
+runtime. What ships here are derivatives: a 28 KB poster resized from the plate, and the loops.
+If that branch is ever deleted the masters go with it, so they need to reach R2 before then.
+
+**The 3D headline PNG is unused, on purpose.** It renders the words "your AI voice agent,
+always to answer" — which is not grammatical, cannot re-flow, cannot be translated, and cannot
+be indexed. The scroll world sets its H1 in real type with a CSS extrude instead
+(`.extrude` in `story.module.css`). If a rendered headline is ever wanted, it needs a re-render
+with copy that survives being read.
+
+**Scroll length.** Six chapters is roughly five screens of scroll before the page proper. The
+chapter rail, the left rail and the "Skip the story" link all jump past it, and
+`prefers-reduced-motion` collapses the whole thing to a stacked document — but this has not been
+measured against real traffic. If the home page's scroll depth or demo-booking rate drops after
+this ships, shortening `ACT_SCROLL_VH` in `StoryHero.tsx` is the first dial to turn, not
+removing chapters.
+
+---
+
 ## Reconciled against the product, 28 Aug 2026
 
 The site's prices were read against the billing engine in `Stratfiy/echowave-redesign`

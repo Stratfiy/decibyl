@@ -155,27 +155,30 @@
    where an uncapped plate overlapped the headline. */
 @media (max-width: 899px) {
   .artCol {
-    max-height: 44svh;
+    max-height: 38svh;
   }
 
   .plateMedia,
   .plateDrawn {
-    max-height: 40svh;
+    max-height: 34svh;
     width: auto;
   }
 }
 
-/* Short viewports — small phones, and landscape phones — need the art to give
-   up more room again, because the copy's height barely changes with the screen. */
-@media (max-height: 660px) and (max-width: 899px) {
+/* A phone with browser chrome open has far less height than its spec sheet
+   suggests — a 390x844 device shows about 760px of page, and a 360x780 one
+   about 600px. The copy barely shrinks with the screen while the art happily
+   does, so on anything short and narrow the art gives up most of the room.
+   These numbers were set by measuring overlap, not by eye. */
+@media (max-height: 830px) and (max-width: 899px) {
   .artCol {
-    max-height: 34svh;
-    padding-block: clamp(3.75rem, 10vh, 5rem) 0;
+    max-height: 24svh;
+    padding-block: clamp(3.5rem, 9vh, 4.5rem) 0;
   }
 
   .plateMedia,
   .plateDrawn {
-    max-height: 30svh;
+    max-height: 21svh;
   }
 
   .title {
@@ -594,12 +597,23 @@
 /* ================================================== reduced motion ======== */
 
 /* Two audiences get the stacked document instead of the pinned story: anyone
-   who asked for reduced motion, and anyone on a viewport too short to hold a
-   chapter. Below ~620px of height the diorama and its copy cannot both fit,
-   and something has to be cut off — a landscape phone at 390px tall is the
-   clear case. Rather than crop the art or the words, the story stops pinning
-   and simply becomes a page. Nothing is lost either way. */
-@media (prefers-reduced-motion: reduce), (max-height: 620px) {
+   who asked for reduced motion, and anyone on a viewport genuinely too short to
+   hold a chapter — a landscape phone at ~390px tall is the case this exists for.
+
+   The threshold was 620px and that was far too eager. A tablet in landscape has
+   around 650-700px of content once the browser's tab and address bars are taken
+   out, which is ample for a chapter, but it tripped this rule and dropped the
+   whole story to a plain document — losing the pinning AND the two-column
+   layout, since the stacked rules below set `display: block` at any width. On an
+   iPad that read as nothing having changed at all. 500px keeps every tablet and
+   every phone held upright inside the real story.
+
+   Width matters too, and it compounds with height: at 320px the headline alone
+   runs to five lines, and a 360px phone with the browser's chrome open has only
+   ~600px of page left. Narrow AND short cannot hold a chapter at any cap that
+   still leaves the diorama visible, so those join the landscape phones on the
+   stacked page rather than being squeezed until something collides. */
+@media (prefers-reduced-motion: reduce), (max-height: 500px), (max-width: 340px), (max-width: 400px) and (max-height: 680px) {
   .story {
     height: auto;
     /* No pinning here, so the header would sit on top of the first chapter. */

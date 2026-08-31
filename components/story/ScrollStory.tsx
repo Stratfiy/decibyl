@@ -1,36 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { buttonClass } from '@/components/ui/Button';
-import { BuildBadge } from './BuildBadge';
 import { IsoDistrict } from './IsoDistrict';
 import { SplitText } from './SplitText';
 import styles from './story.module.css';
 
-/* ============================================================================
-   The Decibyl scroll story.
-
-   Each chapter is its own miniature diorama on a light cream ground with its
-   copy beside it. Chapter 01 carries the page H1 and the CTAs, so the story
-   is the hero rather than something sitting above one.
-
-   How many chapters there are is not a constant anywhere in this file. It is
-   whatever `buildChapters` returns — a spine of arguments only Decibyl can
-   make, plus one chapter per vertical the caller passes in. The counter, the
-   nav, the rail and the total scroll length all derive from that array.
-
-   Two plates per chapter slot: a rendered diorama when one exists
-   (`decibyl-town-drafts-2026-08-31`), and a drawn isometric stand-in until
-   then. Swapping is a one-line change to `art` in buildChapters.
-
-   Narration is built in but never starts itself. Decibyl sells a voice, so
-   the story can be told by one — on request, per chapter, and it stops the
-   moment the reader scrolls to a different chapter.
-   ============================================================================ */
-
 export type StoryNeed = { id: string; label: string; pain: string; href: string };
-export type StoryLine = { speaker: 'agent' | 'customer' | 'system'; text: string; indic?: boolean };
 
 type Props = {
   needs: StoryNeed[];
@@ -42,27 +20,19 @@ type Chapter = {
   id: string;
   nav: string;
   eyebrow: string;
-  /** Plain text — it is split into words for the reveal, so it cannot be JSX. */
   title: string;
-  /** How many leading words take the extruded brand treatment. */
   highlight?: number;
   lead: string;
   chips: string[];
-  /** Rendered plate path, once the Kie drafts land. */
   art?: string;
-  /** Which drawn isometric stands in until then. */
   drawn: string;
   href?: string;
   linkLabel?: string;
-  /** Narration clip. Absent until the voice tracks are cut. */
   audio?: string;
 };
 
 const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 
-/* Each language in its own script, because writing "Tamil" in Latin letters is
-   the same move as a language menu — it asks the reader to take our word for it.
-   Latin labels are interleaved so the strip is still readable to everyone. */
 const LANGUAGE_STRIP = [
   { label: 'हिन्दी', indic: true },
   { label: 'Hindi' },
@@ -80,27 +50,31 @@ const LANGUAGE_STRIP = [
   { label: 'Hinglish · Tanglish' },
 ];
 
-/** Scroll length per chapter, in svh. */
-const CHAPTER_SCROLL_VH = 88;
+/* This is travel, not section height. The first implementation made the section
+   ACTS × 88svh tall and then subtracted the sticky 100svh viewport when reading
+   progress. That made the real chapter length shorter than the snap-marker
+   spacing, so chapter centres drifted farther out of alignment as you scrolled.
+
+   74svh keeps the total experience almost exactly as long as the previous seven
+   chapter build, while the section below explicitly adds the sticky viewport.
+   One chapter now really is one equal slice of travel. */
+const CHAPTER_TRAVEL_VH = 74;
 
 export function ScrollStory({ needs, call, phone }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
-
   const [act, setAct] = useState(0);
   const [narrating, setNarrating] = useState(false);
-  /* Chapters whose rendered plate is missing or failed to decode. They fall
-     back to the drawn isometric, so a half-delivered set of renders degrades
-     one chapter at a time instead of breaking the story. */
   const [artFailed, setArtFailed] = useState<Record<string, true>>({});
+
+  const chapters = useMemo(() => buildChapters(needs, call), [needs, call]);
+  const acts = chapters.length;
+  const hasNarration = chapters.some((chapter) => Boolean(chapter.audio));
 
   const markArtFailed = useCallback((id: string) => {
     setArtFailed((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
   }, []);
-
-  const chapters = buildChapters(needs, call);
-  const ACTS = chapters.length;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -119,19 +93,11 @@ export function ScrollStory({ needs, call, phone }: Props) {
       const p = clamp(-rect.top / travel, 0, 1);
       stage.style.setProperty('--sp', p.toFixed(4));
 
-      /* Tell the page the story currently owns the viewport, so the header can
-         stay transparent over it and the cream reads edge to edge. Cleared the
-         moment the story is behind us, so the rest of the page — and every
-         other page — keeps the normal glass header. */
-      const owns = rect.top <= 0 && rect.bottom > stage.offsetHeight * 0.5;
-      document.documentElement.dataset.storyHero = owns ? 'true' : 'false';
+      const ownsViewport = rect.top <= 0 && rect.bottom > stage.offsetHeight * 0.5;
+      document.documentElement.dataset.storyHero = ownsViewport ? 'true' : 'false';
 
-      const raw = p * ACTS;
-      const index = clamp(Math.floor(raw), 0, ACTS - 1);
-      /* Position within the chapter, signed and centred: -0.5 entering, 0 at
-         rest, +0.5 leaving. Centring it matters — an unsigned 0→1 makes the
-         camera snap back to its start at every chapter boundary, which is
-         exactly the jolt that made this read as a slideshow. */
+      const raw = p * acts;
+      const index = clamp(Math.floor(raw), 0, acts - 1);
       stage.style.setProperty('--drift', (raw - index - 0.5).toFixed(3));
       setAct(index);
     };
@@ -149,10 +115,8 @@ export function ScrollStory({ needs, call, phone }: Props) {
       window.removeEventListener('resize', onScroll);
       delete document.documentElement.dataset.storyHero;
     };
-  }, [ACTS]);
+  }, [acts]);
 
-  /* Narration follows the reader: changing chapter swaps the clip, and a
-     chapter with no clip yet simply plays nothing rather than erroring. */
   useEffect(() => {
     const el = audioRef.current;
     if (!el) return;
@@ -172,91 +136,85 @@ export function ScrollStory({ needs, call, phone }: Props) {
       if (!section || !stage) return;
       const travel = section.offsetHeight - stage.offsetHeight;
       const top = window.scrollY + section.getBoundingClientRect().top;
-      window.scrollTo({ top: top + ((index + 0.5) / ACTS) * travel, behavior: 'smooth' });
+      window.scrollTo({
+        top: top + ((index + 0.5) / acts) * travel,
+        behavior: 'smooth',
+      });
     },
-    [ACTS],
+    [acts],
   );
 
-  const state = (i: number) => (i === act ? 'active' : i < act ? 'past' : 'future');
+  const state = (index: number) => (index === act ? 'active' : index < act ? 'past' : 'future');
 
   return (
     <section
       ref={sectionRef}
       className={styles.story}
-      /* A custom property, not an inline height: an inline height outranks the
-         reduced-motion media query and would leave five empty screens under
-         the stacked document. */
-      style={{ '--story-h': `${ACTS * CHAPTER_SCROLL_VH}svh` } as React.CSSProperties}
+      style={{ '--story-h': `${100 + acts * CHAPTER_TRAVEL_VH}svh` } as CSSProperties}
       aria-label="The Decibyl story"
     >
-      {/* One snap marker per chapter, so a flick lands on a chapter instead of
-          sailing through three. See `.snapPoint`. */}
-      {chapters.map((c, i) => (
+      {chapters.map((chapter, index) => (
         <span
-          key={`snap-${c.id}`}
+          key={`snap-${chapter.id}`}
           className={styles.snapPoint}
-          /* Half a chapter down, not at its start. Snapping to the start
-             parks the camera at one end of its travel, so every chapter rests
-             on the same slightly-pulled-back framing; landing mid-chapter
-             rests it at the neutral composition and leaves room to move either
-             way during a scroll. */
-          style={{ top: `${(i + 0.5) * CHAPTER_SCROLL_VH}svh` }}
+          style={{ top: `${(index + 0.5) * CHAPTER_TRAVEL_VH}svh` }}
           aria-hidden="true"
         />
       ))}
 
       <div ref={stageRef} className={styles.stage} data-story-stage>
-        {chapters.map((c, i) => (
-          <div key={c.id} className={styles.scene} data-story-scene data-state={state(i)}>
+        {chapters.map((chapter, index) => (
+          <div
+            key={chapter.id}
+            className={styles.scene}
+            data-story-scene
+            data-scene={chapter.id}
+            data-state={state(index)}
+          >
             <div className={styles.artCol}>
               <div className={styles.plate}>
-                {c.art && !artFailed[c.id] ? (
+                {chapter.art && !artFailed[chapter.id] ? (
                   <img
-                    src={c.art}
+                    src={chapter.art}
                     alt=""
                     className={styles.plateMedia}
-                    fetchPriority={i === 0 ? 'high' : undefined}
-                    loading={i === 0 ? undefined : 'lazy'}
+                    fetchPriority={index === 0 ? 'high' : undefined}
+                    loading={index === 0 ? undefined : 'lazy'}
                     decoding="async"
-                    onError={() => markArtFailed(c.id)}
-                    /* `onError` alone is not enough: the browser starts
-                       fetching the server-rendered <img> before React
-                       hydrates, so a 404 fires its error event with no
-                       handler attached yet and the broken image sticks.
-                       Re-check the decoded state when the node mounts. */
+                    onError={() => markArtFailed(chapter.id)}
                     ref={(node) => {
-                      if (node?.complete && node.naturalWidth === 0) markArtFailed(c.id);
+                      if (node?.complete && node.naturalWidth === 0) markArtFailed(chapter.id);
                     }}
                   />
                 ) : (
-                  <IsoDistrict variant={c.drawn} className={styles.plateDrawn} />
+                  <IsoDistrict variant={chapter.drawn} className={styles.plateDrawn} />
                 )}
               </div>
             </div>
 
             <div className={`${styles.copyCol} ${styles.cascade}`}>
               <p className={styles.count}>
-                {String(i + 1).padStart(2, '0')} / {String(ACTS).padStart(2, '0')}
+                {String(index + 1).padStart(2, '0')} / {String(acts).padStart(2, '0')}
               </p>
-              <p className={styles.eyebrow}>{c.eyebrow}</p>
-              {i === 0 ? (
+              <p className={styles.eyebrow}>{chapter.eyebrow}</p>
+              {index === 0 ? (
                 <h1 className={styles.title}>
-                  <SplitText text={c.title} highlight={c.highlight} />
+                  <SplitText text={chapter.title} highlight={chapter.highlight} />
                 </h1>
               ) : (
                 <h2 className={styles.title}>
-                  <SplitText text={c.title} highlight={c.highlight} />
+                  <SplitText text={chapter.title} highlight={chapter.highlight} />
                 </h2>
               )}
-              <p className={styles.lead}>{c.lead}</p>
+              <p className={styles.lead}>{chapter.lead}</p>
 
-              {c.chips.length > 0 && (
+              {chapter.chips.length > 0 && (
                 <div className={styles.chips}>
-                  {c.chips.map((chip, ci) => (
+                  {chapter.chips.map((chip, chipIndex) => (
                     <span
                       key={chip}
                       className={styles.chip}
-                      style={{ '--i': ci } as React.CSSProperties}
+                      style={{ '--i': chipIndex } as CSSProperties}
                     >
                       {chip}
                     </span>
@@ -264,7 +222,7 @@ export function ScrollStory({ needs, call, phone }: Props) {
                 </div>
               )}
 
-              {i === 0 && (
+              {index === 0 && (
                 <>
                   <div className={styles.actions}>
                     <Link href="/book-a-demo" className={buttonClass('primary', 'lg')}>
@@ -275,7 +233,7 @@ export function ScrollStory({ needs, call, phone }: Props) {
                     </Link>
                   </div>
                   <p className={styles.phoneLine}>
-                    Or just call the agent:{' '}
+                    Or call the agent:{' '}
                     <a href={`tel:${phone.tel}`} className={styles.phoneLink}>
                       {phone.display}
                     </a>
@@ -284,9 +242,9 @@ export function ScrollStory({ needs, call, phone }: Props) {
                 </>
               )}
 
-              {c.href && (
-                <Link href={c.href} className={styles.chapterLink}>
-                  {c.linkLabel ?? 'See the workflow'} →
+              {chapter.href && (
+                <Link href={chapter.href} className={styles.chapterLink}>
+                  {chapter.linkLabel ?? 'See the workflow'} →
                 </Link>
               )}
             </div>
@@ -294,56 +252,53 @@ export function ScrollStory({ needs, call, phone }: Props) {
         ))}
 
         <nav className={styles.nav} aria-label="Story chapters">
-          {chapters.map((c, i) => (
+          {chapters.map((chapter, index) => (
             <button
-              key={c.id}
+              key={chapter.id}
               type="button"
               className={styles.navItem}
-              data-active={i === act}
-              aria-current={i === act ? 'true' : undefined}
-              /* The rail scrolls horizontally on narrow screens; without this
-                 the active chapter drifts off the end of it. */
+              data-active={index === act}
+              aria-current={index === act ? 'true' : undefined}
               ref={
-                i === act
-                  ? (n) => n?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' })
+                index === act
+                  ? (node) => node?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' })
                   : undefined
               }
-              onClick={() => goTo(i)}
+              onClick={() => goTo(index)}
             >
-              {c.nav}
+              {chapter.nav}
             </button>
           ))}
         </nav>
 
-        <button
-          type="button"
-          className={styles.voice}
-          data-on={narrating}
-          aria-pressed={narrating}
-          onClick={() => setNarrating((v) => !v)}
-        >
-          <span className={styles.orb} aria-hidden="true">
-            <span className={styles.orbRing} />
-            <span className={styles.orbRing} />
-            <span className={styles.orbCore} />
-          </span>
-          {narrating ? 'Stop narration' : 'Hear the story'}
-        </button>
+        {hasNarration && (
+          <button
+            type="button"
+            className={styles.voice}
+            data-on={narrating}
+            aria-pressed={narrating}
+            onClick={() => setNarrating((value) => !value)}
+          >
+            <span className={styles.orb} aria-hidden="true">
+              <span className={styles.orbRing} />
+              <span className={styles.orbRing} />
+              <span className={styles.orbCore} />
+            </span>
+            {narrating ? 'Stop narration' : 'Hear the story'}
+          </button>
+        )}
         <audio ref={audioRef} preload="none" />
 
-        {/* Temporary — remove before merge. See BuildBadge.tsx. */}
-        <BuildBadge />
-
         <div className={styles.rail} aria-hidden="true">
-          {chapters.map((c, i) => (
+          {chapters.map((chapter, index) => (
             <button
-              key={c.id}
+              key={chapter.id}
               type="button"
               tabIndex={-1}
               className={styles.railTick}
-              data-active={i === act}
-              data-done={i < act}
-              onClick={() => goTo(i)}
+              data-active={index === act}
+              data-done={index < act}
+              onClick={() => goTo(index)}
             />
           ))}
         </div>
@@ -353,14 +308,17 @@ export function ScrollStory({ needs, call, phone }: Props) {
         </a>
 
         <p className={styles.cue} aria-hidden="true">
-          Scroll to begin
+          Scroll to enter the world
         </p>
 
-        {/* The languages, running. Duplicated once so the -50% loop is seamless. */}
         <div className={styles.marquee} aria-hidden="true">
           <div className={styles.marqueeTrack}>
-            {[...LANGUAGE_STRIP, ...LANGUAGE_STRIP].map((item, li) => (
-              <span key={li} className={styles.marqueeItem} data-indic={item.indic || undefined}>
+            {[...LANGUAGE_STRIP, ...LANGUAGE_STRIP].map((item, index) => (
+              <span
+                key={`${item.label}-${index}`}
+                className={styles.marqueeItem}
+                data-indic={item.indic || undefined}
+              >
                 {item.label}
               </span>
             ))}
@@ -375,33 +333,10 @@ export function ScrollStory({ needs, call, phone }: Props) {
   );
 }
 
-/* ---------------------------------------------------------------------------
-   The story.
-
-   The chapter count is NOT fixed. It falls out of what the brand has to say:
-   a spine of four arguments only Decibyl can make, plus one chapter per
-   vertical we are actually willing to stand behind. Add a vertical and the
-   story grows a chapter — the counter, the nav, the rail and the scroll
-   length all read from this array.
-
-   Which verticals arrive here is the caller's decision, and it is a real one.
-   `components/marketing/Nav.tsx` carries the standing rule: we show three
-   verticals, not all nine, because nine verticals against three live pilots
-   reads as "we do everything, we've proven nothing". The story obeys the same
-   rule for the same reason.
-   --------------------------------------------------------------------------- */
-
-/** Rendered plates per vertical, keyed by slug. These paths are wired ahead of
- *  the files existing: dropping the PNG in makes the chapter switch from the
- *  drawn stand-in to the render with no code change, and a missing file falls
- *  back rather than breaking. See `public/media/story/README.md`. */
 const VERTICAL_PLATE: Record<string, string> = {
   clinics: '/media/story/decibyl-room-02-the-clinic.webp',
-  'd2c-ndr-recovery': '/media/story/decibyl-room-03-the-commerce.webp',
 };
 
-/** How each vertical is told, keyed by slug. A vertical with no entry still
- *  gets a chapter, built from its own card copy. */
 const VERTICAL_CHAPTER: Record<string, { nav: string; title: string; chips: string[] }> = {
   clinics: {
     nav: 'Clinics',
@@ -440,7 +375,6 @@ function buildChapters(
   });
 
   return [
-    /* Opens on the problem every business recognises, and carries the H1. */
     {
       id: 'street',
       nav: 'The street',
@@ -451,10 +385,6 @@ function buildChapters(
       chips: ['Always available', 'Inbound and outbound', '10+ languages'],
       drawn: 'street',
     },
-
-    /* The sharpest thing we own. Everyone claims languages; almost nobody
-       admits that real Indian business calls are code-mixed mid-sentence, and
-       that a language menu is an admission of failure rather than a feature. */
     {
       id: 'language',
       nav: 'The language',
@@ -466,8 +396,6 @@ function buildChapters(
       href: '/voice-ai',
       linkLabel: 'Hear the languages',
     },
-
-    /* What it actually does, in the one place a buyer asks for it. */
     {
       id: 'switchboard',
       nav: 'The answer',
@@ -480,10 +408,7 @@ function buildChapters(
       href: '/how-it-works',
       linkLabel: 'How it works',
     },
-
     ...verticalChapters,
-
-    /* Closes on evidence rather than on a promise: the receipt is the product. */
     {
       id: 'receipt',
       nav: 'The receipt',

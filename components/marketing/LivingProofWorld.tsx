@@ -75,8 +75,8 @@ export function LivingProofWorld() {
           <Image
             src="/media/home/living-operations-world.webp"
             alt="Connected miniature scenes of a clinic reception, property sales office, and commerce support team"
-            width={1728}
-            height={909}
+            width={1600}
+            height={618}
             sizes="(max-width: 768px) 150vw, 1200px"
             className="living-world-image"
             priority

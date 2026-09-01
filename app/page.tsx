@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { CinematicIntro } from '@/components/story/CinematicIntro';
 import { ScrollStory } from '@/components/story/ScrollStory';
+import { storyActTotal } from '@/components/story/acts';
 import { LiveTranscript } from '@/components/marketing/LiveTranscript';
 import { SlideDeck, type DeckItem } from '@/components/marketing/SlideDeck';
 import { LossCalculator } from '@/components/marketing/LossCalculator';
@@ -99,7 +100,7 @@ export default function HomePage() {
 
   return (
     <>
-      <CinematicIntro />
+      <CinematicIntro total={storyActTotal(storyNeeds)} />
       <ScrollStory
         needs={storyNeeds}
         call={{

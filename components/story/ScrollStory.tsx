@@ -310,7 +310,6 @@ export function ScrollStory({ needs, call }: Props) {
                         if (node?.complete && node.naturalWidth === 0) markArtFailed(chapter.id);
                       }}
                     />
-                    {chapter.id === 'clinics' && <ClinicMotion />}
                   </div>
                 ) : (
                   <IsoDistrict variant={chapter.drawn} className={styles.plateDrawn} />
@@ -413,44 +412,9 @@ export function ScrollStory({ needs, call }: Props) {
   );
 }
 
-function ClinicMotion() {
-  return (
-    <div className={styles.clinicMotion} aria-hidden="true">
-      <span className={styles.phoneVibration}>
-        <span />
-        <span />
-        <span />
-      </span>
-
-      <span className={styles.receptionPulse}>
-        <span />
-        <span />
-      </span>
-
-      <svg className={styles.callRoute} viewBox="0 0 1000 563" preserveAspectRatio="none">
-        <path
-          className={styles.callRouteGlow}
-          pathLength="1"
-          d="M287 305 C 320 300, 328 280, 352 270 C 380 259, 388 276, 407 273"
-        />
-        <path
-          className={styles.callRouteCore}
-          pathLength="1"
-          d="M287 305 C 320 300, 328 280, 352 270 C 380 259, 388 276, 407 273"
-        />
-      </svg>
-
-      <span className={styles.queuePulse} />
-      <span className={styles.callStatus}>
-        <i />
-        Call answered
-      </span>
-    </div>
-  );
-}
 
 const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft'; ground: string }> = {
-  clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#edd7b5' },
+  clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#f1dec6' },
   'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'soft', ground: '#f0cfad' },
   'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'soft', ground: '#fcdabc' },
 };
@@ -548,7 +512,7 @@ function buildChapters(
       chips: [call.outcome, '100% QA-scored', 'Credits, not minutes'],
       art: '/media/story/decibyl-room-05-call-receipt.webp',
       blend: 'soft',
-      ground: '#ead1b3',
+      ground: '#eddcc7',
       drawn: 'outcome',
       href: '/book-a-demo',
       linkLabel: 'Book a demo call',

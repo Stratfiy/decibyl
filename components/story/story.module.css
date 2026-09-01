@@ -236,116 +236,6 @@
   mask-image: radial-gradient(ellipse 92% 88% at 50% 52%, #000 72%, transparent 100%);
 }
 
-/* The first unfinished scene is a clinic that is visibly alive. The base plate
-   remains the approved Kie render; these lightweight overlays lock motion to
-   objects already in that render rather than floating decorative UI over it.
-   Their percentages correspond to the phone, receptionist's voice orb and
-   waiting chairs in the 16:9 plate. */
-.clinicMotion {
-  position: absolute;
-  aspect-ratio: 16 / 9;
-  /* 138vh is 78vh (the desktop plate's height cap) at a 16:9 ratio.
-     Keeping the overlay itself 16:9 makes its object coordinates stay locked
-     to a contained image even on short laptop screens. */
-  width: min(100%, 138vh);
-  max-height: 100%;
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.clinicMotion * {
-  animation-play-state: paused;
-}
-
-.scene[data-state='active'] .clinicMotion * {
-  animation-play-state: running;
-}
-
-.phoneVibration,
-.receptionPulse,
-.queuePulse,
-.callStatus {
-  position: absolute;
-}
-
-.phoneVibration {
-  left: 28.7%;
-  top: 51.5%;
-  width: 5.2%;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  animation: phoneNudge 2.6s cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
-}
-
-.phoneVibration span {
-  position: absolute;
-  inset: calc(var(--ring, 0) * -19%);
-  border-radius: 50%;
-  border: max(1px, 0.13vw) solid rgba(225, 91, 83, 0.78);
-  opacity: 0;
-  animation: phoneRing 2.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-.phoneVibration span:nth-child(2) {
-  --ring: 1;
-  animation-delay: 100ms;
-}
-
-.phoneVibration span:nth-child(3) {
-  --ring: 2;
-  animation-delay: 200ms;
-}
-
-.receptionPulse {
-  left: 36.8%;
-  top: 47.7%;
-  width: 3.5%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 240, 224, 0.95) 0 16%, rgba(242, 112, 97, 0.7) 45%, transparent 72%);
-  transform: translate(-50%, -50%);
-  filter: drop-shadow(0 0 9px rgba(235, 100, 85, 0.54));
-  animation: receptionistTalk 1.55s ease-in-out infinite;
-}
-
-.receptionPulse span {
-  position: absolute;
-  inset: -22%;
-  border: 1px solid rgba(237, 114, 97, 0.5);
-  border-radius: 50%;
-  animation: voiceWave 1.55s ease-out infinite;
-}
-
-.receptionPulse span:nth-child(2) {
-  animation-delay: 780ms;
-}
-
-.callRoute {
-  position: absolute;
-  inset: 0;
-  overflow: visible;
-}
-
-.callRouteGlow,
-.callRouteCore {
-  fill: none;
-  stroke-linecap: round;
-  stroke-dasharray: 0.12 0.88;
-  animation: routeCall 2.6s ease-in-out infinite;
-}
-
-.callRouteGlow {
-  stroke: rgba(234, 101, 87, 0.18);
-  stroke-width: 8;
-  filter: blur(4px);
-}
-
-.callRouteCore {
-  stroke: rgba(231, 91, 79, 0.88);
-  stroke-width: 2;
-}
-
 .queuePulse {
   left: 65.2%;
   top: 63.5%;
@@ -387,35 +277,6 @@
   box-shadow: 0 0 0 4px rgba(223, 93, 83, 0.14);
 }
 
-@keyframes phoneNudge {
-  0%, 8%, 30%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-  12%, 20% { transform: translate(-53%, -50%) rotate(-4deg); }
-  16%, 24% { transform: translate(-47%, -50%) rotate(4deg); }
-}
-
-@keyframes phoneRing {
-  0%, 8% { opacity: 0; transform: scale(0.55); }
-  18% { opacity: 0.9; }
-  34%, 100% { opacity: 0; transform: scale(1.55); }
-}
-
-@keyframes receptionistTalk {
-  0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.76; }
-  45% { transform: translate(-50%, -50%) scale(1.13); opacity: 1; }
-}
-
-@keyframes voiceWave {
-  0% { opacity: 0; transform: scale(0.55); }
-  25% { opacity: 0.68; }
-  100% { opacity: 0; transform: scale(1.7); }
-}
-
-@keyframes routeCall {
-  0%, 10% { stroke-dashoffset: 0.16; opacity: 0; }
-  20%, 55% { opacity: 1; }
-  72%, 100% { stroke-dashoffset: -0.88; opacity: 0; }
-}
-
 @keyframes queueBreathe {
   0%, 100% { opacity: 0.2; transform: scale(0.7); }
   50% { opacity: 0.7; transform: scale(1.5); }
@@ -441,10 +302,6 @@
 @media (max-width: 899px) {
   .artCol {
     max-height: 38svh;
-  }
-
-  .clinicMotion {
-    display: none;
   }
 
   .plateMedia,
@@ -1103,7 +960,6 @@
     overflow: visible;
   }
 
-
   .rail,
   .progressTrack,
   .cue,
@@ -1219,9 +1075,6 @@
     display: none;
   }
 
-  .clinicMotion {
-    display: none;
-  }
 }
 
 /* ------------------------------------------- reduced motion, wide screen ---- */

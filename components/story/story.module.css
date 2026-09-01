@@ -76,19 +76,33 @@
      the art, and on a tablet the copy landed squarely across the plinth. */
   grid-template-columns: 1fr;
   grid-template-rows: minmax(0, 1fr) auto;
-  opacity: 0;
+  /* Continuous, not switched. `--ad` is how far this chapter is from the lens,
+     so a scene fades as the camera leaves it rather than on a timer that has no
+     idea how fast the reader is scrolling. Two chapters are on screen together
+     mid-transition — that overlap IS the transition.
+
+     No `transition` on opacity: the value is already a function of scroll
+     position, and easing it as well would fight the scrollbar and lag behind a
+     fast flick. `visibility` still hard-cuts once a scene is more than a
+     chapter and a half out, so distant plates cost no compositing. */
+  --ad: 9;
+  --d: 9;
+  opacity: clamp(0, calc(1.12 - var(--ad) * 1.32), 1);
   visibility: hidden;
-  transition:
-    opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0s linear 560ms;
 }
 
-.scene[data-state='active'] {
-  opacity: 1;
+/* `data-near` is set from the real distance in JS, because CSS cannot branch on
+   the numeric value of a custom property. Anything within range is part of the
+   world and gets composited; everything beyond is switched off outright. */
+.scene[data-near='true'] {
   visibility: visible;
-  transition:
-    opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0s;
+}
+
+/* Only the chapter at the lens is interactive. Without this the invisible
+   neighbouring scene sits on top of the active one and swallows the chapter
+   link, which reads to the user as a dead button. */
+.scene:not([data-state='active']) {
+  pointer-events: none;
 }
 
 @media (min-width: 900px) {
@@ -128,49 +142,47 @@
   }
 }
 
+/* One continuous camera path, expressed once.
+
+   The three separate transforms this replaces (a future plate parked low and
+   small, an active plate drifting, a past plate pushed up and scaled past you)
+   described the same movement in three disconnected pieces, and the jump
+   between them was a 980ms tween that had no idea where the reader's scroll
+   actually was. Written as a function of `--d` instead, the plate simply
+   travels: it rises through the frame, grows as it reaches the lens, and
+   continues up and past. Scrubbing backwards runs it backwards.
+
+   `--d` is signed so it drives direction; `--ad` unsigned so it drives
+   defocus, which is symmetrical — a chapter is equally soft whether it has not
+   arrived yet or has already gone. */
 .plate {
   display: flex;
   align-items: center;
   justify-content: center;
   max-width: 100%;
   max-height: 100%;
-  transform: translate3d(0, 54px, 0) scale(0.9);
-  filter: blur(6px);
-  transition:
-    transform 980ms cubic-bezier(0.16, 1, 0.3, 1),
-    filter 700ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
+  transform:
+    translate3d(
+      calc(var(--d, 0) * -18px + var(--mx, 0) * 14px),
+      calc(var(--d, 0) * -62px + var(--my, 0) * 10px),
+      0
+    )
+    scale(calc(1 - var(--ad, 0) * 0.085));
+  filter: blur(calc(var(--ad, 0) * 7px));
+  /* Position is scroll, not time. The only easing here is on the cursor
+     parallax, which has no scroll component and would otherwise snap. */
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, filter;
+}
+
+/* While a chapter is near the lens the reader is driving the transform
+   directly, and a 220ms ease-out on top of that reads as lag. */
+.scene[data-near='true'] .plate {
+  transition: none;
 }
 
 /* Once the chapter lands the plate settles, then drifts a little further as
    the reader keeps scrolling through it. */
-/* The camera.
-
-   This is what the reference actually does and what "plain" meant: the diorama
-   is not a slide that swaps, it is a model the camera moves around. Across a
-   chapter it pushes in (1.0 → 1.09), rises, and drifts a little sideways — all
-   driven by `--drift`, which the scroll listener writes continuously rather
-   than per chapter.
-
-   No transition on the transform while a chapter is active: `--drift` is
-   already a smooth function of scroll position, so easing it as well makes the
-   camera lag the finger. Easing returns for the enter and exit states, where
-   there is a real state change to smooth. */
-.scene[data-state='active'] .plate {
-  transform:
-    translate3d(calc(var(--drift, 0) * -18px), calc(var(--drift, 0) * -54px), 0)
-    scale(calc(1 + var(--drift, 0) * 0.09));
-  filter: blur(0);
-  transition:
-    filter 700ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.scene[data-state='past'] .plate {
-  transform: translate3d(0, -70px, 0) scale(1.06);
-  filter: blur(6px);
-}
-
 /* The plates carry their own flat cream backdrop, sampled at #ead8cb, and the
    story ground is set to exactly that. Feathering alone could not fix this: a
    radial mask on a 16:9 plate never reaches the corners, so the rectangle kept
@@ -1126,19 +1138,47 @@
     border-bottom: 1px solid rgba(33, 24, 20, 0.08);
   }
 
+  /* Both columns are absolutely positioned from 900px up so they can overlay
+     the pinned stage. This block reset their display, height and padding but
+     never their position — so on a wide screen with reduced motion the scene
+     had no in-flow children at all, collapsed to the height of its own padding,
+     and every chapter's art and copy piled up on top of the next one.
+
+     It needed a wide viewport AND reduced motion together, which is why it
+     survived review: a phone never applies the absolute rules, and a desktop
+     without the accessibility setting never enters this block. An iPad with
+     Reduce Motion on hits both.
+
+     The offsets go with the position. Leaving `inset` or a clamped `width`
+     behind on a now-static box constrains it for no reason. */
+  .artCol,
+  .copyCol {
+    position: static;
+    inset: auto;
+    width: auto;
+    height: auto;
+  }
+
   .artCol {
     display: block;
-    height: auto;
     padding: 0 0 1.75rem;
   }
 
-  .plate,
-  .scene[data-state='active'] .plate,
-  .scene[data-state='past'] .plate {
+  /* The camera is off entirely under reduced motion: no travel, no defocus,
+     no cursor parallax. Scenes fall into ordinary document flow and each plate
+     sits still above its own words. */
+  .plate {
     display: block;
     transform: none;
+    filter: none;
     transition: none;
     max-height: none;
+  }
+
+  .scene {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .plateDrawn,

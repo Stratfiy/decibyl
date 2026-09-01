@@ -24,6 +24,13 @@ type Chapter = {
   lead: string;
   chips: string[];
   art?: string;
+  /* Full-frame renders arrive as hard-edged rectangles and need their borders
+     feathered into the ground; the two early plates were cut with soft edges
+     already and are ruined by a second wash. This was inferred from the file
+     extension until every plate became WebP, at which point the inference
+     silently turned every plate soft. It is a property of how the plate was
+     made, so it is now stated rather than guessed. */
+  blend?: 'strong' | 'soft';
   drawn: string;
   href?: string;
   linkLabel?: string;
@@ -82,6 +89,12 @@ export function ScrollStory({ needs, call }: Props) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let frame = 0;
+    /* Cached once. The scene list is fixed for the life of this effect, and
+       re-querying it inside a scroll frame is work done 60 times a second for
+       an answer that never changes. */
+    const scenes = Array.from(
+      stage.querySelectorAll<HTMLElement>('[data-story-scene]'),
+    );
 
     const read = () => {
       frame = 0;
@@ -98,6 +111,32 @@ export function ScrollStory({ needs, call }: Props) {
       const raw = p * acts;
       const index = clamp(Math.floor(raw), 0, acts - 1);
       stage.style.setProperty('--drift', (raw - index - 0.5).toFixed(3));
+
+      /* The camera, not a slide projector.
+
+         `--d` is each scene's signed distance from the lens in chapter units:
+         negative behind us, 0 dead centre, positive still ahead. Because it is
+         written every frame from raw scroll position, the transition between
+         two chapters is scrubbable and reversible — drag the scrollbar back up
+         and the world runs backwards, which a timed cross-fade cannot do.
+
+         `--ad` is the same distance unsigned. CSS `abs()` is too new to rely on
+         here, and computing it once in JS is cheaper than the nested
+         `max(x, -x)` it would otherwise take in three separate declarations. */
+      for (let i = 0; i < scenes.length; i += 1) {
+        const scene = scenes[i];
+        const d = i - (raw - 0.5);
+        const ad = Math.abs(d);
+        scene.style.setProperty('--d', d.toFixed(3));
+        scene.style.setProperty('--ad', ad.toFixed(3));
+
+        /* Custom properties are cheap to write every frame; attributes are not,
+           because each change invalidates selector matching for that element.
+           So the near/far flag is only written when it actually flips. */
+        const near = ad < 1.5 ? 'true' : 'false';
+        if (scene.dataset.near !== near) scene.dataset.near = near;
+      }
+
       setAct(index);
     };
 
@@ -115,6 +154,53 @@ export function ScrollStory({ needs, call }: Props) {
       delete document.documentElement.dataset.storyHero;
     };
   }, [acts]);
+
+  /* The plates were rendered as dioramas — objects with depth, photographed from
+     a fixed angle. Flat on a page they lose exactly the quality they were made
+     for. Offsetting the plate against the cursor gives that depth back for the
+     cost of two custom properties.
+
+     Fine pointers only: on a touch screen there is no hover position to read,
+     and firing this off touch events would make the world lurch on every tap. */
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let frame = 0;
+    let nx = 0;
+    let ny = 0;
+
+    const apply = () => {
+      frame = 0;
+      stage.style.setProperty('--mx', nx.toFixed(3));
+      stage.style.setProperty('--my', ny.toFixed(3));
+    };
+
+    const onMove = (event: PointerEvent) => {
+      const rect = stage.getBoundingClientRect();
+      /* −1 → 1 across each axis, so the CSS reads as a direction and the
+         magnitude of the shift stays a decision for the stylesheet. */
+      nx = clamp(((event.clientX - rect.left) / rect.width) * 2 - 1, -1, 1);
+      ny = clamp(((event.clientY - rect.top) / rect.height) * 2 - 1, -1, 1);
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+
+    const onLeave = () => {
+      nx = 0;
+      ny = 0;
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+
+    window.addEventListener('pointermove', onMove, { passive: true });
+    stage.addEventListener('pointerleave', onLeave);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener('pointermove', onMove);
+      stage.removeEventListener('pointerleave', onLeave);
+    };
+  }, []);
 
   useEffect(() => {
     const el = audioRef.current;
@@ -145,6 +231,13 @@ export function ScrollStory({ needs, call }: Props) {
 
   const state = (index: number) => (index === act ? 'active' : index < act ? 'past' : 'future');
 
+  /* The camera's resting position at scroll top, computed the same way the
+     scroll loop computes it (progress 0 ⇒ raw 0 ⇒ d = index + 0.5). Emitting it
+     on the server means the first paint already shows the world in the right
+     place. Without it every scene inherits the far-away fallback and the story
+     is blank until hydration — and stays blank forever with JS disabled. */
+  const restingD = (index: number) => index + 0.5;
+
   return (
     <section
       ref={sectionRef}
@@ -169,13 +262,20 @@ export function ScrollStory({ needs, call }: Props) {
             data-story-scene
             data-scene={chapter.id}
             data-state={state(index)}
+            data-near={restingD(index) < 1.5 ? 'true' : 'false'}
+            style={
+              {
+                '--d': restingD(index).toFixed(3),
+                '--ad': Math.abs(restingD(index)).toFixed(3),
+              } as CSSProperties
+            }
           >
             <div className={styles.artCol}>
               <div className={styles.plate}>
                 {chapter.art && !artFailed[chapter.id] ? (
                   <div
                     className={styles.mediaFrame}
-                    data-blend={chapter.art.endsWith('.png') ? 'strong' : 'soft'}
+                    data-blend={chapter.blend ?? 'soft'}
                   >
                     <img
                       src={chapter.art}
@@ -328,10 +428,10 @@ function ClinicMotion() {
   );
 }
 
-const VERTICAL_PLATE: Record<string, string> = {
-  clinics: '/media/story/decibyl-room-02-the-clinic.webp',
-  'real-estate': '/media/story/decibyl-room-03-property-leads.png',
-  'd2c-ndr-recovery': '/media/story/decibyl-room-04-commerce-support.png',
+const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft' }> = {
+  clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft' },
+  'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'strong' },
+  'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'strong' },
 };
 
 const VERTICAL_CHAPTER: Record<string, { nav: string; title: string; chips: string[] }> = {
@@ -365,7 +465,8 @@ function buildChapters(
       title: told?.title ?? need.label,
       lead: need.pain,
       chips: told?.chips ?? [],
-      art: VERTICAL_PLATE[need.id],
+      art: VERTICAL_PLATE[need.id]?.src,
+      blend: VERTICAL_PLATE[need.id]?.blend,
       drawn: need.id,
       href: need.href,
     };
@@ -390,6 +491,7 @@ function buildChapters(
       lead: 'Two lines, one receptionist, and a customer who decided to buy at nine at night. Decibyl picks up on the first ring instead — not a menu, but a voice that asks what they need and does the next thing about it.',
       chips: ['Answers on ring one', 'Books and confirms', 'Calls back too'],
       art: '/media/story/decibyl-room-01-the-answer.webp',
+      blend: 'soft',
       drawn: 'switchboard',
       href: '/how-it-works',
       linkLabel: 'How it works',
@@ -402,7 +504,8 @@ function buildChapters(
       title: 'Every call leaves a receipt.',
       lead: 'The point was never that it can talk. At the end there is a booked appointment, a confirmed order or a qualified lead — with the transcript, the recording and a QA score on every single call, not on a sample. You are billed for what the call actually cost, in credits, not in rounded-up minutes.',
       chips: [call.outcome, '100% QA-scored', 'Credits, not minutes'],
-      art: '/media/story/decibyl-room-05-call-receipt.png',
+      art: '/media/story/decibyl-room-05-call-receipt.webp',
+      blend: 'strong',
       drawn: 'outcome',
       href: '/book-a-demo',
       linkLabel: 'Book a demo call',

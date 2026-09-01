@@ -440,7 +440,7 @@ function ClinicMotion() {
 const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft'; ground: string }> = {
   clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#eed6b6' },
   'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'soft', ground: '#f1cfac' },
-  'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'soft', ground: '#eed3b5' },
+  'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'soft', ground: '#fcdabc' },
 };
 
 /* What the stage paints where a chapter draws its scene in code instead of

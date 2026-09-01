@@ -548,7 +548,7 @@ function buildChapters(
       chips: [call.outcome, '100% QA-scored', 'Credits, not minutes'],
       art: '/media/story/decibyl-room-05-call-receipt.webp',
       blend: 'soft',
-      ground: '#ead1b3',
+      ground: '#eddcc7',
       drawn: 'outcome',
       href: '/book-a-demo',
       linkLabel: 'Book a demo call',

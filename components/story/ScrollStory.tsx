@@ -2,12 +2,14 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+import { type StoryNeed, storyActTotal } from './acts';
 import type { CSSProperties } from 'react';
 import { IsoDistrict } from './IsoDistrict';
 import { SplitText } from './SplitText';
 import styles from './story.module.css';
 
-export type StoryNeed = { id: string; label: string; pain: string; href: string };
+export type { StoryNeed } from './acts';
 
 type Props = {
   needs: StoryNeed[];
@@ -83,6 +85,16 @@ export function ScrollStory({ needs, call }: Props) {
   const [artFailed, setArtFailed] = useState<Record<string, true>>({});
 
   const chapters = useMemo(() => buildChapters(needs, call), [needs, call]);
+
+  /* The intro renders "01 / N" from `storyActTotal` before this component
+     mounts, so a chapter added here without updating that file would leave the
+     two counters disagreeing on screen. Cheap to check, and silent in
+     production. */
+  if (process.env.NODE_ENV !== 'production' && chapters.length + 1 !== storyActTotal(needs)) {
+    console.warn(
+      `[ScrollStory] act count drift: built ${chapters.length + 1} acts, storyActTotal says ${storyActTotal(needs)}. Update components/story/acts.ts.`,
+    );
+  }
   const acts = chapters.length;
   const hasNarration = chapters.some((chapter) => Boolean(chapter.audio));
 
@@ -438,8 +450,8 @@ function ClinicMotion() {
 }
 
 const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft'; ground: string }> = {
-  clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#eed6b6' },
-  'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'soft', ground: '#f1cfac' },
+  clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#edd7b5' },
+  'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'soft', ground: '#f0cfad' },
   'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'soft', ground: '#fcdabc' },
 };
 
@@ -506,7 +518,7 @@ function buildChapters(
       chips: ['Answers on ring one', 'Books and confirms', 'Calls back too'],
       art: '/media/story/decibyl-room-01-the-answer.webp',
       blend: 'soft',
-      ground: '#e3c29c',
+      ground: '#e3c39e',
       drawn: 'switchboard',
       href: '/how-it-works',
       linkLabel: 'How it works',
@@ -536,7 +548,7 @@ function buildChapters(
       chips: [call.outcome, '100% QA-scored', 'Credits, not minutes'],
       art: '/media/story/decibyl-room-05-call-receipt.webp',
       blend: 'soft',
-      ground: '#ead1b2',
+      ground: '#ead1b3',
       drawn: 'outcome',
       href: '/book-a-demo',
       linkLabel: 'Book a demo call',

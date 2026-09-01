@@ -306,8 +306,7 @@ html[data-story-hero='true'] header.glass {
 
 .living-world-stage {
   position: relative;
-  min-height: 30rem;
-  margin: clamp(2.5rem, 5vw, 5rem) -5vw 0;
+  margin: clamp(1.25rem, 2.5vw, 2.25rem) -5vw 0;
 }
 
 .living-world-image {
@@ -317,7 +316,8 @@ html[data-story-hero='true'] header.glass {
   margin-left: -5%;
   filter: saturate(0.94) contrast(1.015);
   mix-blend-mode: multiply;
-  mask-image: radial-gradient(ellipse 84% 80% at 50% 50%, #000 55%, transparent 98%);
+  mask-image: radial-gradient(ellipse 94% 96% at 50% 50%, #000 76%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 94% 96% at 50% 50%, #000 76%, transparent 100%);
 }
 
 .living-world-stat {
@@ -595,7 +595,6 @@ html[data-story-hero='true'] header.glass {
   }
 
   .living-world-stage {
-    min-height: 24rem;
     margin-inline: -20%;
   }
 

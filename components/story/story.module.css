@@ -22,7 +22,7 @@
   position: relative;
   height: var(--story-h);
   margin-top: -4rem;
-  background: #ead8cb;
+  background: var(--ground, #ead8cb);
 }
 
 /* A slow continuous drift across the entire story, independent of any one
@@ -36,7 +36,7 @@
      phone and pushed the copy off-screen. */
   min-height: min(620px, 100svh);
   overflow: hidden;
-  background: #ead8cb;
+  background: var(--ground, #ead8cb);
   --sp: 0; /* whole-story progress 0→1 */
 }
 
@@ -68,6 +68,11 @@
 .scene {
   position: absolute;
   inset: 0;
+  /* Each chapter carries the ground its own plate was rendered against, so the
+     plate never sits in a rectangle of slightly-wrong cream. In the pinned
+     stage two chapters are briefly co-resident, and their grounds cross-blend
+     with them — the ground moves with the camera rather than snapping. */
+  background: var(--ground, #ead8cb);
   display: grid;
   align-items: center;
   /* Below the two-column breakpoint the diorama takes the flexible row and the
@@ -183,7 +188,8 @@
 
 /* Once the chapter lands the plate settles, then drifts a little further as
    the reader keeps scrolling through it. */
-/* The plates carry their own flat cream backdrop, sampled at #ead8cb, and the
+/* The plates carry their own flat backdrop, and each chapter sets `--ground`
+   to the one its own plate was rendered against, so the
    story ground is set to exactly that. Feathering alone could not fix this: a
    radial mask on a 16:9 plate never reaches the corners, so the rectangle kept
    showing. Matching the ground is also what the reference does — the diorama
@@ -209,8 +215,8 @@
   content: '';
   pointer-events: none;
   background:
-    linear-gradient(90deg, #ead8cb 0%, rgba(234, 216, 203, 0.92) 2.5%, transparent 11%, transparent 89%, rgba(234, 216, 203, 0.92) 97.5%, #ead8cb 100%),
-    linear-gradient(180deg, #ead8cb 0%, rgba(234, 216, 203, 0.78) 3%, transparent 12%, transparent 86%, rgba(234, 216, 203, 0.86) 97%, #ead8cb 100%);
+    linear-gradient(90deg, var(--ground, #ead8cb) 0%, transparent 13%, transparent 87%, var(--ground, #ead8cb) 100%),
+    linear-gradient(180deg, var(--ground, #ead8cb) 0%, transparent 14%, transparent 86%, var(--ground, #ead8cb) 100%);
 }
 
 .mediaFrame[data-blend='strong'] .plateMedia {

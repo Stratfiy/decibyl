@@ -31,6 +31,17 @@ type Chapter = {
      silently turned every plate soft. It is a property of how the plate was
      made, so it is now stated rather than guessed. */
   blend?: 'strong' | 'soft';
+  /* The exact backdrop the plate was rendered against, sampled from the median
+     of its own border ring. The stage was one hardcoded cream that matched the
+     first two plates and sat 20 points away from the three rendered later, so
+     those three showed as a visible rectangle on the page however much their
+     edges were feathered. Matching the ground to the plate removes the seam by
+     construction rather than by approximation.
+
+     Knocking the backdrop out instead was tried first and abandoned: these are
+     cream dioramas on cream, and every threshold that reached the gradient also
+     walked through the walls and furniture. */
+  ground?: string;
   drawn: string;
   href?: string;
   linkLabel?: string;
@@ -267,6 +278,7 @@ export function ScrollStory({ needs, call }: Props) {
               {
                 '--d': restingD(index).toFixed(3),
                 '--ad': Math.abs(restingD(index)).toFixed(3),
+                '--ground': chapter.ground ?? DEFAULT_GROUND,
               } as CSSProperties
             }
           >
@@ -428,11 +440,15 @@ function ClinicMotion() {
   );
 }
 
-const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft' }> = {
-  clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft' },
-  'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'strong' },
-  'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'strong' },
+const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft'; ground: string }> = {
+  clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#ecd9cc' },
+  'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'strong', ground: '#f2d5b9' },
+  'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'strong', ground: '#fcd8bb' },
 };
+
+/* What the stage paints where a chapter draws its scene in code instead of
+   loading a plate, and before the first plate arrives. */
+const DEFAULT_GROUND = '#ead8cb';
 
 const VERTICAL_CHAPTER: Record<string, { nav: string; title: string; chips: string[] }> = {
   clinics: {
@@ -467,6 +483,7 @@ function buildChapters(
       chips: told?.chips ?? [],
       art: VERTICAL_PLATE[need.id]?.src,
       blend: VERTICAL_PLATE[need.id]?.blend,
+      ground: VERTICAL_PLATE[need.id]?.ground,
       drawn: need.id,
       href: need.href,
     };
@@ -492,6 +509,7 @@ function buildChapters(
       chips: ['Answers on ring one', 'Books and confirms', 'Calls back too'],
       art: '/media/story/decibyl-room-01-the-answer.webp',
       blend: 'soft',
+      ground: '#ead8ca',
       drawn: 'switchboard',
       href: '/how-it-works',
       linkLabel: 'How it works',
@@ -506,6 +524,7 @@ function buildChapters(
       chips: [call.outcome, '100% QA-scored', 'Credits, not minutes'],
       art: '/media/story/decibyl-room-05-call-receipt.webp',
       blend: 'strong',
+      ground: '#f9ddc9',
       drawn: 'outcome',
       href: '/book-a-demo',
       linkLabel: 'Book a demo call',

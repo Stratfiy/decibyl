@@ -56,7 +56,7 @@ export function CinematicIntro() {
               whole product workflow readable without video or autoplay. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/media/scene-one/decibyl-office-command-center.png?v=20260901a"
+            src="/media/scene-one/decibyl-office-command-center.webp?v=20260901a"
             alt=""
             className={styles.worldMedia}
             fetchPriority="high"

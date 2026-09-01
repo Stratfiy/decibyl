@@ -1217,3 +1217,64 @@
     display: none;
   }
 }
+
+/* ------------------------------------------- reduced motion, wide screen ---- */
+
+/* Reduced motion has to drop the pinned stage. It does not have to drop the
+   composition with it, and until now it did: every chapter became a 900px-wide
+   plate stacked above its own words, 980px tall, mostly air. That severs the
+   one relationship a chapter exists to make — this picture, these words — and
+   reads as an unstyled fallback rather than a designed page. A large share of
+   iPad and iOS visitors have Reduce Motion on, so this is not an edge case.
+
+   From 900px up the two columns sit side by side, exactly the relationship the
+   pinned stage draws, just in normal flow instead of overlaid. Deliberately
+   after the stacked block rather than inside it: plain CSS has no nested media
+   queries, and both conditions have to hold for this to apply. The short and
+   narrow viewports in that block keep stacking, which is right for them. */
+@media (prefers-reduced-motion: reduce) and (min-width: 900px) {
+  .scene {
+    display: grid;
+    /* The plate leads and the copy sits beside it at a readable measure. The
+       min on the text column stops it collapsing into a gutter of broken
+       words before the breakpoint below takes over. */
+    grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
+    /* The stacked grid declares two rows; one is all this needs. */
+    grid-template-rows: auto;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
+    max-width: 76rem;
+    margin-inline: auto;
+    padding: clamp(2rem, 5vh, 3.5rem) clamp(1.5rem, 4vw, 3rem);
+  }
+
+  /* Both columns carry explicit grid placement from the mobile stacked grid —
+     art in row 1, copy in row 2, both pinned to column 1. Declaring two columns
+     without re-placing them just makes a second column nothing ever occupies,
+     which is exactly what happened on the first attempt: the grid was correct
+     and the layout was unchanged. */
+  .artCol {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 0;
+  }
+
+  .copyCol {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  /* Bounded rather than full-bleed. At 900px wide the plate stopped reading as
+     an object on a plinth and started reading as a background. */
+  .plateDrawn,
+  .plateMedia {
+    width: 100%;
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+
+  .copyCol {
+    max-width: 30rem;
+  }
+}

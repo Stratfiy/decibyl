@@ -85,6 +85,21 @@ html {
 }
 
 body {
+  /* Several sections bleed past the viewport on purpose — the language marquee
+     runs 2800px wide, the world stage is inset -20%, the intro's world sits at
+     -32px — and each is clipped by its own section. At 320px something still
+     escaped, leaving the document 336px wide and the whole page able to slide
+     sideways under a thumb.
+
+     `clip` rather than `hidden`, and this is the whole reason it is safe here:
+     `overflow: hidden` on the body establishes a scroll container, which breaks
+     every `position: sticky` descendant — and the scroll story and the header
+     are both sticky. `overflow-x: clip` clips without creating one, so the
+     sticky stage keeps working and the page can no longer be dragged sideways.
+
+     Vertical is left alone deliberately. Constraining it here is what breaks
+     `scroll-snap-type` on html and position:sticky inside it. */
+  overflow-x: clip;
   background: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-body);

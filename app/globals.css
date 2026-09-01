@@ -923,4 +923,22 @@ html[data-story-hero='true'] header.glass {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+
+  /* Reveal must not be able to hide content from someone who asked for no
+     motion. Collapsing the transition duration was not enough on its own: the
+     hidden state is opacity 0, and it only clears when IntersectionObserver
+     reports the element on screen. With `scroll-behavior: auto` — which this
+     block sets, and which anchor links, deep links and history restoration use
+     anyway — the page jumps rather than travelling, so anything skipped over
+     never intersects and stays invisible for good.
+
+     Measured: scrolling to the foot of /pricing revealed all five section
+     heads with smooth scrolling and none of them with reduced motion.
+
+     So reduced motion opts out of the mechanism rather than out of its
+     animation. The reveal is an enhancement; this is the floor underneath it. */
+  [data-reveal='hidden'] {
+    opacity: 1;
+    transform: none;
+  }
 }

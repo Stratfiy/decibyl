@@ -24,8 +24,7 @@ const sharedTable = (them: {
   billing: string;
   residency: string;
   mcp: string;
-  byok: string;
-  markup: string;
+  costModel: string;
   onboarding: string;
 }) => [
   {
@@ -42,8 +41,7 @@ const sharedTable = (them: {
   { feature: 'INR billing + GST invoice', them: them.billing, us: 'INR-first, GST-compliant invoice via Razorpay' },
   { feature: 'Data residency', them: them.residency, us: 'India, US, or EU — Mumbai (ap-south-1) by default' },
   { feature: 'MCP-native agent building', them: them.mcp, us: 'Yes — build agents from Claude Code' },
-  { feature: 'BYOK', them: them.byok, us: 'Yes — $0.02/min platform fee, pay providers directly' },
-  { feature: 'Markup model', them: them.markup, us: 'Zero markup on model costs, shown separately' },
+  { feature: 'Cost transparency', them: them.costModel, us: 'Every component itemised on each call receipt, not blended into one rate' },
   { feature: 'Managed onboarding', them: them.onboarding, us: 'Managed setup, typically half a day' },
 ];
 
@@ -100,8 +98,7 @@ export const competitors: Competitor[] = [
       billing: 'USD, no GST invoice',
       residency: 'US/EU regions',
       mcp: 'No',
-      byok: 'Yes',
-      markup: 'Platform fee plus provider costs',
+      costModel: 'Platform fee plus provider costs',
       onboarding: 'Self-serve, instant',
     }),
     verdict:
@@ -139,8 +136,8 @@ export const competitors: Competitor[] = [
     ],
     strongerUs: [
       {
-        title: 'Zero markup, shown separately',
-        body: 'A blended per-minute rate hides the model markup. We charge a platform fee and show the provider cost separately, so you can check the arithmetic.',
+        title: 'Itemised, not blended',
+        body: 'A blended per-minute rate hides what the call actually cost. Every receipt breaks out the speech, the brain and the voice as separate lines, so you can check the arithmetic.',
       },
       {
         title: 'MCP-native',
@@ -162,8 +159,7 @@ export const competitors: Competitor[] = [
       billing: 'INR billing available',
       residency: 'Check current provider documentation',
       mcp: 'No',
-      byok: 'Limited',
-      markup: 'Blended per-minute rate',
+      costModel: 'Blended per-minute rate',
       onboarding: 'Self-serve, instant',
     }),
     verdict:
@@ -213,8 +209,8 @@ export const competitors: Competitor[] = [
         body: 'Priced in rupees, invoiced with GST, and stored in India.',
       },
       {
-        title: 'Zero markup on model costs',
-        body: 'Platform fee and provider cost shown separately.',
+        title: 'Itemised, not blended',
+        body: 'Platform fee and each provider component shown as separate lines on every call.',
       },
     ],
     table: sharedTable({
@@ -224,8 +220,7 @@ export const competitors: Competitor[] = [
       billing: 'USD, no GST invoice',
       residency: 'US regions',
       mcp: 'No',
-      byok: 'Limited',
-      markup: 'Blended per-minute rate',
+      costModel: 'Blended per-minute rate',
       onboarding: 'Self-serve, instant',
     }),
     verdict:
@@ -275,8 +270,8 @@ export const competitors: Competitor[] = [
         body: 'Build and modify agents from Claude Code — not published as a SquadStack capability.',
       },
       {
-        title: 'Zero markup, shown separately',
-        body: 'A platform fee with the provider cost shown apart from it, rather than a custom quote you cannot itemise.',
+        title: 'Itemised, not blended',
+        body: 'A platform fee with each provider component itemised beside it, rather than a custom quote you cannot break down.',
       },
     ],
     table: sharedTable({
@@ -286,8 +281,7 @@ export const competitors: Competitor[] = [
       billing: 'Custom enterprise pricing, ₹5L+/year typical; GST invoicing not published',
       residency: 'Not published',
       mcp: 'No',
-      byok: 'Not published',
-      markup: 'Custom quote — not itemised',
+      costModel: 'Custom quote — not itemised',
       onboarding: 'Enterprise sales process, not self-serve',
     }),
     verdict:
@@ -352,8 +346,7 @@ export const competitors: Competitor[] = [
       billing: 'USD, $0.10–0.30/min depending on tier; no GST invoice',
       residency: 'US/EU regions',
       mcp: 'No',
-      byok: 'Partial — bring your own LLM (Gemini, Claude, GPT); voice stays ElevenLabs',
-      markup: 'Blended per-minute rate (voice + LLM + platform)',
+      costModel: 'Blended per-minute rate (voice + LLM + platform)',
       onboarding: 'Self-serve, instant',
     }),
     verdict:
@@ -403,8 +396,8 @@ export const competitors: Competitor[] = [
         body: 'Not an 8–16 week deployment.',
       },
       {
-        title: 'Zero markup, shown separately',
-        body: 'A platform fee with the provider cost itemised apart from it.',
+        title: 'Itemised, not blended',
+        body: 'A platform fee with each provider component itemised beside it.',
       },
       {
         title: 'Self-serve managed tiers alongside enterprise',
@@ -418,8 +411,7 @@ export const competitors: Competitor[] = [
       billing: 'Custom/outcome-based pricing; GST invoicing not published',
       residency: 'Cloud, private cloud, on-premises, or air-gapped — enterprise-configured',
       mcp: 'No',
-      byok: 'Not published',
-      markup: 'Custom quote — not itemised',
+      costModel: 'Custom quote — not itemised',
       onboarding: '3–6 month sales cycle, 8–16 week deployment',
     }),
     verdict:

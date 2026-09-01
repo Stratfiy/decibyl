@@ -141,7 +141,7 @@ export const verticals: Vertical[] = [
       },
       {
         q: 'What does it cost per recovered order?',
-        a: 'You pay for minutes, not outcomes. A confirmation call is typically under a minute, and our rates are published on the pricing page with no markup on model costs.',
+        a: 'You pay for minutes, not outcomes. A confirmation call is typically under a minute, and every bundle’s per-minute rate is published on the pricing page.',
       },
     ],
     visibility: sharedVisibility,

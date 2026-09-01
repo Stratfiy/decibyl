@@ -151,7 +151,7 @@ export function PricingPreview() {
       <SectionHead
         eyebrow="Pricing"
         title="Published, in rupees, with the GST line stated."
-        sub="Telephony and phone numbers included. No markup on model costs — we charge a platform fee and show the provider cost separately."
+        sub="Telephony and phone numbers included. Every call closes with an itemised receipt — the platform fee and each provider component as its own line, never one blended number."
       />
 
       <div className="mt-10 grid gap-5 md:grid-cols-3">

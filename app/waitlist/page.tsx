@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Container } from '@/components/ui/Section';
 import { LeadForm } from '@/components/forms/LeadForm';
-import { byok } from '@/data/pricing';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -32,7 +31,7 @@ export default function WaitlistPage() {
               instead — we can have an agent running on your number this week.
             </p>
             <p className="t-data mt-10 text-iron">
-              BYOK opens with ${byok.trialCreditUsd} of trial credit.
+              Every new account opens with call credit to test on.
             </p>
           </div>
 

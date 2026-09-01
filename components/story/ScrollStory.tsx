@@ -440,7 +440,7 @@ function ClinicMotion() {
 const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft'; ground: string }> = {
   clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#eed6b6' },
   'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'soft', ground: '#f1cfac' },
-  'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'soft', ground: '#eed3b5' },
+  'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'soft', ground: '#fcdabc' },
 };
 
 /* What the stage paints where a chapter draws its scene in code instead of
@@ -512,6 +512,21 @@ function buildChapters(
       linkLabel: 'How it works',
     },
     ...remainingVerticals,
+    {
+      id: 'call-floor',
+      nav: 'At scale',
+      eyebrow: '2:15 PM · every line out at once',
+      title: 'One call is a demo. A hundred at once is the business.',
+      lead:
+        'Every room so far shows one call. The reason this replaces a floor rather than a phone is that it does not queue: the whole list goes out together, each conversation held on its own, and the ones worth a human arrive transferred and already qualified.',
+      chips: ['Up to 100 concurrent', 'Whole list in one window', 'Warm transfer on intent'],
+      art: '/media/story/decibyl-room-06-call-floor.webp',
+      blend: 'soft',
+      ground: '#fbd6bc',
+      drawn: 'switchboard',
+      href: '/use-cases/outbound-sales-calling',
+      linkLabel: 'See outbound calling',
+    },
     {
       id: 'receipt',
       nav: 'The receipt',

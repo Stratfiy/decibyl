@@ -11,11 +11,11 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: 'Do I need my own OpenAI or ElevenLabs account?',
-    a: 'Not on the managed plans — telephony and models are included, and there are no API keys for you to manage. If you would rather bring your own keys, the BYOK plan is a $0.02 per-minute platform fee and you pay providers directly at their price, with zero markup from us.',
+    a: 'No. Every provider key is ours, so there is nothing for you to sign up for and nothing to manage. If you want to choose the models rather than take a bundle, the Advanced tab lets you name the vendor and model for speech, brain and voice — still on our keys, still one bill.',
   },
   {
-    q: 'Do you mark up model costs?',
-    a: 'No. Sarvam STT/TTS runs roughly 7× cheaper than US alternatives and handles Indian languages better; Indian SIP trunking runs roughly 5× cheaper than Twilio-class providers; and there is no third-party orchestration layer sitting in the middle taking its own fee. We charge a platform fee and show the provider cost separately — check the arithmetic yourself on the pricing page rather than trusting a blended rate.',
+    q: 'Why is Decibyl cheaper per minute than a US platform?',
+    a: 'The stack underneath, not a discount. Sarvam STT/TTS runs roughly 7\u00d7 cheaper than US alternatives and handles Indian languages better; Indian SIP trunking runs roughly 5\u00d7 cheaper than Twilio-class providers; and there is no third-party orchestration layer sitting in the middle taking its own fee. Each bundle\u2019s per-minute rate is published on the pricing page.',
   },
   {
     q: 'Do I get a GST invoice?',
@@ -77,8 +77,8 @@ export const pricingFaqs: Faq[] = [
     a: 'Included on the managed plans, along with the phone numbers listed in each tier. There is no separate Twilio-style carrier bill to reconcile.',
   },
   {
-    q: 'What does "zero markup" actually mean?',
-    a: 'A blended per-minute rate hides the margin taken on model costs. We charge a platform fee and show the provider cost separately, so you can check the arithmetic yourself. On BYOK you pay the providers directly at their list price and we never touch it.',
+    q: 'What does an itemised call receipt actually show?',
+    a: 'A blended per-minute rate hides where the money went. Every Decibyl call closes with the platform fee and each provider component — speech-to-text, the model, text-to-speech, telephony — as its own line, priced at the rate that call actually ran on. You are billed for what the call cost rather than a rounded-up minute, and you can check the arithmetic against the published bundle rate yourself.',
   },
   {
     q: 'Can I switch plans later?',

@@ -6,13 +6,16 @@
  * Decibyl does not compete on ₹/min — it competes on what's included. Every
  * price here should read as an inclusion comparison, not a rate quote.
  *
- * Internal cost floor (margin sanity only — NEVER publish these two lines):
- *   Hindi/English stack: ₹1.74/min · Regional (Ta/Te/Kn/Ml/Bn) stack: ₹3.28/min
+ * Internal cost floors and unit economics are NOT in this file and must not be
+ * added to it. This repository is public: a comment saying "never publish this"
+ * sitting in it has already published it. They live in the internal pricing
+ * doc; reference that, do not paste from it.
  *
  * ⚠️ STILL OPEN — see OPEN-ITEMS.md:
- *   - Regional-language margin at Growth effective rates is thin
- *     (25–28% gross at the ₹3.28 regional cost floor) — surcharge, fair-use
- *     cap, or fix the stack first is still Nithish's call, not shipped here.
+ *   - Regional languages (Ta/Te/Kn/Ml/Bn) run on a materially dearer stack than
+ *     Hindi/English, and at Growth's effective rates that gap is uncomfortable
+ *     — surcharge, fair-use cap, or fix the stack first is still Nithish's
+ *     call, not shipped here. Figures in the internal doc.
  *   - `managedTiersLive` gates whether tiers sell or route to the waitlist.
  *
  * ─────────────────────────────────────────────────────────────────────────
@@ -24,15 +27,15 @@
  * A plan grants `balance_paise` (`api/services/billing/subscription_plans.py`)
  * and each call draws that balance down by its *composed* cost: the pulsed
  * platform fee, plus the LLM, STT and TTS actually consumed at their own rates,
- * plus carriage, marked up (`api/services/billing/costing.py`). Two calls of
+ * plus carriage, each composed by `api/services/billing/costing.py`. Two calls of
  * identical length can cost different amounts — different model, different
  * language, different number of turns.
  *
  * So a bare "N minutes included" is a promise the engine cannot keep. ₹/min on
  * this page is an **average for a Hindi/English call**, and every minute figure
- * below carries that qualifier for a reason: the internal stack floor is
- * ₹1.74/min for Hindi/English but ₹3.28/min for regional (Ta/Te/Kn/Ml/Bn), so
- * a Tamil clinic — the exact buyer `/solutions/clinics` targets — exhausts the
+ * below carries that qualifier for a reason: regional languages
+ * (Ta/Te/Kn/Ml/Bn) run on a stack that costs close to twice what Hindi/English
+ * does, so a Tamil clinic — the exact buyer `/solutions/clinics` targets — exhausts the
  * same balance in materially fewer minutes.
  *
  * Figures here that must track a product constant, and the file that owns each:
@@ -43,7 +46,7 @@
  *     the two the deployment seeds before an operator runs that script
  *   `additionalNumberInr`  ← NUMBER_RENTAL_PRICE_PAISE    (api/constants.py)
  *   `USD_RATE`             ← DEFAULT_USD_INR_PAISE        (billing/money.py)
- *   `byok.perMinuteUsd`    ← DEFAULT_PLATFORM_RATE_MICROS_USD (billing/money.py)
+ *   `advancedStack.platformFeeUsd` ← DEFAULT_PLATFORM_RATE_MICROS_USD (billing/money.py)
  *
  * If one of those moves in echowave and not here, the site quotes a price the
  * bank does not collect. That is the failure this block exists to catch.
@@ -55,9 +58,9 @@ export const GST_RATE = 0.18;
  *  false → tier cards show "Opening soon" and CTA routes to /waitlist. */
 export const managedTiersLive = true;
 
-/** Indicative rate for the USD toggle on the main tier table, and for BYOK
- *  (which stays dollar-denominated — that audience is dollar-native).
- *  Display-only, not a billing rate.
+/** Indicative rate for the USD toggle on the main tier table, and for the
+ *  developer-facing platform fee (which stays dollar-denominated — that
+ *  audience is dollar-native). Display-only, not a billing rate.
  *
  *  Raised 28 Aug 2026 from 88 to 96 to match the engine's own fallback
  *  (`DEFAULT_USD_INR_PAISE = 9_600`, echowave `api/services/billing/money.py`).
@@ -232,7 +235,7 @@ export const tiers: Tier[] = [
  *
  * All three computed on one basis, 28 Aug 2026, rather than copied from a
  * document. Bundles differ only in their model line, so each is Everyday plus
- * the difference in model cost at the 1.4x managed markup:
+ * the difference in the model line, composed on the same basis:
  *
  *   model cost/min      Everyday ₹1.12   Natural ₹4.72   Premium ₹16.45
  *   sell/min            ₹4.91            ₹9.95           ₹26.37
@@ -367,18 +370,42 @@ export const publishedComparisonCallout = {
   source: 'Read on their pricing page, 8 Aug 2026.',
 };
 
-export const byok = {
-  headline: 'BYOK / Agency',
-  perMinuteUsd: 0.02,
-  trialCreditUsd: 5,
-  body: 'Bring your own OpenAI, Deepgram, ElevenLabs, or Sarvam keys — pay providers directly at their price. Zero markup on model costs.',
-  providers: ['OpenAI', 'Deepgram', 'ElevenLabs', 'Sarvam'],
+/**
+ * The technical path: pick the stack yourself instead of picking a bundle.
+ *
+ * This replaced a "BYOK / Agency" offer that described a product we do not
+ * sell. It advertised bringing your own OpenAI, Deepgram, ElevenLabs or Sarvam
+ * keys and paying those providers directly at their price, for a flat
+ * $0.02/min platform fee and nothing else.
+ *
+ * We do not do that. Every provider key is ours, held in superadmin, and a
+ * customer never contracts with a model vendor. What the Advanced tab actually
+ * offers is *choice of stack*, not *choice of contract*: name the vendor and
+ * model per component rather than taking a bundle's, and the usage bills
+ * through us like any other call.
+ *
+ * The $0.02 is real — `DEFAULT_PLATFORM_RATE_MICROS_USD` in billing/money.py —
+ * but it is the platform fee component on every call, alongside the model and
+ * telephony cost for that call. It was never the whole bill, and the old copy
+ * said it was.
+ *
+ * No trial-credit figure lives here any more. The signup bonus is
+ * `SIGNUP_BONUS_MICROS_USD`, an environment variable the platform can change
+ * without anyone touching this repository, so a number hardcoded here is a
+ * number that goes stale silently on a page that promises money.
+ */
+export const advancedStack = {
+  headline: 'Advanced',
+  platformFeeUsd: 0.02,
+  body:
+    'Choose the vendor and model for speech, brain and voice yourself, instead of taking a bundle’s. The keys are ours — you never open an account with a model provider — and every call’s receipt itemises what each component cost.',
+  providers: ['OpenAI', 'Deepgram', 'ElevenLabs', 'Sarvam', 'Gemini'],
 };
 
 /**
- * P1-3, /developers: published orchestration platform fees, USD (BYOK stays
- * dollar-denominated — this audience is dollar-native, unlike the INR
- * credits are rupee-denominated). Each figure read on that vendor's own public
+ * P1-3, /developers: published orchestration platform fees, USD (this stays
+ * dollar-denominated — the developer audience is dollar-native, unlike the
+ * rupee-denominated credits). Each figure read on that vendor's own public
  * pricing page — see developerFeesCheckedNote for the date. Restate, don't
  * paste, competitor copy; this is just the number.
  */

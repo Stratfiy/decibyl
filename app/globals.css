@@ -314,6 +314,32 @@ html[data-story-hero='true'] header.glass {
 .living-world-stage {
   position: relative;
   margin: clamp(1.25rem, 2.5vw, 2.25rem) -5vw 0;
+  /* The turntable needs a vanishing point to rotate against. Without
+     perspective, rotateY on a flat image is an affine squash — the plate gets
+     narrower and wider like a closing door, which reads as a sticker rather
+     than a world. The distance is deliberately long: at 2200px the near and far
+     edges of a 1200px plate differ by only a few per cent, which is the whole
+     effect. Shorten it and the diorama starts to fisheye. */
+  perspective: 2200px;
+  perspective-origin: 50% 42%;
+}
+
+/* A slow turntable, not a spin.
+   A still isometric plate cannot actually rotate — the camera inside the
+   picture is fixed, so any real turn would need a rendered orbit sequence.
+   What this does instead is tilt the plate a couple of degrees either side of
+   flat on a very long loop, which reads as the model sitting on a table that
+   is slowly turning. The amplitude is the entire design: at 2.2 degrees it is
+   ambient and you notice it only if you rest on the section; past about four
+   the isometric projection fights the perspective and it starts to look like a
+   spinning image. 48 seconds a cycle, so it never repeats visibly while
+   someone is reading.
+   transform only — no layout property animates, so this stays on the
+   compositor and costs nothing per frame. */
+@keyframes worldTurntable {
+  0%   { transform: rotateY(-2.2deg) rotateX(0.5deg); }
+  50%  { transform: rotateY(2.2deg) rotateX(-0.5deg); }
+  100% { transform: rotateY(-2.2deg) rotateX(0.5deg); }
 }
 
 .living-world-image {
@@ -321,6 +347,9 @@ html[data-story-hero='true'] header.glass {
   height: auto;
   max-width: none;
   margin-left: -5%;
+  transform-origin: 50% 62%;
+  animation: worldTurntable 48s ease-in-out infinite;
+  will-change: transform;
   filter: saturate(0.94) contrast(1.015);
   mix-blend-mode: multiply;
   mask-image: radial-gradient(ellipse 94% 96% at 50% 50%, #000 76%, transparent 100%);
@@ -945,6 +974,14 @@ html[data-story-hero='true'] header.glass {
      animation. The reveal is an enhancement; this is the floor underneath it. */
   [data-reveal='hidden'] {
     opacity: 1;
+    transform: none;
+  }
+
+  /* The global rule above collapses animation-duration to 0.001ms, which for an
+     infinite animation means it still runs — it just runs absurdly fast. A
+     turntable has to actually stop. */
+  .living-world-image {
+    animation: none;
     transform: none;
   }
 }

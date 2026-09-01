@@ -26,6 +26,8 @@ const primaryLinks = [
   { label: 'Pricing', href: '/pricing' },
 ];
 
+const navItemClass = 'nav-morph-link rounded-button px-2.5 py-1.5 text-[0.8rem] font-medium text-slate';
+
 /** 13 Aug 2026: consolidated into a "Company" dropdown — six top-level
  *  links plus two dropdowns had become too much for a horizontal nav.
  *  Security moves in here too, out of footer-only. */
@@ -59,24 +61,25 @@ export function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-colors duration-200 ${
-        scrolled ? 'glass border-b border-line' : 'border-b border-transparent'
-      }`}
+      className="sticky top-0 z-50 h-14 px-2 sm:px-3"
     >
       <Container>
-        <div className="flex h-16 items-center justify-between gap-6">
+        <div
+          className="site-nav-shell mx-auto flex h-12 max-w-[940px] translate-y-1 items-center justify-between gap-3 px-2.5 sm:px-3"
+          data-scrolled={scrolled || undefined}
+        >
           <Link href="/" className="flex items-center gap-2" aria-label="Decibyl home">
             <Logo />
           </Link>
 
-          <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
+          <nav aria-label="Main" className="hidden items-center gap-0.5 lg:flex">
             <SolutionsMenu />
             <UseCasesMenu />
             {primaryLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors hover:text-ink"
+                className={navItemClass}
               >
                 {l.label}
               </Link>
@@ -86,7 +89,7 @@ export function Nav() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <ButtonLink href="/book-a-demo" variant="primary" className="hidden sm:inline-flex">
+            <ButtonLink href="/book-a-demo" variant="primary" className="nav-morph-cta hidden sm:inline-flex">
               Book a demo
             </ButtonLink>
             <button
@@ -110,7 +113,7 @@ export function Nav() {
       </Container>
 
       {open ? (
-        <div id="mobile-nav" className="border-t border-line bg-snow lg:hidden">
+        <div id="mobile-nav" className="nav-morph-menu absolute inset-x-3 top-[3.75rem] overflow-hidden rounded-card border border-line shadow-[var(--shadow-lift)] lg:hidden">
           <Container>
             <nav aria-label="Mobile" className="grid gap-1 py-5">
               <p className="t-eyebrow mt-2 mb-1 text-iron">Solutions</p>
@@ -173,9 +176,9 @@ export function Nav() {
 function UseCasesMenu() {
   return (
     <div className="group relative">
-      <button type="button" className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink" aria-haspopup="true">Use cases</button>
+      <button type="button" className={navItemClass} aria-haspopup="true">Use cases</button>
       <div className="invisible absolute top-full left-0 w-72 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-        <div className="rounded-card border border-line bg-snow p-2 shadow-[var(--shadow-card)]">
+        <div className="nav-morph-menu rounded-card border border-line p-2 shadow-[var(--shadow-card)]">
           {useCases.map((item) => <Link key={item.slug} href={`/use-cases/${item.slug}`} className="block rounded-[10px] px-3 py-2 text-[0.9375rem] text-ink transition-colors hover:bg-canvas">{item.name}</Link>)}
           <div className="my-2 border-t border-line" />
           <Link href="/use-cases" className="block rounded-[10px] px-3 py-2 text-[0.9375rem] font-medium text-sindoor hover:bg-canvas">All use cases →</Link>
@@ -190,13 +193,13 @@ function SolutionsMenu() {
     <div className="group relative">
       <button
         type="button"
-        className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink"
+        className={navItemClass}
         aria-haspopup="true"
       >
         Solutions
       </button>
       <div className="invisible absolute top-full left-0 w-64 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-        <div className="rounded-card border border-line bg-snow p-2 shadow-[var(--shadow-card)]">
+        <div className="nav-morph-menu rounded-card border border-line p-2 shadow-[var(--shadow-card)]">
           {featuredVerticals.map((v) => (
             <Link
               key={v.slug}
@@ -224,13 +227,13 @@ function CompanyMenu() {
     <div className="group relative">
       <button
         type="button"
-        className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink"
+        className={navItemClass}
         aria-haspopup="true"
       >
         Company
       </button>
       <div className="invisible absolute top-full left-0 w-56 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-        <div className="rounded-card border border-line bg-snow p-2 shadow-[var(--shadow-card)]">
+        <div className="nav-morph-menu rounded-card border border-line p-2 shadow-[var(--shadow-card)]">
           {companyLinks.map((l) => (
             <Link
               key={l.href}
@@ -251,13 +254,13 @@ function CompareMenu() {
     <div className="group relative">
       <button
         type="button"
-        className="rounded-button px-3 py-2 text-[0.9375rem] text-slate transition-colors group-hover:text-ink"
+        className={navItemClass}
         aria-haspopup="true"
       >
         Compare
       </button>
       <div className="invisible absolute top-full left-0 w-56 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-        <div className="rounded-card border border-line bg-snow p-2 shadow-[var(--shadow-card)]">
+        <div className="nav-morph-menu rounded-card border border-line p-2 shadow-[var(--shadow-card)]">
           {competitors.map((c) => (
             <Link
               key={c.slug}
@@ -276,8 +279,8 @@ function CompareMenu() {
 function Logo() {
   return (
     <span className="flex items-center gap-2">
-      <img src="/favicon-48.png" width="26" height="26" alt="" aria-hidden="true" />
-      <span className="font-display text-[1.15rem] font-bold tracking-tight text-ink">Decibyl</span>
+      <img src="/favicon-48.png" width="22" height="22" alt="" aria-hidden="true" />
+      <span className="font-display text-[1rem] font-bold tracking-tight text-ink">Decibyl</span>
     </span>
   );
 }

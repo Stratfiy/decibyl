@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
+import { CinematicIntro } from '@/components/story/CinematicIntro';
 import { ScrollStory } from '@/components/story/ScrollStory';
 import { LiveTranscript } from '@/components/marketing/LiveTranscript';
 import { SlideDeck, type DeckItem } from '@/components/marketing/SlideDeck';
@@ -99,6 +100,7 @@ export default function HomePage() {
 
   return (
     <>
+      <CinematicIntro />
       <ScrollStory
         needs={storyNeeds}
         call={{

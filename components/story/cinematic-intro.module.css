@@ -1,0 +1,226 @@
+.intro {
+  position: relative;
+  height: 145svh;
+  margin-top: -4rem;
+  background: #ead8cb;
+}
+
+.stage {
+  --intro-progress: 0;
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: min(620px, 100svh);
+  overflow: hidden;
+  background: #ead8cb;
+}
+
+.world {
+  position: absolute;
+  inset: -4%;
+  transform:
+    translate3d(calc(var(--intro-progress) * -2.4%), calc(var(--intro-progress) * -1.4%), 0)
+    scale(calc(1 + var(--intro-progress) * 0.14));
+  transform-origin: 58% 48%;
+  will-change: transform;
+}
+
+.worldMedia {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 66% 43%, transparent 26%, rgb(25 13 9 / 10%) 74%, rgb(16 9 7 / 29%) 100%),
+    linear-gradient(0deg, rgb(22 12 8 / 32%), transparent 42%);
+}
+
+.copyScrim {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: min(46vw, 600px);
+  pointer-events: none;
+  background: linear-gradient(90deg, rgb(247 241 234 / 96%), rgb(247 241 234 / 72%) 62%, transparent);
+}
+
+.copy {
+  position: absolute;
+  z-index: 2;
+  left: clamp(1.5rem, 5vw, 5.5rem);
+  bottom: clamp(5.5rem, 12vh, 8.5rem);
+  width: min(27rem, 34vw);
+  color: #241b18;
+  opacity: calc(1 - var(--intro-progress) * 1.45);
+  transform:
+    translate3d(calc(var(--intro-progress) * 36px), calc(var(--intro-progress) * -54px), 0)
+    scale(calc(1 - var(--intro-progress) * 0.06));
+  transform-origin: left bottom;
+  will-change: opacity, transform;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: #8c4b46;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.copy h1 {
+  max-width: 8ch;
+  margin: 0;
+  font-family: var(--font-accent), ui-sans-serif, sans-serif;
+  font-size: clamp(2.7rem, 5vw, 5.2rem);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 0.92;
+}
+
+.lead {
+  max-width: 36ch;
+  margin: 1.35rem 0 0;
+  color: #564943;
+  font-size: clamp(0.86rem, 1.1vw, 1rem);
+  line-height: 1.65;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+}
+
+.chips span {
+  border: 1px solid rgb(56 42 37 / 9%);
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  background: rgb(255 255 255 / 58%);
+  color: #4b3c36;
+  font-size: 0.7rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+}
+
+.scrollCue {
+  position: absolute;
+  right: clamp(1.25rem, 3vw, 2.5rem);
+  bottom: clamp(1.4rem, 3vw, 2.25rem);
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.8rem;
+  color: white;
+  opacity: calc(1 - var(--intro-progress) * 3);
+  text-shadow: 0 2px 12px rgb(28 14 10 / 35%);
+}
+
+.scrollCue span {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.scrollCue i {
+  display: block;
+  width: 1px;
+  height: 3rem;
+  background: rgb(255 255 255 / 70%);
+}
+
+.cloudBridge {
+  position: absolute;
+  inset: auto -10% -22%;
+  height: 48%;
+  pointer-events: none;
+  opacity: clamp(0, calc((var(--intro-progress) - 0.58) * 2.4), 1);
+  transform: translate3d(0, calc((1 - var(--intro-progress)) * 22%), 0);
+  background:
+    radial-gradient(ellipse at 18% 64%, rgb(234 216 203 / 94%) 0 15%, transparent 16%),
+    radial-gradient(ellipse at 42% 68%, rgb(245 231 220 / 96%) 0 21%, transparent 22%),
+    radial-gradient(ellipse at 68% 60%, rgb(239 222 210 / 96%) 0 18%, transparent 19%),
+    radial-gradient(ellipse at 88% 71%, rgb(234 216 203 / 96%) 0 18%, transparent 19%);
+  filter: blur(14px);
+}
+
+.progress {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 3;
+  height: 3px;
+  background: rgb(255 255 255 / 18%);
+}
+
+.progress i {
+  display: block;
+  width: calc(var(--intro-progress) * 100%);
+  height: 100%;
+  background: #e15b53;
+}
+
+@media (max-width: 720px) {
+  .intro {
+    height: 125svh;
+  }
+
+  .world {
+    inset: 0 -22%;
+    transform-origin: 64% 42%;
+  }
+
+  .worldMedia {
+    object-position: 68% center;
+  }
+
+  .copyScrim {
+    inset: auto 0 0;
+    width: auto;
+    height: 62%;
+    background: linear-gradient(0deg, rgb(247 241 234 / 98%), rgb(247 241 234 / 83%) 54%, transparent);
+  }
+
+  .copy {
+    left: 1.35rem;
+    right: 1.35rem;
+    bottom: 4rem;
+    width: auto;
+  }
+
+  .copy h1 {
+    max-width: 9ch;
+    font-size: clamp(2.65rem, 14vw, 4rem);
+  }
+
+  .scrollCue {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    height: 100svh;
+    min-height: 620px;
+  }
+
+  .world,
+  .copy,
+  .cloudBridge {
+    transform: none;
+  }
+
+  .copy,
+  .cloudBridge {
+    opacity: 1;
+  }
+}

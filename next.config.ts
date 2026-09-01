@@ -2,6 +2,11 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  /* This workspace sits below a user-level lockfile on Windows. Without an
+     explicit root Next walks up to that lockfile and tries to trace the whole
+     user directory, which fails on protected links and makes local production
+     builds impossible. */
+  outputFileTracingRoot: process.cwd(),
   /* Stamped into the bundle at build time so a deployed page can say which
      commit it is. Three rounds were lost to "is this the new build?" with no
      way to answer it from the page itself. Vercel sets the first variable;

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import {
   Plus_Jakarta_Sans,
+  Outfit,
   IBM_Plex_Sans,
   IBM_Plex_Mono,
   IBM_Plex_Sans_Devanagari,
@@ -25,6 +26,13 @@ const jakarta = Plus_Jakarta_Sans({
   variable: '--font-jakarta',
   display: 'swap',
   preload: true,
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-outfit',
+  display: 'swap',
 });
 
 const plex = IBM_Plex_Sans({
@@ -132,6 +140,7 @@ export const viewport: Viewport = {
 
 const fontVars = [
   jakarta.variable,
+  outfit.variable,
   plex.variable,
   plexMono.variable,
   plexDeva.variable,

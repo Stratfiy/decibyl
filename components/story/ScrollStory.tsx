@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
-import { buttonClass } from '@/components/ui/Button';
 import { IsoDistrict } from './IsoDistrict';
 import { SplitText } from './SplitText';
 import styles from './story.module.css';
@@ -60,7 +59,7 @@ const LANGUAGE_STRIP = [
    One chapter now really is one equal slice of travel. */
 const CHAPTER_TRAVEL_VH = 74;
 
-export function ScrollStory({ needs, call, phone }: Props) {
+export function ScrollStory({ needs, call }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -174,18 +173,24 @@ export function ScrollStory({ needs, call, phone }: Props) {
             <div className={styles.artCol}>
               <div className={styles.plate}>
                 {chapter.art && !artFailed[chapter.id] ? (
-                  <img
-                    src={chapter.art}
-                    alt=""
-                    className={styles.plateMedia}
-                    fetchPriority={index === 0 ? 'high' : undefined}
-                    loading={index === 0 ? undefined : 'lazy'}
-                    decoding="async"
-                    onError={() => markArtFailed(chapter.id)}
-                    ref={(node) => {
-                      if (node?.complete && node.naturalWidth === 0) markArtFailed(chapter.id);
-                    }}
-                  />
+                  <div
+                    className={styles.mediaFrame}
+                    data-blend={chapter.art.endsWith('.png') ? 'strong' : 'soft'}
+                  >
+                    <img
+                      src={chapter.art}
+                      alt=""
+                      className={styles.plateMedia}
+                      fetchPriority={index === 0 ? 'high' : undefined}
+                      loading={index === 0 ? undefined : 'lazy'}
+                      decoding="async"
+                      onError={() => markArtFailed(chapter.id)}
+                      ref={(node) => {
+                        if (node?.complete && node.naturalWidth === 0) markArtFailed(chapter.id);
+                      }}
+                    />
+                    {chapter.id === 'clinics' && <ClinicMotion />}
+                  </div>
                 ) : (
                   <IsoDistrict variant={chapter.drawn} className={styles.plateDrawn} />
                 )}
@@ -194,18 +199,12 @@ export function ScrollStory({ needs, call, phone }: Props) {
 
             <div className={`${styles.copyCol} ${styles.cascade}`}>
               <p className={styles.count}>
-                {String(index + 1).padStart(2, '0')} / {String(acts).padStart(2, '0')}
+                {String(index + 2).padStart(2, '0')} / {String(acts + 1).padStart(2, '0')}
               </p>
               <p className={styles.eyebrow}>{chapter.eyebrow}</p>
-              {index === 0 ? (
-                <h1 className={styles.title}>
-                  <SplitText text={chapter.title} highlight={chapter.highlight} />
-                </h1>
-              ) : (
-                <h2 className={styles.title}>
-                  <SplitText text={chapter.title} highlight={chapter.highlight} />
-                </h2>
-              )}
+              <h2 className={styles.title}>
+                <SplitText text={chapter.title} highlight={chapter.highlight} />
+              </h2>
               <p className={styles.lead}>{chapter.lead}</p>
 
               {chapter.chips.length > 0 && (
@@ -222,26 +221,6 @@ export function ScrollStory({ needs, call, phone }: Props) {
                 </div>
               )}
 
-              {index === 0 && (
-                <>
-                  <div className={styles.actions}>
-                    <Link href="/book-a-demo" className={buttonClass('primary', 'lg')}>
-                      Book a demo call
-                    </Link>
-                    <Link href="/pricing" className={buttonClass('secondary', 'lg')}>
-                      See pricing
-                    </Link>
-                  </div>
-                  <p className={styles.phoneLine}>
-                    Or call the agent:{' '}
-                    <a href={`tel:${phone.tel}`} className={styles.phoneLink}>
-                      {phone.display}
-                    </a>
-                    . Pick your language when it answers.
-                  </p>
-                </>
-              )}
-
               {chapter.href && (
                 <Link href={chapter.href} className={styles.chapterLink}>
                   {chapter.linkLabel ?? 'See the workflow'} →
@@ -250,26 +229,6 @@ export function ScrollStory({ needs, call, phone }: Props) {
             </div>
           </div>
         ))}
-
-        <nav className={styles.nav} aria-label="Story chapters">
-          {chapters.map((chapter, index) => (
-            <button
-              key={chapter.id}
-              type="button"
-              className={styles.navItem}
-              data-active={index === act}
-              aria-current={index === act ? 'true' : undefined}
-              ref={
-                index === act
-                  ? (node) => node?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' })
-                  : undefined
-              }
-              onClick={() => goTo(index)}
-            >
-              {chapter.nav}
-            </button>
-          ))}
-        </nav>
 
         {hasNarration && (
           <button
@@ -304,7 +263,7 @@ export function ScrollStory({ needs, call, phone }: Props) {
         </div>
 
         <a href="#story-end" className={styles.skip}>
-          Skip the story
+          Skip story <span aria-hidden="true">↘</span>
         </a>
 
         <p className={styles.cue} aria-hidden="true">
@@ -333,8 +292,46 @@ export function ScrollStory({ needs, call, phone }: Props) {
   );
 }
 
+function ClinicMotion() {
+  return (
+    <div className={styles.clinicMotion} aria-hidden="true">
+      <span className={styles.phoneVibration}>
+        <span />
+        <span />
+        <span />
+      </span>
+
+      <span className={styles.receptionPulse}>
+        <span />
+        <span />
+      </span>
+
+      <svg className={styles.callRoute} viewBox="0 0 1000 563" preserveAspectRatio="none">
+        <path
+          className={styles.callRouteGlow}
+          pathLength="1"
+          d="M287 305 C 320 300, 328 280, 352 270 C 380 259, 388 276, 407 273"
+        />
+        <path
+          className={styles.callRouteCore}
+          pathLength="1"
+          d="M287 305 C 320 300, 328 280, 352 270 C 380 259, 388 276, 407 273"
+        />
+      </svg>
+
+      <span className={styles.queuePulse} />
+      <span className={styles.callStatus}>
+        <i />
+        Call answered
+      </span>
+    </div>
+  );
+}
+
 const VERTICAL_PLATE: Record<string, string> = {
   clinics: '/media/story/decibyl-room-02-the-clinic.webp',
+  'real-estate': '/media/story/decibyl-room-03-property-leads.png',
+  'd2c-ndr-recovery': '/media/story/decibyl-room-04-commerce-support.png',
 };
 
 const VERTICAL_CHAPTER: Record<string, { nav: string; title: string; chips: string[] }> = {
@@ -374,31 +371,20 @@ function buildChapters(
     };
   });
 
+  const clinic = verticalChapters.find((chapter) => chapter.id === 'clinics');
+  if (clinic) {
+    clinic.eyebrow = '10:26 AM · three patients waiting';
+    clinic.lead =
+      'The receptionist is already helping someone when the desk phone rings. Decibyl answers beside her, understands the patient, reschedules the visit and writes the outcome back—without asking the room to wait.';
+    clinic.linkLabel = 'See the clinic workflow';
+  }
+  const remainingVerticals = verticalChapters.filter((chapter) => chapter.id !== 'clinics');
+
   return [
-    {
-      id: 'street',
-      nav: 'The street',
-      eyebrow: 'AI voice agents · Built in India',
-      title: 'AI voice agents for Indian businesses.',
-      highlight: 3,
-      lead: 'Decibyl answers your phone, qualifies the lead, books the appointment and makes the follow-up call. Every call transcribed, recorded and scored.',
-      chips: ['Always available', 'Inbound and outbound', '10+ languages'],
-      drawn: 'street',
-    },
-    {
-      id: 'language',
-      nav: 'The language',
-      eyebrow: 'The register your customer actually speaks',
-      title: '“Press 1 for English” is the bug, not the feature.',
-      lead: 'Most Indian business calls are code-mixed — Hindi and English in the same sentence, Tamil and English in the next. Agents built for clean English fall apart on the first line, and a language menu just asks the customer to do the work. Decibyl is built for the mixed register by default.',
-      chips: ['Hinglish · Tanglish', 'No language menu', '7 Indian languages live'],
-      drawn: 'language',
-      href: '/voice-ai',
-      linkLabel: 'Hear the languages',
-    },
+    ...(clinic ? [clinic] : []),
     {
       id: 'switchboard',
-      nav: 'The answer',
+      nav: 'After hours',
       eyebrow: '9:47 PM · nobody left to pick up',
       title: 'The call you didn’t answer was the sale.',
       lead: 'Two lines, one receptionist, and a customer who decided to buy at nine at night. Decibyl picks up on the first ring instead — not a menu, but a voice that asks what they need and does the next thing about it.',
@@ -408,7 +394,7 @@ function buildChapters(
       href: '/how-it-works',
       linkLabel: 'How it works',
     },
-    ...verticalChapters,
+    ...remainingVerticals,
     {
       id: 'receipt',
       nav: 'The receipt',
@@ -416,6 +402,7 @@ function buildChapters(
       title: 'Every call leaves a receipt.',
       lead: 'The point was never that it can talk. At the end there is a booked appointment, a confirmed order or a qualified lead — with the transcript, the recording and a QA score on every single call, not on a sample. You are billed for what the call actually cost, in credits, not in rounded-up minutes.',
       chips: [call.outcome, '100% QA-scored', 'Credits, not minutes'],
+      art: '/media/story/decibyl-room-05-call-receipt.png',
       drawn: 'outcome',
       href: '/book-a-demo',
       linkLabel: 'Book a demo call',

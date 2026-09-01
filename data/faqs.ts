@@ -14,8 +14,8 @@ export const homeFaqs: Faq[] = [
     a: 'No. Every provider key is ours, so there is nothing for you to sign up for and nothing to manage. If you want to choose the models rather than take a bundle, the Advanced tab lets you name the vendor and model for speech, brain and voice — still on our keys, still one bill.',
   },
   {
-    q: 'Do you mark up model costs?',
-    a: 'Yes — we buy the models and resell them, so provider cost carries a margin on top of the platform fee. What we do not do is hide it in a blended rate: every call\u2019s receipt itemises the speech, the brain and the voice as separate lines, and the per-minute rate for each bundle is published. The reason the all-in number still lands where it does is the stack underneath — Sarvam STT/TTS runs roughly 7× cheaper than US alternatives and handles Indian languages better, Indian SIP trunking roughly 5× cheaper than Twilio-class providers, and there is no third-party orchestration layer in the middle taking its own fee.',
+    q: 'Why is Decibyl cheaper per minute than a US platform?',
+    a: 'The stack underneath, not a discount. Sarvam STT/TTS runs roughly 7\u00d7 cheaper than US alternatives and handles Indian languages better; Indian SIP trunking runs roughly 5\u00d7 cheaper than Twilio-class providers; and there is no third-party orchestration layer sitting in the middle taking its own fee. Each bundle\u2019s per-minute rate is published on the pricing page.',
   },
   {
     q: 'Do I get a GST invoice?',

@@ -52,7 +52,7 @@ function pricingLine(): string {
     `When credit runs out the account tops up; there is no overage billing and no arrears invoice.`,
     `Outside a plan there is no prepay rate card either — an account adds credit and each call is`,
     `charged at the rate for the model it ran on. Do not describe volume or prepay discounts.`,
-    `A $${advancedStack.platformFeeUsd.toFixed(2)}/min platform fee applies per call alongside marked-up model cost; it is not a standalone plan and ${site.name} does not offer bring-your-own-key billing.`,
+    `A $${advancedStack.platformFeeUsd.toFixed(2)}/min platform fee applies per call alongside the model and telephony cost for that call; it is not a standalone plan, and ${site.name} does not offer bring-your-own-key billing.`,
   ].join(' ');
 }
 

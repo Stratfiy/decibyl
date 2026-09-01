@@ -132,8 +132,8 @@ export default function PricingPage() {
         </div>
 
         <p className="t-body-lg mt-10 max-w-3xl text-ink">
-          A blended per-minute rate hides the model markup. We charge a platform fee and show you
-          the provider cost separately.
+          A blended per-minute rate tells you nothing about where the money went. Every call
+          closes with the platform fee and each provider component as its own line.
         </p>
       </Section>
 

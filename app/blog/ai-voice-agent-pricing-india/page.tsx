@@ -35,7 +35,7 @@ export default function Post() {
         <BlogSection heading="The number on the page is rarely the number you pay">
           <p>
             A per-minute rate can mean the cost of the underlying model and telephony, or it can
-            mean that cost plus a platform markup baked in and never itemised. Both get called
+            mean that cost with the platform&rsquo;s own share baked in and never itemised. Both get called
             &ldquo;pricing.&rdquo; The second one is more common, because a blended rate is easier
             to market and harder to audit.
           </p>
@@ -53,8 +53,8 @@ export default function Post() {
             <li>
               <strong>Is the platform fee shown separately from the provider cost?</strong> If a
               vendor can&rsquo;t break out what goes to the model/telephony provider versus what
-              they keep, you can&rsquo;t tell if you&rsquo;re getting a fair markup or an
-              unfavourable one — you&rsquo;re trusting a single blended number.
+              they keep, you cannot check the arithmetic at all — you are trusting a single
+              blended number.
             </li>
             <li>
               <strong>Does the rate change with volume, and is that change disclosed upfront?</strong>{' '}

@@ -24,7 +24,7 @@ const sharedTable = (them: {
   billing: string;
   residency: string;
   mcp: string;
-  markup: string;
+  costModel: string;
   onboarding: string;
 }) => [
   {
@@ -41,7 +41,7 @@ const sharedTable = (them: {
   { feature: 'INR billing + GST invoice', them: them.billing, us: 'INR-first, GST-compliant invoice via Razorpay' },
   { feature: 'Data residency', them: them.residency, us: 'India, US, or EU — Mumbai (ap-south-1) by default' },
   { feature: 'MCP-native agent building', them: them.mcp, us: 'Yes — build agents from Claude Code' },
-  { feature: 'Markup model', them: them.markup, us: 'Every component itemised on each call receipt, not blended into one rate' },
+  { feature: 'Cost transparency', them: them.costModel, us: 'Every component itemised on each call receipt, not blended into one rate' },
   { feature: 'Managed onboarding', them: them.onboarding, us: 'Managed setup, typically half a day' },
 ];
 
@@ -98,7 +98,7 @@ export const competitors: Competitor[] = [
       billing: 'USD, no GST invoice',
       residency: 'US/EU regions',
       mcp: 'No',
-      markup: 'Platform fee plus provider costs',
+      costModel: 'Platform fee plus provider costs',
       onboarding: 'Self-serve, instant',
     }),
     verdict:
@@ -159,7 +159,7 @@ export const competitors: Competitor[] = [
       billing: 'INR billing available',
       residency: 'Check current provider documentation',
       mcp: 'No',
-      markup: 'Blended per-minute rate',
+      costModel: 'Blended per-minute rate',
       onboarding: 'Self-serve, instant',
     }),
     verdict:
@@ -220,7 +220,7 @@ export const competitors: Competitor[] = [
       billing: 'USD, no GST invoice',
       residency: 'US regions',
       mcp: 'No',
-      markup: 'Blended per-minute rate',
+      costModel: 'Blended per-minute rate',
       onboarding: 'Self-serve, instant',
     }),
     verdict:
@@ -281,7 +281,7 @@ export const competitors: Competitor[] = [
       billing: 'Custom enterprise pricing, ₹5L+/year typical; GST invoicing not published',
       residency: 'Not published',
       mcp: 'No',
-      markup: 'Custom quote — not itemised',
+      costModel: 'Custom quote — not itemised',
       onboarding: 'Enterprise sales process, not self-serve',
     }),
     verdict:
@@ -346,7 +346,7 @@ export const competitors: Competitor[] = [
       billing: 'USD, $0.10–0.30/min depending on tier; no GST invoice',
       residency: 'US/EU regions',
       mcp: 'No',
-      markup: 'Blended per-minute rate (voice + LLM + platform)',
+      costModel: 'Blended per-minute rate (voice + LLM + platform)',
       onboarding: 'Self-serve, instant',
     }),
     verdict:
@@ -411,7 +411,7 @@ export const competitors: Competitor[] = [
       billing: 'Custom/outcome-based pricing; GST invoicing not published',
       residency: 'Cloud, private cloud, on-premises, or air-gapped — enterprise-configured',
       mcp: 'No',
-      markup: 'Custom quote — not itemised',
+      costModel: 'Custom quote — not itemised',
       onboarding: '3–6 month sales cycle, 8–16 week deployment',
     }),
     verdict:

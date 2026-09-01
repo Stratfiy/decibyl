@@ -6,13 +6,16 @@
  * Decibyl does not compete on ₹/min — it competes on what's included. Every
  * price here should read as an inclusion comparison, not a rate quote.
  *
- * Internal cost floor (margin sanity only — NEVER publish these two lines):
- *   Hindi/English stack: ₹1.74/min · Regional (Ta/Te/Kn/Ml/Bn) stack: ₹3.28/min
+ * Internal cost floors and unit economics are NOT in this file and must not be
+ * added to it. This repository is public: a comment saying "never publish this"
+ * sitting in it has already published it. They live in the internal pricing
+ * doc; reference that, do not paste from it.
  *
  * ⚠️ STILL OPEN — see OPEN-ITEMS.md:
- *   - Regional-language margin at Growth effective rates is thin
- *     (25–28% gross at the ₹3.28 regional cost floor) — surcharge, fair-use
- *     cap, or fix the stack first is still Nithish's call, not shipped here.
+ *   - Regional languages (Ta/Te/Kn/Ml/Bn) run on a materially dearer stack than
+ *     Hindi/English, and at Growth's effective rates that gap is uncomfortable
+ *     — surcharge, fair-use cap, or fix the stack first is still Nithish's
+ *     call, not shipped here. Figures in the internal doc.
  *   - `managedTiersLive` gates whether tiers sell or route to the waitlist.
  *
  * ─────────────────────────────────────────────────────────────────────────
@@ -24,15 +27,15 @@
  * A plan grants `balance_paise` (`api/services/billing/subscription_plans.py`)
  * and each call draws that balance down by its *composed* cost: the pulsed
  * platform fee, plus the LLM, STT and TTS actually consumed at their own rates,
- * plus carriage, marked up (`api/services/billing/costing.py`). Two calls of
+ * plus carriage, each composed by `api/services/billing/costing.py`. Two calls of
  * identical length can cost different amounts — different model, different
  * language, different number of turns.
  *
  * So a bare "N minutes included" is a promise the engine cannot keep. ₹/min on
  * this page is an **average for a Hindi/English call**, and every minute figure
- * below carries that qualifier for a reason: the internal stack floor is
- * ₹1.74/min for Hindi/English but ₹3.28/min for regional (Ta/Te/Kn/Ml/Bn), so
- * a Tamil clinic — the exact buyer `/solutions/clinics` targets — exhausts the
+ * below carries that qualifier for a reason: regional languages
+ * (Ta/Te/Kn/Ml/Bn) run on a stack that costs close to twice what Hindi/English
+ * does, so a Tamil clinic — the exact buyer `/solutions/clinics` targets — exhausts the
  * same balance in materially fewer minutes.
  *
  * Figures here that must track a product constant, and the file that owns each:
@@ -232,7 +235,7 @@ export const tiers: Tier[] = [
  *
  * All three computed on one basis, 28 Aug 2026, rather than copied from a
  * document. Bundles differ only in their model line, so each is Everyday plus
- * the difference in model cost at the 1.4x managed markup:
+ * the difference in the model line, composed on the same basis:
  *
  *   model cost/min      Everyday ₹1.12   Natural ₹4.72   Premium ₹16.45
  *   sell/min            ₹4.91            ₹9.95           ₹26.37
@@ -382,8 +385,9 @@ export const publishedComparisonCallout = {
  * through us like any other call.
  *
  * The $0.02 is real — `DEFAULT_PLATFORM_RATE_MICROS_USD` in billing/money.py —
- * but it is the platform fee component on every call, alongside marked-up
- * model cost. It was never the whole bill, and the old copy said it was.
+ * but it is the platform fee component on every call, alongside the model and
+ * telephony cost for that call. It was never the whole bill, and the old copy
+ * said it was.
  *
  * No trial-credit figure lives here any more. The signup bonus is
  * `SIGNUP_BONUS_MICROS_USD`, an environment variable the platform can change

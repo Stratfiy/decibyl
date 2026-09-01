@@ -179,7 +179,7 @@ crypto.createHmac('sha256', $env.N8N_WEBHOOK_SECRET)
 ```
 app/
   page.tsx                          home — 15 sections, all SSG
-  pricing/                          INR/USD toggle, full table, BYOK block
+  pricing/                          INR/USD toggle, full table, Advanced stack block
   how-it-works/
   solutions/page.tsx                index
   solutions/[vertical]/             SSG from data/verticals.ts

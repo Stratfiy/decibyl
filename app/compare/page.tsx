@@ -221,7 +221,7 @@ export default function CompareHub() {
             },
             {
               t: 'Economics you can see',
-              b: 'Model costs shown separately with zero markup on BYOK, rather than blended into a single per-minute rate you cannot audit.',
+              b: 'Every call’s receipt itemises what the speech, brain and voice each cost, rather than blending them into a single per-minute rate you cannot audit.',
             },
           ].map((x) => (
             <div key={x.t} className="rounded-card border border-line bg-canvas p-6">

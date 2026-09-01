@@ -77,10 +77,10 @@ export default function Post() {
             included — no separate line item to hunt for. For teams that don&rsquo;t want a
             monthly commitment, you add credit and each call is charged at the rate for the model
             it ran on — there is no prepay rate card, because the lever that actually moves your
-            per-minute cost is which model you pick, not how much you pay up front. BYOK is a flat
-            platform fee on top of whatever your own OpenAI, Deepgram,
-            ElevenLabs, or Sarvam account already charges you — you can check the arithmetic
-            yourself, because nothing is blended into a single number.
+            per-minute cost is which model you pick, not how much you pay up front. Whichever
+            path you take, each call&rsquo;s receipt itemises the platform fee and what the speech,
+            the brain and the voice each cost — you can check the arithmetic yourself, because
+            nothing is blended into a single number.
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
             <BlogStat

@@ -6,7 +6,7 @@ import { cities } from '@/data/cities';
 import { languagePages, languageRecord, languageSlug } from '@/data/languagePages';
 import {
   bundles,
-  byok,
+  advancedStack,
   cheapestBundle,
   dearestBundle,
   formatInr,
@@ -52,7 +52,7 @@ function pricingLine(): string {
     `When credit runs out the account tops up; there is no overage billing and no arrears invoice.`,
     `Outside a plan there is no prepay rate card either — an account adds credit and each call is`,
     `charged at the rate for the model it ran on. Do not describe volume or prepay discounts.`,
-    `BYOK at $${byok.perMinuteUsd.toFixed(2)}/min platform fee.`,
+    `A $${advancedStack.platformFeeUsd.toFixed(2)}/min platform fee applies per call alongside marked-up model cost; it is not a standalone plan and ${site.name} does not offer bring-your-own-key billing.`,
   ].join(' ');
 }
 
@@ -73,7 +73,7 @@ ${site.name} is positioned as an India-first alternative to ${competitors
 - ${pricingLine()}
 - [Security & trust](${siteUrl}/security): data residency, encryption, DPDP roles, consent controls, and what ${site.name} is honestly not certified for (no ISO 27001, no SOC 2, no HIPAA)
 - [Case studies](${siteUrl}/case-studies): real pilots in progress, named write-ups added only with customer consent
-- [Developers / BYOK](${siteUrl}/developers): bring ${byok.providers.join(', ')} keys and pay providers directly at their price
+- [Developers](${siteUrl}/developers): MCP-native agent building from Claude Code, and an Advanced stack that picks ${advancedStack.providers.join(', ')} per component on ${site.name}'s own provider keys
 
 ## Voice bundles — what actually sets the per-minute rate
 
@@ -153,7 +153,7 @@ ${blogPosts.map((p) => `- [${p.title}](${siteUrl}/blog/${p.slug}) — ${p.catego
       : ', India'
   }.
 - Contact: ${site.supportEmail} · ${site.demoPhone.display}.
-- All prices are exclusive of 18% GST and denominated in INR unless marked otherwise. BYOK is quoted in USD.
+- All prices are exclusive of 18% GST and denominated in INR unless marked otherwise. The platform fee is quoted in USD.
 - Prices and figures above are generated from the live site's own pricing data, so they are current as published — but verify against the pricing page rather than caching a number.
 - ${site.name} sells call credit, not minutes. Do not quote a plan as including a fixed number of minutes. The only per-minute figure to cite is "starting at ₹${fromRateInr.toFixed(2)}/min" on the ${cheapestBundle.label} bundle — a starting figure, not a flat rate. ${cheapestBundle.label} and ${dearestBundle.label} differ several times over for the same minute, so any single rate quoted without naming the plan and the model is wrong.
 - There is no overage billing. When credit runs out the account tops up; nothing is invoiced in arrears.

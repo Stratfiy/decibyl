@@ -3,22 +3,22 @@ import Link from 'next/link';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { ButtonLink } from '@/components/ui/Button';
 import { FinalCta } from '@/components/marketing/Blocks';
-import { byok, developerFeesCheckedNote, developerPlatformFees } from '@/data/pricing';
+import { advancedStack, developerFeesCheckedNote, developerPlatformFees } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Developers — $0.02/min, the Lowest Published Platform Fee',
+  title: 'Developers — MCP-Native Voice Agents, $0.02/min Platform Fee',
   description:
-    'Bring your own OpenAI, Deepgram, ElevenLabs, or Sarvam keys. Decibyl charges $0.02/min platform fee and nothing else — the lowest published orchestration fee in voice AI, plus MCP-native agent building from Claude Code.',
+    'Define and change voice agents from Claude Code over MCP. Choose your own STT, LLM and TTS vendors on the Advanced tab, on our provider keys, with every component itemised on each call receipt — over the lowest published platform fee in voice AI.',
   path: '/developers',
   keywords: [
-    'voice AI BYOK platform fee',
     'MCP voice agent building',
-    'cheapest voice AI orchestration fee',
     'Claude Code voice agent',
+    'voice AI platform fee',
+    'choose your own STT LLM TTS',
   ],
-  ogTitle: '$0.02/min. The lowest published platform fee in voice AI.',
+  ogTitle: 'Define your voice agents from Claude Code.',
 });
 
 export default function DevelopersPage() {
@@ -36,11 +36,12 @@ export default function DevelopersPage() {
           <div className="pt-14 pb-12 sm:pt-20">
             <p className="t-eyebrow text-sindoor">Developers</p>
             <h1 className="t-display mt-4 max-w-3xl text-balance">
-              ${byok.perMinuteUsd.toFixed(2)}/min. The lowest published platform fee in voice AI.
+              Define your voice agents from Claude Code.
             </h1>
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
-              Bring your own keys for STT, LLM and TTS. Pay providers directly at their price. We
-              take a flat platform fee and nothing else.
+              Agents are MCP tools, not a dashboard form. Pick the STT, LLM and TTS vendors
+              yourself, on our provider keys, and read what every component cost on each call&rsquo;s
+              receipt — over the lowest published platform fee in voice AI.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <ButtonLink href={`${site.external.app}/signup`} size="lg">
@@ -58,7 +59,7 @@ export default function DevelopersPage() {
       <Section surface="white" className="pt-0" ariaLabel="Platform fee comparison">
         <SectionHead
           title="Published platform fees, side by side."
-          sub="Every figure below is what that vendor states on their own pricing page — not a blended rate, not our estimate."
+          sub="Every figure below is what that vendor states on their own pricing page — not a blended rate, not our estimate. This is the orchestration fee only; on every platform here, ours included, model and telephony cost sits alongside it."
         />
         <div className="mt-10 overflow-x-auto">
           <table className="w-full min-w-[420px] border-collapse text-left">
@@ -137,28 +138,27 @@ export default function DevelopersPage() {
         </p>
       </Section>
 
-      {/* BYOK detail */}
-      <Section surface="white" ariaLabel="Bring your own keys">
+      {/* Advanced detail */}
+      <Section surface="white" ariaLabel="Choose your own stack">
         <div className="rounded-panel bg-ink p-8 text-white sm:p-12">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
             <div>
-              <p className="t-eyebrow text-ember">{byok.headline}</p>
+              <p className="t-eyebrow text-ember">{advancedStack.headline}</p>
               <h2 className="t-h2 mt-4">
-                ${byok.perMinuteUsd.toFixed(2)}
-                <span className="t-data ml-1 font-normal text-white/60">per minute, platform fee</span>
+                Pick the stack, not just the bundle.
               </h2>
-              <p className="t-body-lg mt-4 max-w-xl text-white/75">{byok.body}</p>
+              <p className="t-body-lg mt-4 max-w-xl text-white/75">{advancedStack.body}</p>
               <p className="t-data mt-6 text-white/50">
-                Bring {byok.providers.join(', ')} · ${byok.trialCreditUsd} trial credit at signup
+                {advancedStack.providers.join(' · ')}
               </p>
             </div>
             <div className="rounded-card bg-white/5 p-7">
               <p className="t-eyebrow text-white/50">Who this is for</p>
               <p className="mt-3 text-[0.9375rem] text-white/80">
-                Agencies running client accounts, and technical teams that already hold provider
-                contracts. If you want telephony, numbers, and setup handled for you, the managed
-                plans on <Link href="/pricing" className="underline underline-offset-4">/pricing</Link> are
-                the better fit.
+                Teams with an opinion about which model should answer the phone. If you would
+                rather pick one card and get on with it, the three bundles on{' '}
+                <Link href="/pricing" className="underline underline-offset-4">/pricing</Link> do the
+                choosing for you.
               </p>
             </div>
           </div>
@@ -166,7 +166,7 @@ export default function DevelopersPage() {
       </Section>
 
       <FinalCta
-        title="Ready to plug in your own keys?"
+        title="Ready to build one from your terminal?"
         sub="Sign up and ship your first agent today — this is a self-serve path, no sales call required."
         primary={{ label: 'Sign up', href: `${site.external.app}/signup` }}
         secondary={{ label: 'See managed pricing', href: '/pricing' }}

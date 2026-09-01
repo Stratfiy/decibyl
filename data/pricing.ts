@@ -43,7 +43,7 @@
  *     the two the deployment seeds before an operator runs that script
  *   `additionalNumberInr`  ← NUMBER_RENTAL_PRICE_PAISE    (api/constants.py)
  *   `USD_RATE`             ← DEFAULT_USD_INR_PAISE        (billing/money.py)
- *   `byok.perMinuteUsd`    ← DEFAULT_PLATFORM_RATE_MICROS_USD (billing/money.py)
+ *   `advancedStack.platformFeeUsd` ← DEFAULT_PLATFORM_RATE_MICROS_USD (billing/money.py)
  *
  * If one of those moves in echowave and not here, the site quotes a price the
  * bank does not collect. That is the failure this block exists to catch.
@@ -55,9 +55,9 @@ export const GST_RATE = 0.18;
  *  false → tier cards show "Opening soon" and CTA routes to /waitlist. */
 export const managedTiersLive = true;
 
-/** Indicative rate for the USD toggle on the main tier table, and for BYOK
- *  (which stays dollar-denominated — that audience is dollar-native).
- *  Display-only, not a billing rate.
+/** Indicative rate for the USD toggle on the main tier table, and for the
+ *  developer-facing platform fee (which stays dollar-denominated — that
+ *  audience is dollar-native). Display-only, not a billing rate.
  *
  *  Raised 28 Aug 2026 from 88 to 96 to match the engine's own fallback
  *  (`DEFAULT_USD_INR_PAISE = 9_600`, echowave `api/services/billing/money.py`).
@@ -367,18 +367,41 @@ export const publishedComparisonCallout = {
   source: 'Read on their pricing page, 8 Aug 2026.',
 };
 
-export const byok = {
-  headline: 'BYOK / Agency',
-  perMinuteUsd: 0.02,
-  trialCreditUsd: 5,
-  body: 'Bring your own OpenAI, Deepgram, ElevenLabs, or Sarvam keys — pay providers directly at their price. Zero markup on model costs.',
-  providers: ['OpenAI', 'Deepgram', 'ElevenLabs', 'Sarvam'],
+/**
+ * The technical path: pick the stack yourself instead of picking a bundle.
+ *
+ * This replaced a "BYOK / Agency" offer that described a product we do not
+ * sell. It advertised bringing your own OpenAI, Deepgram, ElevenLabs or Sarvam
+ * keys and paying those providers directly at their price, for a flat
+ * $0.02/min platform fee and nothing else.
+ *
+ * We do not do that. Every provider key is ours, held in superadmin, and a
+ * customer never contracts with a model vendor. What the Advanced tab actually
+ * offers is *choice of stack*, not *choice of contract*: name the vendor and
+ * model per component rather than taking a bundle's, and the usage bills
+ * through us like any other call.
+ *
+ * The $0.02 is real — `DEFAULT_PLATFORM_RATE_MICROS_USD` in billing/money.py —
+ * but it is the platform fee component on every call, alongside marked-up
+ * model cost. It was never the whole bill, and the old copy said it was.
+ *
+ * No trial-credit figure lives here any more. The signup bonus is
+ * `SIGNUP_BONUS_MICROS_USD`, an environment variable the platform can change
+ * without anyone touching this repository, so a number hardcoded here is a
+ * number that goes stale silently on a page that promises money.
+ */
+export const advancedStack = {
+  headline: 'Advanced',
+  platformFeeUsd: 0.02,
+  body:
+    'Choose the vendor and model for speech, brain and voice yourself, instead of taking a bundle’s. The keys are ours — you never open an account with a model provider — and every call’s receipt itemises what each component cost.',
+  providers: ['OpenAI', 'Deepgram', 'ElevenLabs', 'Sarvam', 'Gemini'],
 };
 
 /**
- * P1-3, /developers: published orchestration platform fees, USD (BYOK stays
- * dollar-denominated — this audience is dollar-native, unlike the INR
- * credits are rupee-denominated). Each figure read on that vendor's own public
+ * P1-3, /developers: published orchestration platform fees, USD (this stays
+ * dollar-denominated — the developer audience is dollar-native, unlike the
+ * rupee-denominated credits). Each figure read on that vendor's own public
  * pricing page — see developerFeesCheckedNote for the date. Restate, don't
  * paste, competitor copy; this is just the number.
  */

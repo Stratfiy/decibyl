@@ -7,7 +7,7 @@ import { FinalCta } from '@/components/marketing/Blocks';
 import {
   additionalNumberInr,
   bundles,
-  byok,
+  advancedStack,
   cheapestBundle,
   dearestBundle,
   formatInr,
@@ -20,7 +20,7 @@ import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Pricing — Voice AI in India, in Rupees',
   description:
-    'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, credits with no commitment, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
+    'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, credits with no commitment, and an Advanced stack for teams who want to name the models themselves. GST-compliant invoicing.',
   path: '/pricing',
   keywords: [
     'voice AI pricing India',
@@ -45,7 +45,7 @@ export default function PricingPage() {
               Most platforms quote a rate. Here&rsquo;s what the rate has to cover: the number, the
               telephony, the agent build, QA scoring on every call, and India data residency —
               included, not itemised extras. Credits are below if you would rather not commit to a
-              plan, and BYOK is for teams who want to pay providers directly.
+              plan, and the Advanced stack is for teams who want to name the models themselves.
             </p>
             <p className="t-caption mt-4 text-iron">
               Three voice bundles — Everyday, Natural and Premium — starting at ₹
@@ -106,27 +106,26 @@ export default function PricingPage() {
         <PayAsYouGo />
       </Section>
 
-      {/* BYOK — the technical/agency path, not the default */}
-      <Section surface="white" ariaLabel="Bring your own keys">
+      {/* Advanced — the technical path, not the default */}
+      <Section surface="white" ariaLabel="Choose your own stack">
         <div className="rounded-panel bg-ink p-8 text-white sm:p-12">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
             <div>
-              <p className="t-eyebrow text-ember">{byok.headline}</p>
+              <p className="t-eyebrow text-ember">{advancedStack.headline}</p>
               <h2 className="t-h2 mt-4">
-                ${byok.perMinuteUsd.toFixed(2)}
-                <span className="t-data ml-1 font-normal text-white/60">per minute, platform fee</span>
+                Pick the stack, not just the bundle.
               </h2>
-              <p className="t-body-lg mt-4 max-w-xl text-white/75">{byok.body}</p>
+              <p className="t-body-lg mt-4 max-w-xl text-white/75">{advancedStack.body}</p>
               <p className="t-data mt-6 text-white/50">
-                Bring {byok.providers.join(', ')} · ${byok.trialCreditUsd} trial credit at signup
+                {advancedStack.providers.join(' · ')}
               </p>
             </div>
             <div className="rounded-card bg-white/5 p-7">
               <p className="t-eyebrow text-white/50">Who this is for</p>
               <p className="mt-3 text-[0.9375rem] text-white/80">
-                Agencies running client accounts, and technical teams that already hold provider
-                contracts. If you want telephony, numbers, and setup handled for you, the managed
-                plans above are the better fit.
+                Teams with an opinion about which model should answer the phone. If you would
+                rather pick one card and get on with it, the three bundles above do the choosing
+                for you.
               </p>
             </div>
           </div>

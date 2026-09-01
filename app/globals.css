@@ -150,10 +150,17 @@ html[data-story-hero='true'] header.glass {
   pointer-events: none;
 }
 
+/* Opaque the moment anything is behind it.
+   The bar floats over the hero, where nothing is underneath and the glass is
+   the point. Once the page scrolls, content passes beneath it — and at 0.91 a
+   display headline in near-black read straight through the pill, which looks
+   like a collision rather than a bar. The blur cannot rescue that: blurring
+   72pt type leaves 72pt of dark smear. So the moment it has something to
+   cover, it covers it. */
 .site-nav-shell[data-scrolled='true'] {
   background:
     radial-gradient(42% 180% at 92% 140%, rgba(238, 144, 134, 0.12), transparent 64%),
-    rgba(255, 253, 252, 0.91);
+    rgb(255, 253, 252);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.95) inset,
     0 18px 48px -24px rgba(70, 46, 36, 0.52);

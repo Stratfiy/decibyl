@@ -24,12 +24,9 @@ type Chapter = {
   lead: string;
   chips: string[];
   art?: string;
-  /* Full-frame renders arrive as hard-edged rectangles and need their borders
-     feathered into the ground; the two early plates were cut with soft edges
-     already and are ruined by a second wash. This was inferred from the file
-     extension until every plate became WebP, at which point the inference
-     silently turned every plate soft. It is a property of how the plate was
-     made, so it is now stated rather than guessed. */
+  /* Kept because it is a real property of a plate, but every plate in the World
+     of Decibyl set is cut the same way and sits on its own matched ground, so
+     none of them currently needs the heavier wash. */
   blend?: 'strong' | 'soft';
   /* The exact backdrop the plate was rendered against, sampled from the median
      of its own border ring. The stage was one hardcoded cream that matched the
@@ -441,9 +438,9 @@ function ClinicMotion() {
 }
 
 const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft'; ground: string }> = {
-  clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#ecd9cc' },
-  'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'strong', ground: '#f2d5b9' },
-  'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'strong', ground: '#fcd8bb' },
+  clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#f6d5b6' },
+  'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'soft', ground: '#f1cfac' },
+  'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'soft', ground: '#eed3b5' },
 };
 
 /* What the stage paints where a chapter draws its scene in code instead of
@@ -509,7 +506,7 @@ function buildChapters(
       chips: ['Answers on ring one', 'Books and confirms', 'Calls back too'],
       art: '/media/story/decibyl-room-01-the-answer.webp',
       blend: 'soft',
-      ground: '#ead8ca',
+      ground: '#e3c29c',
       drawn: 'switchboard',
       href: '/how-it-works',
       linkLabel: 'How it works',
@@ -523,8 +520,8 @@ function buildChapters(
       lead: 'The point was never that it can talk. At the end there is a booked appointment, a confirmed order or a qualified lead — with the transcript, the recording and a QA score on every single call, not on a sample. You are billed for what the call actually cost, in credits, not in rounded-up minutes.',
       chips: [call.outcome, '100% QA-scored', 'Credits, not minutes'],
       art: '/media/story/decibyl-room-05-call-receipt.webp',
-      blend: 'strong',
-      ground: '#f9ddc9',
+      blend: 'soft',
+      ground: '#ead1b2',
       drawn: 'outcome',
       href: '/book-a-demo',
       linkLabel: 'Book a demo call',

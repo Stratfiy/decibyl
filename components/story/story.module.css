@@ -1138,9 +1138,29 @@
     border-bottom: 1px solid rgba(33, 24, 20, 0.08);
   }
 
+  /* Both columns are absolutely positioned from 900px up so they can overlay
+     the pinned stage. This block reset their display, height and padding but
+     never their position — so on a wide screen with reduced motion the scene
+     had no in-flow children at all, collapsed to the height of its own padding,
+     and every chapter's art and copy piled up on top of the next one.
+
+     It needed a wide viewport AND reduced motion together, which is why it
+     survived review: a phone never applies the absolute rules, and a desktop
+     without the accessibility setting never enters this block. An iPad with
+     Reduce Motion on hits both.
+
+     The offsets go with the position. Leaving `inset` or a clamped `width`
+     behind on a now-static box constrains it for no reason. */
+  .artCol,
+  .copyCol {
+    position: static;
+    inset: auto;
+    width: auto;
+    height: auto;
+  }
+
   .artCol {
     display: block;
-    height: auto;
     padding: 0 0 1.75rem;
   }
 

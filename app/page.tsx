@@ -6,12 +6,11 @@ import { LiveTranscript } from '@/components/marketing/LiveTranscript';
 import { SlideDeck, type DeckItem } from '@/components/marketing/SlideDeck';
 import { LossCalculator } from '@/components/marketing/LossCalculator';
 import { LanguageChips } from '@/components/marketing/Languages';
-import { IntegrationsDeck } from '@/components/marketing/Integrations';
-import { ProofStrip } from '@/components/marketing/Proof';
 import { CaseStudiesSection } from '@/components/marketing/CaseStudies';
 import { FaqList } from '@/components/marketing/Faq';
-import { FinalCta, HowItWorks, IndianOps, PricingPreview } from '@/components/marketing/Blocks';
+import { FinalCta, IndianOps, PricingPreview } from '@/components/marketing/Blocks';
 import { InclusionTable } from '@/components/marketing/InclusionTable';
+import { LivingProofWorld } from '@/components/marketing/LivingProofWorld';
 import { verticals, homepageDeckOrder, verticalHref, getVertical } from '@/data/verticals';
 import { features } from '@/data/features';
 import { homeFaqs } from '@/data/faqs';
@@ -111,9 +110,10 @@ export default function HomePage() {
         phone={site.demoPhone}
       />
 
+      <LivingProofWorld />
+
       {/* Where "Skip the story" lands. */}
       <section
-        id="story-end"
         aria-label="Sample call"
         className="scroll-mt-24 bg-canvas pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pb-24"
       >
@@ -187,11 +187,6 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* How it works */}
-      <Section surface="white" ariaLabel="How it works">
-        <HowItWorks />
-      </Section>
-
       {/* Features — SlideDeck */}
       <Section surface="canvas" ariaLabel="Features">
         <SlideDeck
@@ -222,16 +217,6 @@ export default function HomePage() {
       {/* Built for Indian operations */}
       <Section surface="white" ariaLabel="Built for Indian operations">
         <IndianOps />
-      </Section>
-
-      {/* Integrations — SlideDeck */}
-      <Section surface="white" ariaLabel="Integrations" className="pt-0">
-        <IntegrationsDeck />
-      </Section>
-
-      {/* Now onboarding */}
-      <Section surface="canvas" ariaLabel="Now onboarding">
-        <ProofStrip />
       </Section>
 
       {/* Case studies */}

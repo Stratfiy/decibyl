@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import {
-  Plus_Jakarta_Sans,
-  Outfit,
-  IBM_Plex_Sans,
+  Bricolage_Grotesque,
+  Manrope,
   IBM_Plex_Mono,
   IBM_Plex_Sans_Devanagari,
   Noto_Sans_Tamil,
@@ -20,25 +19,18 @@ import { JsonLd, organizationSchema, softwareApplicationSchema, webSiteSchema } 
 
 /* Self-hosted via next/font — no render-blocking font CDN, no CLS on load. */
 
-const jakarta = Plus_Jakarta_Sans({
+const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  weight: ['600', '700'],
-  variable: '--font-jakarta',
+  weight: ['500', '600', '700'],
+  variable: '--font-bricolage',
   display: 'swap',
   preload: true,
 });
 
-const outfit = Outfit({
+const manrope = Manrope({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-outfit',
-  display: 'swap',
-});
-
-const plex = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-plex',
+  variable: '--font-manrope',
   display: 'swap',
   preload: true,
 });
@@ -139,9 +131,8 @@ export const viewport: Viewport = {
 };
 
 const fontVars = [
-  jakarta.variable,
-  outfit.variable,
-  plex.variable,
+  bricolage.variable,
+  manrope.variable,
   plexMono.variable,
   plexDeva.variable,
   notoTamil.variable,

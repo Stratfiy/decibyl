@@ -142,6 +142,24 @@ const fontVars = [
   notoArabic.variable,
 ].join(' ');
 
+/**
+ * The public embed token for the "Try us now" widget.
+ *
+ * Unset means the widget does not render at all, rather than rendering broken.
+ * A visitor clicking a dead microphone is a worse failure than no microphone,
+ * and a build that silently ships a 404ing script is one nobody notices.
+ *
+ * If this is empty in production the widget is simply gone — so it has to be
+ * set in the hosting environment before this ships.
+ */
+const widgetToken = process.env.NEXT_PUBLIC_DECIBYL_WIDGET_TOKEN?.trim() ?? '';
+
+if (process.env.NODE_ENV === 'production' && !widgetToken) {
+  console.warn(
+    '[layout] NEXT_PUBLIC_DECIBYL_WIDGET_TOKEN is not set — the "Try us now" voice widget will not render.',
+  );
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-IN" className={fontVars}>
@@ -163,12 +181,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <JsonLd data={[organizationSchema(), webSiteSchema(), softwareApplicationSchema()]} />
         {/* "Try us now" live voice widget — loaded after the page is
-            interactive so it never blocks first paint or LCP. */}
-        <Script
-          id="decibyl-widget"
-          src="https://app.decibyl.ai/embed/decibyl-widget.js?token=emb_A7ryxkjGa-AoEHs06g557a3tLVoQbN1ieHNGnKA_U5s&environment=production&apiEndpoint=https://api.decibyl.ai"
-          strategy="afterInteractive"
-        />
+            interactive so it never blocks first paint or LCP.
+
+            The token comes from the environment rather than from this file, and
+            it is worth being precise about what that does and does not buy.
+
+            It does NOT make the token secret. This is a public embed token: it
+            is handed to every visitor's browser by design, and anyone can read
+            it in the page source. No amount of environment plumbing changes
+            that, and pretending otherwise would be worse than leaving it here.
+
+            What it does buy is that the token is no longer committed to a
+            public git repository — where it sits in history forever, is
+            greppable by anyone browsing the repo, and cannot be changed without
+            a code change and a deploy. From an environment variable it rotates
+            in the hosting dashboard in seconds.
+
+            The control that actually protects this token is domain scoping. In
+            echowave-redesign, `public_embed.validate_origin()` returns True for
+            EVERY origin when the token's `allowed_domains` list is empty — so
+            an unscoped token works on anybody's site, billed to us. Scoping it
+            to decibyl.ai in superadmin is the fix; this is housekeeping. */}
+        {widgetToken ? (
+          <Script
+            id="decibyl-widget"
+            src={`https://app.decibyl.ai/embed/decibyl-widget.js?token=${encodeURIComponent(widgetToken)}&environment=production&apiEndpoint=https://api.decibyl.ai`}
+            strategy="afterInteractive"
+          />
+        ) : null}
       </body>
     </html>
   );

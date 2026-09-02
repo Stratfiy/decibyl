@@ -41,6 +41,11 @@ type Chapter = {
      cream dioramas on cream, and every threshold that reached the gradient also
      walked through the walls and furniture. */
   ground?: string;
+  /* A five-second push from this room's establishing shot into its interior,
+     played once when the chapter arrives. Only two chapters have one: the three
+     other clips generated at the same time were rendered from plates that have
+     since been replaced, so they show rooms that no longer exist. */
+  motion?: string;
   drawn: string;
   href?: string;
   linkLabel?: string;
@@ -97,6 +102,14 @@ export function ScrollStory({ needs, call }: Props) {
   }
   const acts = chapters.length;
   const hasNarration = chapters.some((chapter) => Boolean(chapter.audio));
+
+  /* Motion plates are an enhancement on top of the still, never a replacement.
+     Read once here rather than per chapter, and false on the server so the
+     first paint is always the still. */
+  const [motionOk, setMotionOk] = useState(false);
+  useEffect(() => {
+    setMotionOk(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }, []);
 
   const markArtFailed = useCallback((id: string) => {
     setArtFailed((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
@@ -291,6 +304,32 @@ export function ScrollStory({ needs, call }: Props) {
               } as CSSProperties
             }
           >
+            {/* The call itself, drawn as it passes through this room.
+
+                Every plate already has the coral waveform coming out of its
+                phone; this is the same line continuing between rooms, so the
+                seven chapters read as one call travelling rather than seven
+                separate cards. It is written by the scene's own `--d`, the
+                signed distance the camera loop already maintains: the line
+                starts undrawn while the room is still ahead, is half drawn
+                when the room is at the lens, and is complete as the room
+                leaves — so the next room picks the line up where this one
+                dropped it. Scrub back up and it un-draws, because `--d` is a
+                position, not a timer. */}
+            <svg
+              className={styles.flight}
+              viewBox="0 0 1000 300"
+              fill="none"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                className={styles.flightPath}
+                pathLength={1}
+                d="M-60 196 C 150 196 250 54 470 96 S 760 214 1060 78"
+              />
+            </svg>
+
             <div className={styles.artCol}>
               <div className={styles.plate}>
                 {chapter.art && !artFailed[chapter.id] ? (
@@ -310,6 +349,9 @@ export function ScrollStory({ needs, call }: Props) {
                         if (node?.complete && node.naturalWidth === 0) markArtFailed(chapter.id);
                       }}
                     />
+                    {chapter.motion && motionOk ? (
+                      <PlateMotion src={chapter.motion} active={index === act} />
+                    ) : null}
                   </div>
                 ) : (
                   <IsoDistrict variant={chapter.drawn} className={styles.plateDrawn} />
@@ -413,9 +455,14 @@ export function ScrollStory({ needs, call }: Props) {
 }
 
 
-const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft'; ground: string }> = {
+const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft'; ground: string; motion?: string }> = {
   clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#f1dec6' },
-  'real-estate': { src: '/media/story/decibyl-room-03-property-leads.webp', blend: 'soft', ground: '#f0cfad' },
+  'real-estate': {
+    src: '/media/story/decibyl-room-03-property-leads.webp',
+    blend: 'soft',
+    ground: '#f0ceac',
+    motion: '/media/story/motion/decibyl-room-03-property-leads',
+  },
   'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'soft', ground: '#fcdabc' },
 };
 
@@ -441,6 +488,68 @@ const VERTICAL_CHAPTER: Record<string, { nav: string; title: string; chips: stri
   },
 };
 
+/**
+ * A room's establishing shot pushing into its interior, over the still.
+ *
+ * It sits on top of the plate rather than replacing it, and only mounts once
+ * the chapter is close — so the still is always what loads first and what a
+ * reader sees if anything about the video fails. Nothing here is load-bearing:
+ * remove it and the chapter is exactly the page it was before.
+ *
+ * It plays once per arrival and holds on its last frame. A five-second push
+ * that loops would pull the eye back to the start every five seconds while
+ * somebody is trying to read the copy beside it, which is worse than no motion
+ * at all.
+ *
+ * `src` is only set after the first mount, so a chapter six screens down does
+ * not fetch a quarter-megabyte of video the reader may never reach.
+ */
+function PlateMotion({ src, active }: { src: string; active: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+  const played = useRef(false);
+
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || !active || played.current) return;
+    played.current = true;
+    v.currentTime = 0;
+    /* A rejected play() is normal — autoplay policy, a backgrounded tab — and
+       means the reader keeps the still. It is not an error worth surfacing. */
+    void v.play().then(() => setReady(true)).catch(() => {});
+  }, [active]);
+
+  return (
+    <video
+      ref={ref}
+      className={styles.plateMotion}
+      data-ready={ready || undefined}
+      /* The plates are 1600x900 and the clips are encoded at 960x540 — the same
+         shape, a third of the pixels. Declaring the plate's dimensions here
+         gives the video the plate's intrinsic size, so the two sit in exactly
+         the same box under the same `max-width` rules. Without it the video
+         lays out at its own smaller size and the swap visibly jumps. */
+      width={1600}
+      height={900}
+      muted
+      playsInline
+      preload="none"
+      aria-hidden="true"
+      tabIndex={-1}
+    >
+      {/* WebM first, H.264 second. Every current browser plays both, so the
+          order is not about reach — it is about being able to prove this works:
+          the Chromium available here is the open-source build with no
+          proprietary codecs, which cannot decode H.264 at all. Shipping only
+          mp4 would mean shipping motion nobody on this side could ever watch
+          play, which is the mistake that wasted 620 credits in the first
+          place. */}
+      <source src={`${src}.webm`} type="video/webm" />
+      <source src={`${src}.mp4`} type="video/mp4" />
+    </video>
+  );
+}
+
 function buildChapters(
   needs: StoryNeed[],
   call: { language: string; outcome: string; duration: string },
@@ -457,6 +566,7 @@ function buildChapters(
       art: VERTICAL_PLATE[need.id]?.src,
       blend: VERTICAL_PLATE[need.id]?.blend,
       ground: VERTICAL_PLATE[need.id]?.ground,
+      motion: VERTICAL_PLATE[need.id]?.motion,
       drawn: need.id,
       href: need.href,
     };
@@ -482,7 +592,8 @@ function buildChapters(
       chips: ['Answers on ring one', 'Books and confirms', 'Calls back too'],
       art: '/media/story/decibyl-room-01-the-answer.webp',
       blend: 'soft',
-      ground: '#e3c39e',
+      ground: '#e3c29d',
+      motion: '/media/story/motion/decibyl-room-01-the-answer',
       drawn: 'switchboard',
       href: '/how-it-works',
       linkLabel: 'How it works',
@@ -512,7 +623,7 @@ function buildChapters(
       chips: [call.outcome, '100% QA-scored', 'Credits, not minutes'],
       art: '/media/story/decibyl-room-05-call-receipt.webp',
       blend: 'soft',
-      ground: '#eddcc7',
+      ground: '#eddcc6',
       drawn: 'outcome',
       href: '/book-a-demo',
       linkLabel: 'Book a demo call',

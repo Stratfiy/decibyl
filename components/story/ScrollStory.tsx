@@ -8,6 +8,7 @@ import type { CSSProperties } from 'react';
 import { IsoDistrict } from './IsoDistrict';
 import { SplitText } from './SplitText';
 import styles from './story.module.css';
+import { site } from '@/lib/site';
 
 export type { StoryNeed } from './acts';
 
@@ -625,8 +626,8 @@ function buildChapters(
       blend: 'soft',
       ground: '#eddcc6',
       drawn: 'outcome',
-      href: '/book-a-demo',
-      linkLabel: 'Book a demo call',
+      href: site.external.signup,
+      linkLabel: 'Start free',
     },
   ];
 }

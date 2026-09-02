@@ -3,6 +3,7 @@ import { Container, SectionHead } from '@/components/ui/Section';
 import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { advantages, howItWorks, indianOps } from '@/data/features';
+import { site } from '@/lib/site';
 import {
   additionalNumberInr,
   formatInr,
@@ -15,11 +16,22 @@ import {
 
 /* ───────────────────────────── Final CTA ───────────────────────────── */
 
+/**
+ * The default CTA pair is self-serve first, demo second.
+ *
+ * Decibyl is a self-serve product — a visitor can sign up and place a call
+ * without talking to anyone — and until this change every default CTA on the
+ * site said "Book a demo call". That is the agency motion the strategy exists
+ * to avoid: it puts a sales conversation in front of a product that does not
+ * need one, and it converts a fraction of what a signup button does. The demo
+ * is still offered, because some buyers want one; it is just no longer the
+ * only door.
+ */
 export function FinalCta({
   title = 'Your customers are calling. Someone should answer.',
-  sub = 'Book a demo and we’ll call you back with a live agent, in the language you pick.',
-  primary = { label: 'Book a demo call', href: '/book-a-demo' },
-  secondary = { label: 'See pricing', href: '/pricing' },
+  sub = 'Start free and place your first call in minutes — no sales call required.',
+  primary = { label: 'Start free', href: site.external.signup },
+  secondary = { label: 'Book a demo', href: '/book-a-demo' },
 }: {
   title?: string;
   sub?: string;

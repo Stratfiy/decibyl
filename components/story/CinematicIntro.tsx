@@ -57,6 +57,10 @@ export function CinematicIntro({ total }: { total: number }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/media/scene-one/decibyl-hero-front-desk.webp"
+            /* Intrinsic size, so the box is reserved before the bytes land
+               and a slow decode leaves a gap rather than a jump. */
+            width={1600}
+            height={900}
             alt=""
             className={styles.worldMedia}
             fetchPriority="high"

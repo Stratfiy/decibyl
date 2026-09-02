@@ -199,9 +199,16 @@
   isolation: isolate;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* A single centred cell. The still and the motion clip both occupy it, so
+     they resolve to the same box from the same rules. */
+  display: grid;
+  place-items: center;
+  grid-template-areas: 'plate';
+}
+
+.mediaFrame > .plateMedia,
+.mediaFrame > .plateMotion {
+  grid-area: plate;
 }
 
 /* Generated PNGs use a slightly warmer studio sweep than the canonical story
@@ -1135,5 +1142,96 @@
 
   .copyCol {
     max-width: 30rem;
+  }
+}
+
+/* The motion plate sits exactly over the still it was rendered from, so the
+   swap is invisible: the video's first frame and the plate are the same image,
+   flattened onto the same ground. It fades in only once the browser has
+   actually started playing — `data-ready` is set from the resolved play()
+   promise, not from mount — because a video element that has not decoded yet
+   paints one frame of nothing, and against a still that is a flash of empty
+   cream where a room used to be. */
+.plateMotion {
+  /* A grid item in the same cell as the still, not an absolute overlay: the
+     two then share one sizing pass instead of the video guessing at the box
+     the image ended up with. z-index works on grid items, so it still stacks. */
+  z-index: 1;
+  /* Sized exactly like `.plateMedia`, including the same feather, so the video
+     lands on the still rather than beside a slightly different version of it.
+     `inset: 0` would have stretched it to the frame instead, which upscales
+     past the plate wherever the frame is larger than 1600x900. */
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  /* A deeper feather than the still's. The plate is a lossless-flat WebP whose
+     border matches the ground exactly; the clip is H.264, and chroma
+     subsampling shifts its border by a point or two — enough to draw the
+     video's rectangle on the cream. Dissolving well inside the frame puts that
+     boundary somewhere there is nothing to see. */
+  -webkit-mask-image: radial-gradient(ellipse 82% 78% at 50% 52%, #000 54%, transparent 93%);
+  mask-image: radial-gradient(ellipse 82% 78% at 50% 52%, #000 54%, transparent 93%);
+  opacity: 0;
+  transition: opacity 320ms ease;
+  pointer-events: none;
+}
+
+.plateMotion[data-ready] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plateMotion {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------- flight ------ */
+
+/* The line the call travels along, behind the room it is passing through.
+
+   It sits above the scene's flat ground but below the diorama and the copy, so
+   it reads as something in the room's world rather than an overlay on the page.
+   Nothing here affects layout: it is an absolutely-positioned decoration, and
+   with JS disabled `--d` keeps its resting value and the line simply stays
+   undrawn. */
+.flight {
+  position: absolute;
+  /* The band above the diorama, which is empty cream in every chapter. Run
+     through the middle instead and the line spends its whole life behind the
+     room, showing only as two stray stubs past the plate edges. */
+  inset: 0 0 auto 0;
+  z-index: 0;
+  width: 100%;
+  height: 38%;
+  pointer-events: none;
+  /* Seen while travelling, gone on arrival. At the lens the room fills the
+     stage and all that shows of the line is two stubs poking past the plate,
+     which reads as a rendering fault rather than as a connection. `--ad` is
+     already the distance from the lens, so the line simply belongs to the
+     space between chapters. */
+  opacity: clamp(0, calc(var(--ad, 0) * 1.9 - 0.2), 0.8);
+  transition: opacity 120ms linear;
+}
+
+.flightPath {
+  stroke: color-mix(in srgb, var(--color-vermilion, #e2574c) 70%, transparent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  /* `pathLength="1"` puts the dash units on a 0→1 scale, so the offset is the
+     scene distance itself rather than a magic number measured off the path. */
+  stroke-dasharray: 1;
+  stroke-dashoffset: clamp(0, calc(0.5 + var(--d, 0.5)), 1);
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-vermilion, #e2574c) 45%, transparent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* `--d` is never written without the scroll loop, so the line would sit
+     permanently half-undrawn. A partial line reads as a rendering fault. */
+  .flight {
+    display: none;
   }
 }

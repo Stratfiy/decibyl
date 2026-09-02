@@ -135,7 +135,25 @@ export const site = {
   } | null,
 
   external: {
-    app: 'https://inapp.decibyl.ai',
+    /**
+     * The app. This is the destination of every self-serve CTA on the site, so
+     * a wrong value here is not a broken link — it is the entire funnel.
+     *
+     * It was `inapp.decibyl.ai`, which does not resolve. Every "Sign up" on
+     * this site pointed at a host that answers nothing, and the failure is
+     * invisible from inside the marketing site: the pages build, the links
+     * render, and the only symptom is that nobody ever arrives.
+     */
+    app: 'https://app.decibyl.ai',
+    /**
+     * Where "Start free" goes. Deliberately spelled out rather than composed
+     * as `${app}/signup` at each call site: `/signup` 307s to `/auth/login`,
+     * so the obvious guess silently lands a new visitor on a *login* form
+     * asking for a password they have never set. The one path that serves the
+     * signup form is `/auth/signup`.
+     */
+    signup: 'https://app.decibyl.ai/auth/signup',
+    login: 'https://app.decibyl.ai/auth/login',
     docs: 'https://docs.decibyl.ai',
   },
 

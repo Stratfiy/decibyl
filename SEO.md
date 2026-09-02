@@ -53,7 +53,7 @@ company. Fill it in the day each profile exists. Do not put an aspirational URL 
 `decibyl.ai` (no `https://`, no `www`).
 
 A URL-prefix property only reports on `https://decibyl.ai/`. A domain property covers
-`http`, `https`, `www`, non-`www`, *and every subdomain* — so `inapp.decibyl.ai` and
+`http`, `https`, `www`, non-`www`, *and every subdomain* — so `app.decibyl.ai` and
 `docs.decibyl.ai` roll up into the same account. You want that: those subdomains will
 attract queries, and you want to see them.
 

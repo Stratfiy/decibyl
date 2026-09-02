@@ -49,6 +49,8 @@
  * bank does not collect. That is the failure this block exists to catch.
  */
 
+import { site } from '@/lib/site';
+
 export const GST_RATE = 0.18;
 
 /** Set to false if managed telephony isn't wired end-to-end yet.
@@ -139,7 +141,7 @@ export const tiers: Tier[] = [
     dedicatedNumberPool: false,
     namedAccountContact: false,
     support: 'Email',
-    cta: { label: 'Book a demo call', href: '/book-a-demo?tier=starter' },
+    cta: { label: 'Start free', href: `${site.external.signup}?tier=starter` },
     bullets: [
       'Agent build and configuration included',
       '1 Indian number, telephony included',
@@ -165,7 +167,7 @@ export const tiers: Tier[] = [
     dedicatedNumberPool: false,
     namedAccountContact: false,
     support: 'WhatsApp',
-    cta: { label: 'Book a demo call', href: '/book-a-demo?tier=growth' },
+    cta: { label: 'Start free', href: `${site.external.signup}?tier=growth` },
     featured: true,
   },
   {
@@ -185,7 +187,7 @@ export const tiers: Tier[] = [
     dedicatedNumberPool: false,
     namedAccountContact: true,
     support: 'Priority',
-    cta: { label: 'Book a demo call', href: '/book-a-demo?tier=scale' },
+    cta: { label: 'Start free', href: `${site.external.signup}?tier=scale` },
   },
   {
     id: 'custom',

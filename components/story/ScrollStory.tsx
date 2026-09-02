@@ -6,6 +6,7 @@ import type { CSSProperties } from 'react';
 import { IsoDistrict } from './IsoDistrict';
 import { SplitText } from './SplitText';
 import styles from './story.module.css';
+import { site } from '@/lib/site';
 
 export type StoryNeed = { id: string; label: string; pain: string; href: string };
 
@@ -404,8 +405,8 @@ function buildChapters(
       chips: [call.outcome, '100% QA-scored', 'Credits, not minutes'],
       art: '/media/story/decibyl-room-05-call-receipt.png',
       drawn: 'outcome',
-      href: '/book-a-demo',
-      linkLabel: 'Book a demo call',
+      href: site.external.signup,
+      linkLabel: 'Start free',
     },
   ];
 }

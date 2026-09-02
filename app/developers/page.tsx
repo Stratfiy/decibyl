@@ -43,7 +43,7 @@ export default function DevelopersPage() {
               take a flat platform fee and nothing else.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <ButtonLink href={`${site.external.app}/signup`} size="lg">
+              <ButtonLink href={site.external.signup} size="lg">
                 Sign up
               </ButtonLink>
               <ButtonLink href={site.external.docs} variant="secondary" size="lg">
@@ -168,7 +168,7 @@ export default function DevelopersPage() {
       <FinalCta
         title="Ready to plug in your own keys?"
         sub="Sign up and ship your first agent today — this is a self-serve path, no sales call required."
-        primary={{ label: 'Sign up', href: `${site.external.app}/signup` }}
+        primary={{ label: 'Sign up', href: site.external.signup }}
         secondary={{ label: 'See managed pricing', href: '/pricing' }}
       />
 

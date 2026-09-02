@@ -86,7 +86,7 @@ git push -u origin main
    - `A` record on `@` → `76.76.21.21`
    - `CNAME` on `www` → `cname.vercel-dns.com`
    (Use whatever values Vercel actually shows — they occasionally change.)
-3. `inapp.decibyl.ai` and `docs.decibyl.ai` stay on their own hosts. This site only links to them.
+3. `app.decibyl.ai` and `docs.decibyl.ai` stay on their own hosts. This site only links to them.
 4. TLS is issued automatically once DNS propagates.
 
 ### 5 · Turn on analytics (free)

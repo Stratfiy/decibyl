@@ -25,22 +25,32 @@
   left: 65%;
   width: min(96vw, 1560px);
   height: min(86svh, 880px);
-  /* 2D transforms, and no `will-change`.
+  /* Centred by margins, not by `transform`.
 
-     This box is ~1300x690 CSS px. `will-change: transform` plus `translate3d`
-     promoted it to a permanent composited layer, which at DPR 2 is a ~14MB GPU
-     texture held for the life of the page — and it is the only permanently
-     promoted element here, which is why the hero alone went blank while every
-     other image on the page kept rendering. Under memory pressure (Low Power
-     Mode, a handful of open tabs) WebKit discards that layer's backing store,
-     and a discarded backing store paints as nothing.
+     This box used to be centred with `translate(-50%, -50%)` and drift with
+     the scroll in the same declaration, which put the layout at the mercy of
+     the transform surviving. When it does not, the box is positioned from its
+     top-left at 65%/52%, and everything but its left edge falls outside the
+     stage's `overflow: hidden`. The artwork's left third is deliberately empty
+     cream, so what is left reads as a blank hero rather than as a misplaced
+     one — which is exactly what it looked like.
 
-     The movement is one element following the scrollbar, which a 2D transform
-     handles without a standing layer; the browser can still promote it while it
-     is actually changing. */
+     The reduced-motion block below sets `transform: none`, which reproduces
+     that blank hero exactly: anyone browsing with Reduce Motion switched on
+     has been meeting an empty opening screen.
+
+     Negative margins do the centring in layout, where nothing can take it
+     away. The transform now carries only the drift, so losing it leaves the
+     hero merely still.
+
+     That drift is in vw/vh rather than percentages of the box. Multiplying a
+     unitless custom property by a percentage is the kind of thing engines have
+     disagreed about, and one unparseable component invalidates a whole
+     declaration — a length avoids the question entirely. */
+  margin-left: calc(min(96vw, 1560px) / -2);
+  margin-top: calc(min(86svh, 880px) / -2);
   transform:
-    translate(-50%, -50%)
-    translate(calc(var(--intro-progress) * -2%), calc(var(--intro-progress) * -1.2%))
+    translate(calc(var(--intro-progress) * -1.7vw), calc(var(--intro-progress) * -1vh))
     scale(calc(0.98 + var(--intro-progress) * 0.14));
   transform-origin: 54% 48%;
 }
@@ -191,9 +201,9 @@
     left: 50%;
     width: 112%;
     height: 58%;
-    transform:
-      translate(-50%, -50%)
-      scale(calc(1 + var(--intro-progress) * 0.06));
+    margin-left: -56%;
+    margin-top: -29svh;
+    transform: scale(calc(1 + var(--intro-progress) * 0.06));
     transform-origin: 62% 42%;
   }
 

@@ -55,7 +55,7 @@ export const pageDates: Record<string, string> = {
 /* GENERATED:DERIVED:START */
 export const verticalsUpdatedAt = '2026-08-29';
 export const competitorsUpdatedAt = '2026-09-03';
-export const citiesUpdatedAt = '2026-08-28';
+export const citiesUpdatedAt = '2026-09-03';
 export const languagePagesUpdatedAt = '2026-08-29';
 /* GENERATED:DERIVED:END */
 

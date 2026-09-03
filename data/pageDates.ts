@@ -26,11 +26,11 @@ export const SITE_EPOCH = '2026-08-12';
  */
 /* GENERATED:START */
 export const pageDates: Record<string, string> = {
-  '/': '2026-08-28',
-  '/pricing': '2026-08-28',
+  '/': '2026-09-03',
+  '/pricing': '2026-09-03',
   '/how-it-works': '2026-08-13',
-  '/solutions': '2026-08-17',
-  '/use-cases': '2026-08-29',
+  '/solutions': '2026-09-03',
+  '/use-cases': '2026-09-03',
   '/case-studies': '2026-08-13',
   '/security': '2026-08-13',
   '/developers': '2026-08-28',
@@ -43,9 +43,9 @@ export const pageDates: Record<string, string> = {
   '/legal/terms': '2026-08-28',
   '/legal/dpdp': '2026-08-12',
   '/legal/refund': '2026-08-12',
-  '/compare': '2026-08-28',
-  '/ai-receptionist': '2026-08-28',
-  '/voice-ai': '2026-08-28',
+  '/compare': '2026-09-03',
+  '/ai-receptionist': '2026-09-03',
+  '/voice-ai': '2026-09-03',
 };
 /* GENERATED:END */
 
@@ -53,10 +53,10 @@ export const pageDates: Record<string, string> = {
  *  move when that file does. Kept separate from the map above because the
  *  route list is derived, not enumerated. */
 /* GENERATED:DERIVED:START */
-export const verticalsUpdatedAt = '2026-08-28';
-export const competitorsUpdatedAt = '2026-08-28';
+export const verticalsUpdatedAt = '2026-08-29';
+export const competitorsUpdatedAt = '2026-09-03';
 export const citiesUpdatedAt = '2026-08-28';
-export const languagePagesUpdatedAt = '2026-08-28';
+export const languagePagesUpdatedAt = '2026-08-29';
 /* GENERATED:DERIVED:END */
 
 /** The date to claim for `path`, or the epoch if we have no better answer. */

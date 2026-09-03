@@ -18,13 +18,16 @@ import { pricingFaqs } from '@/data/faqs';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Pricing — Voice AI in India, in Rupees',
+  title: `AI Calling Agent Pricing India — from ₹${fromRateInr}/min`,
   description:
     'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, credits with no commitment, and an Advanced stack for teams who want to name the models themselves. GST-compliant invoicing.',
   path: '/pricing',
   keywords: [
+    'AI calling agent price India',
+    'AI voice agent pricing India',
     'voice AI pricing India',
     'AI calling cost per minute India',
+    'voicebot pricing India',
     'voice agent pricing INR',
     'AI receptionist price India',
   ],

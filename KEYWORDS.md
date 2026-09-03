@@ -221,3 +221,69 @@ The signal that this document succeeded, in order of appearance:
 If (2) shows nothing by week twelve, the vocabulary was not the constraint and the honest
 conclusion is that the domain lacks the authority to rank for anything yet — which sends us
 back to Part 0's corollary and `SEO.md` Lever 6, both of which are outreach, not code.
+
+---
+
+## Part 7 · The audit that runs for free
+
+```bash
+npm run build && npm run seo:audit
+```
+
+`scripts/seo-audit.mjs` reads the **built** HTML and reports the on-page problems that
+actually cost rankings. Zero dependencies, no network, no API keys, no crawling anyone
+else's site — so it runs in CI, on a laptop, and in a sandbox with no egress.
+
+It reads the built output rather than the source deliberately. A templated page can look
+well-differentiated in `data/verticals.ts` and still render as most of the same words as
+its sibling, which is exactly the failure `SEO.md` Lever 2 warns about and the one nobody
+catches by eye. One implementation note worth knowing before you change it: `<script>` has
+to be stripped before any text comparison, because Next inlines the whole RSC payload into
+`self.__next_f.push(...)` — leave it in and every pair of pages looks ~99% similar and the
+check silently becomes worthless.
+
+What it covers, mapped to the levers:
+
+| Check | Lever | What it catches |
+|---|---|---|
+| Sibling similarity (5-gram Jaccard) | 2 | Programmatic pages too alike to both stay indexed |
+| Contextual inbound links | 5 | Orphans, and pages carried only by nav/footer |
+| Title length and duplication | 4 | Titles Google will rewrite; two pages fighting for one query |
+| Description length and duplication | 4 | Truncated or wasted snippet space |
+| Canonical, H1, thin content | Part 0 | Silent regressions in what already works |
+
+Navigation links are excluded from the inbound count by a ratio test: a target linked from
+≥90% of pages is nav or footer, not an editorial link. Without that, every page looks
+well-linked and the pages with no real link pointing at them stay invisible.
+
+### What it found, and what is still open
+
+The run on 3 Sep 2026 returned **0 failures and 75 warnings**. No orphans, no duplicate
+titles, no missing or relative canonicals — the fundamentals in this repo are sound. Fixed
+in that pass: eight city titles running 65–74 characters, and seven titles or descriptions
+that this branch's own vocabulary work had pushed past the truncation point.
+
+Two real items remain open, both content work rather than code:
+
+1. **The city pages run 53–56% shared phrasing.** Below the 70% near-duplicate threshold,
+   but they are the least differentiated group on the site and the ones most at risk of
+   Google indexing one and dropping the rest. `SEO.md` Lever 2 has the test: cover the
+   `<h1>` and read the page. Each needs something only true of that city — a local number
+   format, a named locality, a specific business pattern — not a find-and-replace of the
+   city name. **Prune or deepen before adding a tenth city.**
+2. **Every blog post has exactly one contextual inbound link.** `SEO.md` Lever 5 asks each
+   post to link *out* to two money pages, and this is the mirror problem: almost nothing
+   links *in*. Posts reachable only from `/blog` get crawled last and pass nothing onward.
+   The fix is cheap — link the relevant post from the `/solutions/*`, `/compare/*` and
+   `/pricing` pages whose questions it answers.
+
+Six over-length descriptions also remain, all pre-existing: four blog posts, `/developers`
+and `/partners`. They are one-line fixes; the audit will keep listing them until someone
+does it.
+
+### What this tool cannot do
+
+It has no search volume, no competitor backlinks, no ranking positions, and it never will —
+those need either Search Console (free, but needs the account's own credential) or a paid
+data vendor. This audits *our* pages against known-good practice. It is the free half of
+the job, and it is the half that was never being measured.

@@ -7,7 +7,7 @@ import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'AI Voice Agent Use Cases for Business',
-  description: 'AI voice agent use cases for business: outbound sales and lead qualification, inbound customer support, telecalling automation, follow-up, confirmation and reminder calls.',
+  description: 'AI voice agent use cases for business: outbound sales, lead qualification, customer support, telecalling automation, follow-up and reminder calls.',
   path: '/use-cases',
   keywords: [
     'AI voice agent use cases',

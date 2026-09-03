@@ -258,28 +258,41 @@ well-linked and the pages with no real link pointing at them stay invisible.
 
 ### What it found, and what is still open
 
-The run on 3 Sep 2026 returned **0 failures and 75 warnings**. No orphans, no duplicate
-titles, no missing or relative canonicals — the fundamentals in this repo are sound. Fixed
-in that pass: eight city titles running 65–74 characters, and seven titles or descriptions
-that this branch's own vocabulary work had pushed past the truncation point.
+The first run on 3 Sep 2026 returned **0 failures and 92 warnings**. No orphans, no duplicate
+titles, no missing or relative canonicals — the fundamentals in this repo are sound. After
+working the list it stands at **0 failures and 32 warnings**, and every remaining warning is
+the same finding.
 
-Two real items remain open, both content work rather than code:
+Fixed in that pass:
 
-1. **The city pages run 53–56% shared phrasing.** Below the 70% near-duplicate threshold,
-   but they are the least differentiated group on the site and the ones most at risk of
-   Google indexing one and dropping the rest. `SEO.md` Lever 2 has the test: cover the
-   `<h1>` and read the page. Each needs something only true of that city — a local number
-   format, a named locality, a specific business pattern — not a find-and-replace of the
-   city name. **Prune or deepen before adding a tenth city.**
-2. **Every blog post has exactly one contextual inbound link.** `SEO.md` Lever 5 asks each
-   post to link *out* to two money pages, and this is the mirror problem: almost nothing
-   links *in*. Posts reachable only from `/blog` get crawled last and pass nothing onward.
-   The fix is cheap — link the relevant post from the `/solutions/*`, `/compare/*` and
-   `/pricing` pages whose questions it answers.
+- **31 over-length titles.** Eight city titles at 65–74 characters, seven that this branch's
+  own vocabulary work had pushed over, and eight blog headlines running to 104. The blog
+  ones needed a mechanism rather than a trim: `BlogPostMeta.seoTitle` now carries a short
+  form for the `<title>` tag while the H1 keeps the editorial headline, because a good
+  headline should not be mangled to suit a SERP.
+- **14 truncated descriptions**, across the blog, `/developers`, `/partners`, `/pricing` and
+  the pages this branch touched.
+- **15 thin-linked pages, now zero.** This was the real find. Nothing on the site linked to
+  a blog post, and five of the eight posts linked to no money page at all — a direct
+  violation of Lever 5, which asks every post to link to two. `BlogPostMeta.related` now
+  drives both directions from one field: `RelatedPosts` lists a post's money pages at the
+  foot of the post, and `postsRelatedTo()` inverts it so `/pricing`, `/compare`,
+  `/security`, `/voice-ai`, `/ai-receptionist`, `/how-it-works` and every solution and
+  use-case page lists the posts that argue for it. Separately, the language chips on each
+  city page now link to `/voice-ai/[language]`, which were reachable only from `/voice-ai`.
+- **Two bugs in the audit itself.** It measured the HTML-escaped attribute, so a description
+  containing one pair of quotes read ten characters longer than what Google receives, and
+  an `&` in a title read four longer. Both were false positives; both are fixed by decoding
+  before measuring. Worth knowing if you extend it — measure the string the crawler gets,
+  not the one in the file.
 
-Six over-length descriptions also remain, all pre-existing: four blog posts, `/developers`
-and `/partners`. They are one-line fixes; the audit will keep listing them until someone
-does it.
+**One finding is left open, deliberately.** The nine city pages share **53–56% of their
+phrasing** — every remaining warning. That is below the 70% near-duplicate threshold, but
+they are the least differentiated group on the site and the likeliest to have one indexed
+and the rest dropped. The fix is not a code change and must not be faked: each page needs
+something *true of that city* — a named locality, a local business pattern, a real
+constraint — and inventing those would break the no-invented-facts rule this repo holds
+everywhere else. **Prune or deepen before adding a tenth city.**
 
 ### What this tool cannot do
 

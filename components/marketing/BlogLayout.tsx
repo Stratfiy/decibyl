@@ -22,6 +22,24 @@ export function BlogLayout({ meta, children }: { meta: BlogPostMeta; children: R
           </p>
 
           <div className="mt-12 space-y-9">{children}</div>
+
+          {meta.related?.length ? (
+            <nav className="mt-14 border-t border-line pt-8" aria-label="Related pages">
+              <p className="t-eyebrow text-sindoor">Read next</p>
+              <ul className="mt-4 space-y-3">
+                {meta.related.map((r) => (
+                  <li key={r.href}>
+                    <Link
+                      href={r.href}
+                      className="text-sindoor underline-offset-4 hover:underline"
+                    >
+                      {r.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ) : null}
         </div>
       </Container>
     </article>

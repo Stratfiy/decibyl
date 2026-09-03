@@ -8,9 +8,9 @@ import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Developers — $0.02/min, the Lowest Published Platform Fee',
+  title: 'Developers — BYOK Voice AI at $0.02/min',
   description:
-    'Bring your own OpenAI, Deepgram, ElevenLabs, or Sarvam keys. Decibyl charges $0.02/min platform fee and nothing else — the lowest published orchestration fee in voice AI, plus MCP-native agent building from Claude Code.',
+    'Bring your own OpenAI, Deepgram, ElevenLabs or Sarvam keys. A $0.02/min platform fee and nothing else, plus MCP-native agent building from Claude Code.',
   path: '/developers',
   keywords: [
     'voice AI BYOK platform fee',

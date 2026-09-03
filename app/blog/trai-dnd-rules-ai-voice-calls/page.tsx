@@ -8,7 +8,7 @@ import { JsonLd, articleSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo
 const meta = getBlogPost('trai-dnd-rules-ai-voice-calls')!;
 
 export const metadata: Metadata = pageMetadata({
-  title: meta.title,
+  title: meta.seoTitle ?? meta.title,
   description: meta.description,
   path: `/blog/${meta.slug}`,
   keywords: [

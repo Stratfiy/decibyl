@@ -478,7 +478,7 @@ export const competitors: Competitor[] = [
       },
     ],
     table: sharedTable({
-      rate: 'Telephony plans published; per-agent AI voice pricing is quote-based, not on a public page — checked Sep 2026',
+      rate: 'Telephony plans published; no per-agent AI voice rate found on a public page as of Sep 2026 — from public secondary sources, not read on their own pricing page',
       languages: 'Indian language support via the AI layer added on top of the telephony',
       dids: 'Yes — one of the strongest Indian number estates available',
       billing: 'INR with GST invoicing',
@@ -544,7 +544,7 @@ export const competitors: Competitor[] = [
       },
     ],
     table: sharedTable({
-      rate: 'Telephony plans published; the AI voicebot is a separately priced add-on rather than a published per-minute rate — checked Sep 2026',
+      rate: 'Telephony plans published; the AI voicebot is sold as a separately priced add-on rather than a published per-minute rate, as of Sep 2026 — from public secondary sources, not read on their own pricing page',
       languages: 'Indian languages via the AI voicebot add-on',
       dids: 'Yes — Indian numbers included in the telephony plans',
       billing: 'INR with GST invoicing',
@@ -610,7 +610,7 @@ export const competitors: Competitor[] = [
       },
     ],
     table: sharedTable({
-      rate: 'No public rate — the enterprise plan is quote-based with no publicly listed price — checked Sep 2026',
+      rate: 'No public rate found — the enterprise plan is quote-based with no publicly listed price as of Sep 2026 — from public secondary sources, not read on their own pricing page',
       languages: 'Broad multilingual coverage including Indian languages, across chat and voice',
       dids: 'Not published — enterprise telephony integration',
       billing: 'Custom enterprise pricing; GST invoicing not published',

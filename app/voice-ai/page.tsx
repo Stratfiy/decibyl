@@ -6,6 +6,7 @@ import { languagePages, languageRecord, languageSlug } from '@/data/languagePage
 import { languages } from '@/data/languages';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
+import { RelatedPosts } from '@/components/marketing/RelatedPosts';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Indian Language AI Voice Agents & Voicebots',
@@ -103,6 +104,9 @@ export default function LanguageHub() {
         </p>
       </Section>
 
+      <Container>
+        <RelatedPosts path="/voice-ai" />
+      </Container>
       <FinalCta
         title="Give it the language you were told was unsupported."
         sub="Book a demo and we'll call you back with a live agent, in the language you pick."

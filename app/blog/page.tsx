@@ -5,7 +5,7 @@ import { blogPosts, formatBlogDate } from '@/data/blog';
 import { JsonLd, blogListSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Blog — Voice AI, DPDP Compliance, and NDR Recovery in India',
+  title: 'Voice AI in India — Pricing, DPDP and NDR',
   description:
     'Practical, researched writing on AI voice agent pricing, DPDP compliance, code-mixed speech, and NDR recovery for Indian businesses. Every number cited.',
   path: '/blog',

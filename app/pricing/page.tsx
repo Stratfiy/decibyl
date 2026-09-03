@@ -16,6 +16,7 @@ import {
 } from '@/data/pricing';
 import { pricingFaqs } from '@/data/faqs';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
+import { RelatedPosts } from '@/components/marketing/RelatedPosts';
 
 export const metadata: Metadata = pageMetadata({
   title: `AI Calling Agent Pricing India — from ₹${fromRateInr}/min`,
@@ -148,6 +149,9 @@ export default function PricingPage() {
         </div>
       </Section>
 
+      <Container>
+        <RelatedPosts path="/pricing" />
+      </Container>
       <FinalCta
         title="Want the arithmetic run on your volumes?"
         sub="Book a demo. We’ll price your actual call pattern rather than a plan name."

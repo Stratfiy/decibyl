@@ -492,9 +492,9 @@ export const competitors: Competitor[] = [
       'Buying telephony — numbers, routing, carrier reliability, the compliance paperwork — Exotel is a stronger answer than we are, and we will not pretend otherwise. Buying an agent that actually completes the conversation in the language your customer speaks, at a price you can read before you talk to anyone, that is Decibyl. A good number of teams end up running the second on top of the first.',
     relatedVerticals: ['d2c-ndr-recovery', 'lending-collections'],
     seo: {
-      title: 'Exotel Alternative for AI Voice Agents — Honest Comparison',
+      title: 'Exotel Alternative for AI Voice Agents',
       description:
-        'Decibyl vs Exotel for Indian teams: voice-native AI calling versus cloud telephony with AI added on, published pricing, code-mixed Hindi — and where Exotel’s telephony is genuinely stronger.',
+        'Decibyl vs Exotel for Indian teams: voice-native AI calling versus cloud telephony with AI added on — and where Exotel is genuinely stronger.',
       keywords: ['Exotel alternative', 'Exotel vs Decibyl', 'Exotel AI voice agent', 'cloud telephony India AI voicebot', 'Exotel voicebot pricing'],
     },
   },
@@ -558,9 +558,9 @@ export const competitors: Competitor[] = [
       'Wanting a simple, well-supported switchboard for a small team — calls, IVR and WhatsApp in one bill — MyOperator is a better fit than we are and we would say so. Wanting an agent that runs thousands of confirmation or follow-up calls in Hinglish without a human queue behind it, priced on what you use, that is Decibyl.',
     relatedVerticals: ['clinics', 'real-estate'],
     seo: {
-      title: 'MyOperator Alternative for AI Voice Agents — Honest Comparison',
+      title: 'MyOperator Alternative for AI Voicebots',
       description:
-        'Decibyl vs MyOperator for Indian teams: a voice-native AI calling agent versus an AI voicebot add-on to a call-management plan, with published usage pricing and code-mixed Hindi.',
+        'Decibyl vs MyOperator: a voice-native AI calling agent versus an AI voicebot add-on to a call-management plan, with published usage pricing.',
       keywords: ['MyOperator alternative', 'MyOperator vs Decibyl', 'MyOperator AI voicebot', 'AI voicebot India', 'call management software India AI'],
     },
   },
@@ -624,9 +624,9 @@ export const competitors: Competitor[] = [
       'Standardising every conversation your company has — chat, email, voice, internal — on one enterprise platform, with the budget and the implementation team that implies? Yellow.ai is built for that and we are not. Needing the phone calls to work, in Indian languages, this month, at a price on a public page? That is Decibyl.',
     relatedVerticals: ['lending-collections', 'clinics'],
     seo: {
-      title: 'Yellow.ai Alternative for Voice — Honest Comparison',
+      title: 'Yellow.ai Alternative for Voice AI',
       description:
-        'Decibyl vs Yellow.ai for Indian teams: a voice-native AI calling agent with published INR pricing versus a quote-based enterprise omnichannel suite — and where Yellow.ai is genuinely stronger.',
+        'Decibyl vs Yellow.ai: a voice-native AI calling agent with published INR pricing versus a quote-based enterprise omnichannel suite.',
       keywords: ['Yellow.ai alternative', 'Yellow.ai vs Decibyl', 'Yellow.ai voice bot pricing', 'enterprise conversational AI India alternative', 'omnichannel AI voice agent India'],
     },
   },

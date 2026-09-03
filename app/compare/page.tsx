@@ -48,8 +48,7 @@ const compareFaqs = [
 
 export const metadata: Metadata = pageMetadata({
   title: 'Best AI Voice Agent Platforms in India — Compared',
-  description:
-    'An honest side-by-side of the voice AI platforms, voicebots and AI calling agents serving India: Vapi, Bolna, Retell, SquadStack, ElevenLabs, Gnani, Exotel, MyOperator and Yellow.ai. Who each is genuinely best for, what they charge, and where Decibyl fits.',
+  description: `An honest side-by-side of ${competitors.length} voice AI platforms, voicebots and AI calling agents serving India — who each is genuinely best for, and where Decibyl fits.`,
   path: '/compare',
   keywords: [
     'best AI voice agent India',

@@ -20,7 +20,7 @@ import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: `AI Calling Agent Pricing India — from ₹${fromRateInr}/min`,
   description:
-    'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, credits with no commitment, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
+    'Managed plans from ₹2,999/month, telephony and Indian numbers included. Voice bundles from ₹4.91/min, or BYOK at $0.02/min with zero markup. GST invoicing.',
   path: '/pricing',
   keywords: [
     'AI calling agent price India',

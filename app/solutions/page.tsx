@@ -10,7 +10,13 @@ export const metadata: Metadata = pageMetadata({
   description:
     'AI voice agents for D2C and NDR recovery, clinics, real estate, lending and collections, logistics, and education — in Indian languages, and beyond.',
   path: '/solutions',
-  keywords: ['voice AI use cases India', 'AI calling by industry India', 'AI voice agent solutions India'],
+  keywords: [
+    'voice AI use cases India',
+    'AI calling by industry India',
+    'AI voice agent solutions India',
+    'AI voice agent for business',
+    'industry voicebot India',
+  ],
   ogTitle: 'Same engine. Different conversation.',
 });
 

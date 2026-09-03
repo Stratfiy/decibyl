@@ -432,6 +432,204 @@ export const competitors: Competitor[] = [
       keywords: ['Gnani alternative', 'Gnani.ai vs Decibyl', 'Gnani voice AI India'],
     },
   },
+  {
+    slug: 'exotel',
+    name: 'Exotel',
+    summaryThem:
+      'Exotel is one of India’s largest cloud telephony providers, and it is genuinely good at the thing it was built for: moving a call reliably between a phone number and an application, at carrier scale, with the regulatory paperwork already handled. It has deep operator relationships, a long enterprise track record, and call routing, IVR and contact-centre tooling that a young platform has not had the years to build. Worth being precise about the category: Exotel is telephony infrastructure with AI added on top, not a voice-native AI platform — and plenty of voice AI products, ours included, are perfectly happy to run on top of a carrier layer like theirs. This is a comparison of where the intelligence lives, not a claim that you must pick one.',
+    summaryUs:
+      'Decibyl is voice-native: the agent is the thing that handles the call end to end, rather than a bot bolted onto a routing layer. The practical difference is real-time streaming — an architecture built from the start around interrupting, barging in and code-switching mid-sentence behaves differently from an IVR stack with a model attached to it. Add published INR pricing, a GST invoice, and Hinglish and Tanglish as the default register.',
+    bestFor:
+      'Teams who need proven Indian cloud telephony, numbers and call routing at scale, with AI as one addition to it.',
+    strongerThem: [
+      {
+        title: 'Carrier-grade telephony, and years of it',
+        body: 'Direct operator relationships, national coverage, and uptime on the underlying call path that a smaller platform simply has not had time to prove. If the call connecting is the risk you are managing, this is the mature answer.',
+      },
+      {
+        title: 'Regulatory and enterprise track record',
+        body: 'A long history of serving regulated Indian enterprises, with the TRAI-facing paperwork, DLT registration and procurement history that large buyers ask for.',
+      },
+      {
+        title: 'Breadth of the telephony product',
+        body: 'Number provisioning, call routing, IVR, call recording, campaign management and contact-centre features as one estate, well past what a voice agent platform covers.',
+      },
+      {
+        title: 'They can be the layer underneath you',
+        body: 'Running an AI agent on Exotel telephony is a normal, supported architecture. That makes them a partner as often as a rival, which is not true of most names on this page.',
+      },
+    ],
+    strongerUs: [
+      {
+        title: 'Voice-native, not AI-on-IVR',
+        body: 'Built around real-time streaming from the start, so interruption, barge-in and mid-sentence code-switching are the normal case rather than the limit of what a routing layer can be made to do.',
+      },
+      {
+        title: 'Published pricing you can read today',
+        body: 'A rate on a page rather than a quote after a call. Exotel does not publish per-agent AI voice pricing — checked Sep 2026.',
+      },
+      {
+        title: 'Code-mixed Indian speech as the default',
+        body: 'Hinglish and Tanglish are the register the agent expects, not a language setting configured toward it.',
+      },
+      {
+        title: 'MCP-native agent building',
+        body: 'Build and change agents from Claude Code, with the model economics itemised rather than blended into a platform bill.',
+      },
+    ],
+    table: sharedTable({
+      rate: 'Telephony plans published; no per-agent AI voice rate found on a public page as of Sep 2026 — from public secondary sources, not read on their own pricing page',
+      languages: 'Indian language support via the AI layer added on top of the telephony',
+      dids: 'Yes — one of the strongest Indian number estates available',
+      billing: 'INR with GST invoicing',
+      residency: 'India',
+      mcp: 'No',
+      byok: 'Not published',
+      markup: 'Bundled into plan and per-minute telephony rates',
+      onboarding: 'Sales-led for AI; telephony self-serve on published plans',
+    }),
+    verdict:
+      'Buying telephony — numbers, routing, carrier reliability, the compliance paperwork — Exotel is a stronger answer than we are, and we will not pretend otherwise. Buying an agent that actually completes the conversation in the language your customer speaks, at a price you can read before you talk to anyone, that is Decibyl. A good number of teams end up running the second on top of the first.',
+    relatedVerticals: ['d2c-ndr-recovery', 'lending-collections'],
+    seo: {
+      title: 'Exotel Alternative for AI Voice Agents',
+      description:
+        'Decibyl vs Exotel for Indian teams: voice-native AI calling versus cloud telephony with AI added on — and where Exotel is genuinely stronger.',
+      keywords: ['Exotel alternative', 'Exotel vs Decibyl', 'Exotel AI voice agent', 'cloud telephony India AI voicebot', 'Exotel voicebot pricing'],
+    },
+  },
+  {
+    slug: 'myoperator',
+    name: 'MyOperator',
+    summaryThem:
+      'MyOperator is a well-established Indian call management platform aimed squarely at small and mid-size teams, and it is easy to underrate how much that focus is worth. Calls, IVR, call recording and WhatsApp sit in one subscription that a non-technical office manager can actually run, which is a real product achievement and the reason it has a large SME install base. Its AI voicebot is sold as a paid add-on to that telephony subscription rather than as the core of the product.',
+    summaryUs:
+      'Decibyl sells the agent, not the switchboard. Where MyOperator’s AI is an add-on line on a call-management plan, the agent is the entire product here — priced on usage you can read, live in about half a day, and built for code-mixed Indian speech end to end.',
+    bestFor:
+      'Small and mid-size Indian teams who want call management, IVR and WhatsApp in one simple subscription.',
+    strongerThem: [
+      {
+        title: 'One subscription for calls and WhatsApp',
+        body: 'Voice, IVR and WhatsApp business messaging billed and managed together, which is genuinely simpler than assembling the same thing from three vendors.',
+      },
+      {
+        title: 'Built for non-technical operators',
+        body: 'An office or sales manager can configure routing and menus without a developer. That is a real constraint for a lot of Indian SMEs and MyOperator respects it.',
+      },
+      {
+        title: 'Large SME install base and support motion',
+        body: 'Years of serving thousands of small Indian businesses, with a support process shaped around them rather than around engineering teams.',
+      },
+      {
+        title: 'Call management depth',
+        body: 'Recording, tracking, reporting and team routing that go well beyond what a voice agent platform provides.',
+      },
+    ],
+    strongerUs: [
+      {
+        title: 'The agent completes the call, it does not route it',
+        body: 'A voice-native agent handling confirmation, follow-up and qualification end to end, rather than a voicebot in front of a human queue.',
+      },
+      {
+        title: 'Usage pricing, not a per-agent add-on',
+        body: 'Published INR rates on a page. MyOperator’s AI capability is a separately priced add-on to a telephony plan — checked Sep 2026.',
+      },
+      {
+        title: 'Seven Indian languages, code-mixed by default',
+        body: 'Hinglish and Tanglish as the expected register, plus French, Spanish and Arabic, and any language your voice stack supports.',
+      },
+      {
+        title: 'Developer and MCP access',
+        body: 'A real API and MCP-native agent building for teams who want to wire calls into their own systems rather than configure a console.',
+      },
+    ],
+    table: sharedTable({
+      rate: 'Telephony plans published; the AI voicebot is sold as a separately priced add-on rather than a published per-minute rate, as of Sep 2026 — from public secondary sources, not read on their own pricing page',
+      languages: 'Indian languages via the AI voicebot add-on',
+      dids: 'Yes — Indian numbers included in the telephony plans',
+      billing: 'INR with GST invoicing',
+      residency: 'India',
+      mcp: 'No',
+      byok: 'No',
+      markup: 'Bundled into plan and add-on pricing',
+      onboarding: 'Self-serve telephony; AI add-on sales-led',
+    }),
+    verdict:
+      'Wanting a simple, well-supported switchboard for a small team — calls, IVR and WhatsApp in one bill — MyOperator is a better fit than we are and we would say so. Wanting an agent that runs thousands of confirmation or follow-up calls in Hinglish without a human queue behind it, priced on what you use, that is Decibyl.',
+    relatedVerticals: ['clinics', 'real-estate'],
+    seo: {
+      title: 'MyOperator Alternative for AI Voicebots',
+      description:
+        'Decibyl vs MyOperator: a voice-native AI calling agent versus an AI voicebot add-on to a call-management plan, with published usage pricing.',
+      keywords: ['MyOperator alternative', 'MyOperator vs Decibyl', 'MyOperator AI voicebot', 'AI voicebot India', 'call management software India AI'],
+    },
+  },
+  {
+    slug: 'yellow-ai',
+    name: 'Yellow.ai',
+    summaryThem:
+      'Yellow.ai is an enterprise omnichannel conversational AI platform with real global scale — chat, email, voice and internal workflow automation on one stack, deployed at large enterprises across India, South-East Asia and the Middle East. Its heritage is chat, and it shows in the best way: the analytics, agent-assist and orchestration tooling around conversations is more developed than anything a voice-only platform is likely to have built. Voice is one channel of several rather than the centre of the product.',
+    summaryUs:
+      'Decibyl does one channel and does it deeply. If the problem is a phone call that has to complete in Hinglish, on Indian telephony, at a per-minute cost you can see, a voice-native platform gets there faster and cheaper than an omnichannel suite configured toward voice.',
+    bestFor:
+      'Large enterprises standardising chat, email and voice automation on a single omnichannel platform.',
+    strongerThem: [
+      {
+        title: 'Genuine omnichannel breadth',
+        body: 'Chat, email, voice and internal workflows in one platform with shared context. If a customer starts on WhatsApp and finishes on a call, that continuity is built in rather than integrated.',
+      },
+      {
+        title: 'Enterprise deployment track record',
+        body: 'A long list of large enterprise customers and the implementation, security review and change-management machinery that serving them requires.',
+      },
+      {
+        title: 'Analytics and agent-assist depth',
+        body: 'Conversation analytics, human agent assist and quality tooling built over years of chat deployments, well beyond call transcripts and scoring.',
+      },
+      {
+        title: 'Large integration catalogue',
+        body: 'Connectors into the CRM, ticketing and enterprise systems that a large buyer already runs, with the professional services to wire them up.',
+      },
+    ],
+    strongerUs: [
+      {
+        title: 'Published pricing instead of a quote',
+        body: 'A rate you can read before a sales conversation. Yellow.ai’s enterprise plan is quote-based with no publicly listed price — checked Sep 2026.',
+      },
+      {
+        title: 'Live in about half a day',
+        body: 'No multi-month enterprise implementation before the first call runs.',
+      },
+      {
+        title: 'Voice-native depth on Indian speech',
+        body: 'Code-mixed Hinglish and Tanglish as the default register on Indian telephony, rather than voice as one configured channel of an omnichannel suite.',
+      },
+      {
+        title: 'Itemised economics',
+        body: 'Model and telephony costs shown separately with zero markup, rather than a platform fee, conversation charges and professional services in one custom quote.',
+      },
+    ],
+    table: sharedTable({
+      rate: 'No public rate found — the enterprise plan is quote-based with no publicly listed price as of Sep 2026 — from public secondary sources, not read on their own pricing page',
+      languages: 'Broad multilingual coverage including Indian languages, across chat and voice',
+      dids: 'Not published — enterprise telephony integration',
+      billing: 'Custom enterprise pricing; GST invoicing not published',
+      residency: 'Enterprise-configured',
+      mcp: 'No',
+      byok: 'Not published',
+      markup: 'Custom quote — platform fee, conversation charges and services not itemised publicly',
+      onboarding: 'Enterprise sales and implementation cycle',
+    }),
+    verdict:
+      'Standardising every conversation your company has — chat, email, voice, internal — on one enterprise platform, with the budget and the implementation team that implies? Yellow.ai is built for that and we are not. Needing the phone calls to work, in Indian languages, this month, at a price on a public page? That is Decibyl.',
+    relatedVerticals: ['lending-collections', 'clinics'],
+    seo: {
+      title: 'Yellow.ai Alternative for Voice AI',
+      description:
+        'Decibyl vs Yellow.ai: a voice-native AI calling agent with published INR pricing versus a quote-based enterprise omnichannel suite.',
+      keywords: ['Yellow.ai alternative', 'Yellow.ai vs Decibyl', 'Yellow.ai voice bot pricing', 'enterprise conversational AI India alternative', 'omnichannel AI voice agent India'],
+    },
+  },
 ];
 
 export function getCompetitor(slug: string): Competitor | undefined {

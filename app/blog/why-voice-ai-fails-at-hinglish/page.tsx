@@ -8,7 +8,7 @@ import { JsonLd, articleSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo
 const meta = getBlogPost('why-voice-ai-fails-at-hinglish')!;
 
 export const metadata: Metadata = pageMetadata({
-  title: meta.title,
+  title: meta.seoTitle ?? meta.title,
   description: meta.description,
   path: `/blog/${meta.slug}`,
   keywords: ['Hinglish voice AI', 'code-mixed speech recognition', 'Indian language ASR'],

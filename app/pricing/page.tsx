@@ -16,15 +16,19 @@ import {
 } from '@/data/pricing';
 import { pricingFaqs } from '@/data/faqs';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
+import { RelatedPosts } from '@/components/marketing/RelatedPosts';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Pricing — Voice AI in India, in Rupees',
+  title: `AI Calling Agent Pricing India — from ₹${fromRateInr}/min`,
   description:
-    'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, credits with no commitment, or BYOK at $0.02/minute with zero markup on model costs. GST-compliant invoicing.',
+    'Managed plans from ₹2,999/month, telephony and Indian numbers included. Voice bundles from ₹4.91/min, or BYOK at $0.02/min with zero markup. GST invoicing.',
   path: '/pricing',
   keywords: [
+    'AI calling agent price India',
+    'AI voice agent pricing India',
     'voice AI pricing India',
     'AI calling cost per minute India',
+    'voicebot pricing India',
     'voice agent pricing INR',
     'AI receptionist price India',
   ],
@@ -145,6 +149,9 @@ export default function PricingPage() {
         </div>
       </Section>
 
+      <Container>
+        <RelatedPosts path="/pricing" />
+      </Container>
       <FinalCta
         title="Want the arithmetic run on your volumes?"
         sub="Book a demo. We’ll price your actual call pattern rather than a plan name."

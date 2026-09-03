@@ -7,9 +7,10 @@ import { competitors } from '@/data/competitors';
 import { formatInr, tiers } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
+import { RelatedPosts } from '@/components/marketing/RelatedPosts';
 
 /**
- * The hub above the six /compare/[competitor] pages.
+ * The hub above the /compare/[competitor] pages.
  *
  * Two jobs, and they pull in the same direction. For search it is the page
  * positioned on the head term the category actually types — "best AI voice
@@ -26,11 +27,15 @@ import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 const compareFaqs = [
   {
     q: 'Which AI voice agent platform is best in India?',
-    a: 'It depends on what you are optimising for, and the honest answer is that no single platform wins every case. For raw voice quality, ElevenLabs leads. For enterprise certification and air-gapped deployment, Gnani. For contact-centre-scale outbound, SquadStack. For the largest developer ecosystem, Vapi. Decibyl is built for teams that need Indian languages with code-mixed speech as the default, Indian telephony and DIDs, INR billing with a GST invoice, and data resident in Mumbai — and want to see the model economics rather than a blended rate.',
+    a: 'It depends on what you are optimising for, and the honest answer is that no single platform wins every case. For raw voice quality, ElevenLabs leads. For enterprise certification and air-gapped deployment, Gnani. For contact-centre-scale outbound, SquadStack. For the largest developer ecosystem, Vapi. For carrier-grade Indian telephony underneath the agent, Exotel. For a simple call-management subscription at a small business, MyOperator. For omnichannel chat, email and voice across a large enterprise, Yellow.ai. Decibyl is built for teams that need Indian languages with code-mixed speech as the default, Indian telephony and DIDs, INR billing with a GST invoice, and data resident in Mumbai — and want to see the model economics rather than a blended rate.',
   },
   {
     q: 'What is the best Vapi alternative for Indian companies?',
     a: 'Vapi is strong and well-supported, but it bills in USD without a GST invoice, runs in US and EU regions, and reaches Indian phone numbers through Twilio or Vonage with your own KYC. For an Indian team those three are usually the blockers rather than the voice quality. Decibyl, Bolna and Gnani are all India-built alternatives; which fits depends on whether you need self-serve speed, transparent economics, or enterprise certification.',
+  },
+  {
+    q: 'What is the difference between a voicebot, an AI calling agent and an AI voice agent?',
+    a: 'In practice Indian buyers use all three for the same thing, and vendors are not consistent either. The distinction worth caring about is architectural, not linguistic. An older voicebot or IVR bot sits in front of a menu and routes the caller to a human or a recorded branch. A voice-native AI calling agent handles the conversation end to end — it interrupts, gets interrupted, switches between Hindi and English mid-sentence, and finishes the task on the call. If you are comparing vendors, ask which of those two you are being sold, because a voicebot add-on to a telephony plan and a voice-native agent are priced similarly and behave very differently.',
   },
   {
     q: 'Why do these comparisons name things competitors do better?',
@@ -44,18 +49,22 @@ const compareFaqs = [
 
 export const metadata: Metadata = pageMetadata({
   title: 'Best AI Voice Agent Platforms in India — Compared',
-  description:
-    'An honest side-by-side of six voice AI platforms serving India: Vapi, Bolna, Retell, SquadStack, ElevenLabs and Gnani. Who each is genuinely best for, what they charge, and where Decibyl fits.',
+  description: `An honest side-by-side of ${competitors.length} voice AI platforms, voicebots and AI calling agents serving India — who each is genuinely best for, and where Decibyl fits.`,
   path: '/compare',
   keywords: [
     'best AI voice agent India',
+    'best AI voice agent for business',
     'voice AI platform comparison India',
+    'AI calling agent India',
+    'voicebot India comparison',
     'Vapi alternative India',
     'Bolna vs Decibyl',
+    'Exotel alternative AI voice agent',
+    'MyOperator AI voicebot alternative',
     'AI calling platform India comparison',
   ],
   ogTitle: 'Voice AI platforms in India, compared',
-  ogSubtitle: 'Six platforms, what each is best for, and where we fit',
+  ogSubtitle: 'Every major platform, what each is best for, and where we fit',
 });
 
 export default function CompareHub() {
@@ -82,14 +91,14 @@ export default function CompareHub() {
               Voice AI platforms serving India, compared honestly
             </h1>
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
-              Six platforms, including three we would recommend over ourselves in specific cases.
-              Each row says who that platform is genuinely best for. Every competitor figure was
-              read on their own published pricing page, with the date it was read, and we correct
-              anything that goes stale.
+              {competitors.length} platforms, including several we would recommend over ourselves
+              in specific cases. Each row says who that platform is genuinely best for. Every
+              competitor figure was read on their own published pricing page, with the date it was
+              read, and we correct anything that goes stale.
             </p>
             <p className="t-caption mt-4 text-iron">
-              We are one of the seven. Judge the page by whether the other six are described
-              fairly.
+              We are one of the {competitors.length + 1}. Judge the page by whether the other{' '}
+              {competitors.length} are described fairly.
             </p>
           </div>
         </Container>
@@ -202,7 +211,7 @@ export default function CompareHub() {
       <Section surface="white" ariaLabel="Where we win">
         <SectionHead
           eyebrow="Where we win"
-          title="What the other six do not combine"
+          title={`What the other ${competitors.length} do not combine`}
           sub="Any one of these exists elsewhere. The combination is the reason to look at us."
         />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -243,6 +252,9 @@ export default function CompareHub() {
         </div>
       </Section>
 
+      <Container>
+        <RelatedPosts path="/compare" />
+      </Container>
       <FinalCta
         title="Compare us on a real call, not a table."
         sub="Book a demo and we'll call you back with a live agent, in the language you pick."

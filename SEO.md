@@ -8,6 +8,10 @@ after, when the graph is flat and it feels like nothing is working.
 Read the second half before you start the first. The setup is thirty minutes of clicking.
 The rest is the job.
 
+The target list itself — which keyword owns which URL, the vocabulary audit, and the
+research behind both — lives in `KEYWORDS.md`. This file is *how* to work; that one is
+*what* to aim at.
+
 ---
 
 ## Part 0 · What is already done
@@ -18,7 +22,7 @@ Do not redo these. They are in the repo and they ship on every deploy.
 |---|---|---|
 | Canonical tag on every page | `lib/seo.tsx` → `pageMetadata` | ✅ absolute, always `decibyl.ai` |
 | Preview deploys blocked from the index | `app/robots.ts` + `isProductionSite` | ✅ `Disallow: /` on every `.vercel.app` |
-| `sitemap.xml` | `app/sitemap.ts` | ✅ 57 URLs, real edit dates from `npm run dates` |
+| `sitemap.xml` | `app/sitemap.ts` | ✅ 64 URLs as of 3 Sep 2026, real edit dates from `npm run dates` |
 | `robots.txt` with sitemap + host | `app/robots.ts` | ✅ |
 | Organization / WebSite / SoftwareApplication schema | `lib/seo.tsx`, emitted site-wide | ✅ one entity, stable `@id` |
 | BreadcrumbList | 25 pages | ✅ |
@@ -77,8 +81,11 @@ instantly off the meta tag that is already deployed. Two properties, zero extra 
 
 **Indexing → Sitemaps → Add a new sitemap →** `sitemap.xml` → Submit.
 
-Then check it says **Success** and **57 discovered URLs**. If it says 0, the deploy hasn't
-propagated yet; re-check in an hour rather than resubmitting.
+Then check it says **Success** and a URL count matching the live sitemap — 64 as of
+3 Sep 2026, and it grows whenever a competitor, vertical or post is added, so read the
+current number off `curl -s https://decibyl.ai/sitemap.xml | grep -c "<loc>"` rather than
+trusting this line. If it says 0, the deploy hasn't propagated yet; re-check in an hour
+rather than resubmitting.
 
 Do not submit `/feed.xml` here. It is for feed readers, not for Google.
 
@@ -98,8 +105,8 @@ daily quota, so spend it on the pages that carry revenue intent, in this order:
 9. `/blog/dpdp-act-ai-voice-calls-guide`
 10. `/how-it-works`
 
-The other 47 URLs come in through the sitemap over the following two to six weeks. Do not
-request indexing on all 57 — it does not speed anything up, and burning the quota on
+The rest come in through the sitemap over the following two to six weeks. Do not request
+indexing on all of them — it does not speed anything up, and burning the quota on
 `/legal/refund` is a waste of the one manual lever you have.
 
 ### 5 · Set the settings that people forget
@@ -121,7 +128,7 @@ you nothing.
 
 ```bash
 curl -s https://decibyl.ai/robots.txt
-curl -s https://decibyl.ai/sitemap.xml | grep -c "<loc>"       # expect 57
+curl -s https://decibyl.ai/sitemap.xml | grep -c "<loc>"       # expect 64 (3 Sep 2026)
 curl -s https://decibyl.ai/feed.xml   | grep -c "<item>"       # expect 8
 curl -sI https://decibyl.ai/api/og?title=test | head -1        # expect 200
 curl -s https://decibyl.ai/ | grep -o '<link rel="canonical"[^>]*>'
@@ -329,10 +336,17 @@ things that were working.
 - **Do not expect FAQ rich results.** Google restricted FAQ rich results to
   well-known authoritative sites in 2023. Keep the `FAQPage` schema — it still helps
   parsing and answer engines — but do not treat missing FAQ stars as a bug to fix.
-- **Do not chase "AI voice agent" as a head term.** It is a two-year fight against funded
-  incumbents. The winnable set is specific: *"AI receptionist for dental clinic Bangalore"*,
-  *"Bolna vs Vapi pricing India"*, *"is AI calling legal under DPDP"*. Win five hundred of
-  those and the head term follows. It does not work in the other direction.
+- **Do not chase "AI voice agent" from the product pages.** It is a two-year fight against
+  funded incumbents, and — confirmed against live SERPs on 3 Sep 2026 — it is also the
+  wrong content type. Every page-one result for the head terms is a vendor listicle
+  ("Best AI Voice Agents in India 2026"), not a product page, so `/` and `/voice-ai` cannot
+  match the intent however they are written. `/compare` is the only page on this site
+  shaped for those queries and it is the only one that should target them; see
+  `KEYWORDS.md` Part 0. Everything else aims at the specific set: *"AI receptionist for
+  dental clinic Bangalore"*, *"Bolna vs Vapi pricing India"*, *"is AI calling legal under
+  DPDP"*. Win five hundred of those and the head term follows. It does not work in the
+  other direction — and the fastest route to the head-term SERP is not outranking those
+  listicles but getting named inside them, which is outreach, not engineering.
 - **Do not add a `www` redirect chain, a second domain, or a `/in/` locale prefix.** Every
   one of those splits the signal that this site currently has all in one place.
 - **Do not delete or rename a URL that has impressions.** If a page must move, 301 it. A

@@ -268,7 +268,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'starter',
     siblings: ['d2c-ndr-recovery', 'education'],
     seo: {
-      title: 'AI Voice Agents for Clinics in India | AI Receptionist',
+      title: 'AI Voice Agents for Clinics in India',
       description:
         'An AI receptionist that answers every clinic call in Tamil, Hindi, Kannada and English, books into your calendar, and calls back no-shows.',
       keywords: [
@@ -837,7 +837,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['d2c-ndr-recovery', 'real-estate'],
     seo: {
-      title: 'AI Voice Agents for EMI Reminders & Collections, India',
+      title: 'AI Voice Agents for EMI Reminders & Collections',
       description:
         'On-script EMI reminder and soft-recovery calls, recorded and QA-scored on 100% of calls, with human transfer on any dispute or hardship.',
       keywords: [
@@ -944,7 +944,7 @@ export const verticals: Vertical[] = [
     recommendedTier: 'growth',
     siblings: ['d2c-ndr-recovery', 'real-estate'],
     seo: {
-      title: 'AI Voice Agents for Logistics & Delivery Calls, India',
+      title: 'AI Voice Agents for Logistics & Delivery',
       description:
         'Automated NDR and reattempt confirmation calls for 3PLs and couriers — address correction, COD confirmation, and a recording on every call.',
       keywords: [

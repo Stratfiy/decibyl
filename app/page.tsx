@@ -20,16 +20,21 @@ import { site } from '@/lib/site';
 export const metadata: Metadata = pageMetadata({
   title: 'AI Voice Agents for Indian Businesses',
   description:
-    'AI voice agents for Indian businesses: automate sales calls, lead qualification, customer support, appointment booking and reminders in Hindi, Tamil, English and more.',
+    'AI voice agents for Indian businesses — an AI calling agent that runs sales, support, appointment booking and reminder calls in Hindi, Tamil, English and more.',
   path: '/',
   keywords: [
     'AI voice agents for business',
     'AI voice agents India',
+    'voice agent for business',
+    'Indian voice agent',
     'voice AI agent India',
+    'AI calling agent India',
     'AI calling software India',
+    'voicebot India',
     'AI receptionist India',
     'voice AI platform India',
     'Hindi voice AI agent',
+    'telecalling automation India',
   ],
   ogTitle: 'The AI voice worker that answers your phone',
   ogSubtitle: 'It calls, confirms, and closes — in the language your customer speaks.',

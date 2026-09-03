@@ -5,9 +5,10 @@ import { IntegrationsDeck } from '@/components/marketing/Integrations';
 import { LanguageChips } from '@/components/marketing/Languages';
 import { MeshBackground } from '@/components/ui/MeshBackground';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
+import { RelatedPosts } from '@/components/marketing/RelatedPosts';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'How the AI Voice Worker Works — Setup, Numbers, Outcomes',
+  title: 'How the AI Voice Worker Works — Setup & Numbers',
   description:
     'Describe the agent, connect a number, and calls run with transcripts, recordings, QA scores and outcomes written back. Forwarding, not porting.',
   path: '/how-it-works',
@@ -100,6 +101,9 @@ export default function HowItWorksPage() {
         <IndianOps />
       </Section>
 
+      <Container>
+        <RelatedPosts path="/how-it-works" />
+      </Container>
       <FinalCta />
 
       <JsonLd

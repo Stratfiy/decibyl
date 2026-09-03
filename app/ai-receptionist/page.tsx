@@ -24,6 +24,8 @@ export const metadata: Metadata = pageMetadata({
     'AI phone answering India',
     'AI call answering service India',
     'virtual receptionist India',
+    'AI voice agent for small business',
+    'inbound voicebot India',
     'AI appointment booking agent India',
   ],
   ogTitle: 'An AI receptionist that speaks your caller’s language',

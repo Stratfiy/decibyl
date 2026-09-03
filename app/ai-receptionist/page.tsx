@@ -5,6 +5,7 @@ import { FinalCta } from '@/components/marketing/Blocks';
 import { cities, cityLanguages } from '@/data/cities';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
+import { RelatedPosts } from '@/components/marketing/RelatedPosts';
 
 /**
  * The parent for `/ai-receptionist/[city]`.
@@ -97,6 +98,9 @@ export default function ReceptionistHub() {
         </p>
       </Section>
 
+      <Container>
+        <RelatedPosts path="/ai-receptionist" />
+      </Container>
       <FinalCta
         title="Give it your hardest caller."
         sub="Book a demo and we'll call you back with a live agent, in the language you pick."

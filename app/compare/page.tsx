@@ -7,6 +7,7 @@ import { competitors } from '@/data/competitors';
 import { formatInr, tiers } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
+import { RelatedPosts } from '@/components/marketing/RelatedPosts';
 
 /**
  * The hub above the /compare/[competitor] pages.
@@ -251,6 +252,9 @@ export default function CompareHub() {
         </div>
       </Section>
 
+      <Container>
+        <RelatedPosts path="/compare" />
+      </Container>
       <FinalCta
         title="Compare us on a real call, not a table."
         sub="Book a demo and we'll call you back with a live agent, in the language you pick."

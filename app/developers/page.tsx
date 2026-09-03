@@ -10,7 +10,7 @@ import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Developers — MCP-Native Voice Agents, $0.02/min Platform Fee',
   description:
-    'Define and change voice agents from Claude Code over MCP. Choose your own STT, LLM and TTS vendors on the Advanced tab, on our provider keys, with every component itemised on each call receipt — over the lowest published platform fee in voice AI.',
+    'Define and change voice agents from Claude Code over MCP. Choose your own STT, LLM and TTS on our provider keys, itemised on every call receipt.',
   path: '/developers',
   keywords: [
     'MCP voice agent building',

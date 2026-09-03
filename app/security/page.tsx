@@ -5,6 +5,7 @@ import { FinalCta } from '@/components/marketing/Blocks';
 import { MeshBackground } from '@/components/ui/MeshBackground';
 import { pillars, notCertified } from '@/data/security';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
+import { RelatedPosts } from '@/components/marketing/RelatedPosts';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Security & Trust',
@@ -91,6 +92,9 @@ export default function SecurityPage() {
         </ul>
       </Section>
 
+      <Container>
+        <RelatedPosts path="/security" />
+      </Container>
       <FinalCta
         title="Security team has more questions?"
         sub="Ask for the DPA before you sign, not after. We'll send it directly."

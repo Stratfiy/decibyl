@@ -141,8 +141,18 @@ async function main() {
       const text = visibleText(html);
       return {
         route,
-        title: pick(html, /<title[^>]*>([^<]*)<\/title>/i),
-        description: pick(html, /<meta name="description" content="([^"]*)"/i),
+        // Decoded before measuring: the attribute in the HTML is escaped, so a
+        // description containing a pair of quotes reads ten characters longer
+        // than the string Google actually receives and gets flagged for a
+        // length it does not have.
+        title: (() => {
+          const raw = pick(html, /<title[^>]*>([^<]*)<\/title>/i);
+          return raw === null ? null : decode(raw).trim();
+        })(),
+        description: (() => {
+          const raw = pick(html, /<meta name="description" content="([^"]*)"/i);
+          return raw === null ? null : decode(raw);
+        })(),
         canonical: pick(html, /<link rel="canonical" href="([^"]*)"/i),
         h1: pick(html, /<h1[^>]*>([\s\S]*?)<\/h1>/i)?.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim(),
         words: text.split(' ').length,

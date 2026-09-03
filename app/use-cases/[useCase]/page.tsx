@@ -7,6 +7,7 @@ import { FaqList } from '@/components/marketing/Faq';
 import { FinalCta } from '@/components/marketing/Blocks';
 import { getUseCase, useCases } from '@/data/useCases';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
+import { RelatedPosts } from '@/components/marketing/RelatedPosts';
 
 export const dynamicParams = false;
 
@@ -65,6 +66,9 @@ export default async function UseCasePage({ params }: { params: Promise<{ useCas
       </Section>
 
       <Section surface="white" ariaLabel="Questions"><SectionHead title="Questions teams ask before deployment" /><div className="mt-8"><FaqList faqs={item.faqs} /></div></Section>
+      <Container>
+        <RelatedPosts path={`/use-cases/${item.slug}`} />
+      </Container>
       <FinalCta title="Test the workflow with a live call." sub="Bring the trigger, questions, transfer rule and outcome you need. We’ll show how the call reaches the next action." primary={{ label: 'Book a workflow demo', href: `/book-a-demo?useCase=${item.slug}` }} />
       <JsonLd data={[breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Use cases', path: '/use-cases' }, { name: item.name, path: `/use-cases/${item.slug}` }]), faqSchema(item.faqs)]} />
     </>

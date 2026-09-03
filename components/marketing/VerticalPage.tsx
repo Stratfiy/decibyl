@@ -6,6 +6,7 @@ import { LossCalculator } from './LossCalculator';
 import { FaqList } from './Faq';
 import { FinalCta, HowItWorks } from './Blocks';
 import { MeshBackground } from '@/components/ui/MeshBackground';
+import { RelatedPosts } from './RelatedPosts';
 import { findAnyVertical, verticalHref, type Vertical } from '@/data/verticals';
 import { includedCallingLabel, tiers, tierPrice } from '@/data/pricing';
 
@@ -211,6 +212,9 @@ export function VerticalPage({ vertical }: { vertical: Vertical }) {
       </Section>
 
       {/* 10 · CTA, vertical pre-filled */}
+      <Container>
+        <RelatedPosts path={verticalHref(vertical)} />
+      </Container>
       <FinalCta
         title={`Book a demo. We’ll call you back with a live agent.`}
         sub="Pick the language. You’ll hear exactly what your customers would hear."

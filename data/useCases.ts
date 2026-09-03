@@ -41,7 +41,7 @@ export const useCases: UseCase[] = [
       { q: 'Can qualified prospects transfer immediately?', a: 'Yes. Live transfer can be configured by outcome, team availability, language, territory or other approved routing rules.' },
       { q: 'Is this an AI cold-calling dialler?', a: 'It supports approved outbound workflows, but the business must follow applicable consent, DND, telemarketing, time-window and opt-out requirements.' },
     ],
-    seo: { title: 'Outbound AI Calling Agent for Sales & Lead Qualification', description: 'Qualify leads by phone, capture structured answers, book meetings and transfer high-intent prospects with a multilingual outbound AI calling agent for India.', keywords: ['outbound AI calling agent', 'AI lead qualification agent', 'AI sales calling agent India', 'automated lead calling', 'speed to lead AI'] },
+    seo: { title: 'Outbound AI Calling Agent for Sales', description: 'Qualify leads by phone, capture structured answers, book meetings and transfer high-intent prospects with a multilingual outbound AI calling agent for India.', keywords: ['outbound AI calling agent', 'AI lead qualification agent', 'AI sales calling agent India', 'automated lead calling', 'speed to lead AI'] },
   },
   {
     slug: 'customer-support',
@@ -72,7 +72,7 @@ export const useCases: UseCase[] = [
       { q: 'Can it work after business hours?', a: 'Yes. You decide which requests can be completed after hours and which should create a priority callback.' },
       { q: 'How do we investigate a wrong answer?', a: 'Calls are recorded and transcribed, and QA makes failures traceable to the answer, source, model or workflow rule.' },
     ],
-    seo: { title: 'AI Voice Agent for Customer Support & Inbound Calls', description: 'Use a multilingual AI voice agent to answer customer-support calls, resolve routine requests, create tickets and transfer complex cases with context.', keywords: ['AI customer support voice agent', 'inbound AI voice agent', 'AI call center automation India', 'customer service voice bot', 'AI phone support'] },
+    seo: { title: 'AI Voice Agent for Customer Support Calls', description: 'Use a multilingual AI voice agent to answer customer-support calls, resolve routine requests, create tickets and transfer complex cases with context.', keywords: ['AI customer support voice agent', 'inbound AI voice agent', 'AI call center automation India', 'customer service voice bot', 'AI phone support'] },
   },
   {
     slug: 'follow-up-reminder-calls',
@@ -103,7 +103,7 @@ export const useCases: UseCase[] = [
       { q: 'How are unanswered calls retried?', a: 'You define retry count, spacing, calling windows, suppression rules and escalation. The agent does not improvise repeated contact.' },
       { q: 'Can one workflow use Hindi, Tamil and English?', a: 'Yes. Supported languages and code-mixed registers can share the workflow while producing the same structured outcome fields.' },
     ],
-    seo: { title: 'AI Voice Agent for Follow-Up, Confirmation & Reminder Calls', description: 'Automate multilingual follow-up, confirmation and reminder calls for appointments, leads, deliveries and payments with structured outcomes and retries.', keywords: ['AI follow up calls', 'AI reminder calls', 'automated confirmation calls', 'voice agent for follow up', 'appointment reminder AI'] },
+    seo: { title: 'AI Voice Agent for Follow-Up & Reminder Calls', description: 'Automate multilingual follow-up, confirmation and reminder calls for appointments, leads, deliveries and payments with structured outcomes and retries.', keywords: ['AI follow up calls', 'AI reminder calls', 'automated confirmation calls', 'voice agent for follow up', 'appointment reminder AI'] },
   },
 ];
 

@@ -9,7 +9,7 @@ import { JsonLd, articleSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo
 const meta = getBlogPost('concurrent-calls-explained')!;
 
 export const metadata: Metadata = pageMetadata({
-  title: meta.title,
+  title: meta.seoTitle ?? meta.title,
   description: meta.description,
   path: `/blog/${meta.slug}`,
   keywords: [

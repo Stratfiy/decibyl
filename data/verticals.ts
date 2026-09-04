@@ -41,7 +41,7 @@ export type Vertical = {
 const sharedVisibility = [
   'Full transcript of every call, searchable',
   'Recording of every call',
-  'A QA score on 100% of calls — not a 2% sample',
+  'QA scoring you can run on every call — not a 2% sample',
   'Outcome written back to your system via webhook or integration',
 ];
 
@@ -814,7 +814,7 @@ export const verticals: Vertical[] = [
     objections: [
       {
         q: 'Is this compliant with RBI’s conduct expectations on recovery calls?',
-        a: 'The controls you need are the ones the agent gives you by construction: a fixed approved script, disclosure at the start, calls only in permitted hours, no third-party contact, no pressure tactics, immediate transfer on distress, and a recording plus QA score for 100% of calls. Your compliance team sets the script and hours; we enforce them. We are not a law firm and this is not legal advice.',
+        a: 'The controls you need are the ones the agent gives you by construction: a fixed approved script, disclosure at the start, calls only in permitted hours, no third-party contact, no pressure tactics, immediate transfer on distress, and a recording of every call plus QA scoring you can run on all of them. Your compliance team sets the script and hours; we enforce them. We are not a law firm and this is not legal advice.',
       },
       {
         q: 'What if the borrower disputes the amount?',
@@ -826,7 +826,7 @@ export const verticals: Vertical[] = [
       },
       {
         q: 'Can we hear the calls?',
-        a: 'All of them. Full recordings, full transcripts, and a QA score on every call — which is a stronger audit position than sampled human QA.',
+        a: 'All of them. Full recordings and full transcripts on every call, and QA scoring you can run on every one — which is a stronger audit position than sampled human QA.',
       },
       {
         q: 'Can it call in the borrower’s language?',
@@ -839,7 +839,7 @@ export const verticals: Vertical[] = [
     seo: {
       title: 'AI Voice Agents for EMI Reminders & Collections, India',
       description:
-        'On-script EMI reminder and soft-recovery calls, recorded and QA-scored on 100% of calls, with human transfer on any dispute or hardship.',
+        'On-script EMI reminder and soft-recovery calls, recorded and transcribed in full with QA scoring available on every call, and human transfer on any dispute or hardship.',
       keywords: [
         'AI voice agent for lending collections India',
         'EMI reminder calls automation',
@@ -937,7 +937,7 @@ export const verticals: Vertical[] = [
       },
       {
         q: 'Can clients hear the calls?',
-        a: 'Yes — recording, transcript, and QA score on every call. That is usually the reason operators buy it: it settles the fake-NDR argument with evidence.',
+        a: 'Yes — recording and transcript on every call, and QA scoring you can run on all of them. That is usually the reason operators buy it: it settles the fake-NDR argument with evidence.',
       },
     ],
     visibility: sharedVisibility,

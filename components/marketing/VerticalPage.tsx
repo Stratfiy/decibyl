@@ -177,7 +177,7 @@ export function VerticalPage({ vertical }: { vertical: Vertical }) {
               <p className="mt-3 text-slate">
                 {includedCallingLabel(tier)}, {tier.phoneNumbers.toLowerCase()}, telephony
                 included, all Indian languages, and{' '}
-                {tier.qaScoring === 'full' ? 'QA on 100% of calls' : 'quality-sampled QA'}.
+                {tier.qaScoring === 'full' ? 'QA available on every call' : 'quality-sampled QA'}.
                 Exclusive of 18% GST.
               </p>
             </div>

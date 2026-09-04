@@ -65,7 +65,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     },
     {
       q: 'Where is the call data stored?',
-      a: `In India by default — AWS Mumbai, ap-south-1 — with US and EU infrastructure available for teams serving customers outside India. Every call is transcribed, recorded and QA-scored. Decibyl is not ISO 27001, SOC 2 or HIPAA certified, and says so plainly on its security page.`,
+      a: `In India by default — AWS Mumbai, ap-south-1 — with US and EU infrastructure available for teams serving customers outside India. Every call is transcribed and recorded, and QA scoring can be run on all of them. Decibyl is not ISO 27001, SOC 2 or HIPAA certified, and says so plainly on its security page.`,
     },
   ];
 

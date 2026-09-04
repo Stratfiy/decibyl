@@ -31,7 +31,7 @@ const rows: { label: string; value: (t: Tier) => string }[] = [
   { label: 'Models', value: (t) => t.models },
   { label: 'Concurrent calls', value: (t) => t.concurrentCalls },
   { label: 'Outbound campaigns', value: (t) => (t.campaigns ? '✓' : '—') },
-  { label: 'QA scoring', value: (t) => (t.qaScoring === 'full' ? '100% of calls' : 'Sampled') },
+  { label: 'QA scoring', value: (t) => (t.qaScoring === 'full' ? 'Every call' : 'Sampled') },
   {
     label: 'CRM write-back',
     value: (t) => (t.crmWriteback === 'configured' ? 'Configured for you' : 'Webhook'),

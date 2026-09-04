@@ -179,7 +179,7 @@ export function PricingPreview() {
               <li>{includedCallingLabel(tier)}</li>
               <li>{tier.phoneNumbers} · telephony included</li>
               <li>All Indian languages · {tier.concurrentCalls} concurrent calls</li>
-              <li>{tier.qaScoring === 'full' ? 'QA scoring on 100% of calls' : 'Quality-sampled QA'}</li>
+              <li>{tier.qaScoring === 'full' ? 'QA scoring available on every call' : 'Quality-sampled QA'}</li>
             </ul>
           </Reveal>
         ))}

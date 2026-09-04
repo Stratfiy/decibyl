@@ -144,7 +144,7 @@ export const competitors: Competitor[] = [
         body: 'Build and modify agents from Claude Code. As far as we know we are the first voice agent platform in India to work this way.',
       },
       {
-        title: 'QA on 100% of calls',
+        title: 'QA scoring on every call',
         body: 'Every call scored, not a 2% sample, from Growth tier up. In regulated verticals this is the difference between an audit position and an anecdote.',
       },
       {
@@ -168,7 +168,7 @@ export const competitors: Competitor[] = [
     seo: {
       title: 'Bolna Alternative — Honest Comparison',
       description:
-        'Decibyl vs Bolna for Indian teams: pricing transparency, MCP-native agent building, QA on 100% of calls, and where Bolna is genuinely stronger.',
+        'Decibyl vs Bolna for Indian teams: pricing transparency, MCP-native agent building, QA scoring on every call, and where Bolna is genuinely stronger.',
       keywords: ['Bolna alternative', 'Bolna vs Decibyl', 'Indian voice AI platform comparison'],
     },
   },

@@ -155,6 +155,19 @@ export const site = {
     signup: 'https://app.decibyl.ai/auth/signup',
     login: 'https://app.decibyl.ai/auth/login',
     docs: 'https://docs.decibyl.ai',
+    /**
+     * Two support communities, because the audiences do not overlap. The buyer
+     * this site is written for -- a clinic owner, a dealership -- is on
+     * WhatsApp and will not open a Slack account to ask why a call dropped.
+     * Somebody wiring up the API is already in Slack. Each is the wrong answer
+     * for the other, so both are listed and neither is called the main one.
+     *
+     * Invite links can be revoked. If one stops working it changes here, and
+     * the console reads the same pair from ui/src/constants/community.ts.
+     */
+    whatsapp: 'https://chat.whatsapp.com/Ebd9nygrUZg37RVqgjnOYA',
+    slack:
+      'https://join.slack.com/t/decibyl/shared_invite/zt-48zc1yr9x-au6xUu7i6nl23l7XSjtgKg',
   },
 
   /**

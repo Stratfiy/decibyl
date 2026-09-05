@@ -8,7 +8,7 @@ import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Developers — MCP-Native Voice Agents, $0.02/min Platform Fee',
+  title: 'Developers — MCP-Native Voice Agents, $0.02/min',
   description:
     'Define and change voice agents from Claude Code over MCP. Choose your own STT, LLM and TTS on our provider keys, itemised on every call receipt.',
   path: '/developers',

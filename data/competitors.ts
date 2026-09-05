@@ -476,8 +476,7 @@ export const competitors: Competitor[] = [
       billing: 'INR with GST invoicing',
       residency: 'India',
       mcp: 'No',
-      byok: 'Not published',
-      markup: 'Bundled into plan and per-minute telephony rates',
+      costModel: 'Bundled into plan and per-minute telephony rates',
       onboarding: 'Sales-led for AI; telephony self-serve on published plans',
     }),
     verdict:
@@ -542,8 +541,7 @@ export const competitors: Competitor[] = [
       billing: 'INR with GST invoicing',
       residency: 'India',
       mcp: 'No',
-      byok: 'No',
-      markup: 'Bundled into plan and add-on pricing',
+      costModel: 'Bundled into plan and add-on pricing',
       onboarding: 'Self-serve telephony; AI add-on sales-led',
     }),
     verdict:
@@ -608,8 +606,7 @@ export const competitors: Competitor[] = [
       billing: 'Custom enterprise pricing; GST invoicing not published',
       residency: 'Enterprise-configured',
       mcp: 'No',
-      byok: 'Not published',
-      markup: 'Custom quote — platform fee, conversation charges and services not itemised publicly',
+      costModel: 'Custom quote — platform fee, conversation charges and services not itemised publicly',
       onboarding: 'Enterprise sales and implementation cycle',
     }),
     verdict:

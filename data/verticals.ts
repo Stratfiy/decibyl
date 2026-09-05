@@ -839,7 +839,7 @@ export const verticals: Vertical[] = [
     seo: {
       title: 'AI Voice Agents for EMI Reminders & Collections',
       description:
-        'On-script EMI reminder and soft-recovery calls, recorded and transcribed in full with QA scoring available on every call, and human transfer on any dispute or hardship.',
+        'On-script EMI reminder and soft-recovery calls, recorded and transcribed in full, with QA scoring available and human transfer on any dispute or hardship.',
       keywords: [
         'AI voice agent for lending collections India',
         'EMI reminder calls automation',

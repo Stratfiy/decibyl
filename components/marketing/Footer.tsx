@@ -103,6 +103,22 @@ export function Footer() {
             >
               Docs
             </a>
+            <a
+              href={site.external.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block py-1 text-[0.9375rem] transition-colors hover:text-white"
+            >
+              WhatsApp community
+            </a>
+            <a
+              href={site.external.slack}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block py-1 text-[0.9375rem] transition-colors hover:text-white"
+            >
+              Slack community
+            </a>
           </FooterCol>
 
           <FooterCol title="Compare & legal">

@@ -6,6 +6,72 @@ things here should block a public one.
 
 ---
 
+## The widget now has a post-call card, and ours is not set up, 06 Sep 2026
+
+The embedded voice widget can show a card when a call ends — headline, message
+and a button — configured per agent in the console under **Deploy → Web
+widget → Show something after the call**. It shipped in `echowave-redesign` on
+`claude/decybil-voice-agent-platform-eoe6i0`.
+
+**This site needs no code change to use it.** The widget reads its settings
+from the token's config on the server, deliberately: the widget's own note
+says a data attribute would be a second way to configure the same widget. So
+the script tag in `app/layout.tsx` is already correct and the card appears the
+moment somebody sets it on our token.
+
+**What to set on our own embed token:**
+
+| Field | Value |
+|---|---|
+| Headline | `Want one of these on your site?` |
+| Message | `That was a Decibyl agent. Build your own in a couple of minutes.` |
+| Button text | `Start free` |
+| Button link | `https://app.decibyl.ai/auth/signup` |
+| Only after a call lasting at least | `15` seconds |
+
+The link is spelled out for the reason `lib/site.ts` records: `/signup` 307s to
+`/auth/login`, so the obvious guess lands a new visitor on a login form asking
+for a password they have never set. `/auth/signup` is the only path that serves
+the signup form.
+
+Fifteen seconds rather than the ten-second default because this site's visitor
+is being sold to rather than served — somebody who opened the widget out of
+curiosity and closed it after a sentence is not a lead, and a pitch at that
+moment is a popup on our own homepage.
+
+**Until somebody sets it, nothing appears.** That is the correct behaviour and
+not a bug: the card is off unless configured, so no existing embed — ours or a
+customer's — changes on its own.
+
+---
+
+## The widget token is still committed, 06 Sep 2026
+
+`app/layout.tsx` carries the live embed token inline. PR #17 moves it to
+`NEXT_PUBLIC_DECIBYL_WIDGET_TOKEN` and is written correctly, including the
+part most people get wrong: it does **not** claim the move makes the token
+secret. An embed token is handed to every visitor's browser by design. What
+the move buys is rotation without a deploy, and keeping it out of a public
+repository's history.
+
+Two things about it:
+
+- **It is blocked on the environment variable.** The PR renders no widget at
+  all when the variable is unset — deliberately, because a dead microphone is
+  worse than no microphone. So the variable has to exist in Vercel *before*
+  it merges, or the widget silently disappears from production.
+- **Its base is stale.** It was opened against a `main` that is now 17 commits
+  behind, and it carries two unrelated fixes (`overflow-x: clip` on body, and
+  the wrapping case-studies button) that may already have landed since. Worth
+  a rebase before merging rather than a blind merge.
+
+The security rationale in the PR's own comment is already satisfied: the build
+order records the embed leak as closed and verified against live production —
+`decibyl.ai` 200, every other origin 403. So this is housekeeping, which is
+what the PR calls it.
+
+---
+
 ## A third-party trademark is baked into a Scene 2 render, 31 Aug 2026
 
 `public/media/scene-two/decibyl-business-selector.png` — the Kie plate that ran

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { HomeHero } from '@/components/marketing/HomeHero';
-import { LiveTranscript } from '@/components/marketing/LiveTranscript';
+import { UseCaseCallStack } from '@/components/marketing/UseCaseCallStack';
 import { SlideDeck, type DeckItem } from '@/components/marketing/SlideDeck';
 import { LossCalculator } from '@/components/marketing/LossCalculator';
 import { LanguageChips } from '@/components/marketing/Languages';
@@ -61,7 +61,7 @@ const painPoints = [
 ];
 
 export default function HomePage() {
-  const ndr = getVertical('d2c-ndr-recovery')!;
+
 
   const useCaseCards: DeckItem[] = homepageDeckOrder.map((slug) => {
     const v = verticals.find((x) => x.slug === slug && !x.parent)!;
@@ -89,38 +89,16 @@ export default function HomePage() {
     <>
       <HomeHero />
 
-      <section
-        aria-label="Sample call"
-        className="scroll-mt-24 bg-canvas pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pb-24"
-      >
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-            <div>
-              <p className="t-eyebrow text-sindoor">A real call, start to finish</p>
-              <h2 className="t-h2 mt-4 text-balance">
-                This is what one recovered order sounds like.
-              </h2>
-              <p className="t-body-lg mt-4 text-slate text-pretty">
-                A courier marked the delivery failed. The agent called the buyer in the register
-                she actually speaks, confirmed she’d be home, confirmed the cash amount, and booked
-                the reattempt. Forty-one seconds.
-              </p>
-              <p className="mt-4 text-slate">
-                The outcome chip at the end is the point. Not that it can talk — that something
-                happened.
-              </p>
-            </div>
-            <LiveTranscript
-              lines={ndr.sampleCall.lines}
-              outcome={ndr.sampleCall.outcome}
-              money="₹1,840 recovered"
-              qaScore={ndr.sampleCall.qaScore}
-              duration={ndr.sampleCall.duration}
-              language={ndr.sampleCall.language}
-            />
-          </div>
-        </Container>
-      </section>
+      <UseCaseCallStack examples={[
+        ['d2c-ndr-recovery', 'Order recovery', 'One call. A second chance to deliver.', 'Confirm the buyer’s availability, clarify COD details and arrange a delivery reattempt.'],
+        ['clinics', 'Appointments', 'A booked appointment, without the hold music.', 'Answer patient enquiries, find an appointment slot and send the confirmation.'],
+        ['real-estate', 'Lead qualification', 'From a new enquiry to a site visit.', 'Understand the buyer’s requirements, qualify their budget and book the next conversation.'],
+        ['logistics', 'Delivery support', 'Get the details right. Get the delivery moving.', 'Resolve address questions and confirm the next delivery window with the customer.'],
+        ['education', 'Admissions', 'Help the next student take the next step.', 'Answer course enquiries and book a counselling call with your admissions team.'],
+      ].map(([slug,label,title,description]) => {
+        const vertical = getVertical(slug)!;
+        return { id: slug, label, title, description, href: verticalHref(vertical), call: vertical.sampleCall };
+      })} />
 
       {/* Pain points */}
       <Section surface="canvas" ariaLabel="The problem">

@@ -26,7 +26,7 @@ export function Section({
   id,
   ariaLabel,
 }: SectionProps) {
-  const bg = surface === 'white' ? 'bg-snow' : surface === 'canvas' ? 'bg-canvas' : '';
+  const bg = surface === 'white' ? 'bg-fog' : surface === 'canvas' ? 'bg-canvas' : '';
   return (
     <section id={id} aria-label={ariaLabel} className={`${bg} py-16 sm:py-20 lg:py-24 ${className}`}>
       <Container>{children}</Container>

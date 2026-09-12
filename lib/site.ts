@@ -84,7 +84,7 @@ export const site = {
   tagline: 'AI voice workers, built in India, shipped for the world.',
   subline: 'Calls that confirm and close — in the language your customer actually speaks.',
   description:
-    'Decibyl builds AI voice workers that run your confirmation, follow-up, and reminder calls end-to-end — not a tool that assists a human doing it. 7 Indian languages live today, plus any language your voice stack supports. Every call transcribed, recorded, and scored.',
+    'Decibyl builds AI voice workers that run confirmation, follow-up, and reminder calls end to end. Support customers in 40+ languages, with 7 Indian languages and code-mixed speech live today. Every call is transcribed, recorded, and scored.',
   /** Infra footprint, referenced in comparison tables and the "built for the
    *  world" positioning. Mumbai is home base; US/EU exist for international
    *  clients who need data closer to them. */

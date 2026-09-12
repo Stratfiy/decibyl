@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import {
   Bricolage_Grotesque,
-  Manrope,
+  Inter,
   IBM_Plex_Mono,
   IBM_Plex_Sans_Devanagari,
   Noto_Sans_Tamil,
@@ -27,10 +27,10 @@ const bricolage = Bricolage_Grotesque({
   preload: true,
 });
 
-const manrope = Manrope({
+const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-manrope',
+  variable: '--font-inter',
   display: 'swap',
   preload: true,
 });
@@ -111,11 +111,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: '/decibyl-mark.svg', type: 'image/svg+xml' },
       { url: '/favicon.ico', sizes: 'any' },
       { url: '/favicon-48.png', type: 'image/png', sizes: '48x48' },
       { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
     ],
-    shortcut: ['/favicon.ico'],
+    shortcut: ['/decibyl-mark.svg'],
     apple: [{ url: '/apple-touch-icon.png', type: 'image/png', sizes: '180x180' }],
   },
   manifest: '/manifest.webmanifest',
@@ -125,14 +126,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#F4F5F7',
+  themeColor: '#FFFFFF',
   width: 'device-width',
   initialScale: 1,
 };
 
 const fontVars = [
   bricolage.variable,
-  manrope.variable,
+  inter.variable,
   plexMono.variable,
   plexDeva.variable,
   notoTamil.variable,

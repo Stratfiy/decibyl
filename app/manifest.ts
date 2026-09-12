@@ -7,9 +7,10 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'AI voice agents for Indian businesses.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#F4F5F7',
-    theme_color: '#F65059',
+    background_color: '#FFFFFF',
+    theme_color: '#862FE7',
     icons: [
+      { src: '/decibyl-mark.svg', sizes: 'any', type: 'image/svg+xml' },
       { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],

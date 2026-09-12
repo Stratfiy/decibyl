@@ -8,7 +8,7 @@ import { JsonLd, articleSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo
 const meta = getBlogPost('ai-voice-agent-pricing-india')!;
 
 export const metadata: Metadata = pageMetadata({
-  title: meta.title,
+  title: meta.seoTitle ?? meta.title,
   description: meta.description,
   path: `/blog/${meta.slug}`,
   keywords: ['AI voice agent pricing India', 'voice AI cost per minute India', 'AI calling pricing India'],

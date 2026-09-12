@@ -11,7 +11,7 @@ import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Partners & Referrals — 20% of First Recharge',
   description:
-    'Refer a business to Decibyl and earn 20% of their first recharge, paid the same billing cycle. Ongoing commission and reseller terms are agreed directly — built for agencies with client volume.',
+    'Refer a business to Decibyl and earn 20% of their first recharge, paid the same billing cycle. Ongoing commission and reseller terms agreed directly.',
   path: '/partners',
   keywords: [
     'voice AI referral program India',

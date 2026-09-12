@@ -257,3 +257,17 @@ export function getLanguagePageBySlug(slug: string): LanguagePage | undefined {
 export function languageRecord(page: LanguagePage) {
   return languages.find((l) => l.code === page.code);
 }
+
+/**
+ * The `/voice-ai/[language]` route for a language code, or null when that
+ * language has no page.
+ *
+ * Null is the normal answer for French, Spanish and Arabic: the agent speaks
+ * them, but only the seven Indic languages have a page arguing what is hard
+ * about them, so a link for the others would 404. Callers render a plain label
+ * in that case.
+ */
+export function languageHref(code: string): string | null {
+  const page = languagePages.find((l) => l.code === code);
+  return page ? `/voice-ai/${languageSlug(page)}` : null;
+}

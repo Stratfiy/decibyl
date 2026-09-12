@@ -8,11 +8,10 @@ const base =
   'inline-flex items-center justify-center gap-2 rounded-button font-medium transition-colors duration-150 whitespace-nowrap disabled:opacity-50 disabled:pointer-events-none';
 
 const variants: Record<Variant, string> = {
-  // Solid vermilion. Never a gradient fill.
-  primary: 'bg-vermilion text-white hover:bg-sindoor',
+  primary: 'bg-ink text-white hover:bg-ultra-violet',
   secondary: 'bg-snow text-ink border border-line hover:border-ink/25',
-  onDark: 'bg-snow text-sindoor hover:bg-peach',
-  ghost: 'text-vermilion hover:bg-peach/60',
+  onDark: 'bg-snow text-ultra-violet hover:bg-lavender-field',
+  ghost: 'text-ultra-violet hover:bg-lavender-field/60',
 };
 
 const sizes: Record<Size, string> = {

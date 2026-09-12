@@ -5,6 +5,7 @@ import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { FinalCta } from '@/components/marketing/Blocks';
 import { FaqList } from '@/components/marketing/Faq';
 import { cities, cityLanguages, cityVerticals, getCity } from '@/data/cities';
+import { languageHref } from '@/data/languagePages';
 import { verticalHref } from '@/data/verticals';
 import { fromRateInr, tiers, tierPrice } from '@/data/pricing';
 import { site } from '@/lib/site';
@@ -101,15 +102,35 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">{city.intro}</p>
 
             <div className="mt-8 flex flex-wrap gap-2">
-              {langs.map((l) => (
-                <span
-                  key={l.code}
-                  className="rounded-full border border-line bg-snow px-4 py-2 text-[0.9375rem]"
-                >
-                  <span className="font-indic">{l.native}</span>
-                  <span className="text-iron"> · {l.name}</span>
-                </span>
-              ))}
+              {langs.map((l) => {
+                // Linked where the language has a page of its own. This is the
+                // inbound half of SEO.md Lever 5 for /voice-ai/[language]:
+                // those pages were reachable only from /voice-ai, so they were
+                // crawled last. A city that speaks Tamil linking to the Tamil
+                // page is also just useful to the reader.
+                const href = languageHref(l.code);
+                const body = (
+                  <>
+                    <span className="font-indic">{l.native}</span>
+                    <span className="text-iron"> · {l.name}</span>
+                  </>
+                );
+                const className =
+                  'rounded-full border border-line bg-snow px-4 py-2 text-[0.9375rem]';
+                return href ? (
+                  <Link
+                    key={l.code}
+                    href={href}
+                    className={`${className} transition-colors hover:border-sindoor hover:text-sindoor`}
+                  >
+                    {body}
+                  </Link>
+                ) : (
+                  <span key={l.code} className={className}>
+                    {body}
+                  </span>
+                );
+              })}
             </div>
           </div>
         </Container>

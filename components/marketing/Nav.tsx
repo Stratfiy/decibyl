@@ -21,8 +21,9 @@ const featuredVerticals = featuredVerticalSlugs
   .map((slug) => topLevelVerticals.find((v) => v.slug === slug))
   .filter((v): v is NonNullable<typeof v> => Boolean(v));
 
-/** Kept top-level: the two pages in the primary buyer journey. */
+/** Kept top-level: the pages in the primary buyer journey. */
 const primaryLinks = [
+  { label: 'Experience', href: '/experience' },
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
 ];
@@ -66,7 +67,7 @@ export function Nav() {
     >
       <Container>
         <div
-          className="site-nav-shell mx-auto flex h-12 max-w-[940px] translate-y-1 items-center justify-between gap-3 px-2.5 sm:px-3"
+          className="site-nav-shell mx-auto flex h-12 max-w-[1200px] translate-y-1 items-center justify-between gap-3 px-2.5 sm:px-3"
           data-scrolled={scrolled || undefined}
         >
           <Link href="/" className="flex items-center gap-2" aria-label="Decibyl home">
@@ -93,6 +94,12 @@ export function Nav() {
               demo is still here for the buyer who wants one, but it no longer
               stands between someone and the thing they came to try. */}
           <div className="flex items-center gap-2">
+            <a
+              href="https://inapp.decibyl.ai"
+              className="hidden px-2 text-[0.8rem] font-semibold text-ink hover:text-sindoor sm:inline-flex"
+            >
+              Log in
+            </a>
             <Link
               href="/book-a-demo"
               className="hidden text-[0.9375rem] text-ink transition-colors hover:text-ink/70 lg:inline-flex"
@@ -301,7 +308,7 @@ function CompareMenu() {
 function Logo() {
   return (
     <span className="flex items-center gap-2">
-      <img src="/favicon-48.png" width="22" height="22" alt="" aria-hidden="true" />
+      <img src="/decibyl-mark.svg" width="24" height="24" alt="" aria-hidden="true" />
       <span className="font-display text-[1rem] font-bold tracking-tight text-ink">Decibyl</span>
     </span>
   );

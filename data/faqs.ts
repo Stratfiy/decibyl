@@ -42,6 +42,14 @@ export const homeFaqs: Faq[] = [
     a: 'Yes — you forward your existing number to the agent. You keep the number on your board, your listing, and your printed material, and nothing needs reprinting. To be precise about the mechanism: this is call forwarding, not number porting. Indian mobile number portability does not support cloud telephony providers as recipient operators, so forwarding is the correct and only route.',
   },
   {
+    q: 'Is Decibyl a voicebot, an AI calling agent, or an AI voice agent?',
+    a: 'Buyers in India use all three names for the same job, and vendors are not consistent either, so the label matters less than the architecture behind it. An older voicebot sits in front of an IVR menu and routes the caller to a human or a recorded branch. Decibyl is voice-native: the agent holds the whole conversation, handles interruptions, switches between Hindi and English mid-sentence, and completes the task on the call. If you are comparing vendors, ask which of the two you are being sold — a voicebot add-on to a telephony plan and a voice-native calling agent are often priced alike and behave very differently.',
+  },
+  {
+    q: 'Can this replace our telecalling team?',
+    a: 'For the repetitive, high-volume part of it, yes — confirmation, follow-up, reminder and first-pass qualification calls are exactly what the agent is built to run end to end, in the language the customer answers in. What it does not replace is the judgement call: a negotiation, an upset customer, or anything that needs someone to make a decision your policy does not already cover. The realistic pattern is that telecallers stop dialling lists and start taking the transfers that matter, which is also the version your team will actually cooperate with.',
+  },
+  {
     q: 'How is this different from Vapi or Bolna?',
     a: 'Three structural things: an Indic-native model stack, Indian telephony, and no third-party orchestration layer taking a fee in the middle. That combination is why the per-minute economics work in India. We keep honest comparison pages for Vapi, Bolna, and Retell — including where each of them is genuinely stronger than us.',
   },
@@ -51,6 +59,10 @@ export const pricingFaqs: Faq[] = [
   {
     q: 'Are prices inclusive of GST?',
     a: 'No — every price on this page is exclusive of 18% GST, which is added at invoicing.',
+  },
+  {
+    q: 'How much does an AI calling agent cost in India?',
+    a: 'On Decibyl, from ₹4.91/min on the Everyday bundle, with managed plans from ₹2,999/month that include telephony and an Indian number, exclusive of 18% GST. The number worth checking on any vendor is not the headline per-minute rate but what sits underneath it: whether telephony, the phone number, the speech and language models, concurrency beyond a few simultaneous calls, and setup are inside that rate or billed separately. A low advertised rate with four separate lines under it frequently costs more than a higher published one that includes them, which is why every rate on this page is shown with what it contains.',
   },
   {
     q: 'What counts as a minute?',

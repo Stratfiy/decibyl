@@ -8,7 +8,7 @@ import { JsonLd, articleSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo
 const meta = getBlogPost('ndr-rto-cost-d2c-india')!;
 
 export const metadata: Metadata = pageMetadata({
-  title: meta.title,
+  title: meta.seoTitle ?? meta.title,
   description: meta.description,
   path: `/blog/${meta.slug}`,
   keywords: ['NDR recovery India', 'RTO reduction D2C India', 'COD confirmation calls'],

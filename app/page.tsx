@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
-import { CinematicIntro } from '@/components/story/CinematicIntro';
-import { ScrollStory } from '@/components/story/ScrollStory';
-import { storyActTotal } from '@/components/story/acts';
+import { HomeHero } from '@/components/marketing/HomeHero';
 import { LiveTranscript } from '@/components/marketing/LiveTranscript';
 import { SlideDeck, type DeckItem } from '@/components/marketing/SlideDeck';
 import { LossCalculator } from '@/components/marketing/LossCalculator';
@@ -11,26 +9,29 @@ import { CaseStudiesSection } from '@/components/marketing/CaseStudies';
 import { FaqList } from '@/components/marketing/Faq';
 import { FinalCta, IndianOps, PricingPreview } from '@/components/marketing/Blocks';
 import { InclusionTable } from '@/components/marketing/InclusionTable';
-import { LivingProofWorld } from '@/components/marketing/LivingProofWorld';
 import { verticals, homepageDeckOrder, verticalHref, getVertical } from '@/data/verticals';
 import { features } from '@/data/features';
 import { homeFaqs } from '@/data/faqs';
 import { JsonLd, faqSchema, pageMetadata } from '@/lib/seo';
-import { site } from '@/lib/site';
 
 export const metadata: Metadata = pageMetadata({
   title: 'AI Voice Agents for Indian Businesses',
   description:
-    'AI voice agents for Indian businesses: automate sales calls, lead qualification, customer support, appointment booking and reminders in Hindi, Tamil, English and more.',
+    'AI voice agents for Indian businesses — an AI calling agent that runs sales, support, appointment booking and reminder calls in Hindi, Tamil, English and more.',
   path: '/',
   keywords: [
     'AI voice agents for business',
     'AI voice agents India',
+    'voice agent for business',
+    'Indian voice agent',
     'voice AI agent India',
+    'AI calling agent India',
     'AI calling software India',
+    'voicebot India',
     'AI receptionist India',
     'voice AI platform India',
     'Hindi voice AI agent',
+    'telecalling automation India',
   ],
   ogTitle: 'The AI voice worker that answers your phone',
   ogSubtitle: 'It calls, confirms, and closes — in the language your customer speaks.',
@@ -59,22 +60,8 @@ const painPoints = [
   },
 ];
 
-/** Which verticals get a chapter in the opening story.
- *
- *  Three, not nine — the same standing rule the nav follows and for the same
- *  reason (see the note in `components/marketing/Nav.tsx`): nine verticals
- *  against three live pilots reads as "we do everything, we've proven
- *  nothing". Adding a fourth slug here grows the story by a chapter; nothing
- *  in the component is hard-coded to a count. */
-const storyVerticalSlugs = ['clinics', 'real-estate', 'd2c-ndr-recovery'];
-
 export default function HomePage() {
   const ndr = getVertical('d2c-ndr-recovery')!;
-
-  const storyNeeds = storyVerticalSlugs.map((slug) => {
-    const v = verticals.find((x) => x.slug === slug && !x.parent)!;
-    return { id: v.slug, label: v.cardTitle, pain: v.cardPain, href: verticalHref(v) };
-  });
 
   const useCaseCards: DeckItem[] = homepageDeckOrder.map((slug) => {
     const v = verticals.find((x) => x.slug === slug && !x.parent)!;
@@ -100,20 +87,8 @@ export default function HomePage() {
 
   return (
     <>
-      <CinematicIntro total={storyActTotal(storyNeeds)} />
-      <ScrollStory
-        needs={storyNeeds}
-        call={{
-          language: ndr.sampleCall.language,
-          outcome: ndr.sampleCall.outcome,
-          duration: ndr.sampleCall.duration,
-        }}
-        phone={site.demoPhone}
-      />
+      <HomeHero />
 
-      <LivingProofWorld />
-
-      {/* Where "Skip the story" lands. */}
       <section
         aria-label="Sample call"
         className="scroll-mt-24 bg-canvas pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pb-24"

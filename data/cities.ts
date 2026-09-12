@@ -67,7 +67,7 @@ export const cities: City[] = [
       },
     ],
     seo: {
-      title: 'AI Receptionist in Hosur — Tamil and Kannada Calls Answered',
+      title: 'AI Receptionist in Hosur — Tamil & Kannada',
       description:
         'An AI voice agent that answers and makes calls in Hosur in Tamil, Kannada, English and Hindi. Built in Hosur, with Indian numbers and INR billing.',
       keywords: ['AI receptionist Hosur', 'AI call answering Hosur', 'voice AI Tamil Nadu', 'AI phone agent Hosur'],
@@ -96,7 +96,7 @@ export const cities: City[] = [
       },
     ],
     seo: {
-      title: 'AI Receptionist in Bangalore — Kannada, Tamil, Telugu, Hindi',
+      title: 'AI Receptionist in Bangalore — Kannada & Tamil',
       description:
         'An AI voice agent that answers calls in Bangalore in Kannada, English, Tamil, Telugu and Hindi, code-mixed by default. Indian numbers, INR billing, GST invoice.',
       keywords: ['AI receptionist Bangalore', 'AI call answering Bangalore', 'Kannada voice AI', 'AI phone agent Bengaluru'],
@@ -125,7 +125,7 @@ export const cities: City[] = [
       },
     ],
     seo: {
-      title: 'AI Receptionist in Chennai — Tamil and Tanglish Calls',
+      title: 'AI Receptionist in Chennai — Tamil & Tanglish',
       description:
         'An AI voice agent answering calls in Chennai in Tamil, English and Telugu, with Tanglish as the default register. Indian numbers, INR billing, GST invoice.',
       keywords: ['AI receptionist Chennai', 'Tamil voice AI', 'AI call answering Chennai', 'Tanglish voice agent'],
@@ -154,7 +154,7 @@ export const cities: City[] = [
       },
     ],
     seo: {
-      title: 'AI Receptionist in Hyderabad — Telugu and Hindi Calls Answered',
+      title: 'AI Receptionist in Hyderabad — Telugu & Hindi',
       description:
         'An AI voice agent answering calls in Hyderabad in Telugu, Hindi and English, code-mixed by default. Indian numbers, INR billing, GST invoice.',
       keywords: ['AI receptionist Hyderabad', 'Telugu voice AI', 'AI call answering Hyderabad', 'AI phone agent Telangana'],
@@ -183,7 +183,7 @@ export const cities: City[] = [
       },
     ],
     seo: {
-      title: 'AI Receptionist in Mumbai — Hindi, Marathi and Gujarati Calls',
+      title: 'AI Receptionist in Mumbai — Hindi & Marathi',
       description:
         'An AI voice agent for Mumbai businesses, calling in Hindi, Marathi, English and Gujarati. Data resident in AWS Mumbai, DPDP-aligned, GST invoicing.',
       keywords: ['AI receptionist Mumbai', 'Marathi voice AI', 'AI calling Mumbai', 'AI collections calls India'],
@@ -212,7 +212,7 @@ export const cities: City[] = [
       },
     ],
     seo: {
-      title: 'AI Receptionist in Pune — Marathi, Hindi and English Calls',
+      title: 'AI Receptionist in Pune — Marathi & Hindi',
       description:
         'An AI voice agent answering and making calls in Pune in Marathi, Hindi and English. Indian numbers, INR billing, GST invoice, DPDP-aligned.',
       keywords: ['AI receptionist Pune', 'Marathi voice AI', 'AI call answering Pune', 'admissions calling automation'],
@@ -241,7 +241,7 @@ export const cities: City[] = [
       },
     ],
     seo: {
-      title: 'AI Receptionist in Delhi NCR — Hindi and Hinglish Calls',
+      title: 'AI Receptionist in Delhi NCR — Hindi & Hinglish',
       description:
         'An AI voice agent for Delhi NCR businesses, calling in Hindi and English with Hinglish as the default register. COD confirmation, NDR recovery, GST invoicing.',
       keywords: ['AI receptionist Delhi', 'Hinglish voice AI', 'AI calling Gurgaon', 'COD confirmation calls India'],
@@ -270,7 +270,7 @@ export const cities: City[] = [
       },
     ],
     seo: {
-      title: 'AI Receptionist in Ahmedabad — Gujarati and Hindi Calls',
+      title: 'AI Receptionist in Ahmedabad — Gujarati & Hindi',
       description:
         'An AI voice agent answering calls in Ahmedabad in Gujarati, Hindi and English, on an Indic speech stack. Indian numbers, INR billing, GST invoice.',
       keywords: ['AI receptionist Ahmedabad', 'Gujarati voice AI', 'AI call answering Gujarat', 'AI phone agent Ahmedabad'],

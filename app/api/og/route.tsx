@@ -20,7 +20,7 @@ export function GET(request: Request) {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: '#F4F5F7',
+          background: '#F1F5F9',
           padding: '72px',
           position: 'relative',
         }}
@@ -32,7 +32,7 @@ export function GET(request: Request) {
             left: 0,
             right: 0,
             height: '10px',
-            background: 'linear-gradient(96deg, #E15B53 0%, #EE9086 55%, #FFB627 100%)',
+            background: 'linear-gradient(96deg, #862FE7 0%, #AD6DF4 55%, #FF5FE4 100%)',
           }}
         />
 
@@ -42,11 +42,11 @@ export function GET(request: Request) {
               width: '48px',
               height: '48px',
               borderRadius: '14px',
-              background: '#E15B53',
+              background: '#862FE7',
               display: 'flex',
             }}
           />
-          <div style={{ fontSize: 32, fontWeight: 700, color: '#211814', display: 'flex' }}>
+          <div style={{ fontSize: 32, fontWeight: 700, color: '#111827', display: 'flex' }}>
             Decibyl
           </div>
         </div>
@@ -57,7 +57,7 @@ export function GET(request: Request) {
               fontSize: title.length > 64 ? 54 : 66,
               lineHeight: 1.08,
               fontWeight: 700,
-              color: '#211814',
+              color: '#111827',
               letterSpacing: '-0.03em',
               display: 'flex',
               maxWidth: '960px',
@@ -70,7 +70,7 @@ export function GET(request: Request) {
               style={{
                 marginTop: '22px',
                 fontSize: 30,
-                color: '#5A5F6B',
+                color: '#3F4654',
                 display: 'flex',
                 maxWidth: '900px',
               }}
@@ -80,7 +80,7 @@ export function GET(request: Request) {
           ) : null}
         </div>
 
-        <div style={{ display: 'flex', fontSize: 22, color: '#8A8F99' }}>
+        <div style={{ display: 'flex', fontSize: 22, color: '#6B7589' }}>
           Indian languages + beyond · India, US & EU infra · GST invoicing
         </div>
       </div>

@@ -85,10 +85,20 @@ export const site = {
   subline: 'Calls that confirm and close — in the language your customer actually speaks.',
   description:
     'Decibyl builds AI voice workers that run confirmation, follow-up, and reminder calls end to end. Support customers in 40+ languages, with 7 Indian languages and code-mixed speech live today. Every call is transcribed, recorded, and scored.',
-  /** Infra footprint, referenced in comparison tables and the "built for the
-   *  world" positioning. Mumbai is home base; US/EU exist for international
-   *  clients who need data closer to them. */
-  regions: ['Mumbai (AWS ap-south-1)', 'USA', 'Europe'],
+  /** Infra footprint, referenced in comparison tables.
+   *
+   *  ONE REGION, AND THE LIST MUST NOT GROW UNTIL ONE EXISTS. This previously
+   *  read ['Mumbai (AWS ap-south-1)', 'USA', 'Europe'] and the comparison page
+   *  rendered it as "with US and EU available", which was not true: there is a
+   *  single deployment in ap-south-1. A buyer who reads a claimed footprint and
+   *  finds one region in diligence does not forgive it, and a single deliberate
+   *  region is the stronger story anyway — recordings are conversations with
+   *  people in India and the region holding them is where that data comes to
+   *  rest under the DPDP Act.
+   *
+   *  Add a region here on the day it serves traffic, not on the day it is
+   *  planned. */
+  regions: ['Mumbai (AWS ap-south-1)'],
 
   /** Confirmed 28 Aug 2026. One inbox for support and sales, deliberately —
    *  two addresses on a team this size is two places a mail goes unread. */
@@ -115,7 +125,9 @@ export const site = {
    * absent, so a future change of address is one edit here and nowhere else.
    */
   registeredAddress: {
-    street: 'No. 86/18, Brindhavan Nagar',
+    // Per the certificate of incorporation (CIN U62011TZ2026PTC039414). This
+    // read 'No. 86/18, Brindhavan Nagar', which does not match the register.
+    street: 'No. 86/16, Papanna Thottam, Brindhavan Nagar, TNHB Phase 7',
     locality: 'Hosur',
     // Hosur 635109 is in Krishnagiri district, Tamil Nadu. Stated because a
     // PostalAddress without a region is weaker for local search, and because

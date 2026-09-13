@@ -16,6 +16,40 @@ export const metadata: Metadata = pageMetadata({
   ogTitle: 'The straight answer on where your data lives',
 });
 
+/** The infrastructure answers, kept as data so the page stays a layout.
+ *
+ *  Written from what the system actually does rather than from what sounds
+ *  reassuring. Capacity in particular is described as it works — per account,
+ *  raised on request — and NOT as a concurrency number, because the figure the
+ *  sizing model uses has never been measured and a number on this page is a
+ *  commitment. */
+const infrastructure = [
+  {
+    t: 'One region, chosen deliberately',
+    b: 'AWS ap-south-1 (Mumbai). Recordings and transcripts are conversations with people in India, and the region holding them is where that personal data comes to rest under the DPDP Act. Nothing is split across regions — recordings in Mumbai and a database elsewhere would undo the point.',
+  },
+  {
+    t: 'Encryption, including from us',
+    b: 'TLS to the application and to every provider. Storage encrypted at rest. Provider keys are encrypted in the database, and API keys are stored as hashes — not recoverable by anyone, including us.',
+  },
+  {
+    t: 'Backups that are actually tested',
+    b: 'Automatic, encrypted, kept 30 days, with an alert if one goes stale past 36 hours — so a backup job that quietly stops is noticed rather than discovered during a restore. Restores are rehearsed into a scratch database and the ledger is reconciled, because an untested backup is a hypothesis.',
+  },
+  {
+    t: 'Deploys that do not drop calls',
+    b: 'An update drains active calls first: a worker finishes the conversations it is holding before it is replaced. Nobody on a call hears a release.',
+  },
+  {
+    t: 'Capacity, set per account',
+    b: 'Concurrency is configured per customer and raised on request. Campaigns are rate-limited and circuit-broken — a failure-rate spike pauses a campaign automatically rather than burning through a contact list.',
+  },
+  {
+    t: 'Failures that fail fast',
+    b: 'A call that cannot get a resource fails immediately rather than leaving a caller in silence. Every notable moment of a call is written to a timeline as it happens, so a dispute starts from a record rather than from a database query.',
+  },
+];
+
 export default function SecurityPage() {
   return (
     <>
@@ -49,6 +83,28 @@ export default function SecurityPage() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      <Section surface="white" ariaLabel="Infrastructure">
+        <SectionHead
+          eyebrow="Infrastructure"
+          title="Where it runs, and what happens when something breaks."
+          sub="The three questions a security review actually asks, answered before you have to ask them."
+        />
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {infrastructure.map((item) => (
+            <div key={item.t} className="rounded-card border border-line bg-canvas p-6">
+              <p className="font-display font-bold">{item.t}</p>
+              <p className="mt-2 text-[0.9375rem] text-slate">{item.b}</p>
+            </div>
+          ))}
+        </div>
+        <p className="t-caption mt-6 text-iron">
+          The database, cache, and object storage are moving to managed AWS services this quarter.
+          That takes the recovery point from the last backup to any second inside the retention
+          window, and makes the application servers replaceable without touching customer data. We
+          would rather tell you that is in progress than describe it as finished.
+        </p>
       </Section>
 
       <Section surface="canvas" ariaLabel="What we are not">

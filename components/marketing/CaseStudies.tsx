@@ -56,7 +56,16 @@ export function CaseStudiesSection() {
             ))}
           </ul>
           <div className="mt-8">
-            <ButtonLink href="/book-a-demo" variant="secondary">
+            {/* This label is a sentence, not a label. The shared button sets
+                whitespace-nowrap, which is right for "Book a demo" and wrong
+                here: at 320px it held the line at 316px inside a 280px column,
+                which was the page's last horizontal overflow. Allowed to wrap
+                for this one call site rather than loosening every button. */}
+            <ButtonLink
+              href="/book-a-demo"
+              variant="secondary"
+              className="max-w-full whitespace-normal text-center"
+            >
               Want to be the first named case study?
             </ButtonLink>
           </div>

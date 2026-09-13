@@ -32,7 +32,7 @@ export function GET(request: Request) {
             left: 0,
             right: 0,
             height: '10px',
-            background: 'linear-gradient(96deg, #862FE7 0%, #AD6DF4 55%, #FF5FE4 100%)',
+            background: 'linear-gradient(96deg, #e15b53 0%, #ee9086 55%, #ee9086 100%)',
           }}
         />
 
@@ -42,7 +42,7 @@ export function GET(request: Request) {
               width: '48px',
               height: '48px',
               borderRadius: '14px',
-              background: '#862FE7',
+              background: '#e15b53',
               display: 'flex',
             }}
           />

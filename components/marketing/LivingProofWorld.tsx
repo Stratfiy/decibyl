@@ -73,10 +73,10 @@ export function LivingProofWorld() {
 
         <div className="living-world-stage">
           <Image
-            src="/media/home/living-operations-world.png"
-            alt="Connected miniature scenes of a clinic reception, property sales office, and commerce support team"
-            width={1728}
-            height={909}
+            src="/media/home/living-operations-world.webp"
+            alt="Four connected miniature rooms arranged as a square: a clinic reception, a commerce support desk, a property sales office and an outbound sales floor"
+            width={1600}
+            height={900}
             sizes="(max-width: 768px) 150vw, 1200px"
             className="living-world-image"
             priority

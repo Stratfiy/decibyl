@@ -64,7 +64,11 @@ export default function TermsPage() {
             There is no overage billing. When a plan&rsquo;s credit is exhausted, calling continues
             only against credit you add; nothing is billed in arrears.
           </li>
-          <li>On BYOK you pay your model and speech providers directly, at their price.</li>
+          <li>
+            Model, speech and telephony providers are contracted by us, not by you. Their cost is
+            charged on to your account as itemised lines on each call, and you do not hold or
+            supply provider keys.
+          </li>
         </ul>
       </LegalSection>
 

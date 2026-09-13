@@ -284,10 +284,17 @@ Six pages lean on it, and on `/solutions/clinics` and `/solutions/clinics/ivf-fe
 safety net the whole argument rests on. If it isn't tested end to end, say so and I'll soften
 those pages.
 
-### 14 · Does the $10 BYOK trial credit survive under managed pricing?
+### 14 · ~~Does the $10 BYOK trial credit survive under managed pricing?~~ — resolved, moot
 
-If yes, it's a strong above-the-fold hook and belongs in the hero. It's currently only on
-`/pricing` and `/waitlist`.
+There is no BYOK offer. Founder-confirmed: every provider key is ours, held in superadmin, and a
+customer never contracts with a model vendor. The site's "bring your own keys, pay providers
+directly, zero markup" proposition described a product we do not sell and has been removed
+everywhere it appeared.
+
+What is left to decide is the signup bonus itself, which is a separate question from BYOK:
+`SIGNUP_BONUS_MICROS_USD` is $5 (≈₹480, ≈98 Everyday minutes) and the founder has asked for it to
+come down. The site no longer publishes any specific figure, so that number can now change on the
+platform without a site release.
 
 ---
 

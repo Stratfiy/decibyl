@@ -13,7 +13,7 @@ const clamp = (value: number, min: number, max: number) =>
  * meets Decibyl first, then the camera dissolves into the first problem scene.
  * Scroll writes one CSS variable; all visual movement remains compositor-only.
  */
-export function CinematicIntro() {
+export function CinematicIntro({ total }: { total: number }) {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
 
@@ -56,7 +56,11 @@ export function CinematicIntro() {
               whole product workflow readable without video or autoplay. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/media/scene-one/decibyl-office-command-center.png?v=20260901a"
+            src="/media/scene-one/decibyl-hero-front-desk.webp"
+            /* Intrinsic size, so the box is reserved before the bytes land
+               and a slow decode leaves a gap rather than a jump. */
+            width={1600}
+            height={900}
             alt=""
             className={styles.worldMedia}
             fetchPriority="high"
@@ -68,7 +72,7 @@ export function CinematicIntro() {
         <div className={styles.copyScrim} aria-hidden="true" />
 
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>01 / 06 · Meet Decibyl</p>
+          <p className={styles.eyebrow}>01 / {String(total).padStart(2, '0')} · Meet Decibyl</p>
           <h1>Your AI voice agent.</h1>
           <p className={styles.lead}>
             Answers customer calls, qualifies leads and books appointments—in the language

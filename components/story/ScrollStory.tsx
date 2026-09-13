@@ -2,12 +2,15 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+import { type StoryNeed, storyActTotal } from './acts';
 import type { CSSProperties } from 'react';
 import { IsoDistrict } from './IsoDistrict';
 import { SplitText } from './SplitText';
 import styles from './story.module.css';
+import { site } from '@/lib/site';
 
-export type StoryNeed = { id: string; label: string; pain: string; href: string };
+export type { StoryNeed } from './acts';
 
 type Props = {
   needs: StoryNeed[];
@@ -24,6 +27,26 @@ type Chapter = {
   lead: string;
   chips: string[];
   art?: string;
+  /* Kept because it is a real property of a plate, but every plate in the World
+     of Decibyl set is cut the same way and sits on its own matched ground, so
+     none of them currently needs the heavier wash. */
+  blend?: 'strong' | 'soft';
+  /* The exact backdrop the plate was rendered against, sampled from the median
+     of its own border ring. The stage was one hardcoded cream that matched the
+     first two plates and sat 20 points away from the three rendered later, so
+     those three showed as a visible rectangle on the page however much their
+     edges were feathered. Matching the ground to the plate removes the seam by
+     construction rather than by approximation.
+
+     Knocking the backdrop out instead was tried first and abandoned: these are
+     cream dioramas on cream, and every threshold that reached the gradient also
+     walked through the walls and furniture. */
+  ground?: string;
+  /* A five-second push from this room's establishing shot into its interior,
+     played once when the chapter arrives. Only two chapters have one: the three
+     other clips generated at the same time were rendered from plates that have
+     since been replaced, so they show rooms that no longer exist. */
+  motion?: string;
   drawn: string;
   href?: string;
   linkLabel?: string;
@@ -68,8 +91,26 @@ export function ScrollStory({ needs, call }: Props) {
   const [artFailed, setArtFailed] = useState<Record<string, true>>({});
 
   const chapters = useMemo(() => buildChapters(needs, call), [needs, call]);
+
+  /* The intro renders "01 / N" from `storyActTotal` before this component
+     mounts, so a chapter added here without updating that file would leave the
+     two counters disagreeing on screen. Cheap to check, and silent in
+     production. */
+  if (process.env.NODE_ENV !== 'production' && chapters.length + 1 !== storyActTotal(needs)) {
+    console.warn(
+      `[ScrollStory] act count drift: built ${chapters.length + 1} acts, storyActTotal says ${storyActTotal(needs)}. Update components/story/acts.ts.`,
+    );
+  }
   const acts = chapters.length;
   const hasNarration = chapters.some((chapter) => Boolean(chapter.audio));
+
+  /* Motion plates are an enhancement on top of the still, never a replacement.
+     Read once here rather than per chapter, and false on the server so the
+     first paint is always the still. */
+  const [motionOk, setMotionOk] = useState(false);
+  useEffect(() => {
+    setMotionOk(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }, []);
 
   const markArtFailed = useCallback((id: string) => {
     setArtFailed((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
@@ -82,6 +123,12 @@ export function ScrollStory({ needs, call }: Props) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let frame = 0;
+    /* Cached once. The scene list is fixed for the life of this effect, and
+       re-querying it inside a scroll frame is work done 60 times a second for
+       an answer that never changes. */
+    const scenes = Array.from(
+      stage.querySelectorAll<HTMLElement>('[data-story-scene]'),
+    );
 
     const read = () => {
       frame = 0;
@@ -98,6 +145,32 @@ export function ScrollStory({ needs, call }: Props) {
       const raw = p * acts;
       const index = clamp(Math.floor(raw), 0, acts - 1);
       stage.style.setProperty('--drift', (raw - index - 0.5).toFixed(3));
+
+      /* The camera, not a slide projector.
+
+         `--d` is each scene's signed distance from the lens in chapter units:
+         negative behind us, 0 dead centre, positive still ahead. Because it is
+         written every frame from raw scroll position, the transition between
+         two chapters is scrubbable and reversible — drag the scrollbar back up
+         and the world runs backwards, which a timed cross-fade cannot do.
+
+         `--ad` is the same distance unsigned. CSS `abs()` is too new to rely on
+         here, and computing it once in JS is cheaper than the nested
+         `max(x, -x)` it would otherwise take in three separate declarations. */
+      for (let i = 0; i < scenes.length; i += 1) {
+        const scene = scenes[i];
+        const d = i - (raw - 0.5);
+        const ad = Math.abs(d);
+        scene.style.setProperty('--d', d.toFixed(3));
+        scene.style.setProperty('--ad', ad.toFixed(3));
+
+        /* Custom properties are cheap to write every frame; attributes are not,
+           because each change invalidates selector matching for that element.
+           So the near/far flag is only written when it actually flips. */
+        const near = ad < 1.5 ? 'true' : 'false';
+        if (scene.dataset.near !== near) scene.dataset.near = near;
+      }
+
       setAct(index);
     };
 
@@ -115,6 +188,53 @@ export function ScrollStory({ needs, call }: Props) {
       delete document.documentElement.dataset.storyHero;
     };
   }, [acts]);
+
+  /* The plates were rendered as dioramas — objects with depth, photographed from
+     a fixed angle. Flat on a page they lose exactly the quality they were made
+     for. Offsetting the plate against the cursor gives that depth back for the
+     cost of two custom properties.
+
+     Fine pointers only: on a touch screen there is no hover position to read,
+     and firing this off touch events would make the world lurch on every tap. */
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let frame = 0;
+    let nx = 0;
+    let ny = 0;
+
+    const apply = () => {
+      frame = 0;
+      stage.style.setProperty('--mx', nx.toFixed(3));
+      stage.style.setProperty('--my', ny.toFixed(3));
+    };
+
+    const onMove = (event: PointerEvent) => {
+      const rect = stage.getBoundingClientRect();
+      /* −1 → 1 across each axis, so the CSS reads as a direction and the
+         magnitude of the shift stays a decision for the stylesheet. */
+      nx = clamp(((event.clientX - rect.left) / rect.width) * 2 - 1, -1, 1);
+      ny = clamp(((event.clientY - rect.top) / rect.height) * 2 - 1, -1, 1);
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+
+    const onLeave = () => {
+      nx = 0;
+      ny = 0;
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+
+    window.addEventListener('pointermove', onMove, { passive: true });
+    stage.addEventListener('pointerleave', onLeave);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener('pointermove', onMove);
+      stage.removeEventListener('pointerleave', onLeave);
+    };
+  }, []);
 
   useEffect(() => {
     const el = audioRef.current;
@@ -145,6 +265,13 @@ export function ScrollStory({ needs, call }: Props) {
 
   const state = (index: number) => (index === act ? 'active' : index < act ? 'past' : 'future');
 
+  /* The camera's resting position at scroll top, computed the same way the
+     scroll loop computes it (progress 0 ⇒ raw 0 ⇒ d = index + 0.5). Emitting it
+     on the server means the first paint already shows the world in the right
+     place. Without it every scene inherits the far-away fallback and the story
+     is blank until hydration — and stays blank forever with JS disabled. */
+  const restingD = (index: number) => index + 0.5;
+
   return (
     <section
       ref={sectionRef}
@@ -169,13 +296,47 @@ export function ScrollStory({ needs, call }: Props) {
             data-story-scene
             data-scene={chapter.id}
             data-state={state(index)}
+            data-near={restingD(index) < 1.5 ? 'true' : 'false'}
+            style={
+              {
+                '--d': restingD(index).toFixed(3),
+                '--ad': Math.abs(restingD(index)).toFixed(3),
+                '--ground': chapter.ground ?? DEFAULT_GROUND,
+              } as CSSProperties
+            }
           >
+            {/* The call itself, drawn as it passes through this room.
+
+                Every plate already has the coral waveform coming out of its
+                phone; this is the same line continuing between rooms, so the
+                seven chapters read as one call travelling rather than seven
+                separate cards. It is written by the scene's own `--d`, the
+                signed distance the camera loop already maintains: the line
+                starts undrawn while the room is still ahead, is half drawn
+                when the room is at the lens, and is complete as the room
+                leaves — so the next room picks the line up where this one
+                dropped it. Scrub back up and it un-draws, because `--d` is a
+                position, not a timer. */}
+            <svg
+              className={styles.flight}
+              viewBox="0 0 1000 300"
+              fill="none"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                className={styles.flightPath}
+                pathLength={1}
+                d="M-60 196 C 150 196 250 54 470 96 S 760 214 1060 78"
+              />
+            </svg>
+
             <div className={styles.artCol}>
               <div className={styles.plate}>
                 {chapter.art && !artFailed[chapter.id] ? (
                   <div
                     className={styles.mediaFrame}
-                    data-blend={chapter.art.endsWith('.png') ? 'strong' : 'soft'}
+                    data-blend={chapter.blend ?? 'soft'}
                   >
                     <img
                       src={chapter.art}
@@ -189,7 +350,9 @@ export function ScrollStory({ needs, call }: Props) {
                         if (node?.complete && node.naturalWidth === 0) markArtFailed(chapter.id);
                       }}
                     />
-                    {chapter.id === 'clinics' && <ClinicMotion />}
+                    {chapter.motion && motionOk ? (
+                      <PlateMotion src={chapter.motion} active={index === act} />
+                    ) : null}
                   </div>
                 ) : (
                   <IsoDistrict variant={chapter.drawn} className={styles.plateDrawn} />
@@ -292,47 +455,21 @@ export function ScrollStory({ needs, call }: Props) {
   );
 }
 
-function ClinicMotion() {
-  return (
-    <div className={styles.clinicMotion} aria-hidden="true">
-      <span className={styles.phoneVibration}>
-        <span />
-        <span />
-        <span />
-      </span>
 
-      <span className={styles.receptionPulse}>
-        <span />
-        <span />
-      </span>
-
-      <svg className={styles.callRoute} viewBox="0 0 1000 563" preserveAspectRatio="none">
-        <path
-          className={styles.callRouteGlow}
-          pathLength="1"
-          d="M287 305 C 320 300, 328 280, 352 270 C 380 259, 388 276, 407 273"
-        />
-        <path
-          className={styles.callRouteCore}
-          pathLength="1"
-          d="M287 305 C 320 300, 328 280, 352 270 C 380 259, 388 276, 407 273"
-        />
-      </svg>
-
-      <span className={styles.queuePulse} />
-      <span className={styles.callStatus}>
-        <i />
-        Call answered
-      </span>
-    </div>
-  );
-}
-
-const VERTICAL_PLATE: Record<string, string> = {
-  clinics: '/media/story/decibyl-room-02-the-clinic.webp',
-  'real-estate': '/media/story/decibyl-room-03-property-leads.png',
-  'd2c-ndr-recovery': '/media/story/decibyl-room-04-commerce-support.png',
+const VERTICAL_PLATE: Record<string, { src: string; blend: 'strong' | 'soft'; ground: string; motion?: string }> = {
+  clinics: { src: '/media/story/decibyl-room-02-the-clinic.webp', blend: 'soft', ground: '#f1dec6' },
+  'real-estate': {
+    src: '/media/story/decibyl-room-03-property-leads.webp',
+    blend: 'soft',
+    ground: '#f0ceac',
+    motion: '/media/story/motion/decibyl-room-03-property-leads',
+  },
+  'd2c-ndr-recovery': { src: '/media/story/decibyl-room-04-commerce-support.webp', blend: 'soft', ground: '#fcdabc' },
 };
+
+/* What the stage paints where a chapter draws its scene in code instead of
+   loading a plate, and before the first plate arrives. */
+const DEFAULT_GROUND = '#ead8cb';
 
 const VERTICAL_CHAPTER: Record<string, { nav: string; title: string; chips: string[] }> = {
   clinics: {
@@ -352,6 +489,68 @@ const VERTICAL_CHAPTER: Record<string, { nav: string; title: string; chips: stri
   },
 };
 
+/**
+ * A room's establishing shot pushing into its interior, over the still.
+ *
+ * It sits on top of the plate rather than replacing it, and only mounts once
+ * the chapter is close — so the still is always what loads first and what a
+ * reader sees if anything about the video fails. Nothing here is load-bearing:
+ * remove it and the chapter is exactly the page it was before.
+ *
+ * It plays once per arrival and holds on its last frame. A five-second push
+ * that loops would pull the eye back to the start every five seconds while
+ * somebody is trying to read the copy beside it, which is worse than no motion
+ * at all.
+ *
+ * `src` is only set after the first mount, so a chapter six screens down does
+ * not fetch a quarter-megabyte of video the reader may never reach.
+ */
+function PlateMotion({ src, active }: { src: string; active: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+  const played = useRef(false);
+
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || !active || played.current) return;
+    played.current = true;
+    v.currentTime = 0;
+    /* A rejected play() is normal — autoplay policy, a backgrounded tab — and
+       means the reader keeps the still. It is not an error worth surfacing. */
+    void v.play().then(() => setReady(true)).catch(() => {});
+  }, [active]);
+
+  return (
+    <video
+      ref={ref}
+      className={styles.plateMotion}
+      data-ready={ready || undefined}
+      /* The plates are 1600x900 and the clips are encoded at 960x540 — the same
+         shape, a third of the pixels. Declaring the plate's dimensions here
+         gives the video the plate's intrinsic size, so the two sit in exactly
+         the same box under the same `max-width` rules. Without it the video
+         lays out at its own smaller size and the swap visibly jumps. */
+      width={1600}
+      height={900}
+      muted
+      playsInline
+      preload="none"
+      aria-hidden="true"
+      tabIndex={-1}
+    >
+      {/* WebM first, H.264 second. Every current browser plays both, so the
+          order is not about reach — it is about being able to prove this works:
+          the Chromium available here is the open-source build with no
+          proprietary codecs, which cannot decode H.264 at all. Shipping only
+          mp4 would mean shipping motion nobody on this side could ever watch
+          play, which is the mistake that wasted 620 credits in the first
+          place. */}
+      <source src={`${src}.webm`} type="video/webm" />
+      <source src={`${src}.mp4`} type="video/mp4" />
+    </video>
+  );
+}
+
 function buildChapters(
   needs: StoryNeed[],
   call: { language: string; outcome: string; duration: string },
@@ -365,7 +564,10 @@ function buildChapters(
       title: told?.title ?? need.label,
       lead: need.pain,
       chips: told?.chips ?? [],
-      art: VERTICAL_PLATE[need.id],
+      art: VERTICAL_PLATE[need.id]?.src,
+      blend: VERTICAL_PLATE[need.id]?.blend,
+      ground: VERTICAL_PLATE[need.id]?.ground,
+      motion: VERTICAL_PLATE[need.id]?.motion,
       drawn: need.id,
       href: need.href,
     };
@@ -390,22 +592,42 @@ function buildChapters(
       lead: 'Two lines, one receptionist, and a customer who decided to buy at nine at night. Decibyl picks up on the first ring instead — not a menu, but a voice that asks what they need and does the next thing about it.',
       chips: ['Answers on ring one', 'Books and confirms', 'Calls back too'],
       art: '/media/story/decibyl-room-01-the-answer.webp',
+      blend: 'soft',
+      ground: '#e3c29d',
+      motion: '/media/story/motion/decibyl-room-01-the-answer',
       drawn: 'switchboard',
       href: '/how-it-works',
       linkLabel: 'How it works',
     },
     ...remainingVerticals,
     {
+      id: 'call-floor',
+      nav: 'At scale',
+      eyebrow: '2:15 PM · every line out at once',
+      title: 'One call is a demo. A hundred at once is the business.',
+      lead:
+        'Every room so far shows one call. The reason this replaces a floor rather than a phone is that it does not queue: the whole list goes out together, each conversation held on its own, and the ones worth a human arrive transferred and already qualified.',
+      chips: ['Up to 100 concurrent', 'Whole list in one window', 'Warm transfer on intent'],
+      art: '/media/story/decibyl-room-06-call-floor.webp',
+      blend: 'soft',
+      ground: '#fbd6bc',
+      drawn: 'switchboard',
+      href: '/use-cases/outbound-sales-calling',
+      linkLabel: 'See outbound calling',
+    },
+    {
       id: 'receipt',
       nav: 'The receipt',
       eyebrow: `${call.duration} · ${call.language}`,
       title: 'Every call leaves a receipt.',
-      lead: 'The point was never that it can talk. At the end there is a booked appointment, a confirmed order or a qualified lead — with the transcript, the recording and a QA score on every single call, not on a sample. You are billed for what the call actually cost, in credits, not in rounded-up minutes.',
-      chips: [call.outcome, '100% QA-scored', 'Credits, not minutes'],
-      art: '/media/story/decibyl-room-05-call-receipt.png',
+      lead: 'The point was never that it can talk. At the end there is a booked appointment, a confirmed order or a qualified lead — with the transcript and the recording of every single call, and QA scoring you can switch on for all of them. You are billed for what the call actually cost, in credits, not in rounded-up minutes.',
+      chips: [call.outcome, 'Recorded and transcribed', 'Credits, not minutes'],
+      art: '/media/story/decibyl-room-05-call-receipt.webp',
+      blend: 'soft',
+      ground: '#eddcc6',
       drawn: 'outcome',
-      href: '/book-a-demo',
-      linkLabel: 'Book a demo call',
+      href: site.external.signup,
+      linkLabel: 'Start free',
     },
   ];
 }

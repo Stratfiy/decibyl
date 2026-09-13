@@ -2,12 +2,12 @@
 
 @theme {
   /* Decibyl minimal system */
-  --color-voltage-violet: #862fe7;
-  --color-ultra-violet: #5f259e;
-  --color-lavender-mist: #ad6df4;
-  --color-orchid-wash: #bd8ff0;
-  --color-magenta-spark: #ff5fe4;
-  --color-hot-pink-ray: #e22ba4;
+  --color-voltage-violet: #e15b53;
+  --color-ultra-violet: #ab3f38;
+  --color-lavender-mist: #ee9086;
+  --color-orchid-wash: #ee9086;
+  --color-magenta-spark: #ee9086;
+  --color-hot-pink-ray: #c84e46;
   --color-amber-pulse: #dc5f05;
   --color-midnight-ink: #111827;
   --color-graphite: #3f4654;
@@ -16,7 +16,7 @@
   --color-fog: #f1f5f9;
   --color-mist: #d8e0ea;
   --color-mint-wash: #d6fcf4;
-  --color-lavender-field: #ebdafd;
+  --color-lavender-field: #fff0ea;
 
   /* Existing semantic names now resolve to the new system site-wide. */
   --color-canvas: #ffffff;
@@ -24,20 +24,20 @@
   --color-ink: #111827;
   --color-iron: #6b7589;
   --color-line: #d8e0ea;
-  --color-vermilion: #862fe7;
-  --color-ember: #bd8ff0;
-  --color-sindoor: #5f259e;
-  --color-saffron: #ff5fe4;
+  --color-vermilion: #e15b53;
+  --color-ember: #ee9086;
+  --color-sindoor: #ab3f38;
+  --color-saffron: #ee9086;
   --color-saffron-deep: #dc5f05;
   --color-forest: #167965;
 
   /* ---- Pastel card surfaces ---- */
-  --color-peach: #f4eafd;
-  --color-blush: #fde9f8;
+  --color-peach: #fff4f0;
+  --color-blush: #ffe9e4;
   --color-sand: #fff2e8;
   --color-sage: #d6fcf4;
   --color-mistblue: #edf3fb;
-  --color-lilac: #ebdafd;
+  --color-lilac: #fff0ea;
 
   /* ---- Radius ---- */
   --radius-button: 12px;
@@ -48,8 +48,8 @@
 
   /* ---- Shadow ---- */
   --shadow-card: rgba(11, 61, 121, 0.1) 0px 12px 40px -28px;
-  --shadow-lift: rgba(95, 37, 158, 0.16) 0px 18px 52px -30px;
-  --shadow-warm: rgba(134, 47, 231, 0.18) 0px 16px 42px -20px;
+  --shadow-lift: rgba(171, 63, 56, 0.16) 0px 18px 52px -30px;
+  --shadow-warm: rgba(225, 91, 83, 0.18) 0px 16px 42px -20px;
 
   /* ---- Type ---- */
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
@@ -66,12 +66,12 @@
 }
 
 :root {
-  --color-voltage-violet: #862fe7;
-  --color-ultra-violet: #5f259e;
-  --color-lavender-mist: #ad6df4;
-  --color-orchid-wash: #bd8ff0;
-  --color-magenta-spark: #ff5fe4;
-  --color-hot-pink-ray: #e22ba4;
+  --color-voltage-violet: #e15b53;
+  --color-ultra-violet: #ab3f38;
+  --color-lavender-mist: #ee9086;
+  --color-orchid-wash: #ee9086;
+  --color-magenta-spark: #ee9086;
+  --color-hot-pink-ray: #c84e46;
   --color-amber-pulse: #dc5f05;
   --color-midnight-ink: #111827;
   --color-graphite: #3f4654;
@@ -80,9 +80,8 @@
   --color-fog: #f1f5f9;
   --color-mist: #d8e0ea;
   --color-mint-wash: #d6fcf4;
-  --color-lavender-field: #ebdafd;
+  --color-lavender-field: #fff0ea;
   --font-bricolage-grotesque: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --text-caption: 12px;
   --leading-caption: 1.5;
   --tracking-caption: 1.2px;
@@ -111,11 +110,11 @@
   --shadow-subtle: rgba(11, 61, 121, 0.16) 0px 0px 0px 1px inset;
   --surface-pure-white-canvas: #ffffff;
   --surface-fog-alt: #f1f5f9;
-  --surface-lavender-field: #ebdafd;
+  --surface-lavender-field: #fff0ea;
   --surface-mint-highlight: #d6fcf4;
-  --gradient-hero: linear-gradient(96deg, #862fe7 0%, #ad6df4 55%, #ff5fe4 100%);
-  --gradient-panel: linear-gradient(150deg, #5f259e 0%, #862fe7 100%);
-  --gradient-glow: radial-gradient(60% 60% at 50% 0%, rgb(134 47 231 / 16%), transparent 70%);
+  --gradient-hero: linear-gradient(96deg, #e15b53 0%, #ee9086 55%, #ee9086 100%);
+  --gradient-panel: linear-gradient(150deg, #ab3f38 0%, #e15b53 100%);
+  --gradient-glow: radial-gradient(60% 60% at 50% 0%, rgb(225 91 83 / 16%), transparent 70%);
   --glass-bg: rgba(255, 255, 255, 0.62);
   --glass-border: rgba(255, 255, 255, 0.85);
   --glass-blur: 18px;
@@ -138,7 +137,20 @@ html {
 }
 
 body {
-  overflow-x: hidden;
+  /* Several sections bleed past the viewport on purpose — the language marquee
+     runs 2800px wide, the world stage is inset -20%, the intro's world sits at
+     -32px — and each is clipped by its own section. At 320px something still
+     escaped, leaving the document 336px wide and the whole page able to slide
+     sideways under a thumb.
+
+     `clip` rather than `hidden`, and this is the whole reason it is safe here:
+     `overflow: hidden` on the body establishes a scroll container, which breaks
+     every `position: sticky` descendant — and the scroll story and the header
+     are both sticky. `overflow-x: clip` clips without creating one, so the
+     sticky stage keeps working and the page can no longer be dragged sideways.
+
+     Vertical is left alone deliberately. Constraining it here is what breaks
+     `scroll-snap-type` on html and position:sticky inside it. */
   overflow-x: clip;
   background: var(--color-canvas);
   color: var(--color-ink);
@@ -193,11 +205,18 @@ html[data-story-hero='true'] header.glass {
   z-index: -1;
   inset: 1px;
   border-radius: inherit;
-  background: linear-gradient(110deg, rgb(255 255 255 / 48%), transparent 38% 72%, rgb(235 218 253 / 36%));
+  background: linear-gradient(110deg, rgb(255 255 255 / 48%), transparent 38% 72%, rgb(255 240 234 / 36%));
   content: '';
   pointer-events: none;
 }
 
+/* Opaque the moment anything is behind it.
+   The bar floats over the hero, where nothing is underneath and the glass is
+   the point. Once the page scrolls, content passes beneath it — and at 0.91 a
+   display headline in near-black read straight through the pill, which looks
+   like a collision rather than a bar. The blur cannot rescue that: blurring
+   72pt type leaves 72pt of dark smear. So the moment it has something to
+   cover, it covers it. */
 .site-nav-shell[data-scrolled='true'] {
   background: rgb(255 255 255 / 96%);
   box-shadow: 0 18px 48px -30px rgb(17 24 39 / 45%);
@@ -247,12 +266,12 @@ html[data-story-hero='true'] header.glass {
 .nav-morph-cta {
   height: 2.25rem !important;
   padding-inline: 1rem !important;
-  border: 1px solid rgb(134 47 231 / 18%) !important;
+  border: 1px solid rgb(225 91 83 / 18%) !important;
   border-radius: 10px !important;
-  background: #862fe7 !important;
+  background: #e15b53 !important;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 28%),
-    0 12px 22px -14px rgb(95 37 158 / 70%) !important;
+    0 12px 22px -14px rgb(171 63 56 / 70%) !important;
   font-family: var(--font-accent);
   font-size: 0.8rem !important;
   letter-spacing: -0.012em;
@@ -265,7 +284,7 @@ html[data-story-hero='true'] header.glass {
   transform: translateY(-2px) scale(1.015);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 32%),
-    0 16px 26px -14px rgb(95 37 158 / 76%) !important;
+    0 16px 26px -14px rgb(171 63 56 / 76%) !important;
 }
 
 .nav-morph-menu {
@@ -342,8 +361,33 @@ html[data-story-hero='true'] header.glass {
 
 .living-world-stage {
   position: relative;
-  min-height: 30rem;
-  margin: clamp(2.5rem, 5vw, 5rem) -5vw 0;
+  margin: clamp(1.25rem, 2.5vw, 2.25rem) -5vw 0;
+  /* The turntable needs a vanishing point to rotate against. Without
+     perspective, rotateY on a flat image is an affine squash — the plate gets
+     narrower and wider like a closing door, which reads as a sticker rather
+     than a world. The distance is deliberately long: at 2200px the near and far
+     edges of a 1200px plate differ by only a few per cent, which is the whole
+     effect. Shorten it and the diorama starts to fisheye. */
+  perspective: 2200px;
+  perspective-origin: 50% 42%;
+}
+
+/* A slow turntable, not a spin.
+   A still isometric plate cannot actually rotate — the camera inside the
+   picture is fixed, so any real turn would need a rendered orbit sequence.
+   What this does instead is tilt the plate a couple of degrees either side of
+   flat on a very long loop, which reads as the model sitting on a table that
+   is slowly turning. The amplitude is the entire design: at 2.2 degrees it is
+   ambient and you notice it only if you rest on the section; past about four
+   the isometric projection fights the perspective and it starts to look like a
+   spinning image. 48 seconds a cycle, so it never repeats visibly while
+   someone is reading.
+   transform only — no layout property animates, so this stays on the
+   compositor and costs nothing per frame. */
+@keyframes worldTurntable {
+  0%   { transform: rotateY(-2.2deg) rotateX(0.5deg); }
+  50%  { transform: rotateY(2.2deg) rotateX(-0.5deg); }
+  100% { transform: rotateY(-2.2deg) rotateX(0.5deg); }
 }
 
 .living-world-image {
@@ -351,9 +395,13 @@ html[data-story-hero='true'] header.glass {
   height: auto;
   max-width: none;
   margin-left: -5%;
+  transform-origin: 50% 62%;
+  animation: worldTurntable 48s ease-in-out infinite;
+  will-change: transform;
   filter: saturate(0.94) contrast(1.015);
   mix-blend-mode: multiply;
-  mask-image: radial-gradient(ellipse 84% 80% at 50% 50%, #000 55%, transparent 98%);
+  mask-image: radial-gradient(ellipse 94% 96% at 50% 50%, #000 76%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 94% 96% at 50% 50%, #000 76%, transparent 100%);
 }
 
 .living-world-stat {
@@ -631,7 +679,6 @@ html[data-story-hero='true'] header.glass {
   }
 
   .living-world-stage {
-    min-height: 24rem;
     margin-inline: -20%;
   }
 
@@ -958,5 +1005,31 @@ html[data-story-hero='true'] header.glass {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+
+  /* Reveal must not be able to hide content from someone who asked for no
+     motion. Collapsing the transition duration was not enough on its own: the
+     hidden state is opacity 0, and it only clears when IntersectionObserver
+     reports the element on screen. With `scroll-behavior: auto` — which this
+     block sets, and which anchor links, deep links and history restoration use
+     anyway — the page jumps rather than travelling, so anything skipped over
+     never intersects and stays invisible for good.
+
+     Measured: scrolling to the foot of /pricing revealed all five section
+     heads with smooth scrolling and none of them with reduced motion.
+
+     So reduced motion opts out of the mechanism rather than out of its
+     animation. The reveal is an enhancement; this is the floor underneath it. */
+  [data-reveal='hidden'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* The global rule above collapses animation-duration to 0.001ms, which for an
+     infinite animation means it still runs — it just runs absurdly fast. A
+     turntable has to actually stop. */
+  .living-world-image {
+    animation: none;
+    transform: none;
   }
 }

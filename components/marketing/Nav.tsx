@@ -7,6 +7,7 @@ import { ButtonLink } from '@/components/ui/Button';
 import { topLevelVerticals, verticalHref } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
 import { useCases } from '@/data/useCases';
+import { site } from '@/lib/site';
 
 /**
  * P1-1, 13 Aug 2026: the nav shows three verticals, not all nine — six
@@ -89,6 +90,9 @@ export function Nav() {
             <CompareMenu />
           </nav>
 
+          {/* Self-serve is the product, so self-serve is the primary CTA. A
+              demo is still here for the buyer who wants one, but it no longer
+              stands between someone and the thing they came to try. */}
           <div className="flex items-center gap-2">
             <a
               href="https://inapp.decibyl.ai"
@@ -96,8 +100,18 @@ export function Nav() {
             >
               Log in
             </a>
-            <ButtonLink href="/book-a-demo" variant="primary" className="nav-morph-cta hidden sm:inline-flex">
+            <Link
+              href="/book-a-demo"
+              className="hidden text-[0.9375rem] text-ink transition-colors hover:text-ink/70 lg:inline-flex"
+            >
               Book a demo
+            </Link>
+            <ButtonLink
+              href={site.external.signup}
+              variant="primary"
+              className="nav-morph-cta hidden sm:inline-flex"
+            >
+              Start free
             </ButtonLink>
             <button
               type="button"
@@ -169,7 +183,15 @@ export function Nav() {
                   Decibyl vs {c.name}
                 </Link>
               ))}
-              <ButtonLink href="/book-a-demo" className="mt-4" size="lg">
+              <ButtonLink href={site.external.signup} className="mt-4" size="lg">
+                Start free
+              </ButtonLink>
+              <ButtonLink
+                href="/book-a-demo"
+                variant="secondary"
+                className="mt-2"
+                size="lg"
+              >
                 Book a demo
               </ButtonLink>
             </nav>

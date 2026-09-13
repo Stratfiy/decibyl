@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { CinematicIntro } from '@/components/story/CinematicIntro';
 import { ScrollStory } from '@/components/story/ScrollStory';
+import { storyActTotal } from '@/components/story/acts';
 import { LivingProofWorld } from '@/components/marketing/LivingProofWorld';
 import { verticals, verticalHref, getVertical } from '@/data/verticals';
 import { pageMetadata } from '@/lib/seo';
@@ -28,7 +29,7 @@ export default function ExperiencePage() {
 
   return (
     <>
-      <CinematicIntro />
+      <CinematicIntro total={storyActTotal(needs)} />
       <ScrollStory
         needs={needs}
         call={{

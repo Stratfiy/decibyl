@@ -22,7 +22,7 @@
   position: relative;
   height: var(--story-h);
   margin-top: -4rem;
-  background: #ead8cb;
+  background: var(--ground, #ead8cb);
 }
 
 /* A slow continuous drift across the entire story, independent of any one
@@ -36,7 +36,7 @@
      phone and pushed the copy off-screen. */
   min-height: min(620px, 100svh);
   overflow: hidden;
-  background: #ead8cb;
+  background: var(--ground, #ead8cb);
   --sp: 0; /* whole-story progress 0→1 */
 }
 
@@ -68,6 +68,11 @@
 .scene {
   position: absolute;
   inset: 0;
+  /* Each chapter carries the ground its own plate was rendered against, so the
+     plate never sits in a rectangle of slightly-wrong cream. In the pinned
+     stage two chapters are briefly co-resident, and their grounds cross-blend
+     with them — the ground moves with the camera rather than snapping. */
+  background: var(--ground, #ead8cb);
   display: grid;
   align-items: center;
   /* Below the two-column breakpoint the diorama takes the flexible row and the
@@ -76,19 +81,33 @@
      the art, and on a tablet the copy landed squarely across the plinth. */
   grid-template-columns: 1fr;
   grid-template-rows: minmax(0, 1fr) auto;
-  opacity: 0;
+  /* Continuous, not switched. `--ad` is how far this chapter is from the lens,
+     so a scene fades as the camera leaves it rather than on a timer that has no
+     idea how fast the reader is scrolling. Two chapters are on screen together
+     mid-transition — that overlap IS the transition.
+
+     No `transition` on opacity: the value is already a function of scroll
+     position, and easing it as well would fight the scrollbar and lag behind a
+     fast flick. `visibility` still hard-cuts once a scene is more than a
+     chapter and a half out, so distant plates cost no compositing. */
+  --ad: 9;
+  --d: 9;
+  opacity: clamp(0, calc(1.12 - var(--ad) * 1.32), 1);
   visibility: hidden;
-  transition:
-    opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0s linear 560ms;
 }
 
-.scene[data-state='active'] {
-  opacity: 1;
+/* `data-near` is set from the real distance in JS, because CSS cannot branch on
+   the numeric value of a custom property. Anything within range is part of the
+   world and gets composited; everything beyond is switched off outright. */
+.scene[data-near='true'] {
   visibility: visible;
-  transition:
-    opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0s;
+}
+
+/* Only the chapter at the lens is interactive. Without this the invisible
+   neighbouring scene sits on top of the active one and swallows the chapter
+   link, which reads to the user as a dead button. */
+.scene:not([data-state='active']) {
+  pointer-events: none;
 }
 
 @media (min-width: 900px) {
@@ -128,50 +147,49 @@
   }
 }
 
+/* One continuous camera path, expressed once.
+
+   The three separate transforms this replaces (a future plate parked low and
+   small, an active plate drifting, a past plate pushed up and scaled past you)
+   described the same movement in three disconnected pieces, and the jump
+   between them was a 980ms tween that had no idea where the reader's scroll
+   actually was. Written as a function of `--d` instead, the plate simply
+   travels: it rises through the frame, grows as it reaches the lens, and
+   continues up and past. Scrubbing backwards runs it backwards.
+
+   `--d` is signed so it drives direction; `--ad` unsigned so it drives
+   defocus, which is symmetrical — a chapter is equally soft whether it has not
+   arrived yet or has already gone. */
 .plate {
   display: flex;
   align-items: center;
   justify-content: center;
   max-width: 100%;
   max-height: 100%;
-  transform: translate3d(0, 54px, 0) scale(0.9);
-  filter: blur(6px);
-  transition:
-    transform 980ms cubic-bezier(0.16, 1, 0.3, 1),
-    filter 700ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
+  transform:
+    translate3d(
+      calc(var(--d, 0) * -18px + var(--mx, 0) * 14px),
+      calc(var(--d, 0) * -62px + var(--my, 0) * 10px),
+      0
+    )
+    scale(calc(1 - var(--ad, 0) * 0.085));
+  filter: blur(calc(var(--ad, 0) * 7px));
+  /* Position is scroll, not time. The only easing here is on the cursor
+     parallax, which has no scroll component and would otherwise snap. */
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, filter;
+}
+
+/* While a chapter is near the lens the reader is driving the transform
+   directly, and a 220ms ease-out on top of that reads as lag. */
+.scene[data-near='true'] .plate {
+  transition: none;
 }
 
 /* Once the chapter lands the plate settles, then drifts a little further as
    the reader keeps scrolling through it. */
-/* The camera.
-
-   This is what the reference actually does and what "plain" meant: the diorama
-   is not a slide that swaps, it is a model the camera moves around. Across a
-   chapter it pushes in (1.0 → 1.09), rises, and drifts a little sideways — all
-   driven by `--drift`, which the scroll listener writes continuously rather
-   than per chapter.
-
-   No transition on the transform while a chapter is active: `--drift` is
-   already a smooth function of scroll position, so easing it as well makes the
-   camera lag the finger. Easing returns for the enter and exit states, where
-   there is a real state change to smooth. */
-.scene[data-state='active'] .plate {
-  transform:
-    translate3d(calc(var(--drift, 0) * -18px), calc(var(--drift, 0) * -54px), 0)
-    scale(calc(1 + var(--drift, 0) * 0.09));
-  filter: blur(0);
-  transition:
-    filter 700ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.scene[data-state='past'] .plate {
-  transform: translate3d(0, -70px, 0) scale(1.06);
-  filter: blur(6px);
-}
-
-/* The plates carry their own flat cream backdrop, sampled at #ead8cb, and the
+/* The plates carry their own flat backdrop, and each chapter sets `--ground`
+   to the one its own plate was rendered against, so the
    story ground is set to exactly that. Feathering alone could not fix this: a
    radial mask on a 16:9 plate never reaches the corners, so the rectangle kept
    showing. Matching the ground is also what the reference does — the diorama
@@ -181,9 +199,16 @@
   isolation: isolate;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* A single centred cell. The still and the motion clip both occupy it, so
+     they resolve to the same box from the same rules. */
+  display: grid;
+  place-items: center;
+  grid-template-areas: 'plate';
+}
+
+.mediaFrame > .plateMedia,
+.mediaFrame > .plateMotion {
+  grid-area: plate;
 }
 
 /* Generated PNGs use a slightly warmer studio sweep than the canonical story
@@ -197,8 +222,8 @@
   content: '';
   pointer-events: none;
   background:
-    linear-gradient(90deg, #ead8cb 0%, rgba(234, 216, 203, 0.92) 2.5%, transparent 11%, transparent 89%, rgba(234, 216, 203, 0.92) 97.5%, #ead8cb 100%),
-    linear-gradient(180deg, #ead8cb 0%, rgba(234, 216, 203, 0.78) 3%, transparent 12%, transparent 86%, rgba(234, 216, 203, 0.86) 97%, #ead8cb 100%);
+    linear-gradient(90deg, var(--ground, #ead8cb) 0%, transparent 13%, transparent 87%, var(--ground, #ead8cb) 100%),
+    linear-gradient(180deg, var(--ground, #ead8cb) 0%, transparent 14%, transparent 86%, var(--ground, #ead8cb) 100%);
 }
 
 .mediaFrame[data-blend='strong'] .plateMedia {
@@ -216,116 +241,6 @@
      rather than show a rectangle. */
   -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 52%, #000 72%, transparent 100%);
   mask-image: radial-gradient(ellipse 92% 88% at 50% 52%, #000 72%, transparent 100%);
-}
-
-/* The first unfinished scene is a clinic that is visibly alive. The base plate
-   remains the approved Kie render; these lightweight overlays lock motion to
-   objects already in that render rather than floating decorative UI over it.
-   Their percentages correspond to the phone, receptionist's voice orb and
-   waiting chairs in the 16:9 plate. */
-.clinicMotion {
-  position: absolute;
-  aspect-ratio: 16 / 9;
-  /* 138vh is 78vh (the desktop plate's height cap) at a 16:9 ratio.
-     Keeping the overlay itself 16:9 makes its object coordinates stay locked
-     to a contained image even on short laptop screens. */
-  width: min(100%, 138vh);
-  max-height: 100%;
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.clinicMotion * {
-  animation-play-state: paused;
-}
-
-.scene[data-state='active'] .clinicMotion * {
-  animation-play-state: running;
-}
-
-.phoneVibration,
-.receptionPulse,
-.queuePulse,
-.callStatus {
-  position: absolute;
-}
-
-.phoneVibration {
-  left: 28.7%;
-  top: 51.5%;
-  width: 5.2%;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  animation: phoneNudge 2.6s cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
-}
-
-.phoneVibration span {
-  position: absolute;
-  inset: calc(var(--ring, 0) * -19%);
-  border-radius: 50%;
-  border: max(1px, 0.13vw) solid rgba(225, 91, 83, 0.78);
-  opacity: 0;
-  animation: phoneRing 2.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-.phoneVibration span:nth-child(2) {
-  --ring: 1;
-  animation-delay: 100ms;
-}
-
-.phoneVibration span:nth-child(3) {
-  --ring: 2;
-  animation-delay: 200ms;
-}
-
-.receptionPulse {
-  left: 36.8%;
-  top: 47.7%;
-  width: 3.5%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 240, 224, 0.95) 0 16%, rgba(242, 112, 97, 0.7) 45%, transparent 72%);
-  transform: translate(-50%, -50%);
-  filter: drop-shadow(0 0 9px rgba(235, 100, 85, 0.54));
-  animation: receptionistTalk 1.55s ease-in-out infinite;
-}
-
-.receptionPulse span {
-  position: absolute;
-  inset: -22%;
-  border: 1px solid rgba(237, 114, 97, 0.5);
-  border-radius: 50%;
-  animation: voiceWave 1.55s ease-out infinite;
-}
-
-.receptionPulse span:nth-child(2) {
-  animation-delay: 780ms;
-}
-
-.callRoute {
-  position: absolute;
-  inset: 0;
-  overflow: visible;
-}
-
-.callRouteGlow,
-.callRouteCore {
-  fill: none;
-  stroke-linecap: round;
-  stroke-dasharray: 0.12 0.88;
-  animation: routeCall 2.6s ease-in-out infinite;
-}
-
-.callRouteGlow {
-  stroke: rgba(234, 101, 87, 0.18);
-  stroke-width: 8;
-  filter: blur(4px);
-}
-
-.callRouteCore {
-  stroke: rgba(231, 91, 79, 0.88);
-  stroke-width: 2;
 }
 
 .queuePulse {
@@ -369,35 +284,6 @@
   box-shadow: 0 0 0 4px rgba(223, 93, 83, 0.14);
 }
 
-@keyframes phoneNudge {
-  0%, 8%, 30%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-  12%, 20% { transform: translate(-53%, -50%) rotate(-4deg); }
-  16%, 24% { transform: translate(-47%, -50%) rotate(4deg); }
-}
-
-@keyframes phoneRing {
-  0%, 8% { opacity: 0; transform: scale(0.55); }
-  18% { opacity: 0.9; }
-  34%, 100% { opacity: 0; transform: scale(1.55); }
-}
-
-@keyframes receptionistTalk {
-  0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.76; }
-  45% { transform: translate(-50%, -50%) scale(1.13); opacity: 1; }
-}
-
-@keyframes voiceWave {
-  0% { opacity: 0; transform: scale(0.55); }
-  25% { opacity: 0.68; }
-  100% { opacity: 0; transform: scale(1.7); }
-}
-
-@keyframes routeCall {
-  0%, 10% { stroke-dashoffset: 0.16; opacity: 0; }
-  20%, 55% { opacity: 1; }
-  72%, 100% { stroke-dashoffset: -0.88; opacity: 0; }
-}
-
 @keyframes queueBreathe {
   0%, 100% { opacity: 0.2; transform: scale(0.7); }
   50% { opacity: 0.7; transform: scale(1.5); }
@@ -423,10 +309,6 @@
 @media (max-width: 899px) {
   .artCol {
     max-height: 38svh;
-  }
-
-  .clinicMotion {
-    display: none;
   }
 
   .plateMedia,
@@ -1085,7 +967,6 @@
     overflow: visible;
   }
 
-
   .rail,
   .progressTrack,
   .cue,
@@ -1126,19 +1007,47 @@
     border-bottom: 1px solid rgba(33, 24, 20, 0.08);
   }
 
+  /* Both columns are absolutely positioned from 900px up so they can overlay
+     the pinned stage. This block reset their display, height and padding but
+     never their position — so on a wide screen with reduced motion the scene
+     had no in-flow children at all, collapsed to the height of its own padding,
+     and every chapter's art and copy piled up on top of the next one.
+
+     It needed a wide viewport AND reduced motion together, which is why it
+     survived review: a phone never applies the absolute rules, and a desktop
+     without the accessibility setting never enters this block. An iPad with
+     Reduce Motion on hits both.
+
+     The offsets go with the position. Leaving `inset` or a clamped `width`
+     behind on a now-static box constrains it for no reason. */
+  .artCol,
+  .copyCol {
+    position: static;
+    inset: auto;
+    width: auto;
+    height: auto;
+  }
+
   .artCol {
     display: block;
-    height: auto;
     padding: 0 0 1.75rem;
   }
 
-  .plate,
-  .scene[data-state='active'] .plate,
-  .scene[data-state='past'] .plate {
+  /* The camera is off entirely under reduced motion: no travel, no defocus,
+     no cursor parallax. Scenes fall into ordinary document flow and each plate
+     sits still above its own words. */
+  .plate {
     display: block;
     transform: none;
+    filter: none;
     transition: none;
     max-height: none;
+  }
+
+  .scene {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .plateDrawn,
@@ -1173,7 +1082,156 @@
     display: none;
   }
 
-  .clinicMotion {
+}
+
+/* ------------------------------------------- reduced motion, wide screen ---- */
+
+/* Reduced motion has to drop the pinned stage. It does not have to drop the
+   composition with it, and until now it did: every chapter became a 900px-wide
+   plate stacked above its own words, 980px tall, mostly air. That severs the
+   one relationship a chapter exists to make — this picture, these words — and
+   reads as an unstyled fallback rather than a designed page. A large share of
+   iPad and iOS visitors have Reduce Motion on, so this is not an edge case.
+
+   From 900px up the two columns sit side by side, exactly the relationship the
+   pinned stage draws, just in normal flow instead of overlaid. Deliberately
+   after the stacked block rather than inside it: plain CSS has no nested media
+   queries, and both conditions have to hold for this to apply. The short and
+   narrow viewports in that block keep stacking, which is right for them. */
+@media (prefers-reduced-motion: reduce) and (min-width: 900px) {
+  .scene {
+    display: grid;
+    /* The plate leads and the copy sits beside it at a readable measure. The
+       min on the text column stops it collapsing into a gutter of broken
+       words before the breakpoint below takes over. */
+    grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
+    /* The stacked grid declares two rows; one is all this needs. */
+    grid-template-rows: auto;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
+    max-width: 76rem;
+    margin-inline: auto;
+    padding: clamp(2rem, 5vh, 3.5rem) clamp(1.5rem, 4vw, 3rem);
+  }
+
+  /* Both columns carry explicit grid placement from the mobile stacked grid —
+     art in row 1, copy in row 2, both pinned to column 1. Declaring two columns
+     without re-placing them just makes a second column nothing ever occupies,
+     which is exactly what happened on the first attempt: the grid was correct
+     and the layout was unchanged. */
+  .artCol {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 0;
+  }
+
+  .copyCol {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  /* Bounded rather than full-bleed. At 900px wide the plate stopped reading as
+     an object on a plinth and started reading as a background. */
+  .plateDrawn,
+  .plateMedia {
+    width: 100%;
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+
+  .copyCol {
+    max-width: 30rem;
+  }
+}
+
+/* The motion plate sits exactly over the still it was rendered from, so the
+   swap is invisible: the video's first frame and the plate are the same image,
+   flattened onto the same ground. It fades in only once the browser has
+   actually started playing — `data-ready` is set from the resolved play()
+   promise, not from mount — because a video element that has not decoded yet
+   paints one frame of nothing, and against a still that is a flash of empty
+   cream where a room used to be. */
+.plateMotion {
+  /* A grid item in the same cell as the still, not an absolute overlay: the
+     two then share one sizing pass instead of the video guessing at the box
+     the image ended up with. z-index works on grid items, so it still stacks. */
+  z-index: 1;
+  /* Sized exactly like `.plateMedia`, including the same feather, so the video
+     lands on the still rather than beside a slightly different version of it.
+     `inset: 0` would have stretched it to the frame instead, which upscales
+     past the plate wherever the frame is larger than 1600x900. */
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  /* A deeper feather than the still's. The plate is a lossless-flat WebP whose
+     border matches the ground exactly; the clip is H.264, and chroma
+     subsampling shifts its border by a point or two — enough to draw the
+     video's rectangle on the cream. Dissolving well inside the frame puts that
+     boundary somewhere there is nothing to see. */
+  -webkit-mask-image: radial-gradient(ellipse 82% 78% at 50% 52%, #000 54%, transparent 93%);
+  mask-image: radial-gradient(ellipse 82% 78% at 50% 52%, #000 54%, transparent 93%);
+  opacity: 0;
+  transition: opacity 320ms ease;
+  pointer-events: none;
+}
+
+.plateMotion[data-ready] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plateMotion {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------- flight ------ */
+
+/* The line the call travels along, behind the room it is passing through.
+
+   It sits above the scene's flat ground but below the diorama and the copy, so
+   it reads as something in the room's world rather than an overlay on the page.
+   Nothing here affects layout: it is an absolutely-positioned decoration, and
+   with JS disabled `--d` keeps its resting value and the line simply stays
+   undrawn. */
+.flight {
+  position: absolute;
+  /* The band above the diorama, which is empty cream in every chapter. Run
+     through the middle instead and the line spends its whole life behind the
+     room, showing only as two stray stubs past the plate edges. */
+  inset: 0 0 auto 0;
+  z-index: 0;
+  width: 100%;
+  height: 38%;
+  pointer-events: none;
+  /* Seen while travelling, gone on arrival. At the lens the room fills the
+     stage and all that shows of the line is two stubs poking past the plate,
+     which reads as a rendering fault rather than as a connection. `--ad` is
+     already the distance from the lens, so the line simply belongs to the
+     space between chapters. */
+  opacity: clamp(0, calc(var(--ad, 0) * 1.9 - 0.2), 0.8);
+  transition: opacity 120ms linear;
+}
+
+.flightPath {
+  stroke: color-mix(in srgb, var(--color-vermilion, #e2574c) 70%, transparent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  /* `pathLength="1"` puts the dash units on a 0→1 scale, so the offset is the
+     scene distance itself rather than a magic number measured off the path. */
+  stroke-dasharray: 1;
+  stroke-dashoffset: clamp(0, calc(0.5 + var(--d, 0.5)), 1);
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-vermilion, #e2574c) 45%, transparent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* `--d` is never written without the scroll loop, so the line would sit
+     permanently half-undrawn. A partial line reads as a rendering fault. */
+  .flight {
     display: none;
   }
 }

@@ -26,7 +26,7 @@ export const SITE_EPOCH = '2026-08-12';
  */
 /* GENERATED:START */
 export const pageDates: Record<string, string> = {
-  '/': '2026-09-12',
+  '/': '2026-09-13',
   '/pricing': '2026-09-03',
   '/how-it-works': '2026-09-03',
   '/solutions': '2026-09-03',

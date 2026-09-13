@@ -199,13 +199,19 @@ export default function HomePage() {
         />
       </Section>
 
-      {/* How you stay in control — the memory/approval/audit story. Sits
-          immediately after the features deck because every one of those
-          capabilities raises the same question: what stops it saying something
-          wrong to my customer? */}
-      <Section surface="canvas" ariaLabel="How you stay in control">
+      {/* The memory/approval/audit story. Sits immediately after the features
+          deck because every one of those capabilities raises the same question:
+          what stops it saying something wrong to my customer?
+
+          Deliberately not headed "stay in control". Make's AI Agents page is
+          built on exactly that phrase -- "agents you can trust", "stay in
+          control" -- and its hero art is an execution trace. Showing the
+          machine's steps is table stakes in this category now. What Make
+          cannot put on the screen is a person's name against the step, so
+          that is what this section leads with. */}
+      <Section surface="canvas" ariaLabel="Approved by a person">
         <SectionHead
-          eyebrow="You stay in control"
+          eyebrow="Approved by a person"
           title="It gets smarter every week. You decide what it repeats."
           sub="An agent that learns on its own is a liability. Everything it picks up waits for a person before a customer ever hears it."
         />

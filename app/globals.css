@@ -52,8 +52,8 @@
   --shadow-warm: rgba(225, 91, 83, 0.18) 0px 16px 42px -20px;
 
   /* ---- Type ---- */
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-accent: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-accent: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-indic:
     var(--font-plex-deva), var(--font-noto-tamil), var(--font-noto-telugu),
@@ -81,7 +81,7 @@
   --color-mist: #d8e0ea;
   --color-mint-wash: #d6fcf4;
   --color-lavender-field: #fff0ea;
-  --font-bricolage-grotesque: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-outfit-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --text-caption: 12px;
   --leading-caption: 1.5;
   --tracking-caption: 1.2px;

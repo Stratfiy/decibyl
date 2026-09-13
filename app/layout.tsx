@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import {
-  Bricolage_Grotesque,
   Inter,
   IBM_Plex_Mono,
   IBM_Plex_Sans_Devanagari,
@@ -10,6 +9,7 @@ import {
   Noto_Sans_Kannada,
   Noto_Sans_Gujarati,
   Noto_Sans_Arabic,
+  Outfit,
 } from 'next/font/google';
 import './globals.css';
 import { Nav } from '@/components/marketing/Nav';
@@ -19,10 +19,22 @@ import { JsonLd, organizationSchema, softwareApplicationSchema, webSiteSchema } 
 
 /* Self-hosted via next/font — no render-blocking font CDN, no CLS on load. */
 
-const bricolage = Bricolage_Grotesque({
+/* The display voice. Slack's is Salesforce-Avant-Garde — a geometric,
+   wide, near-circular face we cannot license and must never ship. Refero's
+   extract of their system names the substitutes to reach for when it is
+   unavailable: Inter Tight, DM Sans, Outfit. Outfit is the geometric one of
+   the three, and the only one that keeps Avant Garde's even circular bowls at
+   display sizes; Inter Tight is condensed Inter and DM Sans is rounder and
+   narrower. It is on Google Fonts under the OFL, so next/font self-hosts it at
+   build time and a deployment with no egress to fonts.gstatic.com still gets
+   the face.
+
+   Same three weights Bricolage Grotesque carried, so nothing downstream has to
+   change: this is a swap of letterforms, not of the type system. */
+const outfit = Outfit({
   subsets: ['latin'],
   weight: ['500', '600', '700'],
-  variable: '--font-bricolage',
+  variable: '--font-outfit',
   display: 'swap',
   preload: true,
 });
@@ -132,7 +144,7 @@ export const viewport: Viewport = {
 };
 
 const fontVars = [
-  bricolage.variable,
+  outfit.variable,
   inter.variable,
   plexMono.variable,
   plexDeva.variable,

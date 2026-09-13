@@ -42,7 +42,6 @@ export function HomeHero() {
         <p className={styles.lead}>Answer every call, qualify every lead, book appointments and complete follow-ups, naturally, in 40+ languages.</p>
         <div className={styles.actions}>
           <Link href="/book-a-demo" className={styles.primaryAction}>Book a demo ↗</Link>
-          <Link href="/experience" className={styles.secondaryAction}>See the 3D experience</Link>
         </div>
         <div className={styles.proof}><span><strong>24/7</strong> availability</span><span><strong>40+</strong> languages</span><span><strong>India, US &amp; EU</strong> regions</span></div>
       </div>

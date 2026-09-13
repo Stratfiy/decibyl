@@ -23,7 +23,6 @@ const featuredVerticals = featuredVerticalSlugs
 
 /** Kept top-level: the pages in the primary buyer journey. */
 const primaryLinks = [
-  { label: 'Experience', href: '/experience' },
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
 ];

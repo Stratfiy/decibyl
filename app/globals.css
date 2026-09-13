@@ -129,10 +129,6 @@ html {
   overflow-x: hidden;
   overflow-x: clip;
   scroll-behavior: smooth;
-  /* Only the scroll story lays down `scroll-snap-align` points, so this snaps
-     there and nowhere else. `proximity` leaves the reader free to scroll past
-     or out; `mandatory` would trap them. */
-  scroll-snap-type: y proximity;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -145,12 +141,11 @@ body {
 
      `clip` rather than `hidden`, and this is the whole reason it is safe here:
      `overflow: hidden` on the body establishes a scroll container, which breaks
-     every `position: sticky` descendant — and the scroll story and the header
-     are both sticky. `overflow-x: clip` clips without creating one, so the
+     every `position: sticky` descendant — and the header is sticky. `overflow-x: clip` clips without creating one, so the
      sticky stage keeps working and the page can no longer be dragged sideways.
 
      Vertical is left alone deliberately. Constraining it here is what breaks
-     `scroll-snap-type` on html and position:sticky inside it. */
+     position:sticky inside it. */
   overflow-x: clip;
   background: var(--color-canvas);
   color: var(--color-ink);
@@ -166,23 +161,8 @@ body {
   color: #fff;
 }
 
-/* ---------- Floating header over a full-bleed hero ----------
-   The home page opens on a full-bleed cream story and the header floats over
-   it. Once scrolled, the header normally turns to glass — over the story that
-   reads as a bar again and breaks the edge-to-edge fill, so it is suppressed
-   for as long as the story owns the viewport. `ScrollStory` sets the attribute
-   while it is on screen and clears it on the way out, so every other page and
-   the rest of this one keep the glass exactly as before. */
-html[data-story-hero='true'] header.glass {
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border-bottom-color: transparent;
-}
-
 /* Motion-site-inspired navigation: the product navigation is the single
-   floating capsule. Story chapters stay off this hierarchy and use the quiet
-   progress rail instead. */
+   floating capsule. */
 .site-nav-shell {
   position: relative;
   isolation: isolate;

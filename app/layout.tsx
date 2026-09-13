@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import {
-  Bricolage_Grotesque,
+  Plus_Jakarta_Sans,
   Inter,
   IBM_Plex_Mono,
   IBM_Plex_Sans_Devanagari,
@@ -19,10 +19,10 @@ import { JsonLd, organizationSchema, softwareApplicationSchema, webSiteSchema } 
 
 /* Self-hosted via next/font — no render-blocking font CDN, no CLS on load. */
 
-const bricolage = Bricolage_Grotesque({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-bricolage',
+  weight: ['500', '600', '700', '800'],
+  variable: '--font-display-face',
   display: 'swap',
   preload: true,
 });
@@ -132,7 +132,7 @@ export const viewport: Viewport = {
 };
 
 const fontVars = [
-  bricolage.variable,
+  jakarta.variable,
   inter.variable,
   plexMono.variable,
   plexDeva.variable,

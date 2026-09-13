@@ -2,10 +2,10 @@
 
 @theme {
   /* Decibyl minimal system */
-  --color-voltage-violet: #862fe7;
-  --color-ultra-violet: #5f259e;
-  --color-lavender-mist: #ad6df4;
-  --color-orchid-wash: #bd8ff0;
+  --color-brand-coral: #f0431c;
+  --color-brand-deep: #c42d0e;
+  --color-coral-light: #ff9166;
+  --color-coral-wash: #ffb08a;
   --color-magenta-spark: #ff5fe4;
   --color-hot-pink-ray: #e22ba4;
   --color-amber-pulse: #dc5f05;
@@ -24,16 +24,16 @@
   --color-ink: #111827;
   --color-iron: #6b7589;
   --color-line: #d8e0ea;
-  --color-vermilion: #862fe7;
-  --color-ember: #bd8ff0;
-  --color-sindoor: #5f259e;
-  --color-saffron: #ff5fe4;
-  --color-saffron-deep: #dc5f05;
+  --color-vermilion: #f0431c;
+  --color-ember: #ff7a2f;
+  --color-sindoor: #c42d0e;
+  --color-saffron: #ffb627;
+  --color-saffron-deep: #a85e00;
   --color-forest: #167965;
 
   /* ---- Pastel card surfaces ---- */
-  --color-peach: #f4eafd;
-  --color-blush: #fde9f8;
+  --color-peach: #ffe4d6;
+  --color-blush: #ffeee6;
   --color-sand: #fff2e8;
   --color-sage: #d6fcf4;
   --color-mistblue: #edf3fb;
@@ -52,8 +52,8 @@
   --shadow-warm: rgba(134, 47, 231, 0.18) 0px 16px 42px -20px;
 
   /* ---- Type ---- */
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-accent: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
+  --font-accent: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-indic:
     var(--font-plex-deva), var(--font-noto-tamil), var(--font-noto-telugu),
@@ -66,10 +66,10 @@
 }
 
 :root {
-  --color-voltage-violet: #862fe7;
-  --color-ultra-violet: #5f259e;
-  --color-lavender-mist: #ad6df4;
-  --color-orchid-wash: #bd8ff0;
+  --color-brand-coral: #f0431c;
+  --color-brand-deep: #c42d0e;
+  --color-coral-light: #ff9166;
+  --color-coral-wash: #ffb08a;
   --color-magenta-spark: #ff5fe4;
   --color-hot-pink-ray: #e22ba4;
   --color-amber-pulse: #dc5f05;
@@ -81,7 +81,6 @@
   --color-mist: #d8e0ea;
   --color-mint-wash: #d6fcf4;
   --color-lavender-field: #ebdafd;
-  --font-bricolage-grotesque: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --text-caption: 12px;
   --leading-caption: 1.5;
@@ -113,9 +112,9 @@
   --surface-fog-alt: #f1f5f9;
   --surface-lavender-field: #ebdafd;
   --surface-mint-highlight: #d6fcf4;
-  --gradient-hero: linear-gradient(96deg, #862fe7 0%, #ad6df4 55%, #ff5fe4 100%);
-  --gradient-panel: linear-gradient(150deg, #5f259e 0%, #862fe7 100%);
-  --gradient-glow: radial-gradient(60% 60% at 50% 0%, rgb(134 47 231 / 16%), transparent 70%);
+  --gradient-hero: linear-gradient(96deg, #f0431c 0%, #ff9166 55%, #ff5fe4 100%);
+  --gradient-panel: linear-gradient(150deg, #c42d0e 0%, #f0431c 100%);
+  --gradient-glow: radial-gradient(60% 60% at 50% 0%, rgb(240 67 28 / 16%), transparent 70%);
   --glass-bg: rgba(255, 255, 255, 0.62);
   --glass-border: rgba(255, 255, 255, 0.85);
   --glass-blur: 18px;
@@ -193,7 +192,7 @@ html[data-story-hero='true'] header.glass {
   z-index: -1;
   inset: 1px;
   border-radius: inherit;
-  background: linear-gradient(110deg, rgb(255 255 255 / 48%), transparent 38% 72%, rgb(235 218 253 / 36%));
+  background: linear-gradient(110deg, rgb(255 255 255 / 48%), transparent 38% 72%, rgb(255 228 214 / 36%));
   content: '';
   pointer-events: none;
 }
@@ -247,12 +246,12 @@ html[data-story-hero='true'] header.glass {
 .nav-morph-cta {
   height: 2.25rem !important;
   padding-inline: 1rem !important;
-  border: 1px solid rgb(134 47 231 / 18%) !important;
+  border: 1px solid rgb(240 67 28 / 18%) !important;
   border-radius: 10px !important;
-  background: #862fe7 !important;
+  background: #f0431c !important;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 28%),
-    0 12px 22px -14px rgb(95 37 158 / 70%) !important;
+    0 12px 22px -14px rgb(196 45 14 / 70%) !important;
   font-family: var(--font-accent);
   font-size: 0.8rem !important;
   letter-spacing: -0.012em;
@@ -265,7 +264,7 @@ html[data-story-hero='true'] header.glass {
   transform: translateY(-2px) scale(1.015);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 32%),
-    0 16px 26px -14px rgb(95 37 158 / 76%) !important;
+    0 16px 26px -14px rgb(196 45 14 / 76%) !important;
 }
 
 .nav-morph-menu {

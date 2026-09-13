@@ -5,23 +5,31 @@ import { useEffect, useState } from 'react';
 import styles from './home-hero.module.css';
 
 /**
- * The rotator used to name industries, which the H1 already implied and the
- * solutions deck below covers properly. It now names the *job* instead: each
- * word is a thing a customer would actually search for, and the H1 finally
- * contains "AI voice agents" -- the term every other page on this site targets
- * and the old "AI front desk" headline did not.
+ * The rotator names the job. Deliberately mixed: reception and call-backs are
+ * voice, reorders and follow-ups need not be. The product is coworkers that do
+ * the boring work, and voice is one channel they do it through -- an H1 that
+ * says "AI voice agents" sells the narrowest reading of it.
+ *
+ * The voice keywords are not lost by saying so. /ai-receptionist,
+ * /voice-ai/[language], /ai-receptionist/[city] and /use-cases exist to carry
+ * that demand, and KEYWORDS.md assigns it to them. A homepage that duplicates
+ * its own cluster is a homepage competing with itself; this one carries the
+ * category and lets those pages carry the queries.
+ *
+ * One tone, not three. The old set cycled violet/pink/amber, so the headline
+ * changed hue every 2.6 seconds. The motion is the interest.
  *
  * Keep every entry at or under twelve characters. `.rotator` is
  * `height: 1.08em; overflow: hidden`, so a phrase that wraps gets clipped
- * rather than wrapped, and at the 5.9rem desktop clamp that happens fast.
+ * rather than wrapped.
  */
 const jobs = [
-  { name: 'follow-ups.', tone: 'violet' },
-  { name: 'reminders.', tone: 'pink' },
-  { name: 'no-shows.', tone: 'amber' },
-  { name: 'call-backs.', tone: 'violet' },
-  { name: 'reception.', tone: 'pink' },
-  { name: 'chasing.', tone: 'amber' },
+  { name: 'follow-ups.' },
+  { name: 'reminders.' },
+  { name: 'no-shows.' },
+  { name: 'reorders.' },
+  { name: 'reception.' },
+  { name: 'the chasing.' },
 ] as const;
 
 export function HomeHero() {
@@ -41,17 +49,16 @@ export function HomeHero() {
       <div className={styles.grid}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>
-            <span aria-hidden="true" /> AI coworkers for the boring work
+            <span aria-hidden="true" /> Voice, WhatsApp and the tools you already use
           </p>
           <h1 id="home-heading" className={styles.title}>
-            AI voice agents that handle
+            AI coworkers that handle
             <span className={styles.rotator} aria-live="polite">
               {jobs.map((job, index) => (
                 <span
                   key={job.name}
                   className={styles.word}
                   data-state={index === active ? 'active' : index < active ? 'past' : 'next'}
-                  data-tone={job.tone}
                   aria-hidden={index !== active}
                 >
                   {job.name}

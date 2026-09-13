@@ -15,9 +15,9 @@ import { homeFaqs } from '@/data/faqs';
 import { JsonLd, faqSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'AI Voice Agents for Indian Businesses',
+  title: 'AI Coworkers & Voice Agents for Indian Businesses',
   description:
-    'AI voice agents for Indian businesses — an AI calling agent that handles reminders, follow-ups and reception in Hindi, Tamil and English. It asks before it acts.',
+    'AI coworkers for Indian businesses — voice agents and AI calling agents that handle reminders, follow-ups and reception in Hindi, Tamil and English. They ask before they act.',
   path: '/',
   keywords: [
     'AI voice agents for business',
@@ -38,7 +38,7 @@ export const metadata: Metadata = pageMetadata({
     'AI coworker',
     'AI agents for business India',
   ],
-  ogTitle: 'AI voice agents that do the boring work',
+  ogTitle: 'AI coworkers that do the boring work',
   ogSubtitle: 'They call, chase and confirm — and check with you before anything that matters.',
 });
 

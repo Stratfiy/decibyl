@@ -4,8 +4,8 @@
   min-height: calc(100svh - 3.5rem);
   padding: clamp(5.5rem, 10vw, 9rem) 1.25rem clamp(4rem, 8vw, 7rem);
   background:
-    radial-gradient(circle at 84% 12%, rgb(235 218 253 / 70%), transparent 25rem),
-    radial-gradient(circle at 7% 92%, rgb(214 252 244 / 72%), transparent 24rem),
+    radial-gradient(circle at 84% 12%, rgb(255 228 214 / 70%), transparent 25rem),
+    radial-gradient(circle at 7% 92%, rgb(255 237 214 / 72%), transparent 24rem),
     #fff;
 }
 
@@ -36,7 +36,7 @@
   align-items: center;
   gap: .6rem;
   margin-bottom: 1.4rem;
-  color: #5f259e;
+  color: #c42d0e;
   font-size: .75rem;
   font-weight: 700;
   letter-spacing: .1em;
@@ -47,17 +47,17 @@
   width: .55rem;
   height: .55rem;
   border-radius: 50%;
-  background: #862fe7;
-  box-shadow: 0 0 0 .28rem rgb(134 47 231 / 12%);
+  background: #f0431c;
+  box-shadow: 0 0 0 .28rem rgb(240 67 28 / 12%);
 }
 
 .title {
   color: #111827;
-  font-family: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  font-size: clamp(3.2rem, 6vw, 5.9rem);
+  font-family: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(2.6rem, 4.2vw, 4rem);
   font-weight: 650;
   line-height: .96;
-  letter-spacing: -.065em;
+  letter-spacing: -.03em;
   text-wrap: balance;
 }
 
@@ -81,9 +81,8 @@
 
 .word[data-state='active'] { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0); }
 .word[data-state='past'] { transform: translate3d(0, -86%, 0) rotateX(30deg); }
-.word[data-tone='violet'] { color: #862fe7; }
-.word[data-tone='pink'] { color: #e22ba4; }
-.word[data-tone='amber'] { color: #dc5f05; }
+/* One accent, not three. The rotating word is the brand colour, every time. */
+.word { color: #f0431c; }
 
 .lead {
   max-width: 37rem;
@@ -109,15 +108,15 @@
 .primaryAction { background: #111827; color: #fff; box-shadow: 0 12px 30px -18px #111827; }
 .secondaryAction { border: 1px solid #d8e0ea; background: rgb(255 255 255 / 72%); color: #111827; }
 .primaryAction:hover, .secondaryAction:hover { transform: translateY(-2px); }
-.secondaryAction:hover { border-color: #ad6df4; }
+.secondaryAction:hover { border-color: #ff9166; }
 
 .proof { display: flex; flex-wrap: wrap; gap: .7rem 1.2rem; margin-top: 2rem; color: #6b7589; font-size: .78rem; }
 .proof span { display: flex; gap: .28rem; align-items: center; }
-.proof span + span::before { width: 3px; height: 3px; margin-right: .45rem; border-radius: 50%; background: #ad6df4; content: ''; }
+.proof span + span::before { width: 3px; height: 3px; margin-right: .45rem; border-radius: 50%; background: #ff9166; content: ''; }
 .proof strong { color: #3f4654; font-weight: 700; }
 
 .demo { position: relative; display: grid; min-height: 31rem; place-items: center; perspective: 1000px; }
-.agentCard, .backCard { border: 1px solid rgb(95 37 158 / 18%); background: rgb(255 255 255 / 82%); backdrop-filter: blur(16px); }
+.agentCard, .backCard { border: 1px solid rgb(196 45 14 / 18%); background: rgb(255 255 255 / 82%); backdrop-filter: blur(16px); }
 .agentCard {
   position: relative;
   z-index: 2;
@@ -128,22 +127,22 @@
   align-items: center;
   justify-content: center;
   border-radius: 24px;
-  box-shadow: 0 32px 80px -48px rgb(95 37 158 / 55%);
+  box-shadow: 0 32px 80px -48px rgb(196 45 14 / 55%);
 }
 .status { position: absolute; top: 1.2rem; left: 1.2rem; display: flex; align-items: center; gap: .42rem; color: #3f4654; font-size: .72rem; font-weight: 700; }
 .status i { width: .46rem; height: .46rem; border-radius: 50%; background: #20b486; box-shadow: 0 0 0 .25rem rgb(32 180 134 / 12%); }
-.orb { position: relative; display: flex; width: 10.5rem; height: 10.5rem; align-items: center; justify-content: center; gap: .24rem; overflow: hidden; border-radius: 50%; background: radial-gradient(circle at 33% 28%, #ff9cec, #862fe7 48%, #5f259e 76%); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 50%), 0 24px 52px -24px #862fe7; }
+.orb { position: relative; display: flex; width: 10.5rem; height: 10.5rem; align-items: center; justify-content: center; gap: .24rem; overflow: hidden; border-radius: 50%; background: radial-gradient(circle at 33% 28%, #ffb08a, #f0431c 48%, #c42d0e 76%); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 50%), 0 24px 52px -24px #f0431c; }
 .orb::after { position: absolute; inset: 9%; border: 1px solid rgb(255 255 255 / 35%); border-radius: inherit; content: ''; }
 .orb span { z-index: 1; width: .34rem; border-radius: 99px; background: rgb(255 255 255 / 88%); animation: wave 1.05s ease-in-out infinite alternate; }
 .orb span:nth-child(1), .orb span:nth-child(5) { height: 1.6rem; animation-delay: -.5s; }
 .orb span:nth-child(2), .orb span:nth-child(4) { height: 3.2rem; animation-delay: -.22s; }
 .orb span:nth-child(3) { height: 4.8rem; }
 .agentCard > p { margin-top: 1.7rem; color: #6b7589; font-size: .68rem; font-weight: 700; letter-spacing: .14em; }
-.agentCard h2 { margin-top: .2rem; color: #111827; font-family: var(--font-bricolage), sans-serif; font-size: 1.65rem; font-weight: 650; letter-spacing: -.04em; }
-.callButton { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.2rem; border-radius: 12px; background: #f1f5f9; padding: .72rem .95rem; color: #5f259e; font-size: .78rem; font-weight: 700; }
+.agentCard h2 { margin-top: .2rem; color: #111827; font-family: var(--font-display-face), sans-serif; font-size: 1.65rem; font-weight: 650; letter-spacing: -.04em; }
+.callButton { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.2rem; border-radius: 12px; background: #f1f5f9; padding: .72rem .95rem; color: #c42d0e; font-size: .78rem; font-weight: 700; }
 .backCard { position: absolute; z-index: 1; width: 15rem; height: 22rem; border-radius: 20px; }
-.backCard[data-side='left'] { left: 0; transform: rotate(-6deg); background: linear-gradient(145deg, #fff, #ebdafd); }
-.backCard[data-side='right'] { right: 0; transform: rotate(6deg); background: linear-gradient(215deg, #fff, #d6fcf4); }
+.backCard[data-side='left'] { left: 0; transform: rotate(-6deg); background: linear-gradient(145deg, #fff, #ffe4d6); }
+.backCard[data-side='right'] { right: 0; transform: rotate(6deg); background: linear-gradient(215deg, #fff, #ffedd6); }
 .demoHint { position: absolute; bottom: -1rem; color: #6b7589; font-size: .76rem; }
 
 @keyframes wave { to { transform: scaleY(.38); opacity: .72; } }

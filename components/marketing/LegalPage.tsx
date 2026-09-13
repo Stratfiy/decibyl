@@ -47,9 +47,23 @@ export function LegalPage({
   );
 }
 
+/**
+ * A clause you can point somebody at. Legal pages get read in disputes and in
+ * diligence, where "see the acceptable use section" is far weaker than a link
+ * that lands on it. The id is derived from the heading rather than passed in,
+ * so a section cannot be published without one.
+ */
+function slugify(heading: string) {
+  return heading
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 export function LegalSection({ heading, children }: { heading: string; children: ReactNode }) {
+  const id = slugify(heading);
   return (
-    <section>
+    <section id={id} className="scroll-mt-24">
       <h2 className="t-h3">{heading}</h2>
       <div className="mt-3 space-y-3 text-slate [&_a]:text-sindoor [&_a]:underline-offset-4 hover:[&_a]:underline [&_li]:ml-5 [&_li]:list-disc [&_ul]:space-y-2">
         {children}

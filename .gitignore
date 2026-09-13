@@ -9,3 +9,6 @@ out
 next-env.d.ts
 .DS_Store
 .gstack/
+
+# Local MCP server config — may carry API keys, never commit (this repo is public)
+.mcp.json

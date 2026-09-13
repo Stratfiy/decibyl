@@ -79,14 +79,14 @@ export function HomeHero() {
         </div>
 
         <div className={styles.demo} aria-label="Live Decibyl voice agent">
-          <div className={styles.backCard} data-side="left" aria-hidden="true">
-            <span>QUALIFY</span>
-            <strong>Sales leads</strong>
-          </div>
-          <div className={styles.backCard} data-side="right" aria-hidden="true">
-            <span>RESOLVE</span>
-            <strong>Customer calls</strong>
-          </div>
+          {/* Depth behind the agent card, nothing more. These used to carry
+              labels (QUALIFY / Sales leads, RESOLVE / Customer calls) that no
+              one could read: at 1440px the agent card spans 895-1263px, so the
+              left card showed a 54px sliver of its text and the right card's
+              label sat at 1084px, entirely behind it. A clipped word looks
+              broken; a clean edge looks deliberate. */}
+          <div className={styles.backCard} data-side="left" aria-hidden="true" />
+          <div className={styles.backCard} data-side="right" aria-hidden="true" />
           <div className={styles.agentCard}>
             <div className={styles.status}><i /> Live agent</div>
             <div className={styles.orb} aria-hidden="true">

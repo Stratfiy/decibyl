@@ -26,7 +26,7 @@ export const SITE_EPOCH = '2026-08-12';
  */
 /* GENERATED:START */
 export const pageDates: Record<string, string> = {
-  '/': '2026-09-03',
+  '/': '2026-09-12',
   '/pricing': '2026-09-03',
   '/how-it-works': '2026-09-03',
   '/solutions': '2026-09-03',
@@ -39,10 +39,10 @@ export const pageDates: Record<string, string> = {
   '/book-a-demo': '2026-08-17',
   '/waitlist': '2026-08-17',
   '/contact': '2026-08-17',
-  '/legal/privacy': '2026-08-12',
+  '/legal/privacy': '2026-08-13',
   '/legal/terms': '2026-08-28',
-  '/legal/dpdp': '2026-08-12',
-  '/legal/refund': '2026-08-12',
+  '/legal/dpdp': '2026-08-13',
+  '/legal/refund': '2026-08-13',
   '/compare': '2026-09-03',
   '/ai-receptionist': '2026-09-03',
   '/voice-ai': '2026-09-03',

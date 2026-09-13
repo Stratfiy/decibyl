@@ -4,13 +4,24 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styles from './home-hero.module.css';
 
-const industries = [
-  { name: 'healthcare.', tone: 'violet' },
-  { name: 'e-commerce.', tone: 'pink' },
-  { name: 'logistics.', tone: 'amber' },
-  { name: 'real estate.', tone: 'violet' },
-  { name: 'insurance.', tone: 'pink' },
-  { name: 'education.', tone: 'amber' },
+/**
+ * The rotator used to name industries, which the H1 already implied and the
+ * solutions deck below covers properly. It now names the *job* instead: each
+ * word is a thing a customer would actually search for, and the H1 finally
+ * contains "AI voice agents" -- the term every other page on this site targets
+ * and the old "AI front desk" headline did not.
+ *
+ * Keep every entry at or under twelve characters. `.rotator` is
+ * `height: 1.08em; overflow: hidden`, so a phrase that wraps gets clipped
+ * rather than wrapped, and at the 5.9rem desktop clamp that happens fast.
+ */
+const jobs = [
+  { name: 'follow-ups.', tone: 'violet' },
+  { name: 'reminders.', tone: 'pink' },
+  { name: 'no-shows.', tone: 'amber' },
+  { name: 'call-backs.', tone: 'violet' },
+  { name: 'reception.', tone: 'pink' },
+  { name: 'chasing.', tone: 'amber' },
 ] as const;
 
 export function HomeHero() {
@@ -20,7 +31,7 @@ export function HomeHero() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
     const timer = window.setInterval(() => {
-      setActive((current) => (current + 1) % industries.length);
+      setActive((current) => (current + 1) % jobs.length);
     }, 2600);
     return () => window.clearInterval(timer);
   }, []);
@@ -30,27 +41,27 @@ export function HomeHero() {
       <div className={styles.grid}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>
-            <span aria-hidden="true" /> AI voice agents for real operations
+            <span aria-hidden="true" /> AI coworkers for the boring work
           </p>
           <h1 id="home-heading" className={styles.title}>
-            Your AI front desk for
+            AI voice agents that handle
             <span className={styles.rotator} aria-live="polite">
-              {industries.map((industry, index) => (
+              {jobs.map((job, index) => (
                 <span
-                  key={industry.name}
+                  key={job.name}
                   className={styles.word}
                   data-state={index === active ? 'active' : index < active ? 'past' : 'next'}
-                  data-tone={industry.tone}
+                  data-tone={job.tone}
                   aria-hidden={index !== active}
                 >
-                  {industry.name}
+                  {job.name}
                 </span>
               ))}
             </span>
           </h1>
           <p className={styles.lead}>
-            Answer every call, qualify every lead, book appointments and complete follow-ups,
-            naturally, in 40+ languages.
+            They call, chase, confirm and write back to your tools — in 40+ languages, and
+            they check with you before anything that matters.
           </p>
           <div className={styles.actions}>
             <Link href="/book-a-demo" className={styles.primaryAction}>

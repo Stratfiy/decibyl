@@ -17,7 +17,7 @@ import { JsonLd, faqSchema, pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'AI Voice Agents for Indian Businesses',
   description:
-    'AI voice agents for Indian businesses — an AI calling agent that runs sales, support, appointment booking and reminder calls in Hindi, Tamil, English and more.',
+    'AI voice agents for Indian businesses — an AI calling agent that handles reminders, follow-ups and reception in Hindi, Tamil and English. It asks before it acts.',
   path: '/',
   keywords: [
     'AI voice agents for business',
@@ -32,9 +32,14 @@ export const metadata: Metadata = pageMetadata({
     'voice AI platform India',
     'Hindi voice AI agent',
     'telecalling automation India',
+    // The category this is becoming, not the one it sells into today. Low
+    // volume in India for now, kept here so the page is already associated
+    // with the term if and when the searches arrive.
+    'AI coworker',
+    'AI agents for business India',
   ],
-  ogTitle: 'The AI voice worker that answers your phone',
-  ogSubtitle: 'It calls, confirms, and closes — in the language your customer speaks.',
+  ogTitle: 'AI voice agents that do the boring work',
+  ogSubtitle: 'They call, chase and confirm — and check with you before anything that matters.',
 });
 
 const painPoints = [
@@ -57,6 +62,27 @@ const painPoints = [
     title: '“It’s in Tamil, half in English.”',
     body: 'Most Indian business calls are code-mixed. Agents built for clean English fall apart on the first sentence, and IVR trees make people press 0 for a human.',
     surface: 'bg-mistblue',
+  },
+];
+
+const control = [
+  {
+    eyebrow: 'Memory',
+    title: 'It remembers',
+    body: 'What one call learns, the next one knows — the caller’s address, the reason they rang last time, the thing your team had to explain twice.',
+    surface: 'bg-mistblue',
+  },
+  {
+    eyebrow: 'Approval',
+    title: 'You confirm',
+    body: 'Anything the agent picks up arrives as a suggestion. It waits for someone on your team to say yes before it will ever repeat it to a customer.',
+    surface: 'bg-sage',
+  },
+  {
+    eyebrow: 'Record',
+    title: 'Everything is logged',
+    body: 'Who approved what, and when. The answer to “why did it say that” is a click away, not an investigation.',
+    surface: 'bg-sand',
   },
 ];
 
@@ -171,6 +197,30 @@ export default function HomePage() {
           sub="Inbound and outbound on the same agent, with the same record of every call."
           items={featureCards}
         />
+      </Section>
+
+      {/* How you stay in control — the memory/approval/audit story. Sits
+          immediately after the features deck because every one of those
+          capabilities raises the same question: what stops it saying something
+          wrong to my customer? */}
+      <Section surface="canvas" ariaLabel="How you stay in control">
+        <SectionHead
+          eyebrow="You stay in control"
+          title="It gets smarter every week. You decide what it repeats."
+          sub="An agent that learns on its own is a liability. Everything it picks up waits for a person before a customer ever hears it."
+        />
+        <ul className="mt-10 grid gap-5 sm:grid-cols-3">
+          {control.map((c) => (
+            <li key={c.title} className={`rounded-card p-7 ${c.surface}`}>
+              <p className="t-eyebrow text-sindoor">{c.eyebrow}</p>
+              <h3 className="t-h3 mt-3">{c.title}</h3>
+              <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink/75">{c.body}</p>
+            </li>
+          ))}
+        </ul>
+        <p className="t-data mt-8 text-slate">
+          Every fact your agent may state has a name and a date attached to it.
+        </p>
       </Section>
 
       {/* What's actually included */}

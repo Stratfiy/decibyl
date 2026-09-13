@@ -43,6 +43,24 @@ export const features: Feature[] = [
     meta: 'Calendar · SMS · Webhook',
   },
   {
+    eyebrow: 'Memory',
+    title: 'Gets better every week',
+    body: 'What one call learns, the next one knows. The agent stops asking a returning caller for the address it was given last week, and the things it learns about your business are collected in one place.',
+    meta: 'Per organisation',
+  },
+  {
+    eyebrow: 'Approvals',
+    title: 'Asks before it acts',
+    body: 'Anything it picks up on a call arrives as a suggestion, not as fact. Nothing reaches a customer\u2019s ear until a person on your team confirms it \u2014 so the agent cannot repeat something it merely overheard.',
+    meta: 'Human in the loop',
+  },
+  {
+    eyebrow: 'Audit',
+    title: 'Every action has a name on it',
+    body: 'Who approved what, and when. The record you need when a customer disputes a call, an auditor asks, or you simply want to know why the agent said what it said.',
+    meta: 'Exportable',
+  },
+  {
     eyebrow: 'Build',
     title: 'MCP-native agent building',
     body: 'Define and change agents from Claude Code. India’s first voice agent platform built this way.',

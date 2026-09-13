@@ -240,8 +240,10 @@ export default function CompareHub() {
           ))}
         </div>
         <p className="t-caption mt-6 text-iron">
-          Data resides in {site.regions.join(', ')} — Mumbai by default, with US and EU available
-          for teams serving customers outside India.
+          Data resides in {site.regions.join(', ')}. One region, chosen deliberately: call
+          recordings and transcripts are conversations with people in India, and the region
+          holding them is where that personal data comes to rest under the DPDP Act. Teams
+          serving customers outside India can ask us about residency elsewhere.
         </p>
       </Section>
 

@@ -61,28 +61,8 @@
   text-wrap: balance;
 }
 
-.rotator {
-  position: relative;
-  display: block;
-  height: 1.08em;
-  overflow: hidden;
-}
-
-.word {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  transform: translate3d(0, 86%, 0) rotateX(-36deg);
-  transform-origin: center bottom;
-  transition: transform .58s cubic-bezier(.2,.8,.2,1), opacity .34s ease;
-  will-change: transform, opacity;
-}
-
-.word[data-state='active'] { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0); }
-.word[data-state='past'] { transform: translate3d(0, -86%, 0) rotateX(30deg); }
-/* One accent, not three. The rotating word is the brand colour, every time. */
-.word { color: #f0431c; }
+/* The brand colour carries the second half of the headline. */
+.accent { color: #f0431c; }
 
 .lead {
   max-width: 37rem;
@@ -148,12 +128,10 @@
 @keyframes wave { to { transform: scaleY(.38); opacity: .72; } }
 
 @media (min-width: 960px) { .grid { grid-template-columns: minmax(0, 1fr) minmax(27rem, .82fr); } }
-@media (max-width: 959px) { .hero { padding-top: 6rem; } .copy { text-align: center; margin: 0 auto; } .eyebrow, .actions, .proof { justify-content: center; } .word { right: 0; } .demo { width: min(100%, 34rem); margin: 0 auto; } }
+@media (max-width: 959px) { .hero { padding-top: 6rem; } .copy { text-align: center; margin: 0 auto; } .eyebrow, .actions, .proof { justify-content: center; } .demo { width: min(100%, 34rem); margin: 0 auto; } }
 @media (max-width: 560px) { .hero { padding-inline: 1rem; } .title { font-size: clamp(2.8rem, 14vw, 4.2rem); } .demo { min-height: 27rem; } .agentCard { width: 78%; min-height: 24rem; } .backCard { width: 42%; height: 18rem; } .orb { width: 8.3rem; height: 8.3rem; } .proof span + span::before { display: none; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .word { display: none; transition: none; }
-  .word[data-state='active'] { display: block; }
   .orb span { animation: none; }
   .primaryAction, .secondaryAction { transition: none; }
 }

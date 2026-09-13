@@ -1,49 +1,21 @@
-'use client';
-
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import styles from './home-hero.module.css';
 
 /**
- * The rotator names the job. Deliberately mixed: reception and call-backs are
- * voice, reorders and follow-ups need not be. The product is coworkers that do
- * the boring work, and voice is one channel they do it through -- an H1 that
- * says "AI voice agents" sells the narrowest reading of it.
+ * The headline is static, and that is the decision worth recording.
  *
- * The voice keywords are not lost by saying so. /ai-receptionist,
- * /voice-ai/[language], /ai-receptionist/[city] and /use-cases exist to carry
- * that demand, and KEYWORDS.md assigns it to them. A homepage that duplicates
- * its own cluster is a homepage competing with itself; this one carries the
- * category and lets those pages carry the queries.
+ * It used to rotate a job noun every 2.6 seconds. That cost a headline nobody
+ * could read during the transition, five of six words hidden from crawlers and
+ * screen readers, and a twelve-character ceiling that forced bland words --
+ * "reorders", "reception" -- because nothing sharper would fit. None of the
+ * products this one is measured against (ElevenLabs, Make, Wiza, Zelt) rotate
+ * their h1; the motion never earned the space it took.
  *
- * One tone, not three. The old set cycled violet/pink/amber, so the headline
- * changed hue every 2.6 seconds. The motion is the interest.
- *
- * Keep every entry at or under twelve characters. `.rotator` is
- * `height: 1.08em; overflow: hidden`, so a phrase that wraps gets clipped
- * rather than wrapped.
+ * "AI coworkers that do the boring work" also says the thing an H1 naming one
+ * channel could not: voice is how some of this gets done, not what it is. The
+ * eyebrow carries the channels, the voice cluster carries the voice queries.
  */
-const jobs = [
-  { name: 'follow-ups.' },
-  { name: 'reminders.' },
-  { name: 'no-shows.' },
-  { name: 'reorders.' },
-  { name: 'reception.' },
-  { name: 'the chasing.' },
-] as const;
-
 export function HomeHero() {
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) return;
-    const timer = window.setInterval(() => {
-      setActive((current) => (current + 1) % jobs.length);
-    }, 2600);
-    return () => window.clearInterval(timer);
-  }, []);
-
   return (
     <section className={styles.hero} aria-labelledby="home-heading">
       <div className={styles.grid}>
@@ -52,19 +24,7 @@ export function HomeHero() {
             <span aria-hidden="true" /> Voice, WhatsApp and the tools you already use
           </p>
           <h1 id="home-heading" className={styles.title}>
-            AI coworkers that handle
-            <span className={styles.rotator} aria-live="polite">
-              {jobs.map((job, index) => (
-                <span
-                  key={job.name}
-                  className={styles.word}
-                  data-state={index === active ? 'active' : index < active ? 'past' : 'next'}
-                  aria-hidden={index !== active}
-                >
-                  {job.name}
-                </span>
-              ))}
-            </span>
+            AI coworkers that do <span className={styles.accent}>the boring work.</span>
           </h1>
           <p className={styles.lead}>
             They call, chase, confirm and write back to your tools — in 40+ languages, and

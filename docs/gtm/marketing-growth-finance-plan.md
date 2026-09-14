@@ -1,6 +1,6 @@
 # Decibyl: marketing, growth and finance plan
 
-**Version:** v1, 2026-09-14
+**Version:** v1.1, 2026-09-14
 **Owner:** roadmap agent (marketing, growth, finance). Product is owned by the app agent (Jira epics A to H, echowave-redesign).
 **Inputs:** `.agents/product-marketing.md`, `docs/gtm/Decibyl-Financial-Model.xlsx`, `docs/gtm/pricing-spec-and-implementation-prompt.md`, `docs/gtm/self-serve-gtm.md`, `docs/gtm/industry-champions.md`, Jira epics I to P.
 **Method:** the marketing-plan skill (AARRR, portfolio not campaign), cut to what a bootstrapped founder plus two agents can run.
@@ -78,6 +78,22 @@ Already done and worth acknowledging: the site claims pass, the pair-page system
 - First-run promise: a worker live on a test number in 15 minutes. Onboarding checklist in the app, three steps: describe the job, hear it, connect the tool. Skill: onboarding.
 - Lifecycle emails and WhatsApp: day 0 welcome with the demo transcript, day 2 "your bot's first call", day 5 "connect Tally or Sheets", day 9 upgrade nudge with the minutes used. Skill: emails.
 - Paywall moment: the 1,000 free credits run out inside the first real week if the bot is used. The limit-reached screen shows minutes used, the salary comparison and the Business plan. Skill: paywalls.
+
+## 5a. Decibyl runs Decibyl
+
+Every recurring conversation in §4 to §7 that a person would otherwise have on the phone or on WhatsApp is a Decibyl worker on our own workspace. This is dogfooding, the launch readiness gate, a live proof on the site ("call the number, our receptionist is a Decibyl worker"), and the first rows in the action-data tables (epic P).
+
+| Internal worker | Job it does for us | Same job on the shelf |
+|---|---|---|
+| Front desk | Demo line: answers, qualifies business type and city, sends the signup link on WhatsApp, writes the lead to a Sheet | Lead qualification telecaller |
+| Lifecycle | Day 0/2/5/9 WhatsApp messages, weekly digest, dunning on day 1/3/7 as routines | Order confirmation and reminder routines |
+| Retention caller | Calls the five quiet accounts a day in the owner's language, hands off to the founder only when asked | Customer support executive |
+| Partner follow-up | Chases Kriti Labs, Logicorp and CA-firm quotes with the quote as its knowledge base | Procurement follow-up executive |
+| Review caller | Calls the first ten accounts, asks three questions, records consent, posts the transcript to a Sheet | Admissions counsellor pattern |
+
+Stays with people, because the product has no channel for it yet: email sending, Product Hunt, LinkedIn, Reddit, Google Ads, Search Console, directory forms (until epic O screen control ships), and the founder's own voice on Reels.
+
+Rule: no internal worker is built by hand in code. Each is built by talking to the builder, so the build itself is the test of J1.
 
 ## 6. Retention
 
@@ -207,4 +223,5 @@ Skip: cold email at scale, paid influencers, events and conferences, Meta and Li
 5. Whether collections stays in Q1 or is dropped for compliance risk.
 
 ## Changelog
+- v1.1 (2026-09-14) — Added §5a "Decibyl runs Decibyl": five internal workers replace the human-run lifecycle, churn, partner and review ops.
 - v1 (2026-09-14) — Initial plan after the founder handed marketing, growth and finance to the roadmap agent.

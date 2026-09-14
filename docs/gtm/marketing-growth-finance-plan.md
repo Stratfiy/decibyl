@@ -1,6 +1,6 @@
 # Decibyl: marketing, growth and finance plan
 
-**Version:** v1.1, 2026-09-14
+**Version:** v1.2, 2026-09-15
 **Owner:** roadmap agent (marketing, growth, finance). Product is owned by the app agent (Jira epics A to H, echowave-redesign).
 **Inputs:** `.agents/product-marketing.md`, `docs/gtm/Decibyl-Financial-Model.xlsx`, `docs/gtm/pricing-spec-and-implementation-prompt.md`, `docs/gtm/self-serve-gtm.md`, `docs/gtm/industry-champions.md`, Jira epics I to P.
 **Method:** the marketing-plan skill (AARRR, portfolio not campaign), cut to what a bootstrapped founder plus two agents can run.
@@ -17,7 +17,7 @@ Three bets for the next 12 months:
 
 ## 2. Strategic frame
 
-**Category claim:** AI receptionist and telecaller for Indian small businesses. Not "voice AI platform". The shelf is the job title.
+**Category claim:** AI workers for Indian small businesses: a shelf of roles, built by talking, working on the phone, WhatsApp, email and in the books. Not "voice AI platform"; voice is a commodity channel by 2026 and is the floor, not the pitch. The SEO doors stay "AI receptionist in <language> in <city>" because that is what owners type; the page they land on sells the worker.
 
 **Market-quality gate:** large problem (a missed enquiry is worth ₹500 to ₹5,000; a receptionist costs ₹15k to ₹25k a month) and high frequency (every day, after 7 pm, in the wrong language). Best quadrant. The compounding portfolio approach fits.
 
@@ -223,5 +223,6 @@ Skip: cold email at scale, paid influencers, events and conferences, Meta and Li
 5. Whether collections stays in Q1 or is dropped for compliance risk.
 
 ## Changelog
+- v1.2 (2026-09-15) — Category claim moved from voice-first to AI workers on every channel; site features re-led with the shelf, Decibyl-as-builder, channels, routines, memory, tools, receipts and testing.
 - v1.1 (2026-09-14) — Added §5a "Decibyl runs Decibyl": five internal workers replace the human-run lifecycle, churn, partner and review ops.
 - v1 (2026-09-14) — Initial plan after the founder handed marketing, growth and finance to the roadmap agent.

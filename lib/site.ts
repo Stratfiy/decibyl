@@ -81,10 +81,10 @@ export const site = {
    *  noun. It puts Decibyl up against the cost of a BPO seat, not against
    *  Vapi/Bolna/Retell's "platform" framing, which every India competitor
    *  currently uses. See the SEO/positioning research from 12 Aug 2026. */
-  tagline: 'AI voice workers, built in India, shipped for the world.',
+  tagline: 'AI workers for Indian businesses. On the phone, on WhatsApp, on email, in your books.',
   subline: 'Calls that confirm and close — in the language your customer actually speaks.',
   description:
-    'Decibyl builds AI voice workers that run confirmation, follow-up, and reminder calls end to end. Support customers in 40+ languages, with 7 Indian languages and code-mixed speech live today. Every call is transcribed, recorded, and scored.',
+    'Decibyl gives a small business AI workers it can hire off a shelf or build by talking: they answer the phone, WhatsApp and email in Indian languages, run routines, remember what customers said, and write every outcome to Tally, Zoho or Sheets. One credit is fifty paise, and every charge is published.',
   /** Infra footprint, referenced in comparison tables.
    *
    *  ONE REGION, AND THE LIST MUST NOT GROW UNTIL ONE EXISTS. This previously

@@ -7,16 +7,52 @@ export type Feature = {
 
 export const features: Feature[] = [
   {
-    eyebrow: 'Inbound',
-    title: 'Answers every call at once',
-    body: 'Concurrent calls, day or night. Nobody hears a ring tone and dials your competitor instead.',
-    meta: 'Inbound · 24×7',
+    eyebrow: 'The shelf',
+    title: 'Hire a role, not a chatbot',
+    body: 'Clinic front desk, property lead qualifier, collections caller, order confirmer. Each card says what the job is, what it speaks, what it needs access to, and what it costs a month. Pick one and it is working the same afternoon.',
+    meta: 'Roles ready for Indian businesses',
   },
   {
-    eyebrow: 'Outbound',
-    title: 'Campaigns from a list',
-    body: 'Upload the list, set the window, and the calls go out — reminders, confirmations, follow-ups.',
-    meta: 'Growth tier and above',
+    eyebrow: 'Build',
+    title: 'Tell Decibyl the job',
+    body: 'Describe it in plain sentences, typed or spoken. Decibyl builds the worker, shows you what it changed, and lets you hear it before anything goes live. Edit it the same way: "@reception, shorter Tamil greeting."',
+    meta: 'Type it or say it',
+  },
+  {
+    eyebrow: 'Channels',
+    title: 'Phone, WhatsApp, email, web chat, SMS',
+    body: 'One worker, every door the customer uses. The phone line is Indian, the WhatsApp is the business number, and the same memory and tools sit behind all of them.',
+    meta: 'Voice is one channel, not the product',
+  },
+  {
+    eyebrow: 'Routines',
+    title: 'Work that runs on a schedule',
+    body: 'Chase the pending invoices at 10, confirm tomorrow’s appointments at 6, send the daily summary at 9. A routine is armed only after a test run, and every run is on the timeline.',
+    meta: 'Armed after a test run',
+  },
+  {
+    eyebrow: 'Memory',
+    title: 'Remembers, but asks before it believes',
+    body: 'What a caller said last week is there next week. A fact learned from a call stays out of every worker’s prompt until somebody confirms it, so a misheard address never becomes the record. Gaps sit beside facts: "twelve callers asked about Saturday hours."',
+    meta: 'Confirmed facts only',
+  },
+  {
+    eyebrow: 'Tools',
+    title: 'Writes to Tally, Zoho, Sheets and 100 more',
+    body: 'The outcome of every conversation lands where you already look. Systems your business runs on are premium connectors; a desktop companion for software with no API is on the way.',
+    meta: 'Composio · Tally · Zoho · Sheets',
+  },
+  {
+    eyebrow: 'Receipts',
+    title: 'A price you can check',
+    body: 'One credit is fifty paise. Every event a worker performs has a published credit price, and every receipt lists each one. No blended minute, no surprise invoice.',
+    meta: 'Published rate card',
+  },
+  {
+    eyebrow: 'Check it',
+    title: 'Tested before it meets a customer',
+    body: 'Hear it on a real call, try it as a caller in a test frame, or run a scripted caller and let a judge grade it. Every test is stamped as a test and never touches your customer data.',
+    meta: 'Hear it · Try it · Check it',
   },
   {
     eyebrow: 'Handoff',
@@ -25,34 +61,10 @@ export const features: Feature[] = [
     meta: 'Every plan',
   },
   {
-    eyebrow: 'Quality',
-    title: 'QA scoring on every call',
-    body: 'Score every call rather than a 2% sample. Sampled QA finds a bad call after it has already cost you something. Scoring is on by default on every plan, and you can switch it off per agent.',
-    meta: 'Every plan',
-  },
-  {
-    eyebrow: 'Record',
-    title: 'Transcript and recording, every call',
-    body: 'Searchable transcripts and audio you can hand to a client, a regulator, or a new hire.',
-    meta: 'Retrievable',
-  },
-  {
-    eyebrow: 'Tools',
-    title: 'Books, sends, and writes back',
-    body: 'Calendar slots, confirmation SMS and email, and a webhook to your own system at the end of every call.',
-    meta: 'Calendar · SMS · Webhook',
-  },
-  {
-    eyebrow: 'Build',
-    title: 'MCP-native agent building',
-    body: 'Define and change agents from Claude Code. India’s first voice agent platform built this way.',
-    meta: 'MCP',
-  },
-  {
-    eyebrow: 'Latency',
-    title: 'Sub-700ms responses on select models',
-    body: 'Close enough to conversational that callers talk normally instead of waiting for the machine. Exact latency depends on the model and language selected.',
-    meta: '<700ms for select models',
+    eyebrow: 'Open',
+    title: 'MCP-native',
+    body: 'Define and change workers from Claude Code or any coding agent. The same builder, the same price estimate before the first call.',
+    meta: 'MCP · SDK',
   },
 ];
 
@@ -96,25 +108,25 @@ export const indianOps: { title: string; body: string }[] = [
 
 export const howItWorks: { title: string; body: string }[] = [
   {
-    title: 'Describe the agent',
-    body: 'What it should say, what it must never say, when it transfers to a human, and which language it opens in. Written in plain sentences, not a flow chart.',
+    title: 'Tell Decibyl the job',
+    body: 'Pick a role from the shelf or describe the job in plain sentences, typed or spoken. Decibyl builds the worker and you hear it before it goes anywhere.',
   },
   {
-    title: 'Connect a number',
-    body: 'Take an Indian DID from us, or forward the number you already advertise. Your printed material stays valid — this is forwarding, not porting.',
+    title: 'Put it on your channels',
+    body: 'Forward the number you already advertise, connect the WhatsApp, the email or the website. Nothing you print changes.',
   },
   {
-    title: 'Calls run, outcomes write back',
-    body: 'Inbound and outbound, in Indian languages and beyond, with the transcript, recording, QA score, and structured outcome landing in your system.',
+    title: 'It works, and writes it down',
+    body: 'Calls, messages and routines run in the customer’s language. Every outcome lands in Tally, Zoho or Sheets, and every action is on the timeline with a receipt.',
   },
 ];
 
 /** Trust strip — provable facts only. */
 export const trustStrip = [
-  '<700ms response latency for select models',
-  '10+ languages',
+  'Phone · WhatsApp · email · web chat',
+  '10+ Indian languages',
   'Data in India (ap-south-1)',
-  'GST invoicing',
+  'Published rate card, GST invoicing',
 ];
 
 /**

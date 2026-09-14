@@ -1,16 +1,16 @@
 # Product Marketing Context
 
-**Document version:** v1
-**Last updated:** 2026-09-14
+**Document version:** v2
+**Last updated:** 2026-09-15
 
 Auto-drafted from the Decibyl site data (data/jobs.ts, data/competitors.ts, data/pricing.ts, lib/site.ts), the pricing spec (docs/gtm/pricing-spec-and-implementation-prompt.md) and the financial model. Founder review pending; see the open questions at the end.
 
 ## Product Overview
-**One-liner:** AI voice workers, built in India, shipped for the world.
+**One-liner:** AI workers for Indian businesses. On the phone, on WhatsApp, on email, in your books.
 **What it does:** Decibyl lets a small business describe a job in plain words, by typing or by talking, and get a working voice or text agent that answers calls on an Indian number in the language the caller opens with, writes every outcome to the tool the business already uses (Tally, Zoho, Google Sheets, WhatsApp) and runs routines on a schedule. Screen share and a desktop companion let the agent do the clicking too.
-**Product category:** AI receptionist / AI telecaller / voice agent platform (customers search for "AI receptionist", "AI telecaller", "voice bot for clinic", "call answering service").
+**Product category:** AI workers for small business (the shelf of roles, built by talking, working on every channel). Search demand still arrives as "AI receptionist", "AI telecaller", "voice bot for clinic", so those remain the SEO doors; they are not the brand claim. Voice is one channel, and voice agents are a commodity by 2026.
 **Product type:** Self-serve SaaS with an assisted onboarding tier.
-**Business model:** Monthly plans with included credits (1 credit = ₹0.50), voice minutes from 10 to 12 credits, top-ups that never expire, annual at 10 for 12. Free plan with a one-time 1,000 credits. GST charged in India, zero-rated USD invoicing abroad under LUT.
+**Business model:** Monthly plans with included credits (1 credit = ₹0.50), a voice minute at 13, 12 or 11 credits by plan, top-ups that never expire, annual at 10 for 12. Free plan with a one-time 1,000 credits. GST charged in India, zero-rated USD invoicing abroad under LUT.
 
 ## Target Audience
 **Target companies:** Indian SMBs with a phone-heavy front desk and 1 to 50 staff: clinics and diagnostic labs, coaching institutes and colleges, real-estate brokers, D2C brands with COD orders, NBFC and collections agencies, CA and procurement offices. Secondary: Indian-diaspora and global SMBs on text channels.
@@ -46,12 +46,17 @@ Auto-drafted from the Decibyl site data (data/jobs.ts, data/competitors.ts, data
 (Full profiles in data/competitors.ts and /compare.)
 
 ## Differentiation
-**Key differentiators:**
-- Describe the job by talking, in any Indian language; the agent is built from the conversation, not from a flow editor.
-- Indic-first speech (Sarvam) with Indian numbers included in the plan and voice from ₹6 a minute.
-- Every call outcome lands in the customer's tool: Tally, Zoho, Sheets, WhatsApp, and routines run without a person.
-- Indian Pvt Ltd, GST invoice, data resident in AWS Mumbai, LUT for global customers.
-- Screen share and desktop companion so the agent can operate legacy software (Tally, hospital HIS) that has no API.
+**Key differentiators, in the order we lead with them:**
+1. The shelf: roles a business hires (clinic front desk, property lead qualifier, collections, order confirmer), each priced a month.
+2. Tell Decibyl the job: built by talking or typing, edited by handle, heard before it goes live; Decibyl coordinates the workers.
+3. Every channel from one worker: phone, WhatsApp, email, web chat, SMS, with the same memory and tools behind all of them.
+4. Routines: scheduled work armed only after a test run.
+5. Memory that asks before it believes: facts from calls stay out of prompts until confirmed; gaps shown beside facts.
+6. Writes to Tally, Zoho, Sheets and 100 more; desktop companion for software without an API.
+7. A price you can check: one credit is fifty paise, a published rate card, itemised receipts.
+8. Tested before it meets a customer: Hear it, Try it, Check it, all stamped as tests.
+9. Indian Pvt Ltd, GST invoice, LUT for exports, data resident in AWS Mumbai, Sovereign option.
+Indic-first speech is still true and still cheaper; it is the floor, not the pitch.
 **How we do it differently:** The unit of the product is a job ("clinic receptionist"), not a feature ("STT + LLM + TTS"). Pricing sits beside a salary, not beside API costs.
 **Why that's better:** An owner can judge it in one sentence: "this does the ₹18k job for ₹2,999."
 **Why customers choose us:** It picks up in Tamil at 9 pm and the appointment is in the sheet by 9:01.
@@ -61,7 +66,7 @@ Auto-drafted from the Decibyl site data (data/jobs.ts, data/competitors.ts, data
 |-----------|----------|
 | "It will say something wrong to a patient or a customer." | Every reply is logged with a recording and a timestamp; a human handoff rule is one sentence; medical or legal answers are refused by default. Call the demo number and try to break it. |
 | "My callers speak Tamil / Hindi mixed with English." | Sarvam models are trained on code-mixed Indian speech; the demo line answers in the language the caller opens with. |
-| "What does a minute really cost me?" | 10 to 12 credits, ₹5 to ₹6 a minute, with the plan credits covering roughly 250 to 3,300 minutes; top-ups never expire. |
+| "What does a minute really cost me?" | 13, 12 or 11 credits by plan, ₹6.50 to ₹5.50 a minute, and every other charge is on the published rate card; top-ups never expire. |
 | "Is my data going abroad?" | Voice and call data stay in AWS Mumbai; the DPA is public at /legal/dpa. |
 
 **Anti-persona:** Enterprises needing SSO, on-premise deployment or a dedicated success team; call centres wanting to resell minutes; anyone whose calls are mostly outbound cold sales at scale (compliance and reputation risk).
@@ -81,7 +86,7 @@ Auto-drafted from the Decibyl site data (data/jobs.ts, data/competitors.ts, data
 - "Bot that talks Tamil and books the appointment."
 - "Like a receptionist but on the phone system."
 **Words to use:** worker, job, picks up, writes it down, in your language, beside the salary, Indian number, GST invoice, recording.
-**Words to avoid:** LLM, STT, TTS, pipeline, prompt, agentic, hallucination, "AI-powered", "revolutionary", "hire" (a legal wording pass is pending; say "runs the job" not "hire a bot").
+**Words to avoid:** LLM, STT, TTS, pipeline, prompt, agentic, hallucination, "AI-powered", "revolutionary", "voice AI platform" (that is the commodity shelf we are not on), "hire" until the legal wording pass lands (say "runs the job", "pick a role").
 **Glossary:**
 | Term | Meaning |
 |------|---------|
@@ -122,4 +127,5 @@ Auto-drafted from the Decibyl site data (data/jobs.ts, data/competitors.ts, data
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v2 (2026-09-15) — Repositioned from voice-first to AI workers on every channel; differentiators re-ranked with the shelf and Decibyl-as-builder first, after the founder's call that voice agents are a commodity.
 - v1 (2026-09-14) — Initial context, auto-drafted from site data, pricing spec and financial model.

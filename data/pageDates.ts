@@ -26,26 +26,28 @@ export const SITE_EPOCH = '2026-08-12';
  */
 /* GENERATED:START */
 export const pageDates: Record<string, string> = {
-  '/': '2026-09-03',
-  '/pricing': '2026-09-03',
+  '/': '2026-09-12',
+  '/pricing': '2026-09-12',
   '/how-it-works': '2026-09-03',
-  '/solutions': '2026-09-03',
+  '/solutions': '2026-09-12',
   '/use-cases': '2026-09-03',
   '/case-studies': '2026-08-13',
-  '/security': '2026-09-03',
+  '/security': '2026-09-13',
   '/developers': '2026-09-03',
   '/partners': '2026-09-03',
   '/blog': '2026-09-03',
   '/book-a-demo': '2026-08-17',
-  '/waitlist': '2026-08-17',
+  '/waitlist': '2026-09-01',
   '/contact': '2026-08-17',
-  '/legal/privacy': '2026-08-12',
-  '/legal/terms': '2026-08-28',
-  '/legal/dpdp': '2026-08-12',
-  '/legal/refund': '2026-08-12',
-  '/compare': '2026-09-03',
+  '/legal/privacy': '2026-08-13',
+  '/legal/terms': '2026-09-13',
+  '/legal/dpdp': '2026-08-13',
+  '/legal/refund': '2026-08-13',
+  '/compare': '2026-09-13',
   '/ai-receptionist': '2026-09-03',
   '/voice-ai': '2026-09-03',
+  '/jobs': '2026-09-14',
+  '/integrations': '2026-09-14',
 };
 /* GENERATED:END */
 
@@ -53,10 +55,12 @@ export const pageDates: Record<string, string> = {
  *  move when that file does. Kept separate from the map above because the
  *  route list is derived, not enumerated. */
 /* GENERATED:DERIVED:START */
-export const verticalsUpdatedAt = '2026-09-03';
-export const competitorsUpdatedAt = '2026-09-03';
-export const citiesUpdatedAt = '2026-09-03';
+export const verticalsUpdatedAt = '2026-09-12';
+export const competitorsUpdatedAt = '2026-09-12';
+export const citiesUpdatedAt = '2026-09-14';
 export const languagePagesUpdatedAt = '2026-09-03';
+export const jobsUpdatedAt = '2026-09-14';
+export const integrationPagesUpdatedAt = '2026-09-14';
 /* GENERATED:DERIVED:END */
 
 /** The date to claim for `path`, or the epoch if we have no better answer. */

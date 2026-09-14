@@ -1,3 +1,5 @@
+> Superseded for budget, sequencing and finance by [marketing-growth-finance-plan.md](./marketing-growth-finance-plan.md) (2026-09-14). This file keeps the funnel detail.
+
 # Decibyl self-serve GTM strategy
 
 Written 14 Sept 2026. Companion to `docs/designs/sell-the-job-first-wedge.md`

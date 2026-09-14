@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import marketingRoutes from './data/marketingRoutes.json';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -18,6 +19,18 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  async rewrites() {
+    // Serve the approved standalone pages before the legacy Next pages.
+    // Other routes, including forms, APIs, blog and legal pages, stay intact.
+    return {
+      beforeFiles: marketingRoutes.map((source) => ({
+        source,
+        destination: `/together/pages${source === '/' ? '' : source}/index.html`,
+      })),
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   async headers() {
     return [
       {
@@ -26,6 +39,9 @@ const nextConfig: NextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          ...(process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production'
+            ? [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }]
+            : []),
         ],
       },
     ];

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import marketingRoutes from '@/data/marketingRoutes.json';
 import { siteUrl } from '@/lib/site';
 import { topLevelVerticals, clinicSubVerticals } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
@@ -53,9 +54,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return [
+    ...marketingRoutes.filter((path) => !staticPaths.some((p) => p.path === path)).map((path) => ({
+      url: `${siteUrl}${path}`,
+      lastModified: new Date('2026-09-14'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
     ...staticPaths.map((p) => ({
       url: `${siteUrl}${p.path}`,
-      lastModified: lastModified(p.path),
+      lastModified: marketingRoutes.includes(p.path) ? new Date('2026-09-14') : lastModified(p.path),
       changeFrequency: p.freq,
       priority: p.priority,
     })),

@@ -243,7 +243,7 @@ export default function CompareHub() {
           Data resides in {site.regions.join(', ')}. One region, chosen deliberately: call
           recordings and transcripts are conversations with people in India, and the region
           holding them is where that personal data comes to rest under the DPDP Act. Teams
-          serving customers outside India can ask us about residency elsewhere.
+          serving customers outside India get text channels on the same Mumbai infrastructure; we do not offer voice outside India today.
         </p>
       </Section>
 

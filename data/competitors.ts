@@ -52,7 +52,7 @@ export const competitors: Competitor[] = [
     summaryThem:
       'Vapi is a mature, developer-first voice platform with a large ecosystem, good documentation, and instant self-serve signup. If you are building in the US or Europe, want to pick your own STT/LLM/TTS stack, and your callers speak English, Vapi is a strong and well-supported default — and it will keep getting better faster than a smaller platform can.',
     summaryUs:
-      'Decibyl is built India-first. Indian languages with code-mixed speech as the normal case, Indian telephony, INR billing with a GST invoice, and data resident in Mumbai by default — with US and EU infrastructure available for teams serving customers outside India too. If your callers speak Hindi or Tamil and your finance team needs a GST invoice, that combination is the whole reason we exist; it just doesn\'t stop there.',
+      'Decibyl is built India-first. Indian languages with code-mixed speech as the normal case, Indian telephony, INR billing with a GST invoice, and data resident in Mumbai, full stop. If your callers speak Hindi or Tamil and your finance team needs a GST invoice, that combination is the whole reason we exist; it just doesn\'t stop there.',
     bestFor:
       'English-language builders in the US or EU who want to choose every layer of the stack themselves.',
     strongerThem: [
@@ -102,7 +102,7 @@ export const competitors: Competitor[] = [
       onboarding: 'Self-serve, instant',
     }),
     verdict:
-      'Want the biggest ecosystem and don\'t need Indian telephony or GST billing? Use Vapi. Calling Indian customers in Indian languages, paying in INR, and answering to an Indian finance and compliance process — with the option to run on US or EU infrastructure when you also serve customers there? That is what we built.',
+      'Want the biggest ecosystem and don\'t need Indian telephony or GST billing? Use Vapi. Calling Indian customers in Indian languages, paying in INR, and answering to an Indian finance and compliance process? That is what we built. Serving customers abroad on text channels works from the same Mumbai infrastructure; voice abroad is not something we sell today.',
     relatedVerticals: ['d2c-ndr-recovery', 'clinics'],
     seo: {
       title: 'Vapi Alternative India — Honest Comparison',

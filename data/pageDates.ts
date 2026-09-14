@@ -61,6 +61,7 @@ export const citiesUpdatedAt = '2026-09-14';
 export const languagePagesUpdatedAt = '2026-09-03';
 export const jobsUpdatedAt = '2026-09-14';
 export const integrationPagesUpdatedAt = '2026-09-14';
+export const jobPairsUpdatedAt = '2026-09-14';
 /* GENERATED:DERIVED:END */
 
 /** The date to claim for `path`, or the epoch if we have no better answer. */

@@ -7,9 +7,11 @@ import { cities } from '@/data/cities';
 import { languagePages, languageSlug } from '@/data/languagePages';
 import { useCases } from '@/data/useCases';
 import { jobs, jobsUpdatedAt } from '@/data/jobs';
+import { jobCityPairs, jobIntegrationPairs } from '@/data/jobPairs';
 import { integrationPages, integrationPagesUpdatedAt } from '@/data/integrationPages';
 import {
   citiesUpdatedAt,
+  jobPairsUpdatedAt,
   competitorsUpdatedAt,
   languagePagesUpdatedAt,
   lastModified,
@@ -100,6 +102,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: lastModified('/use-cases'),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
+    })),
+    ...jobIntegrationPairs.map((p) => ({
+      url: `${siteUrl}/jobs/${p.job}/for/${p.tool}`,
+      lastModified: new Date(jobPairsUpdatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
+    ...jobCityPairs.map((p) => ({
+      url: `${siteUrl}/jobs/${p.job}/in/${p.city}`,
+      lastModified: new Date(jobPairsUpdatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
     })),
     ...jobs.map((j) => ({
       url: `${siteUrl}/jobs/${j.slug}`,

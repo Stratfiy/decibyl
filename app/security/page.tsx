@@ -153,8 +153,8 @@ export default function SecurityPage() {
       </Container>
       <FinalCta
         title="Security team has more questions?"
-        sub="Ask for the DPA before you sign, not after. We'll send it directly."
-        secondary={{ label: 'Contact us', href: '/contact?topic=security' }}
+        sub="Read the DPA before you sign, not after. It is published, not sent on request."
+        secondary={{ label: 'Read the DPA', href: '/legal/dpa' }}
       />
 
       <JsonLd

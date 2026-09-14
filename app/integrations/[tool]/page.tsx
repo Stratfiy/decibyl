@@ -100,7 +100,7 @@ export default async function IntegrationPage({ params }: { params: Promise<{ to
         <SectionHead eyebrow="Jobs this serves" title={`The phone jobs that end in ${page.name}`} sub="Each is a job-post page: what the post asks for, what the bot does, and the price beside the salary." />
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {jobRecords.map((j) => (
-            <Link key={j.slug} href={`/jobs/${j.slug}`} className="group rounded-card border border-line bg-canvas p-6 transition-colors hover:border-vermilion">
+            <Link key={j.slug} href={`/jobs/${j.slug}/for/${page.slug}`} className="group rounded-card border border-line bg-canvas p-6 transition-colors hover:border-vermilion">
               <p className="t-eyebrow text-sindoor">{j.eyebrow}</p>
               <p className="mt-2 font-display font-bold">{j.title}</p>
               <p className="mt-2 text-[0.9375rem] text-slate">{j.botDoes[4]}</p>

@@ -144,8 +144,7 @@ export function Footer() {
             © {new Date().getFullYear()} {site.legalName}. All prices exclusive of 18% GST.
           </p>
           <p className="t-data text-white/60">
-            Data resident in India by default · AWS Mumbai (ap-south-1) · also available in the US
-            &amp; EU
+            Data resident in India · AWS Mumbai (ap-south-1) · voice for Indian numbers, text channels worldwide
           </p>
         </div>
       </Container>

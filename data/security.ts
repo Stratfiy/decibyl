@@ -14,7 +14,7 @@ export type SecurityPillar = {
 export const pillars: SecurityPillar[] = [
   {
     title: 'Data residency, your choice',
-    body: 'Call audio, transcripts, and lead data are stored in India — AWS Mumbai (ap-south-1) — by default. US and EU infrastructure is available for teams who need data closer to customers outside India.',
+    body: 'Call audio, transcripts, and lead data are stored in India — AWS Mumbai (ap-south-1) — and nowhere else. Voice agents are offered for Indian phone numbers; text channels are available to customers outside India on the same infrastructure, with a DPA that covers GDPR transfers for EEA and UK customers.',
   },
   {
     title: 'Encrypted in transit and at rest',

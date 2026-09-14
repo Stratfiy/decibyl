@@ -126,13 +126,13 @@ export default async function JobPage({ params }: { params: Promise<{ job: strin
           {integrationRecords.map((p) => (
             <Link
               key={p.slug}
-              href={`/integrations/${p.slug}`}
+              href={`/jobs/${job.slug}/for/${p.slug}`}
               className="group rounded-card border border-line bg-snow p-6 transition-colors hover:border-vermilion"
             >
               <p className="t-eyebrow text-sindoor">{p.eyebrow}</p>
               <p className="mt-2 font-display font-bold">{p.name}</p>
               <p className="mt-2 text-[0.9375rem] text-slate">{p.flows[0].body}</p>
-              <span className="t-data mt-3 inline-block text-sindoor group-hover:underline">How it connects</span>
+              <span className="t-data mt-3 inline-block text-sindoor group-hover:underline">{job.title} → {p.name}</span>
             </Link>
           ))}
         </div>
@@ -160,7 +160,7 @@ export default async function JobPage({ params }: { params: Promise<{ job: strin
             <ul className="mt-3 space-y-2">
               {cityRecords.map((c) => (
                 <li key={c.slug}>
-                  <Link href={`/ai-receptionist/${c.slug}`} className="text-sindoor hover:underline">
+                  <Link href={`/jobs/${job.slug}/in/${c.slug}`} className="text-sindoor hover:underline">
                     {job.title} calls in {c.name}, in {c.languages.length} languages
                   </Link>
                 </li>

@@ -74,7 +74,7 @@ export default async function LanguagePage({
     },
     {
       q: 'Is the call recorded and transcribed?',
-      a: 'Every call, with a QA score on all of them rather than a sample. Data is resident in India by default — AWS Mumbai, ap-south-1 — with US and EU available for teams serving customers outside India.',
+      a: 'Every call, with a QA score on all of them rather than a sample. Data is resident in India — AWS Mumbai, ap-south-1 — and nowhere else.',
     },
   ];
 

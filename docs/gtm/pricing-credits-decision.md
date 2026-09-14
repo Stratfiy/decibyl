@@ -24,30 +24,36 @@ there is a presentation decision and three plan-sizing decisions.
    speech in, model, speech out, carriage. This is the differentiator over
    flat per-minute vendors and over abstract-credit vendors alike. Already
    built (per-call receipts in the dashboard).
-3. **An everyday door under the business ladder.** Founder's call, 14
-   Sept: ₹2,999 is a business entry, and the product is for people too.
-   The number rental (₹559/month) is what makes Starter dear, and an
-   everyday user does not need one: bots on WhatsApp, the web widget and
-   scheduled routines, with outbound from the shared platform pool that
-   the admin telephony routes already expose.
+3. **An everyday door under the business ladder, text only.** Founder's
+   calls, 14 Sept: ₹2,999 is a business entry and the product is for people
+   too; and voice bots are sold to businesses only. So Everyday is a
+   message plan: bots on WhatsApp, web chat, email and scheduled routines,
+   with organisation memory and tools, and no telephony at all. No number,
+   no outbound, no shared pool. Voice starts at Business.
 
-   | Plan | ₹/month | Credit | Numbers | Fee/min |
-   |---|---|---|---|---|
-   | Free | 0 | 500 once, no card | none | 3.00 |
-   | Everyday | 499 | 450 | none; own number is the ₹559 add-on | 3.00 |
-   | Business (was Starter) | 2,999 | 2,500 | 1 | 2.50 |
-   | Growth | 7,999 | 7,200 | 2 | 2.00 |
-   | Scale | 19,999 | 18,500 | 4 | 1.50 |
-   | Custom | on commit | | pool | negotiated |
+   | Plan | ₹/month | Credit | Voice | Numbers | Fee/min |
+   |---|---|---|---|---|---|
+   | Free | 0 | 500 once, no card | browser test calls only | none | n/a |
+   | Everyday | 499 | 450 | none, text channels only | none | n/a |
+   | Business (was Starter) | 2,999 | 2,500 | yes | 1 | 2.50 |
+   | Growth | 7,999 | 7,200 | yes | 2 | 2.00 |
+   | Scale | 19,999 | 18,500 | yes | 4 | 1.50 |
+   | Custom | on commit | | yes | pool | negotiated |
 
-   The plan buys a cheaper platform fee and included numbers; credit is
-   spent at the same composed rates on every plan. Everyday margin at full
-   use is about ₹190 on ₹450 of credit at the 1.7x managed markup.
+   Everyday credit spends on model tokens and knowledge queries at the
+   composed rates, which are a fraction of a voice minute, so ₹450 is a
+   lot of messages. Margin is the managed markup on tokens; there is no
+   carriage or speech cost to carry. A person who wants a phone bot
+   upgrades to Business, which is also where KYC, DND scrubbing and
+   calling-hours rules apply, so the compliance surface sits with the
+   plans that can dial.
 
    **Sequencing.** data/pricing.ts on this site has a hard contract with
    `scripts/seed_subscription_plans.py` in the platform repo. Seed Everyday
-   there first (balance ₹450, fee ₹3.00/min, zero numbers, shared outbound
-   allowed), then add the tier here. Platform change waits for PR #231.
+   there first (balance ₹450, telephony disabled, message channels on),
+   then add the tier here. The channels layer that Everyday sells is the
+   work in PR #231 and its successors, so this plan ships when that does.
+
 4. **Credit never expires; the plan renews it.** The ledger has no expiry
    and adding one is platform work. Unused credit carries forward, top-ups
    sit on the same balance, and the monthly plan adds its grant on renewal.

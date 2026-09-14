@@ -4,6 +4,7 @@ import { leadSchema } from '@/lib/schema';
 import { getSupabase } from '@/lib/supabase';
 import { clientIp, hashIp, rateLimit } from '@/lib/rate-limit';
 import { sendWaitlistEmail } from '@/lib/email';
+import { requestCallback } from '@/lib/callback';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -85,6 +86,15 @@ export async function POST(request: Request) {
   // 5. Fire the n8n webhook. Never fail the request on a webhook error — the
   //    lead is already saved, and speed-to-lead beats delivery guarantees here.
   await notifyN8n({ id: data?.id, ...record });
+
+  // 5b. A demo request gets a call back from our own front-desk worker, the
+  //     promise the form makes ("we'll call you back with a live agent").
+  //     Same rule: the lead is saved, so a failed call never fails the request.
+  if (lead.form_type === 'demo' && data?.id) {
+    const result = await requestCallback({ id: String(data.id), ...lead });
+    if (result.status === 'failed') console.error('[leads] callback failed:', result.reason);
+    if (result.status === 'skipped') console.warn('[leads] callback skipped:', result.reason);
+  }
 
   // 6. Waitlist gets an immediate confirmation email with the booking link,
   //    so anyone who doesn't want to wait can skip straight to a demo.

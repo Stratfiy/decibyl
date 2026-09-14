@@ -8,7 +8,7 @@ import { cities, cityLanguages, cityVerticals, getCity } from '@/data/cities';
 import { languageHref } from '@/data/languagePages';
 import { jobsForCity } from '@/data/jobs';
 import { verticalHref } from '@/data/verticals';
-import { fromRateInr, tiers, tierPrice } from '@/data/pricing';
+import { fromRateInr, firstVoiceTier, tiers, tierPrice } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
@@ -46,7 +46,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
   const langs = cityLanguages(city);
   const verts = cityVerticals(city);
-  const starter = tiers[0];
+  const starter = firstVoiceTier;
   const cityJobs = jobsForCity(city.slug);
 
   const faqs = [
@@ -60,7 +60,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     },
     {
       q: 'What does it cost?',
-      a: `Plans start at ${tierPrice(starter, 'inr')}/month including the number and the telephony, with call credit included. Calling starts at ₹${fromRateInr.toFixed(2)}/min on the Everyday voice; how far your credit goes depends on which voice you choose. Prices are exclusive of 18% GST, billed in rupees with a GST-compliant invoice.`,
+      a: `Voice plans start at ${tierPrice(starter, 'inr')}/month including the number, the telephony and ${starter.credits.toLocaleString('en-IN')} credits. A minute on the Everyday voice is ${starter.voiceCreditsPerMinute} credits, ₹${fromRateInr.toFixed(2)}, and every other charge is on the published rate card. Prices are exclusive of 18% GST, billed in rupees with a GST-compliant invoice.`,
     },
     {
       q: 'Can it transfer to a person?',

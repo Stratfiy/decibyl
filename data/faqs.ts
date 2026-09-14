@@ -58,42 +58,54 @@ export const homeFaqs: Faq[] = [
 export const pricingFaqs: Faq[] = [
   {
     q: 'Are prices inclusive of GST?',
-    a: 'No — every price on this page is exclusive of 18% GST, which is added at invoicing.',
+    a: 'No. Every price on this page is exclusive of 18% GST, which is added at invoicing for accounts billed in India. Accounts billed outside India are invoiced in dollars as a zero-rated export.',
+  },
+  {
+    q: 'What is a credit, and what does one cost?',
+    a: 'One credit is fifty paise. Plans grant credits every month, top-up packs sell them at the same fifty paise, and every event a bot performs costs a whole number of them. A charge rounds up to the next credit per event; your balance shows what you can spend, rounded down.',
   },
   {
     q: 'How much does an AI calling agent cost in India?',
-    a: 'On Decibyl, from ₹4.91/min on the Everyday bundle, with managed plans from ₹2,999/month that include telephony and an Indian number, exclusive of 18% GST. The number worth checking on any vendor is not the headline per-minute rate but what sits underneath it: whether telephony, the phone number, the speech and language models, concurrency beyond a few simultaneous calls, and setup are inside that rate or billed separately. A low advertised rate with four separate lines under it frequently costs more than a higher published one that includes them, which is why every rate on this page is shown with what it contains.',
+    a: 'On Decibyl, voice plans start at ₹2,999 a month with a phone number, telephony and 6,000 credits included, and a minute on the Everyday voice is 13 credits, ₹6.50, falling to ₹6 on Growth and ₹5.50 on Scale. The number worth checking on any vendor is what sits under the headline rate: whether telephony, the number, the speech and language models and concurrency are inside it or billed separately. Every rate on this page is shown with what it contains.',
   },
   {
     q: 'What counts as a minute?',
-    a: 'Connected call time, billed on the actual duration of calls the agent handles. Ringing time is not billed.',
+    a: 'Connected call time, on the actual duration of calls the bot handles. Ringing time is not billed. A Natural or Premium voice minute is itemised at what the speech model cost, marked up and rounded up per call, and each component is on the receipt.',
   },
   {
-    q: 'What happens when my included credit runs out?',
-    a: 'You top up, and calling continues. Credit is added instantly, and there is no overage bill and no invoice at the end of the month — calling simply draws on the credit you have, so you can never be billed for a month you did not intend to spend. Unused plan credit does not carry into the next billing month.',
+    q: 'What happens when my plan credits run out?',
+    a: 'Voice minutes cost one credit more and are paid from your top-up balance; every other event stays at its rate. Scale never pays the overage rate. Nothing is billed in arrears: you spend only credits you hold, so there is no surprise invoice at the end of the month.',
   },
   {
-    q: 'Why is the included calling shown as a range of minutes?',
-    a: 'Because a minute is not one price, and the biggest factor is which voice you choose. Everyday runs an Indic-optimised pipeline and is the cheapest a minute. Natural and Premium are speech-to-speech models that reply the instant you stop talking, and Premium — the most capable speech model available — costs around five times what Everyday does for the same minute. Regional languages also cost more than Hindi or English on any bundle. The range shows the dearest and cheapest ends so you can see the real spread before you pick.',
+    q: 'Do unused credits carry over?',
+    a: 'Plan credits carry over up to one month of your plan, then lapse. Top-up credits never expire and are spent after plan credits, so a pack is never wasted on a month you already paid for.',
   },
   {
-    q: 'Which voice bundle should I start on?',
-    a: 'Everyday, for almost everyone. It is the best option we have on Indian languages and the cheapest to run, so it gives you the most calling for the same credit. Move to Natural if the pause before the agent replies matters for your use case, and to Premium only when speech quality is genuinely the deciding factor — at its rate a Starter plan buys around a hundred minutes rather than several hundred.',
+    q: 'Why is the included calling shown as an estimate?',
+    a: 'Because credits also pay for replies, knowledge answers, routines and tool calls, and because a Natural or Premium voice minute is itemised rather than flat. The minute figure assumes every credit goes on Everyday voice calls. Your receipt shows the real split.',
+  },
+  {
+    q: 'Which voice should I start on?',
+    a: 'Everyday, for almost everyone. It is the best option we have on Indian languages, carries one flat rate for every language, and is the cheapest a minute. Move to Natural if the pause before the reply matters, and to Premium only when speech quality is the deciding factor.',
   },
   {
     q: 'How much does an additional phone number cost?',
-    a: 'Additional numbers are ₹559/month each, exclusive of GST. Every plan includes at least one number with telephony.',
+    a: 'Additional numbers are ₹559 a month each, exclusive of GST, billed in rupees rather than credits. Every voice plan includes at least one number with telephony.',
   },
   {
     q: 'Is telephony included, or do I pay a carrier separately?',
-    a: 'Included on the managed plans, along with the phone numbers listed in each tier. There is no separate Twilio-style carrier bill to reconcile.',
+    a: 'Included on every voice plan, along with the phone numbers listed in each tier. There is no separate carrier bill to reconcile.',
   },
   {
-    q: 'What does an itemised call receipt actually show?',
-    a: 'A blended per-minute rate hides where the money went. Every Decibyl call closes with the platform fee and each provider component — speech-to-text, the model, text-to-speech, telephony — as its own line, priced at the rate that call actually ran on. You are billed for what the call cost rather than a rounded-up minute, and you can check the arithmetic against the published bundle rate yourself.',
+    q: 'What does an itemised receipt actually show?',
+    a: 'Every event, its credits and its rupees. A call closes with each component priced at the rate it actually ran on; a routine, a tool call or a knowledge answer shows as its own line at the published rate. You can check the arithmetic against the rate card on this page.',
+  },
+  {
+    q: 'Can I pay annually, or in dollars?',
+    a: 'Annual is ten months for twelve on every paid plan. Everyday is sold at $10 a month to accounts billed outside India, and top-up packs come in dollar sizes for the same accounts. Voice plans are billed in rupees because voice is India-only.',
   },
   {
     q: 'Can I switch plans later?',
-    a: 'Yes, up or down. Talk to us and we will move you at the next billing cycle.',
+    a: 'Yes, up or down, at the next billing cycle. A cap you hit in the product shows the plan that lifts it.',
   },
 ];

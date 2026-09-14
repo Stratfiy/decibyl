@@ -48,10 +48,10 @@ inp("months", "Months modelled", 24, NUM, "Fixed at 24 in the Model sheet")
 sec("Plans: price, credits, usage")
 for k, label, price, credits, usage, topup, voice_share, churn, nums in [
     ("ev", "Everyday", 999, 2000, 0.60, 0.00, 0.00, 0.08, 0),
-    ("bu", "Business", 2999, 5000, 0.70, 0.20, 0.85, 0.05, 1),
-    ("gr", "Growth", 7999, 15000, 0.75, 0.25, 0.90, 0.03, 2),
-    ("sc", "Scale", 19999, 40000, 0.80, 0.30, 0.90, 0.02, 4)]:
-    inp(f"{k}_price", f"{label}: price ₹/month", price, INR, "Pricing decision, 14 Sept")
+    ("bu", "Business", 2999, 6000, 0.70, 0.20, 0.85, 0.05, 1),
+    ("gr", "Growth", 9999, 25000, 0.75, 0.25, 0.90, 0.03, 2),
+    ("sc", "Scale", 19999, 60000, 0.80, 0.30, 0.90, 0.02, 4)]:
+    inp(f"{k}_price", f"{label}: price ₹/month", price, INR, "As shipped 14 Sept: subscription_plans.py LADDER_SEED")
     inp(f"{k}_credits", f"{label}: credits per month", credits, NUM, "")
     inp(f"{k}_usage", f"{label}: share of plan credits actually used", usage, PCT, "Assumption; measure from the ledger after month 2")
     inp(f"{k}_topup", f"{label}: top-up and overage revenue, % of plan price", topup, PCT, "Assumption; voice plans buy top-ups, text plan does not")
@@ -60,7 +60,7 @@ for k, label, price, credits, usage, topup, voice_share, churn, nums in [
     inp(f"{k}_nums", f"{label}: phone numbers included", nums, NUM, "Pricing ladder")
 sec("Cost per credit, what a credit costs us to serve")
 inp("voice_cost_min", "Provider cost per Indic voice minute, ₹ (after Sarvam 30%)", 2.78, DEC, "Sarvam page 14 Sept: STT ₹30/hr, TTS ₹3/1k chars at 850 chars/min, 105B LLM, Plivo ₹0.60. List is ₹3.71")
-inp("voice_credits_min", "Credits charged per voice minute (Business)", 12, NUM, "Growth 11, Scale 10; blended here at 12 for a conservative COGS")
+inp("voice_credits_min", "Credits charged per voice minute (Business)", 13, NUM, "Shipped 14 Sept (KAN-47 PR #273): 13 Business, 12 Growth, 11 Scale; blended at 13 for a conservative COGS")
 inp("text_cost_credit", "Provider cost per text credit, ₹", 0.03, DEC, "Gemini Flash-Lite tokens per reply plus DB; a reply sells for 1 credit = ₹0.50")
 inp("number_cost", "Our cost per phone number, ₹/month", 300, INR, "Assumption: Plivo India DID rental; customer pays ₹559 for extras")
 inp("saas_voice_acct", "Third-party SaaS per voice account, ₹/month", 60, INR, "Composio, Resend, verification share. Session estimate 14 Sept")

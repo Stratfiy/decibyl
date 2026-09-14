@@ -15,7 +15,7 @@ import {
   jobIntegrationPairs,
 } from '@/data/jobPairs';
 import { getCity } from '@/data/cities';
-import { formatInr, tiers, tierPrice } from '@/data/pricing';
+import { firstVoiceTier, formatInr, tiers, tierPrice } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
@@ -43,7 +43,7 @@ export async function generateMetadata({
   const job = getJob(jobSlug);
   const tool = getIntegrationPage(toolSlug);
   if (!pair || !job || !tool) return {};
-  const tier = tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? tiers[0];
+  const tier = tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? firstVoiceTier;
   return pageMetadata({
     title: `${job.title} bot for ${tool.name}`,
     description: `${job.title} calls, done by a Decibyl voice bot, with every outcome written to ${tool.name}: ${pair.moves.map((m) => m.title.toLowerCase()).join(', ')}. Priced beside the salary, from ${tierPrice(tier, 'inr')}/month.`,
@@ -70,7 +70,7 @@ export default async function JobForToolPage({
   const tool = getIntegrationPage(toolSlug);
   if (!pair || !job || !tool) notFound();
 
-  const tier = tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? tiers[0];
+  const tier = tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? firstVoiceTier;
   const status = integrationStatusLabel(tool);
   const otherTools = integrationPairsForJob(job.slug)
     .filter((p) => p.tool !== tool.slug)

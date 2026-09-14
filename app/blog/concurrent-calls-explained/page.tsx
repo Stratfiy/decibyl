@@ -22,7 +22,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function Post() {
-  const published = tiers.filter((t) => t.priceInr !== null);
+  const published = tiers.filter((t) => t.voice);
 
   return (
     <>
@@ -115,7 +115,7 @@ export default function Post() {
             {published.map((t) => (
               <li key={t.id}>
                 <strong>
-                  {t.name} — {t.concurrentCalls} concurrent
+                  {t.name} — {t.caps.concurrentCalls} concurrent
                 </strong>{' '}
                 at {formatInr(t.priceInr as number)}/month.
               </li>

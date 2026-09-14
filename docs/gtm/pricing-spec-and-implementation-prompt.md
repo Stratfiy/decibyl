@@ -8,6 +8,27 @@ Companion files: `Decibyl-Financial-Model.xlsx` (24-month model), `pricing-credi
 
 ---
 
+> **As shipped, 14 Sept 2026 evening (KAN-47 PR #273, KAN-53, KAN-55).** The product now sells a ladder that differs from sections 2 to 4 below. Where the two disagree, the shipped figures win and the site copies them (`data/pricing.ts`):
+>
+> | Item | This spec | Shipped |
+> |---|---|---|
+> | Business credits | 5,000 | **6,000** |
+> | Growth price and credits | ₹7,999, 15,000 | **₹9,999, 25,000** |
+> | Scale credits | 40,000 | **60,000** |
+> | Everyday voice, credits a minute (Business / Growth / Scale) | 12 / 11 / 10 | **13 / 12 / 11** (₹6.50 / 6.00 / 5.50) |
+> | Overage | next tier's rate | **plan rate plus one credit, from top-ups; Scale pays plan rate** |
+> | Smallest top-up | ₹500 = 1,000 for everyone | **₹999 = 2,000 floor; ₹500 gated to Campus and staff-marked early adopters** |
+> | Larger packs | ₹1,000 = 2,000, ₹5,000 = 10,500, ₹20,000 = 44,000 | **₹4,999 = 10,500, ₹19,999 = 44,000; USD $12 / $60 / $240** |
+> | Translation | 1 credit per 50 characters | **1 credit per 100 characters** |
+> | Knowledge answer with nothing found | 2 credits | **1 credit** (billed as a reply) |
+> | Natural and Premium voice | flat 20/18/16 proposed | **itemised per call, no flat rate** |
+> | Platform fee | ₹2.50 / 2.00 / 1.50 a minute inside the rate | **none; the credit rate is all-in** |
+> | Builder message allowance | 30 / 100 / 300 / unlimited | same, **5 credits past it** |
+> | Free credits | 1,000 once | **1,000 earned in six onboarding steps** |
+> | Campus Builder | 300 voice minutes | **3,600 credits a month, seeded off sale** |
+>
+> Finance note: Growth at ₹9,999 with 25,000 credits and Scale at 60,000 grant more balance per rupee than this spec assumed. The financial model was rebuilt on the shipped numbers on 14 Sept; see its Assumptions sheet.
+
 ## 1. The unit
 
 | Item | Value | Status |

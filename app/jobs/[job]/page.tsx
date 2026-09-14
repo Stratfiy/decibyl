@@ -7,7 +7,7 @@ import { FaqList } from '@/components/marketing/Faq';
 import { getJob, jobs } from '@/data/jobs';
 import { getCity } from '@/data/cities';
 import { getIntegrationPage } from '@/data/integrationPages';
-import { formatInr, tiers, tierPrice } from '@/data/pricing';
+import { firstVoiceTier, formatInr, tiers, tierPrice } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ job: stri
     path: `/jobs/${job.slug}`,
     keywords: job.seo.keywords,
     ogTitle: job.title,
-    ogSubtitle: `Done by a bot, from ${tierPrice(tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? tiers[0], 'inr')}/month`,
+    ogSubtitle: `Done by a bot, from ${tierPrice(tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? firstVoiceTier, 'inr')}/month`,
   });
 }
 
@@ -38,7 +38,7 @@ export default async function JobPage({ params }: { params: Promise<{ job: strin
   const job = getJob(slug);
   if (!job) notFound();
 
-  const tier = tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? tiers[0];
+  const tier = tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? firstVoiceTier;
   const cityRecords = job.cities.map((c) => getCity(c)).filter((c): c is NonNullable<typeof c> => Boolean(c));
   const integrationRecords = job.integrations
     .map((s) => getIntegrationPage(s))

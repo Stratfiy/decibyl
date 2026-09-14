@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { starterPriceLabel } from '@/data/pricing';
+import { businessPriceLabel } from '@/data/pricing';
 
 /**
  * The conversion engine.
@@ -245,7 +245,7 @@ export function LossCalculator({
             </div>
 
             <p className="mt-6 text-[0.9375rem] text-slate">
-              Starter costs {starterPriceLabel}/month.
+              Business, the first voice plan, costs {businessPriceLabel}/month.
             </p>
           </div>
 

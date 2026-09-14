@@ -16,7 +16,7 @@ import {
   integrationPairsForJob,
   jobCityPairs,
 } from '@/data/jobPairs';
-import { formatInr, tiers, tierPrice } from '@/data/pricing';
+import { firstVoiceTier, formatInr, tiers, tierPrice } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
@@ -46,7 +46,7 @@ export async function generateMetadata({
   const city = getCity(citySlug);
   if (!pair || !job || !city) return {};
   const langs = cityLanguages(city).map((l) => l.name);
-  const tier = tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? tiers[0];
+  const tier = tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? firstVoiceTier;
   return pageMetadata({
     title: `AI ${job.title} in ${city.name}`,
     description: `The ${job.title.toLowerCase()} job in ${city.name}, done by a voice bot that answers in ${langs.join(', ')}. What the post asks for, what the bot does, and the price beside the salary, from ${tierPrice(tier, 'inr')}/month.`,
@@ -74,7 +74,7 @@ export default async function JobInCityPage({
   if (!pair || !job || !city) notFound();
 
   const langs = cityLanguages(city);
-  const tier = tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? tiers[0];
+  const tier = tiers.find((t) => t.name.toLowerCase() === job.recommendedTier) ?? firstVoiceTier;
   const monthly = tier.priceInr ?? 0;
   const ratio = monthly > 0 ? Math.round((job.humanSalary.low / monthly) * 10) / 10 : null;
   const otherCities = cityPairsForJob(job.slug)

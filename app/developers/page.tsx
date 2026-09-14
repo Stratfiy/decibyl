@@ -22,7 +22,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function DevelopersPage() {
-  const sorted = [...developerPlatformFees].sort((a, b) => a.feeUsd - b.feeUsd);
+  const sorted = [...developerPlatformFees].sort((a, b) => (a.feeUsd ?? 0) - (b.feeUsd ?? 0));
 
   return (
     <>
@@ -87,7 +87,7 @@ export default function DevelopersPage() {
                   <td
                     className={`t-data py-4 ${row.isDecibyl ? 'font-semibold text-vermilion' : 'text-ink'}`}
                   >
-                    ${row.feeUsd.toFixed(2)}/min
+                    {row.feeUsd === null ? row.note : `$${row.feeUsd.toFixed(2)}/min`}
                   </td>
                 </tr>
               ))}

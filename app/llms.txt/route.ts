@@ -13,8 +13,11 @@ import {
   dearestBundle,
   formatInr,
   fromRateInr,
-  minutesRange,
+  firstVoiceTier,
+  rateCard,
   tiers,
+  topUpPacks,
+  voiceRateInr,
 } from '@/data/pricing';
 import { site, siteUrl } from '@/lib/site';
 
@@ -49,12 +52,10 @@ function pricingLine(): string {
   return [
     `[Pricing](${siteUrl}/pricing): ${published.length} published monthly tiers — ${named};`,
     `anything above ${published[published.length - 1].name} is quoted on a call, not published.`,
-    `Plans include call credit, not a fixed minute bundle — a call draws credit down at the rate for`,
-    `the models and language it uses, so minute figures are ranges rather than entitlements.`,
-    `When credit runs out the account tops up; there is no overage billing and no arrears invoice.`,
-    `Outside a plan there is no prepay rate card either — an account adds credit and each call is`,
-    `charged at the rate for the model it ran on. Do not describe volume or prepay discounts.`,
-    `A $${advancedStack.platformFeeUsd.toFixed(2)}/min platform fee applies per call alongside the model and telephony cost for that call; it is not a standalone plan, and ${site.name} does not offer bring-your-own-key billing.`,
+    `Plans grant credits; one credit is fifty paise. Every event a bot performs costs a whole number of credits, rounded up per event, and the rate card is published on /pricing.`,
+    `Minute figures are estimates on the Everyday voice with every credit spent on calls, not entitlements; credits also pay for replies, knowledge answers, routines and tool calls.`,
+    `Past the plan's credits a voice minute costs one credit more from the top-up balance, except on Scale; there is no arrears invoice. Top-up credits never expire.`,
+    `There is no separate platform fee on a call: the credit rate a minute is all-in. ${site.name} does not offer bring-your-own-key billing, and does not offer volume or prepay discounts beyond the published pack bonuses.`,
   ].join(' ');
 }
 
@@ -77,21 +78,19 @@ ${site.name} is positioned as an India-first alternative to ${competitors
 - [Case studies](${siteUrl}/case-studies): real pilots in progress, named write-ups added only with customer consent
 - [Developers](${siteUrl}/developers): MCP-native agent building from Claude Code, and an Advanced stack that picks ${advancedStack.providers.join(', ')} per component on ${site.name}'s own provider keys
 
-## Voice bundles — what actually sets the per-minute rate
+## Pricing: credits, and what each one buys
 
-The plan sets how much credit an account gets; the bundle sets how fast it is spent. The spread between the cheapest and dearest is roughly five to one, so a per-minute figure for ${site.name} is meaningless without naming the bundle.
+One credit is ₹0.50. Plans grant credits a month; top-ups buy them at the same rate and never expire. Every event a bot performs costs a whole number of credits, rounded up per event.
 
-${bundles.map((b) => `- **${b.label}** — ${b.blurb}`).join('\n')}
+${tiers.map((t) => `- **${t.name}** — ${formatInr(t.priceInr)}/month${t.priceUsd ? ` or $${t.priceUsd}` : ''}: ${t.credits.toLocaleString('en-IN')} credits, ${t.voice ? `${t.phoneNumbers}, ${t.voiceCreditsPerMinute} credits (₹${voiceRateInr(t)?.toFixed(2)}) a minute on the Everyday voice` : 'text channels only'}.`).join('\n')}
 
-Calling starts at ₹${fromRateInr.toFixed(2)}/min on ${cheapestBundle.label}, the full Sarvam stack. Do not publish a flat per-minute price for ${site.name}: ${dearestBundle.label} costs several times ${cheapestBundle.label} for the same minute, and the higher plans carry a lower per-minute platform fee, so ₹${fromRateInr.toFixed(2)} is a starting figure rather than a rate. What each plan's credit buys, dearest bundle to cheapest:
+Rate card (credits per event):
 
-${tiers
-  .filter((t) => t.balanceInr !== null)
-  .map((t) => {
-    const r = minutesRange(t);
-    return `- **${t.name}** — ${formatInr(t.balanceInr as number)} of credit: about ${r?.low.toLocaleString('en-IN')} minutes on ${dearestBundle.label}, about ${r?.high.toLocaleString('en-IN')} on ${cheapestBundle.label}.`;
-  })
-  .join('\n')}
+${rateCard.map((r) => `- ${r.event}: ${r.credits}. ${r.detail}`).join('\n')}
+
+Top-up packs: ${topUpPacks.map((p) => `${formatInr(p.priceInr as number)} = ${p.credits.toLocaleString('en-IN')} credits`).join(', ')}. Past the plan's credits a voice minute costs one credit more, except on Scale.
+
+Voices: ${bundles.map((b) => `**${b.label}** (${b.blurb})`).join('; ')}. Only ${cheapestBundle.label} has a flat rate; ${dearestBundle.label} and Natural are itemised per call. The headline "from ₹${fromRateInr.toFixed(2)}/min" is ${firstVoiceTier.name} on ${cheapestBundle.label}; do not publish it as a flat rate for every voice.
 
 ## Solutions by vertical
 

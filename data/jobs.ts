@@ -40,7 +40,7 @@ export type Job = {
   botDoes: string[];
   /** Stated plainly. Removes the first objection. */
   doesNot: string;
-  recommendedTier: 'starter' | 'growth';
+  recommendedTier: 'business' | 'growth';
   /** Solution or use-case pages that go deeper. */
   related: { label: string; href: string }[];
   /** City slugs from data/cities.ts where this job is worth a link. */
@@ -77,7 +77,7 @@ export const jobs: Job[] = [
     ],
     doesNot:
       'It does not take payments at the desk, greet walk-ins, or file paper. The human who did those keeps doing them; the phone stops interrupting.',
-    recommendedTier: 'starter',
+    recommendedTier: 'business',
     related: [
       { label: 'Clinics and doctors', href: '/solutions/clinics' },
       { label: 'Diagnostics', href: '/solutions/clinics/diagnostics' },

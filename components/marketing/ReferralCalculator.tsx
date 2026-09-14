@@ -63,16 +63,16 @@ export function ReferralCalculator() {
               id="ref-recharge"
               type="range"
               className="slider mt-3"
-              min={2999}
+              min={999}
               max={75000}
               step={500}
               value={firstRecharge}
               onChange={(e) => setFirstRecharge(Number(e.target.value))}
-              style={{ ['--fill' as string]: `${((firstRecharge - 2999) / (75000 - 2999)) * 100}%` }}
+              style={{ ['--fill' as string]: `${((firstRecharge - 999) / (75000 - 999)) * 100}%` }}
             />
             <div className="t-caption mt-2 flex justify-between text-iron">
-              <span>Starter</span>
-              <span>Custom</span>
+              <span>Everyday</span>
+              <span>Scale, annual</span>
             </div>
           </div>
         </div>

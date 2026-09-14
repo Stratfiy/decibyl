@@ -33,7 +33,7 @@ export type Vertical = {
   steps: { title: string; body: string }[];
   objections: { q: string; a: string }[];
   visibility: string[];
-  recommendedTier: 'starter' | 'growth';
+  recommendedTier: 'business' | 'growth';
   siblings: string[];
   seo: { title: string; description: string; keywords: string[] };
 };
@@ -265,7 +265,7 @@ export const verticals: Vertical[] = [
       },
     ],
     visibility: sharedVisibility,
-    recommendedTier: 'starter',
+    recommendedTier: 'business',
     siblings: ['d2c-ndr-recovery', 'education'],
     seo: {
       title: 'AI Voice Agents for Clinics in India',
@@ -381,7 +381,7 @@ export const verticals: Vertical[] = [
       },
     ],
     visibility: sharedVisibility,
-    recommendedTier: 'starter',
+    recommendedTier: 'business',
     siblings: ['ivf-fertility', 'diagnostics'],
     seo: {
       title: 'AI Voice Agents for Dental Clinics in India',
@@ -496,7 +496,7 @@ export const verticals: Vertical[] = [
       },
     ],
     visibility: sharedVisibility,
-    recommendedTier: 'starter',
+    recommendedTier: 'business',
     siblings: ['dental', 'diagnostics'],
     seo: {
       title: 'AI Voice Agents for Fertility & IVF Clinics, India',

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BlogLayout, BlogSection, BlogStat } from '@/components/marketing/BlogLayout';
 import { FinalCta } from '@/components/marketing/Blocks';
 import { getBlogPost } from '@/data/blog';
-import { bundles, cheapestBundle, dearestBundle, formatInr, tiers } from '@/data/pricing';
+import { bundles, cheapestBundle, dearestBundle, firstVoiceTier, formatInr, tiers, voiceRateInr } from '@/data/pricing';
 import { JsonLd, articleSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 const meta = getBlogPost('credit-not-minutes-voice-ai-billing')!;
@@ -22,8 +22,8 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function Post() {
-  const starter = tiers[0];
-  const ratio = dearestBundle.perMinuteInr / cheapestBundle.perMinuteInr;
+  const starter = firstVoiceTier;
+  const scale = tiers[tiers.length - 1];
 
   return (
     <>
@@ -51,19 +51,20 @@ export default function Post() {
           <ul>
             {bundles.map((b) => (
               <li key={b.slug}>
-                <strong>{b.label}</strong> — ₹{b.perMinuteInr.toFixed(2)}/min. {b.blurb}
+                <strong>{b.label}</strong> — {b.flatRate ? `${starter.voiceCreditsPerMinute} credits a minute on ${starter.name}, ₹${(voiceRateInr(starter) as number).toFixed(2)}` : 'itemised per call'}. {b.blurb}
               </li>
             ))}
           </ul>
           <BlogStat
-            value={`${ratio.toFixed(1)}×`}
-            label={`The spread between our cheapest and dearest voice, for the same minute of the same call`}
+            value="1 credit = ₹0.50"
+            label="The unit every plan, pack and event is priced in, so the receipt and the rate card use the same arithmetic"
           />
           <p>
-            A customer on {dearestBundle.label} burns credit more than {Math.floor(ratio)} times
-            faster than one on {cheapestBundle.label}. If we sold both a &ldquo;500 minute&rdquo;
-            bundle, one of those two customers would be badly wrong about what they bought — and
-            we would have known which one when we sold it.
+            A customer on {dearestBundle.label} burns credits several times faster than one on{' '}
+            {cheapestBundle.label}. If we sold both a &ldquo;500 minute&rdquo; bundle, one of those
+            two customers would be badly wrong about what they bought, and we would have known
+            which one when we sold it. So {cheapestBundle.label} carries a flat rate the plan sets,
+            and the other two are itemised per call.
           </p>
         </BlogSection>
 
@@ -104,18 +105,20 @@ export default function Post() {
 
         <BlogSection heading="What we do instead">
           <p>
-            A plan grants rupees. {starter.name} at {formatInr(starter.priceInr as number)}/month
-            includes {formatInr(starter.balanceInr as number)} of call credit, an Indian number and
-            the telephony. Each call draws that credit down by what it actually cost — the pulsed
-            platform fee, the models it ran on, the carriage — and when the credit runs out you top
-            up. There is no overage bill and no invoice at the end of the month, because you can
-            only spend credit you have added.
+            A plan grants credits, and a credit is fifty paise. {starter.name} at{' '}
+            {formatInr(starter.priceInr)}/month includes {starter.credits.toLocaleString('en-IN')}{' '}
+            credits, an Indian number and the telephony. A minute on the {cheapestBundle.label}{' '}
+            voice is {starter.voiceCreditsPerMinute} credits there and {scale.voiceCreditsPerMinute}{' '}
+            on {scale.name}; a reply is one credit, a knowledge answer two, a routine run two. When
+            the month&rsquo;s credits are used, a voice minute costs one credit more from your
+            top-up balance, and top-up credits never expire. There is no invoice at the end of the
+            month, because you can only spend credits you hold.
           </p>
           <p>
-            Our <Link href="/pricing">pricing page</Link> still shows minutes, but as a{' '}
-            <strong>range</strong>: what the credit buys on the dearest voice, and on the cheapest.
-            The range is wide because the truth is wide. A single number in the middle would be
-            more persuasive and wrong for almost everybody.
+            Our <Link href="/pricing">pricing page</Link> shows minutes as an{' '}
+            <strong>estimate</strong>, assuming every credit went on {cheapestBundle.label} calls,
+            beside the full rate card. A single &ldquo;minutes included&rdquo; number would be more
+            persuasive and wrong for almost everybody.
           </p>
         </BlogSection>
 
@@ -143,7 +146,7 @@ export default function Post() {
 
         <BlogSection heading="The honest caveat">
           <p>
-            Credit is harder to sell than minutes. &ldquo;₹2,500 of calling&rdquo; requires a
+            Credit is harder to sell than minutes. &ldquo;6,000 credits a month&rdquo; requires a
             second sentence where &ldquo;500 minutes&rdquo; does not, and we lost a clean headline
             number by doing this. We think the trade is right: a number that is easy to compare and
             wrong for half the people reading it is worse for us than one that needs explaining,

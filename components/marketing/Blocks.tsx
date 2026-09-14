@@ -156,7 +156,7 @@ export function IndianOps() {
 /* ───────────────────────────── Pricing preview ───────────────────────────── */
 
 export function PricingPreview() {
-  const preview = tiers.filter((t) => t.priceInr !== null);
+  const preview = tiers;
 
   return (
     <div>
@@ -166,7 +166,7 @@ export function PricingPreview() {
         sub="Telephony and phone numbers included. Every call closes with an itemised receipt — the platform fee and each provider component as its own line, never one blended number."
       />
 
-      <div className="mt-10 grid gap-5 md:grid-cols-3">
+      <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {preview.map((tier, i) => (
           <Reveal key={tier.id} delay={i * 100} className="rounded-card border border-line bg-snow p-8">
             <p className="t-eyebrow text-sindoor">{tier.name}</p>
@@ -177,9 +177,9 @@ export function PricingPreview() {
             <p className="mt-2 text-slate">{tier.tagline}</p>
             <ul className="mt-6 space-y-2 text-[0.9375rem] text-slate">
               <li>{includedCallingLabel(tier)}</li>
-              <li>{tier.phoneNumbers} · telephony included</li>
-              <li>All Indian languages · {tier.concurrentCalls} concurrent calls</li>
-              <li>{tier.qaScoring === 'full' ? 'QA scoring available on every call' : 'Quality-sampled QA'}</li>
+              <li>{tier.voice ? `${tier.phoneNumbers} · telephony included` : 'WhatsApp, email and web chat'}</li>
+              <li>{tier.voice ? `All Indian languages · ${tier.caps.concurrentCalls} concurrent calls` : `${tier.caps.knowledgePages.toLocaleString('en-IN')} knowledge pages · ${tier.caps.routines} routines`}</li>
+              <li>Recording, transcript and outcome on every conversation</li>
             </ul>
           </Reveal>
         ))}

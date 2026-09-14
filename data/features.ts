@@ -27,8 +27,8 @@ export const features: Feature[] = [
   {
     eyebrow: 'Quality',
     title: 'QA scoring on every call',
-    body: 'Score every call rather than a 2% sample. Sampled QA finds a bad call after it has already cost you something. Switch it on per agent; Starter is limited to quality sampling, scoring every call is Growth tier and above.',
-    meta: 'Growth tier and above',
+    body: 'Score every call rather than a 2% sample. Sampled QA finds a bad call after it has already cost you something. Scoring is on by default on every plan, and you can switch it off per agent.',
+    meta: 'Every plan',
   },
   {
     eyebrow: 'Record',

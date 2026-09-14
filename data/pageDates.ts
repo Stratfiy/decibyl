@@ -32,7 +32,7 @@ export const pageDates: Record<string, string> = {
   '/solutions': '2026-09-12',
   '/use-cases': '2026-09-03',
   '/case-studies': '2026-08-13',
-  '/security': '2026-09-13',
+  '/security': '2026-09-14',
   '/developers': '2026-09-03',
   '/partners': '2026-09-03',
   '/blog': '2026-09-03',
@@ -43,7 +43,7 @@ export const pageDates: Record<string, string> = {
   '/legal/terms': '2026-09-13',
   '/legal/dpdp': '2026-08-13',
   '/legal/refund': '2026-08-13',
-  '/compare': '2026-09-13',
+  '/compare': '2026-09-14',
   '/ai-receptionist': '2026-09-03',
   '/voice-ai': '2026-09-03',
   '/jobs': '2026-09-14',
@@ -56,9 +56,9 @@ export const pageDates: Record<string, string> = {
  *  route list is derived, not enumerated. */
 /* GENERATED:DERIVED:START */
 export const verticalsUpdatedAt = '2026-09-12';
-export const competitorsUpdatedAt = '2026-09-12';
+export const competitorsUpdatedAt = '2026-09-14';
 export const citiesUpdatedAt = '2026-09-14';
-export const languagePagesUpdatedAt = '2026-09-03';
+export const languagePagesUpdatedAt = '2026-09-14';
 export const jobsUpdatedAt = '2026-09-14';
 export const integrationPagesUpdatedAt = '2026-09-14';
 export const jobPairsUpdatedAt = '2026-09-14';

@@ -1,19 +1,10 @@
 import Link from 'next/link';
-import { credits } from '@/data/pricing';
+import { credits, formatInr, topUpPacks, topUpPacksUsd } from '@/data/pricing';
 
 /**
- * Credits, without a rate slider.
- *
- * This was a prepay ladder — drag a slider from ₹2,999 to ₹19,00,000 and watch
- * a per-minute rate fall from ₹5.30 to ₹4.20. It was persuasive and it
- * described a product that does not exist. There is no prepay rate card: an
- * account adds credit and each call is charged at the rate for the model it
- * ran on.
- *
- * Losing the slider loses an interaction, and that is the right trade. The
- * slider taught the customer that their per-minute price is a function of how
- * much they pay up front, when it is a function of which model they pick — so
- * anyone who learned from it optimised the wrong lever.
+ * Top-up packs: the three rupee packs and their dollar twins, verbatim from
+ * the product's pack ladder. Credits never expire and are spent after the
+ * month's plan credits.
  */
 export function PayAsYouGo() {
   return (
@@ -22,10 +13,7 @@ export function PayAsYouGo() {
         <p className="t-eyebrow text-sindoor">{credits.headline}</p>
         <h2 className="t-h2 mt-3 text-balance">{credits.tagline}</h2>
         <p className="t-body-lg mt-5 text-slate text-pretty">{credits.body}</p>
-      </div>
-
-      <div className="rounded-card border border-line bg-snow p-8">
-        <ul className="flex flex-col gap-4">
+        <ul className="mt-6 flex flex-col gap-3">
           {credits.points.map((point) => (
             <li key={point} className="flex gap-3 text-[0.9375rem] text-slate">
               <span aria-hidden="true" className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-vermilion" />
@@ -33,7 +21,39 @@ export function PayAsYouGo() {
             </li>
           ))}
         </ul>
+      </div>
 
+      <div className="rounded-card border border-line bg-snow p-8">
+        <table className="w-full text-left text-[0.9375rem]">
+          <caption className="sr-only">Top-up packs</caption>
+          <thead>
+            <tr className="border-b border-line text-iron">
+              <th className="py-2 pr-4 font-medium">Pack</th>
+              <th className="py-2 pr-4 font-medium">Credits</th>
+              <th className="py-2 font-medium">Bonus</th>
+            </tr>
+          </thead>
+          <tbody>
+            {topUpPacks.map((p, i) => {
+              const usd = topUpPacksUsd[i];
+              return (
+                <tr key={p.priceInr} className="border-b border-line">
+                  <td className="py-3 pr-4 font-display font-bold">
+                    {formatInr(p.priceInr as number)}
+                    <span className="t-data ml-2 font-normal text-slate">or ${usd.priceUsd}</span>
+                  </td>
+                  <td className="t-data py-3 pr-4">{p.credits.toLocaleString('en-IN')}</td>
+                  <td className="t-data py-3 text-slate">
+                    {p.bonusCredits ? `+${p.bonusCredits.toLocaleString('en-IN')}` : '—'}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <p className="t-caption mt-4 text-iron">
+          Rupee packs are for accounts billed in India, exclusive of GST. Dollar packs are for accounts billed outside India, invoiced as a zero-rated export.
+        </p>
         <p className="t-caption mt-7 border-t border-line pt-6 text-iron">
           {credits.committedNote}{' '}
           <Link href={credits.committedHref} className="text-sindoor hover:underline">

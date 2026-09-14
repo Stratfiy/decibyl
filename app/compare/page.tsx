@@ -4,7 +4,7 @@ import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { FinalCta } from '@/components/marketing/Blocks';
 import { FaqList } from '@/components/marketing/Faq';
 import { competitors } from '@/data/competitors';
-import { formatInr, tiers } from '@/data/pricing';
+import { formatInr, firstVoiceTier, tiers } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 import { RelatedPosts } from '@/components/marketing/RelatedPosts';
@@ -68,7 +68,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function CompareHub() {
-  const starter = tiers[0];
+  const starter = firstVoiceTier;
 
   return (
     <>

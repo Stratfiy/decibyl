@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BlogLayout, BlogSection, BlogStat } from '@/components/marketing/BlogLayout';
 import { FinalCta } from '@/components/marketing/Blocks';
 import { getBlogPost } from '@/data/blog';
-import { bundles, cheapestBundle, dearestBundle, formatInr, fromRateInr, tiers } from '@/data/pricing';
+import { cheapestBundle, firstVoiceTier, formatInr, fromRateInr, tiers, voiceRateInr } from '@/data/pricing';
 import { JsonLd, articleSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 const meta = getBlogPost('ai-voice-agent-pricing-india')!;
@@ -16,7 +16,8 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function Post() {
-  const starter = tiers[0];
+  const starter = firstVoiceTier;
+  const scale = tiers[tiers.length - 1];
 
   return (
     <>
@@ -72,20 +73,19 @@ export default function Post() {
 
         <BlogSection heading="What this actually costs on Decibyl">
           <p>
-            We publish the split rather than blend it. Managed plans start at{' '}
-            {formatInr(starter.priceInr as number)}/month with telephony and phone numbers
-            included — no separate line item to hunt for. For teams that don&rsquo;t want a
-            monthly commitment, you add credit and each call is charged at the rate for the model
-            it ran on — there is no prepay rate card, because the lever that actually moves your
-            per-minute cost is which model you pick, not how much you pay up front. Whichever
-            path you take, each call&rsquo;s receipt itemises the platform fee and what the speech,
-            the brain and the voice each cost — you can check the arithmetic yourself, because
-            nothing is blended into a single number.
+            We publish the rate card rather than a blended number. Voice plans start at{' '}
+            {formatInr(starter.priceInr)}/month with telephony, a phone number and{' '}
+            {starter.credits.toLocaleString('en-IN')} credits included. One credit is fifty paise,
+            a minute on the {cheapestBundle.label} voice is {starter.voiceCreditsPerMinute} credits
+            on {starter.name} and {scale.voiceCreditsPerMinute} on {scale.name}, and every other
+            event a bot performs, a reply, a routine, a tool call, has a published credit price.
+            Each receipt itemises what the speech, the brain and the voice cost, so you can check
+            the arithmetic yourself.
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
             <BlogStat
-              value={`₹${fromRateInr.toFixed(2)}–₹${dearestBundle.perMinuteInr.toFixed(2)}/min`}
-              label={`Decibyl, ${cheapestBundle.label} to ${dearestBundle.label} — the model sets the rate, not the plan`}
+              value={`₹${(voiceRateInr(scale) as number).toFixed(2)}–₹${fromRateInr.toFixed(2)}/min`}
+              label={`Decibyl on the ${cheapestBundle.label} voice, ${scale.name} to ${starter.name} — one flat rate for every Indian language`}
             />
             <BlogStat
               value="₹2–₹20/min"

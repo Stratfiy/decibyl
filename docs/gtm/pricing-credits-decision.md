@@ -24,12 +24,30 @@ there is a presentation decision and three plan-sizing decisions.
    speech in, model, speech out, carriage. This is the differentiator over
    flat per-minute vendors and over abstract-credit vendors alike. Already
    built (per-call receipts in the dashboard).
-3. **Three plans, credit grant plus fee tier plus numbers.** Keep the
-   ladder as seeded: Starter ₹2,999 (₹2,500 credit, ₹2.50/min fee, 1
-   number), Growth ₹7,999 (₹7,200, ₹2.00/min, 2 numbers), Scale ₹19,999
-   (₹18,500, ₹1.50/min, 4 numbers), Custom on commit. The plan buys a
-   cheaper platform fee and included numbers; the credit is spent at the
-   same composed rates on every plan.
+3. **An everyday door under the business ladder.** Founder's call, 14
+   Sept: ₹2,999 is a business entry, and the product is for people too.
+   The number rental (₹559/month) is what makes Starter dear, and an
+   everyday user does not need one: bots on WhatsApp, the web widget and
+   scheduled routines, with outbound from the shared platform pool that
+   the admin telephony routes already expose.
+
+   | Plan | ₹/month | Credit | Numbers | Fee/min |
+   |---|---|---|---|---|
+   | Free | 0 | 500 once, no card | none | 3.00 |
+   | Everyday | 499 | 450 | none; own number is the ₹559 add-on | 3.00 |
+   | Business (was Starter) | 2,999 | 2,500 | 1 | 2.50 |
+   | Growth | 7,999 | 7,200 | 2 | 2.00 |
+   | Scale | 19,999 | 18,500 | 4 | 1.50 |
+   | Custom | on commit | | pool | negotiated |
+
+   The plan buys a cheaper platform fee and included numbers; credit is
+   spent at the same composed rates on every plan. Everyday margin at full
+   use is about ₹190 on ₹450 of credit at the 1.7x managed markup.
+
+   **Sequencing.** data/pricing.ts on this site has a hard contract with
+   `scripts/seed_subscription_plans.py` in the platform repo. Seed Everyday
+   there first (balance ₹450, fee ₹3.00/min, zero numbers, shared outbound
+   allowed), then add the tier here. Platform change waits for PR #231.
 4. **Credit never expires; the plan renews it.** The ledger has no expiry
    and adding one is platform work. Unused credit carries forward, top-ups
    sit on the same balance, and the monthly plan adds its grant on renewal.

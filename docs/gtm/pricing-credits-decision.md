@@ -12,69 +12,75 @@ marked up (1.7x managed, live in the database). Numbers are a monthly
 rental on the same ledger. There is nothing to build to sell "credits";
 there is a presentation decision and three plan-sizing decisions.
 
-## Decisions
+## Reference: Emergent's model (read 14 Sept 2026)
 
-1. **One credit is one rupee.** Do not invent an abstract unit the way
-   app-builder tools do. Indian SMBs buy prepaid recharges in rupees and
-   read GST invoices in rupees; an abstract credit makes "what did that
-   call cost" unanswerable, which is the complaint buyers already have
-   about competitors. Call it credit on the page if the word helps; the
-   number is rupees.
-2. **Composed cost stays visible.** Every call shows its own receipt: fee,
-   speech in, model, speech out, carriage. This is the differentiator over
-   flat per-minute vendors and over abstract-credit vendors alike. Already
-   built (per-call receipts in the dashboard).
-3. **An everyday door under the business ladder, text only.** Founder's
-   calls, 14 Sept: ₹2,999 is a business entry and the product is for people
-   too; and voice bots are sold to businesses only. So Everyday is a
-   message plan: bots on WhatsApp, web chat, email and scheduled routines,
-   with organisation memory and tools, and no telephony at all. No number,
-   no outbound, no shared pool. Voice starts at Business.
+Free 10 credits/month; Standard $20 for 100; Pro $200 for 750; Team $300
+for 1,250 shared. Credits spend per AI action (landing page 10-20, auth
+25-40, deploy ~50); top-ups $0.20-0.27 per credit; annual about 17% off;
+unused credits expire monthly. The two complaints in every review: credits
+expire, and per-action costs are not published upfront.
 
-   | Plan | ₹/month | Credit | Voice | Numbers | Fee/min |
-   |---|---|---|---|---|---|
-   | Free | 0 | 500 once, no card | browser test calls only | none | n/a |
-   | Everyday | 499 | 450 | none, text channels only | none | n/a |
-   | Business (was Starter) | 2,999 | 2,500 | yes | 1 | 2.50 |
-   | Growth | 7,999 | 7,200 | yes | 2 | 2.00 |
-   | Scale | 19,999 | 18,500 | yes | 4 | 1.50 |
-   | Custom | on commit | | yes | pool | negotiated |
+## Decisions (revised 14 Sept: credits, not rupees, by founder's call)
 
-   Everyday credit spends on model tokens and knowledge queries at the
-   composed rates, which are a fraction of a voice minute, so ₹450 is a
-   lot of messages. Margin is the managed markup on tokens; there is no
-   carriage or speech cost to carry. A person who wants a phone bot
-   upgrades to Business, which is also where KYC, DND scrubbing and
-   calling-hours rules apply, so the compliance surface sits with the
-   plans that can dial.
+1. **The unit is a credit, and 1 credit = ₹0.50 of composed cost.** Small
+   enough that a message is a whole credit, large enough that a call is a
+   two-digit number. The ledger stays in paise; credits are a display
+   conversion (`CREDIT_PAISE = 50`), so the billing engine is unchanged.
+2. **Publish the rate card in credits.** Fixes Emergent's transparency
+   complaint. Approximate costs at today's composed rates:
 
-   **Sequencing.** data/pricing.ts on this site has a hard contract with
-   `scripts/seed_subscription_plans.py` in the platform repo. Seed Everyday
-   there first (balance ₹450, telephony disabled, message channels on),
-   then add the tier here. The channels layer that Everyday sells is the
-   work in PR #231 and its successors, so this plan ships when that does.
+   | What | Business | Growth | Scale |
+   |---|---|---|---|
+   | Voice minute, Hindi or English, everyday voice | 11 | 10 | 9 |
+   | Voice minute, Telugu / Tamil / Kannada / Malayalam / Bengali | 18 | 16 | 15 |
+   | WhatsApp or web reply (text bot) | 1 | 1 | 1 |
+   | Knowledge answer from documents | 2 | 2 | 2 |
+   | Scheduled routine run | 2 | 2 | 2 |
+   | Phone number | ₹559/month add-on, outside credits | | |
 
-4. **Credit never expires; the plan renews it.** The ledger has no expiry
-   and adding one is platform work. Unused credit carries forward, top-ups
-   sit on the same balance, and the monthly plan adds its grant on renewal.
-   Say it plainly; it reads as generosity and costs nothing.
-5. **Markup.** 1.7x on managed provider cost, platform fee by tier, target
-   40 to 50 percent gross margin on a managed Hindi/English minute. Do not
-   quote margin on regional languages until the characters-per-minute
-   query in COMPETITIVE-PRICING-STUDY.md is run; they cost close to twice
-   as much and the pricing page already shows included calling as a range
-   for that reason. Fair-use note now, surcharge only with data.
-6. **Free ₹500 credit on signup, no card.** About 60 minutes of Hindi or
-   English on the everyday voice. First recharge minimum stays ₹1,000.
-7. **Jobs pages sell the plan, not the rate.** The job-post pages quote the
-   plan that runs the job beside the salary. The rate card sits underneath
-   for anyone who asks.
+   The regional figure publishes the surcharge data/pricing.ts flags as
+   open, as a number rather than a range. The number stays outside credits
+   because a fixed cost inside a credit pool is the deploy-cost complaint.
+3. **Plans.** Ratios follow Emergent's ladder.
+
+   | Plan | ₹/month | Credits/month | Voice | Numbers |
+   |---|---|---|---|---|
+   | Free | 0 | 1,000 once, no card | browser test calls only | none |
+   | Everyday | 499 | 1,000 | none, text channels only | none |
+   | Business (was Starter) | 2,999 | 5,000 | yes | 1 |
+   | Growth | 7,999 | 15,000 | yes | 2 |
+   | Scale | 19,999 | 40,000 | yes | 4 |
+   | Custom | on commit | negotiated | yes | pool |
+
+   Seeded balances change to match: Business ₹2,500, Growth ₹7,500,
+   Scale ₹20,000; fee tiers ₹2.50 / ₹2.00 / ₹1.50 per minute unchanged.
+4. **Top-ups.** ₹1,000 buys 2,000 credits on every plan. Higher plans get
+   more per rupee through the lower per-minute cost, not a different
+   credit price.
+5. **Rollover.** Plan credits roll over while subscribed; top-up credits
+   never expire. Fixes Emergent's expiry complaint at zero cost, because
+   the ledger has no expiry today. Revisit a cap only if rollover balances
+   exceed three months' grants.
+6. **Annual.** Two months free, about 17%.
+7. **Receipts in credits.** Every call and conversation shows its credits
+   in the dashboard; the per-call receipt exists, it changes unit.
+8. **Markup.** Unchanged: 1.7x on managed provider cost, platform fee by
+   tier, 40 to 50 percent gross margin target on Hindi/English. Everyday
+   margin is the token markup; no speech or carriage cost.
+9. **Free credit.** 1,000 credits on signup, no card; first recharge
+   minimum ₹1,000.
+
+**Sequencing.** data/pricing.ts on this site has a hard contract with
+`scripts/seed_subscription_plans.py` in the platform repo: seed the plans
+and the credit constant there first, then change the site. Everyday sells
+the channels layer in PR #231 and its successors, so it ships with them.
 
 ## What changes on the site
 
-- Pricing page: "credit" is defined once as rupees; the per-minute table by
-  voice bundle stays; add the free ₹500 line and the no-expiry line.
-- Dashboard: nothing; receipts exist.
+- Pricing page: plans in credits, the credit rate card above, the
+  no-expiry line and the free 1,000. The per-minute bundle table becomes
+  a credits-per-minute table.
+- Dashboard: receipts change unit from rupees to credits.
 - Platform: set the ₹3/min pay-as-you-go global default (PRICING-DECISIONS
   §2.1, still unset) and the 1.7x managed markup as the code default so a
   fresh install does not regress to 1.4x (§2.9).

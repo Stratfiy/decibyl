@@ -6,6 +6,8 @@ import { blogPosts } from '@/data/blog';
 import { cities } from '@/data/cities';
 import { languagePages, languageSlug } from '@/data/languagePages';
 import { useCases } from '@/data/useCases';
+import { jobs, jobsUpdatedAt } from '@/data/jobs';
+import { integrationPages, integrationPagesUpdatedAt } from '@/data/integrationPages';
 import {
   citiesUpdatedAt,
   competitorsUpdatedAt,
@@ -37,6 +39,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/compare', priority: 0.85, freq: 'monthly' },
     { path: '/ai-receptionist', priority: 0.85, freq: 'monthly' },
     { path: '/voice-ai', priority: 0.85, freq: 'monthly' },
+    { path: '/jobs', priority: 0.85, freq: 'monthly' },
+    { path: '/integrations', priority: 0.8, freq: 'monthly' },
     { path: '/case-studies', priority: 0.6, freq: 'monthly' },
     { path: '/security', priority: 0.6, freq: 'monthly' },
     { path: '/developers', priority: 0.7, freq: 'monthly' },
@@ -96,6 +100,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: lastModified('/use-cases'),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
+    })),
+    ...jobs.map((j) => ({
+      url: `${siteUrl}/jobs/${j.slug}`,
+      lastModified: new Date(jobsUpdatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+    ...integrationPages.map((p) => ({
+      url: `${siteUrl}/integrations/${p.slug}`,
+      lastModified: new Date(integrationPagesUpdatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
     })),
     ...blogPosts.map((p) => ({
       url: `${siteUrl}/blog/${p.slug}`,

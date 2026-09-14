@@ -3,6 +3,8 @@ import { topLevelVerticals, clinicSubVerticals } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
 import { blogPosts } from '@/data/blog';
 import { cities } from '@/data/cities';
+import { jobs } from '@/data/jobs';
+import { integrationPages, integrationStatusLabel } from '@/data/integrationPages';
 import { languagePages, languageRecord, languageSlug } from '@/data/languagePages';
 import {
   bundles,
@@ -115,6 +117,24 @@ ${languagePages
 - [AI receptionist](${siteUrl}/ai-receptionist)
 ${cities
   .map((c) => `- [AI receptionist in ${c.name}](${siteUrl}/ai-receptionist/${c.slug}): ${c.state} — ${c.languages.length} languages on one line`)
+  .join('\n')}
+
+## By job
+
+Each page starts from a job description a business would post, shows what a bot does with each line and what stays with a person, and puts the plan price beside the commonly advertised salary. Salary ranges are read from live listings, not surveyed.
+
+- [Jobs a bot does](${siteUrl}/jobs)
+${jobs
+  .map((j) => `- [${j.title}](${siteUrl}/jobs/${j.slug}): ${j.eyebrow}; post commonly offers ₹${j.humanSalary.low.toLocaleString('en-IN')}–₹${j.humanSalary.high.toLocaleString('en-IN')} a month`)
+  .join('\n')}
+
+## Integrations
+
+Only connections that exist have a page; each carries its true status. Under all of them is a webhook.
+
+- [Integrations](${siteUrl}/integrations)
+${integrationPages
+  .map((p) => `- [${p.name}](${siteUrl}/integrations/${p.slug}): ${integrationStatusLabel(p) ?? 'Live'} — ${p.flows[0].body}`)
   .join('\n')}
 
 ## Compare

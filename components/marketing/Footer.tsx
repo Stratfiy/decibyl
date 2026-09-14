@@ -7,6 +7,8 @@ import { useCases } from '@/data/useCases';
 
 const company = [
   { label: 'How it works', href: '/how-it-works' },
+  { label: 'Jobs a bot does', href: '/jobs' },
+  { label: 'Integrations', href: '/integrations' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Developers', href: '/developers' },
   { label: 'Partners', href: '/partners' },

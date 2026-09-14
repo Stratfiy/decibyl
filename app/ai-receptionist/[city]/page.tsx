@@ -6,6 +6,7 @@ import { FinalCta } from '@/components/marketing/Blocks';
 import { FaqList } from '@/components/marketing/Faq';
 import { cities, cityLanguages, cityVerticals, getCity } from '@/data/cities';
 import { languageHref } from '@/data/languagePages';
+import { jobsForCity } from '@/data/jobs';
 import { verticalHref } from '@/data/verticals';
 import { fromRateInr, tiers, tierPrice } from '@/data/pricing';
 import { site } from '@/lib/site';
@@ -46,6 +47,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const langs = cityLanguages(city);
   const verts = cityVerticals(city);
   const starter = tiers[0];
+  const cityJobs = jobsForCity(city.slug);
 
   const faqs = [
     {
@@ -176,7 +178,26 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         </div>
       </Section>
 
-      <Section surface="white" ariaLabel="Questions">
+      {cityJobs.length > 0 && (
+        <Section surface="white" ariaLabel="Jobs a bot does here">
+          <SectionHead
+            eyebrow="The job post"
+            title={`Phone jobs businesses in ${city.name} post every month`}
+            sub="Each page starts from the job description, shows what a bot takes and what stays with a person, and puts the price beside the salary."
+          />
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            {cityJobs.map((j) => (
+              <li key={j.slug}>
+                <Link href={`/jobs/${j.slug}`} className="text-sindoor hover:underline">
+                  {j.title} in {langs[0].name}: {j.tasks[0].toLowerCase()}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
+      <Section surface="canvas" ariaLabel="Questions">
         <SectionHead eyebrow="Questions" title={`Starting in ${city.name}`} />
         <div className="mt-8">
           <FaqList faqs={faqs} />

@@ -15,6 +15,7 @@
  */
 
 export type ShelfStatus = 'live' | 'next' | 'later';
+export type ShelfReach = 'global' | 'india';
 export type ShelfKind = 'inbound' | 'outbound' | 'both' | 'routine' | 'text';
 
 export type ShelfRole = {
@@ -29,6 +30,8 @@ export type ShelfRole = {
   does: string[];
   tools: string[];
   status: ShelfStatus;
+  /** Where the job exists. Global is the default; India-only roles depend on an Indian rule or portal. */
+  reach: ShelfReach;
   signal: string;
   /** A /jobs slug when a job page exists. */
   jobs: string | null;
@@ -60,7 +63,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Naukri and JobHai: receptionist among the most reposted SMB roles; our own jobs page",
     "jobs": "clinic-receptionist",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Healthcare",
@@ -85,7 +89,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Diagnostics vertical page traffic; MyOperator deployment data lists booking capture as a top use",
     "jobs": "clinic-receptionist",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Healthcare",
@@ -110,7 +115,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Healthcare hiring up 5% YoY (Naukri JobSpeak Jan 2026); multi-department routing needs concurrency",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Healthcare",
@@ -135,7 +141,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Repeat-purchase pattern; no clinical advice on the call",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Healthcare",
@@ -160,7 +167,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Dental vertical page; six-month recall is a routine every practice skips",
     "jobs": "clinic-receptionist",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Healthcare",
@@ -185,7 +193,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "IVF vertical page; after-hours anxiety calls",
     "jobs": "clinic-receptionist",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Healthcare",
@@ -209,7 +218,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Same shape as clinic front desk; small but under-served",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Education",
@@ -235,7 +245,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Admissions counsellor caller job page; season bursts",
     "jobs": "admissions-counsellor-caller",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Education",
@@ -260,7 +271,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Result-day and ad-day bursts; lead-qualification job page",
     "jobs": "lead-qualification-telecaller",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Education",
@@ -285,7 +297,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Collections × education pair page",
     "jobs": "collections-telecaller",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Education",
@@ -309,7 +322,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Daily routine every school does by hand",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Education",
@@ -334,7 +348,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Retention routine; ed-tech activation calls are outsourced today",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Real estate and construction",
@@ -360,7 +375,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Real-estate telecaller job page; portal speed-to-lead",
     "jobs": "real-estate-telecaller",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Real estate and construction",
@@ -385,7 +401,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "No-show rate is the number every sales head quotes",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Real estate and construction",
@@ -409,7 +426,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Housing societies and co-working spaces",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Real estate and construction",
@@ -433,7 +451,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Quotes die in silence; a routine is the fix",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Financial services",
@@ -459,7 +478,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Collections telecaller job page; fair-practice window enforced",
     "jobs": "collections-telecaller",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Financial services",
@@ -484,7 +504,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Insurance and lending lead-gen postings; DND checked before dial",
     "jobs": "lead-qualification-telecaller",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Financial services",
@@ -509,7 +530,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Insurance hiring up 7% YoY; renewal calls are the bulk of an agency’s phone work",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Financial services",
@@ -535,7 +557,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Compliance reminder pack exists; monthly deadline cycle",
     "jobs": null,
-    "note": "Extends the existing Compliance Reminder Bot"
+    "note": "Extends the existing Compliance Reminder Bot",
+    "reach": "global"
   },
   {
     "sector": "Financial services",
@@ -559,7 +582,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Tamil Nadu and Kerala chit funds run on phone reminders",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "india"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -585,7 +609,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Order-confirmation job page; RTO reduction",
     "jobs": "order-confirmation-executive",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -611,7 +636,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "D2C vertical page; NDR is the second-largest leak after RTO",
     "jobs": "order-confirmation-executive",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -638,7 +664,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Support job page; MyOperator data: order status is a top-three use",
     "jobs": "customer-support-executive",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -663,7 +690,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "WhatsApp automation guides list cart recovery first; keep it text-first",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -687,7 +715,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Kirana, electronics and furniture stores; text-first",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -712,7 +741,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Reservations Bot exists on the shelf; hospitality hiring up 15% YoY",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -737,7 +767,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "High no-show, high repeat; a clinic desk with different nouns",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Logistics and manufacturing",
@@ -762,7 +793,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Order confirmation × logistics pair page",
     "jobs": "order-confirmation-executive",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Logistics and manufacturing",
@@ -788,7 +820,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Procurement job page; Tally connector",
     "jobs": "procurement-follow-up-executive",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Logistics and manufacturing",
@@ -814,7 +847,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "B2B collections is different from consumer collections: invoice-driven, accounts-desk to accounts-desk",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Logistics and manufacturing",
@@ -838,7 +872,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Factory HR; Hindi and regional languages",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Logistics and manufacturing",
@@ -863,7 +898,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Support × logistics pair page",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Hospitality and travel",
@@ -888,7 +924,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Hospitality hiring up 15% YoY; Reservations Bot base",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Hospitality and travel",
@@ -913,7 +950,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Seasonal enquiry bursts; text-heavy",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Hospitality and travel",
@@ -938,7 +976,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "MyOperator lists spiritual organisations among deployments; regional languages matter",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Professional and home services",
@@ -963,7 +1002,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Intake without advice; handoff rule is the product",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Professional and home services",
@@ -989,7 +1029,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Lead qualification job page",
     "jobs": "lead-qualification-telecaller",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Professional and home services",
@@ -1014,7 +1055,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "High call volume, low ticket; AMC renewal is a routine",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Professional and home services",
@@ -1039,7 +1081,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Dealer service desks post this job every quarter",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Professional and home services",
@@ -1064,7 +1107,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Portal leads with fast decay",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Recruitment and HR",
@@ -1089,7 +1133,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Grok Bot and Lindy both ship a recruiting coordinator; Indian volume hiring is phone-first",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Recruitment and HR",
@@ -1113,7 +1158,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "No-show is the recruiter’s biggest leak",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Recruitment and HR",
@@ -1137,7 +1183,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Internal Knowledge Bot base; text-only",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -1161,7 +1208,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Internal Knowledge Bot on the shelf",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -1186,7 +1234,8 @@ export const shelf: ShelfRole[] = [
     "status": "live",
     "signal": "Compliance Reminder Bot on the shelf",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "india"
   },
   {
     "sector": "Every business",
@@ -1210,7 +1259,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Our own review caller in the plan; directories skill 10-in-30 protocol",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -1234,7 +1284,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Missed-call service exists in the product; make it a role",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -1259,7 +1310,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Haggle Bot on Grok’s marketplace is the enterprise version",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -1283,7 +1335,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Daily report service exists in the product",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Government, NGOs and community",
@@ -1308,7 +1361,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Spiritual organisations appear in SMB deployment data; regional languages",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "india"
   },
   {
     "sector": "Government, NGOs and community",
@@ -1333,7 +1387,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Pledge follow-up is manual everywhere",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Government, NGOs and community",
@@ -1357,7 +1412,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Sovereign tier fit; procurement-led sales",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "india"
   },
   {
     "sector": "Agriculture and rural",
@@ -1381,7 +1437,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Regional languages, seasonal peaks, credit cycles",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "india"
   },
   {
     "sector": "Agriculture and rural",
@@ -1404,7 +1461,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Daily routine over voice; low text literacy",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "india"
   },
   {
     "sector": "Healthcare",
@@ -1430,7 +1488,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Labs answer 'is my report ready' hundreds of times a day; the WhatsApp guides list report delivery as the first lab automation",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Healthcare",
@@ -1455,7 +1514,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Post-visit follow-up is the top retention message clinics send by hand",
     "jobs": "clinic-receptionist",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Healthcare",
@@ -1479,7 +1539,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Readmission calls are outsourced today; text is enough for the check-in",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Education",
@@ -1504,7 +1565,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Ed-tech support queues are mostly where-is-the-link questions",
     "jobs": "admissions-counsellor",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Education",
@@ -1530,7 +1592,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Every school runs this by hand in class WhatsApp groups",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Education",
@@ -1556,7 +1619,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Admissions season is a document chase; the desk role above books the slot, this one closes the file",
     "jobs": "admissions-counsellor",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Real estate and construction",
@@ -1583,7 +1647,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Speed-to-lead on 99acres and MagicBricks enquiries; most first replies are brochure sends",
     "jobs": "real-estate-telecaller",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Real estate and construction",
@@ -1609,7 +1674,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Society apps exist, but WhatsApp is where residents read",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Financial services",
@@ -1635,7 +1701,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Loan files stall on documents, not decisions; Lindy and Zapier both ship document chasers",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Financial services",
@@ -1661,7 +1728,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Agents field the same ten questions per policy year",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Financial services",
@@ -1687,7 +1755,8 @@ export const shelf: ShelfRole[] = [
     "signal": "CA firms lose clients on silence, not on filings",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -1712,7 +1781,8 @@ export const shelf: ShelfRole[] = [
     "signal": "WhatsApp commerce is the top use in every Indian automation guide",
     "jobs": "order-confirmation-executive",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -1739,7 +1809,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Returns are a third of D2C support tickets",
     "jobs": "customer-support-executive",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -1765,7 +1836,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Broadcast tools exist; the reply handling is what they lack",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -1790,7 +1862,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Small shops sell through DMs; Instagram inbound needs a channel the platform does not have yet",
     "jobs": null,
     "note": "Needs an Instagram channel; web chat and WhatsApp halves work sooner",
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Logistics and manufacturing",
@@ -1817,7 +1890,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Support × logistics pair page; the phone half is live as delivery confirmation",
     "jobs": "customer-support-executive",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Logistics and manufacturing",
@@ -1842,7 +1916,8 @@ export const shelf: ShelfRole[] = [
     "signal": "n8n's most-imported finance workflow is supplier invoice extraction",
     "jobs": "procurement-follow-up",
     "note": "Needs inbound email and document extraction",
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Hospitality and travel",
@@ -1866,7 +1941,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Hospitality hiring up 15% (Naukri JobSpeak); guest messaging is manual at small hotels",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Hospitality and travel",
@@ -1892,7 +1968,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Agencies resend the same documents on the phone all day",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Professional and home services",
@@ -1918,7 +1995,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Zapier and Lindy both ship proposal and meeting-prep agents",
     "jobs": "lead-qualification-executive",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Professional and home services",
@@ -1942,7 +2020,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Urban Company-style coordination done by hand at local firms",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Recruitment and HR",
@@ -1968,7 +2047,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Offer-to-join drop-off is the number every recruiter quotes",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Recruitment and HR",
@@ -1992,7 +2072,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Small firms run leave on WhatsApp messages to the owner",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2017,7 +2098,8 @@ export const shelf: ShelfRole[] = [
     "signal": "The text half of every front desk; the internal knowledge bot is the same engine facing staff",
     "jobs": "customer-support-executive",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2042,7 +2124,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Lindy's first agent; needs inbound email on the platform",
     "jobs": null,
     "note": "Needs inbound email",
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2066,7 +2149,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Directories skill: reply rate is a ranking signal",
     "jobs": null,
     "note": "Needs a Google Business Profile connector",
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2092,7 +2176,8 @@ export const shelf: ShelfRole[] = [
     "signal": "The most-imported n8n workflow is lead capture to Sheets",
     "jobs": "lead-qualification-executive",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2119,7 +2204,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Grok Bot and Zapier both ship a support queue bot",
     "jobs": "customer-support-executive",
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Government, NGOs and community",
@@ -2145,7 +2231,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Receipts are the donor complaint every NGO has",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "global"
   },
   {
     "sector": "Agriculture and rural",
@@ -2169,7 +2256,8 @@ export const shelf: ShelfRole[] = [
     "signal": "Agri WhatsApp groups are the channel; voice is dearer than the margin",
     "jobs": null,
     "note": null,
-    "kind": "text"
+    "kind": "text",
+    "reach": "india"
   },
   {
     "sector": "Every business",
@@ -2189,13 +2277,15 @@ export const shelf: ShelfRole[] = [
     ],
     "tools": [
       "tally",
+      "quickbooks",
       "google-sheets",
       "email"
     ],
     "status": "next",
     "signal": "Grok Bot's Haggle Bot and Harvey Specter, translated: Indian SMB renewals are won on a phone call, not a portal",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2216,13 +2306,15 @@ export const shelf: ShelfRole[] = [
     ],
     "tools": [
       "tally",
+      "quickbooks",
       "google-sheets",
       "email"
     ],
     "status": "next",
     "signal": "Grok Bot's Bounty Hunter and Fixer; every Indian SMB has lakhs sitting in refunds nobody chases",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2248,7 +2340,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Grok Bot's GTM Loop Closer; uses our own transcripts, nobody else has the phone half",
     "jobs": "lead-qualification-executive",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2274,7 +2367,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Grok Bot's Overheard plus a phone; a call inside an hour is what turns a two-star into a deleted review",
     "jobs": null,
-    "note": "Needs a Google Business Profile connector"
+    "note": "Needs a Google Business Profile connector",
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2299,7 +2393,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Grok Bot's Sales Call Coach; our judge already scores bot calls, pointing it at human calls is the same engine",
     "jobs": "collections-telecaller",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2323,7 +2418,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Grok Bot's Scam Drill Coach inverted; our scripted caller and judge are already built for evals",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2347,7 +2443,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Grok Bot's Todo and Chief of Staff; Indian owners run the business on voice notes",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2372,13 +2469,14 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Grok Bot's Morning Newspaper and Exec CoS Digest, for an owner who does not read dashboards",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
     "industry": "Any",
     "slug": "festival-greeter",
-    "name": "Festival and birthday greeter",
+    "name": "Holiday and birthday greeter",
     "posted": "Customer relations executive",
     "kind": "routine",
     "channels": [
@@ -2386,7 +2484,7 @@ export const shelf: ShelfRole[] = [
       "phone"
     ],
     "does": [
-      "Greets top customers on Diwali, Pongal, Eid, Onam and their birthday by name in their language",
+      "Greets top customers on Diwali, Christmas, Eid, Lunar New Year, Thanksgiving and their birthday, by name in their language",
       "Calls the top fifty personally with the owner's message",
       "Records replies and any order that comes out of it"
     ],
@@ -2395,9 +2493,10 @@ export const shelf: ShelfRole[] = [
       "whatsapp-business"
     ],
     "status": "next",
-    "signal": "Grok Bot's Office Ops Desk tracks birthdays; in India the festival greeting is where repeat business starts",
+    "signal": "Grok Bot's Office Ops Desk tracks birthdays; for a local business the holiday greeting is where repeat business starts",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2412,19 +2511,21 @@ export const shelf: ShelfRole[] = [
       "whatsapp"
     ],
     "does": [
-      "Calls every debtor and creditor with the ledger balance as on 31 March",
+      "Calls every debtor and creditor with the ledger balance at year end",
       "Records confirmed, disputed and the disputed amount",
       "Sends the auditor the confirmation list with recordings"
     ],
     "tools": [
       "tally",
-      "zoho-books",
+      "quickbooks",
+      "xero",
       "email"
     ],
     "status": "next",
-    "signal": "Every CA sends balance-confirmation letters by post that nobody returns; a call gets an answer",
+    "signal": "Auditors everywhere send confirmation letters nobody returns; a call gets an answer",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Every business",
@@ -2450,7 +2551,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Grok Bot's Stripe Refund Handler, on Razorpay and UPI",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -2476,7 +2578,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "The order booker is the most common sales job in Indian distribution and it is a phone job on a fixed beat",
     "jobs": "order-confirmation-executive",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Retail, D2C and commerce",
@@ -2501,7 +2604,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Dealers make more on AMC than on the appliance, and the call is never made",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Logistics and manufacturing",
@@ -2527,7 +2631,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "An expired e-way bill is a fine and a detained truck; no logistics SaaS makes the call",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "india"
   },
   {
     "sector": "Logistics and manufacturing",
@@ -2553,7 +2658,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Grok Bot's Contracts Manager pattern; fleet fines in India are mostly expired documents",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Logistics and manufacturing",
@@ -2579,7 +2685,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Grok Bot's Event Request Desk and Competitor Watch; MSMEs miss GeM bids because nobody reads the portal",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "india"
   },
   {
     "sector": "Healthcare",
@@ -2604,7 +2711,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Labs and hospitals live on referrals; the visit is done by a field executive who never calls",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Education",
@@ -2629,7 +2737,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Grok Bot's Canvas Student Assistant, aimed at the parent who pays; retention call every institute skips",
     "jobs": "admissions-counsellor",
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Professional and home services",
@@ -2655,7 +2764,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "The clerk's whole evening; no Indian legal SaaS makes the client call",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "india"
   },
   {
     "sector": "Professional and home services",
@@ -2680,7 +2790,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Indian weddings run on 500 phone calls made by cousins",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Professional and home services",
@@ -2705,7 +2816,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Grok Bot's Market Memory and Witness; uses our organisation memory on a phone call",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Recruitment and HR",
@@ -2731,7 +2843,8 @@ export const shelf: ShelfRole[] = [
     "status": "next",
     "signal": "Grok Bot's Talent Discovery; the cheapest candidate pool an SMB has is the one it already interviewed",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Financial services",
@@ -2756,7 +2869,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "PDCs still run NBFC and chit collections; the confirmation call is the job",
     "jobs": "collections-telecaller",
-    "note": null
+    "note": null,
+    "reach": "india"
   },
   {
     "sector": "Government, NGOs and community",
@@ -2781,7 +2895,8 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "Blood banks call donor lists by hand in every shortage",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "global"
   },
   {
     "sector": "Agriculture and rural",
@@ -2804,7 +2919,767 @@ export const shelf: ShelfRole[] = [
     "status": "later",
     "signal": "FPO coordinators aggregate by phone; voice only, because members do not type",
     "jobs": null,
-    "note": null
+    "note": null,
+    "reach": "india"
+  },
+  {
+    "sector": "Healthcare",
+    "industry": "Medical and dental practices (US)",
+    "slug": "insurance-eligibility-caller",
+    "name": "Insurance eligibility and benefits caller",
+    "posted": "Insurance verification specialist",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "email"
+    ],
+    "does": [
+      "Calls the payer's provider line for every appointment two days out and sits through the IVR",
+      "Records deductible, copay, coverage and authorisation need as fields",
+      "Flags a patient whose plan lapsed before they arrive"
+    ],
+    "tools": [
+      "rest-api",
+      "google-sheets"
+    ],
+    "status": "later",
+    "signal": "A full-time front-office job in every US practice; the hold time is the job",
+    "jobs": null,
+    "note": "Needs IVR navigation on outbound calls",
+    "reach": "global"
+  },
+  {
+    "sector": "Healthcare",
+    "industry": "Medical and dental practices (US)",
+    "slug": "prior-auth-chaser",
+    "name": "Prior authorisation chaser",
+    "posted": "Authorisation coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "email"
+    ],
+    "does": [
+      "Submits the request and calls the payer for status every two days",
+      "Records the reference number and decision",
+      "Tells the patient and the scheduler the moment it is approved"
+    ],
+    "tools": [
+      "rest-api",
+      "google-sheets",
+      "email"
+    ],
+    "status": "later",
+    "signal": "Practices lose procedures to auth delays; the chase is a phone job",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Healthcare",
+    "industry": "Dental",
+    "slug": "unscheduled-treatment-caller",
+    "name": "Unscheduled treatment plan caller",
+    "posted": "Treatment coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp",
+      "sms"
+    ],
+    "does": [
+      "Calls patients who accepted a treatment plan but never booked",
+      "Answers cost and financing questions from the plan",
+      "Books the appointment and tells the dentist what was said"
+    ],
+    "tools": [
+      "google-calendar",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Dental consultants call this the largest unbilled revenue in any practice",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Healthcare",
+    "industry": "Clinics and doctors",
+    "slug": "waitlist-filler",
+    "name": "Cancellation waitlist filler",
+    "posted": "Scheduler",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms",
+      "whatsapp"
+    ],
+    "does": [
+      "When a slot opens, calls the waitlist in order until someone takes it",
+      "Moves the booking and confirms by text",
+      "Reports the fill rate"
+    ],
+    "tools": [
+      "google-calendar",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Every clinic keeps a paper waitlist and never has time to work it",
+    "jobs": "clinic-receptionist",
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Healthcare",
+    "industry": "Home care and senior care agencies",
+    "slug": "caregiver-shift-filler",
+    "name": "Caregiver shift filler",
+    "posted": "Scheduling coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms",
+      "whatsapp"
+    ],
+    "does": [
+      "When a caregiver calls out, calls available caregivers by distance and skill until the shift is covered",
+      "Confirms by text and updates the roster",
+      "Tells the family who is coming"
+    ],
+    "tools": [
+      "google-sheets",
+      "google-calendar"
+    ],
+    "status": "next",
+    "signal": "Home care agencies in the US and UK staff a person all night for this one task",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Healthcare",
+    "industry": "Home care and senior care agencies",
+    "slug": "daily-wellness-checkin",
+    "name": "Daily wellness check-in caller",
+    "posted": "Care coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone"
+    ],
+    "does": [
+      "Calls each client at their chosen time, asks three questions, listens for distress",
+      "Escalates a no-answer or a bad answer to the named contact within minutes",
+      "Logs the call for the family"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Paid check-in call services exist in the US, UK and Japan; the call is the product",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Education",
+    "industry": "Universities and colleges",
+    "slug": "summer-melt-caller",
+    "name": "Enrolment melt caller",
+    "posted": "Admissions counsellor",
+    "kind": "outbound",
+    "channels": [
+      "phone",
+      "sms",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls admitted students who have not completed the next step: deposit, housing, financial aid",
+      "Answers from the checklist and books an advisor call",
+      "Reports who is at risk of not showing in September"
+    ],
+    "tools": [
+      "google-sheets",
+      "google-calendar"
+    ],
+    "status": "next",
+    "signal": "Summer melt is 10 to 20% of admitted students in the US; the fix is a phone call",
+    "jobs": "admissions-counsellor",
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Education",
+    "industry": "Daycare and preschools",
+    "slug": "daycare-waitlist-caller",
+    "name": "Daycare waitlist and absence caller",
+    "posted": "Centre administrator",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms",
+      "whatsapp"
+    ],
+    "does": [
+      "Offers an open place to the waitlist in order and records the answer",
+      "Calls a parent when a child has not arrived by the cut-off",
+      "Sends the day's notes to parents"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Childcare waitlists are worked by hand in every country",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Real estate and construction",
+    "industry": "Rental agents and property managers",
+    "slug": "showing-scheduler",
+    "name": "Showing scheduler and applicant screener",
+    "posted": "Leasing agent",
+    "kind": "both",
+    "channels": [
+      "phone",
+      "sms",
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Answers every listing enquiry, asks move-in date, budget, pets and income band",
+      "Books the showing and sends the address and lockbox time",
+      "Chases the application after the showing"
+    ],
+    "tools": [
+      "google-calendar",
+      "google-sheets",
+      "rest-api"
+    ],
+    "status": "next",
+    "signal": "The Zillow and Rightmove enquiry flood; leasing agents answer the same ten questions all day",
+    "jobs": "real-estate-telecaller",
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Real estate and construction",
+    "industry": "Rental agents and property managers",
+    "slug": "lease-renewal-caller",
+    "name": "Lease renewal and rent-change caller",
+    "posted": "Property manager",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "email",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls tenants 90 days before expiry with the renewal terms",
+      "Records the answer and the reason for leaving",
+      "Books the move-out inspection or sends the renewal for signature"
+    ],
+    "tools": [
+      "google-sheets",
+      "email"
+    ],
+    "status": "next",
+    "signal": "Turnover is the biggest cost in rentals and renewal is a call nobody schedules",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Real estate and construction",
+    "industry": "Builders and brokers",
+    "slug": "showing-feedback-caller",
+    "name": "Showing feedback caller",
+    "posted": "Listing agent's assistant",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms",
+      "email"
+    ],
+    "does": [
+      "Calls the buyer's agent after every showing for feedback and interest level",
+      "Records price objections as fields",
+      "Sends the seller a weekly feedback summary"
+    ],
+    "tools": [
+      "google-sheets",
+      "email"
+    ],
+    "status": "later",
+    "signal": "Listing agents in the US and UK chase this feedback by hand and sellers ask for it weekly",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Real estate and construction",
+    "industry": "Contractors and trades",
+    "slug": "estimate-followup-caller",
+    "name": "Estimate follow-up caller",
+    "posted": "Office manager (contractor)",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms",
+      "email"
+    ],
+    "does": [
+      "Follows up every open estimate on day 2, 7 and 14",
+      "Answers scope and timing questions from the estimate",
+      "Books the start date or records why it was lost"
+    ],
+    "tools": [
+      "google-sheets",
+      "google-calendar"
+    ],
+    "status": "next",
+    "signal": "Roofing, HVAC and remodelling estimates die from silence; close rates double with follow-up",
+    "jobs": "lead-qualification-executive",
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Real estate and construction",
+    "industry": "Contractors and trades",
+    "slug": "subcontractor-availability-caller",
+    "name": "Subcontractor and inspection scheduler",
+    "posted": "Project coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms"
+    ],
+    "does": [
+      "Calls subs for availability on each job's next phase and locks the date",
+      "Calls the city inspection line to book the inspection",
+      "Reschedules the chain when one slips"
+    ],
+    "tools": [
+      "google-calendar",
+      "google-sheets"
+    ],
+    "status": "later",
+    "signal": "A general contractor's day is phone calls to subs and inspectors",
+    "jobs": null,
+    "note": "Needs IVR navigation for inspection lines",
+    "reach": "global"
+  },
+  {
+    "sector": "Financial services",
+    "industry": "Insurance agencies",
+    "slug": "fnol-intake-desk",
+    "name": "Claims first-notice intake desk",
+    "posted": "Claims intake specialist",
+    "kind": "inbound",
+    "channels": [
+      "phone",
+      "whatsapp",
+      "web"
+    ],
+    "does": [
+      "Takes the first notice of loss at any hour: what, when, where, photos",
+      "Gives the claim number and the next step",
+      "Hands injury or total-loss calls to a person with the details captured"
+    ],
+    "tools": [
+      "rest-api",
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Agencies and MGAs pay after-hours call centres for this alone",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Financial services",
+    "industry": "Accounting and bookkeeping firms",
+    "slug": "bookkeeping-query-resolver",
+    "name": "Bookkeeping query resolver",
+    "posted": "Bookkeeper",
+    "kind": "routine",
+    "channels": [
+      "whatsapp",
+      "email",
+      "phone"
+    ],
+    "does": [
+      "Sends each client the month's uncategorised transactions as questions",
+      "Takes the answers in chat or on a call and writes the category back",
+      "Chases missing receipts"
+    ],
+    "tools": [
+      "quickbooks",
+      "xero",
+      "tally",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "The monthly 'what was this $84 at Costco' email every bookkeeper sends",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Financial services",
+    "industry": "Financial advisors",
+    "slug": "annual-review-scheduler",
+    "name": "Annual review scheduler",
+    "posted": "Client service associate",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "email",
+      "sms"
+    ],
+    "does": [
+      "Calls each client in their review month to book the annual review",
+      "Sends the pre-meeting checklist and collects updates",
+      "Confirms the day before"
+    ],
+    "tools": [
+      "google-calendar",
+      "google-sheets",
+      "email"
+    ],
+    "status": "later",
+    "signal": "Advisors in the US, UK and Australia are required to offer reviews and staff a person to book them",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Retail, D2C and commerce",
+    "industry": "D2C brands",
+    "slug": "supplier-eta-checker",
+    "name": "Supplier lead-time and backorder caller",
+    "posted": "Purchasing assistant",
+    "kind": "routine",
+    "channels": [
+      "email",
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Asks every supplier for the ETA on open purchase orders each week",
+      "Updates the sheet and tells customers on backorder the new date",
+      "Flags a supplier that slipped twice"
+    ],
+    "tools": [
+      "google-sheets",
+      "shopify",
+      "email"
+    ],
+    "status": "next",
+    "signal": "Brands buying from Alibaba and domestic wholesalers chase ETAs by hand; customers on backorder churn silently",
+    "jobs": "procurement-follow-up",
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Retail, D2C and commerce",
+    "industry": "Gyms and studios",
+    "slug": "membership-winback-caller",
+    "name": "Membership win-back and declined-card caller",
+    "posted": "Membership executive",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls a member who has not visited in three weeks",
+      "Calls the day a card declines with a new payment link",
+      "Records the reason for leaving"
+    ],
+    "tools": [
+      "google-sheets",
+      "razorpay",
+      "stripe"
+    ],
+    "status": "next",
+    "signal": "Gym churn is a phone call away from being halved; declined cards are silent churn",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Retail, D2C and commerce",
+    "industry": "Restaurants and cloud kitchens",
+    "slug": "catering-quote-desk",
+    "name": "Catering and large-party quote desk",
+    "posted": "Events coordinator",
+    "kind": "both",
+    "channels": [
+      "phone",
+      "whatsapp",
+      "email",
+      "web"
+    ],
+    "does": [
+      "Takes the date, headcount, budget and dietary needs",
+      "Sends the menu and quote from the rate sheet",
+      "Chases the deposit and confirms the day before"
+    ],
+    "tools": [
+      "google-sheets",
+      "email",
+      "razorpay"
+    ],
+    "status": "later",
+    "signal": "Catering is the highest-margin restaurant revenue and the enquiry comes by phone",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Logistics and manufacturing",
+    "industry": "Freight brokers and 3PLs",
+    "slug": "carrier-check-caller",
+    "name": "Carrier check-call dispatcher",
+    "posted": "Track-and-trace dispatcher",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms"
+    ],
+    "does": [
+      "Calls every driver on a live load at the agreed times for location and ETA",
+      "Updates the TMS and tells the customer",
+      "Escalates a late or unreachable driver"
+    ],
+    "tools": [
+      "rest-api",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Check calls are a literal job title in US freight; brokerages staff rooms of them",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Logistics and manufacturing",
+    "industry": "Freight brokers and 3PLs",
+    "slug": "dock-appointment-scheduler",
+    "name": "Dock appointment scheduler",
+    "posted": "Appointment coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "email"
+    ],
+    "does": [
+      "Calls or emails the warehouse for a pickup or delivery appointment",
+      "Records the slot and the reference number",
+      "Reschedules when the truck slips"
+    ],
+    "tools": [
+      "email",
+      "google-sheets",
+      "rest-api"
+    ],
+    "status": "later",
+    "signal": "Every load needs two appointments and each is a call to a warehouse desk",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Professional and home services",
+    "industry": "Law firms and legal services",
+    "slug": "injury-intake-desk",
+    "name": "24-hour legal intake desk",
+    "posted": "Intake specialist",
+    "kind": "inbound",
+    "channels": [
+      "phone",
+      "web",
+      "whatsapp"
+    ],
+    "does": [
+      "Answers at any hour, takes the matter type, date, injuries and other party",
+      "Runs the conflict check questions and books the consultation",
+      "Sends the retainer for e-signature when the attorney approves"
+    ],
+    "tools": [
+      "google-calendar",
+      "google-sheets",
+      "email"
+    ],
+    "status": "next",
+    "signal": "US personal-injury firms pay intake call centres per qualified lead",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Professional and home services",
+    "industry": "Home services (AC, plumbing, pest)",
+    "slug": "parts-availability-caller",
+    "name": "Parts availability caller",
+    "posted": "Parts runner",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "email"
+    ],
+    "does": [
+      "Calls suppliers in order until the part is found in stock",
+      "Records price and pickup time",
+      "Tells the technician which counter to go to"
+    ],
+    "tools": [
+      "google-sheets"
+    ],
+    "status": "later",
+    "signal": "A technician's second hour on every job is calling suppliers",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Professional and home services",
+    "industry": "Car rental and dealerships",
+    "slug": "rental-return-caller",
+    "name": "Rental return and damage follow-up caller",
+    "posted": "Rental agent",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms",
+      "whatsapp"
+    ],
+    "does": [
+      "Reminds the renter the day before return with the time and fuel rule",
+      "Calls after return about a damage or toll charge with the photo",
+      "Takes the dispute and hands it to a person"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Rental desks worldwide spend the afternoon on return reminders and damage calls",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Recruitment and HR",
+    "industry": "Staffing and recruitment",
+    "slug": "reference-check-caller",
+    "name": "Reference check caller",
+    "posted": "Recruiter",
+    "kind": "outbound",
+    "channels": [
+      "phone",
+      "email"
+    ],
+    "does": [
+      "Calls each reference with the agreed questions and records the answers verbatim",
+      "Chases a reference who did not pick up, three attempts",
+      "Sends the recruiter the summary with the recording"
+    ],
+    "tools": [
+      "google-sheets",
+      "email"
+    ],
+    "status": "next",
+    "signal": "Reference checks are the recruiter task most often skipped for lack of time",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Recruitment and HR",
+    "industry": "Staffing and recruitment",
+    "slug": "temp-shift-confirmation",
+    "name": "Temp worker shift confirmation caller",
+    "posted": "Staffing coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms",
+      "whatsapp"
+    ],
+    "does": [
+      "Confirms every temp the evening before with the site, time and dress code",
+      "Fills a dropout from the bench by calling in order",
+      "Reports the confirmed roster to the client site by 9 pm"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Blue-collar staffing agencies in every country run this by hand nightly",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Government, NGOs and community",
+    "industry": "NGOs and trusts",
+    "slug": "volunteer-shift-caller",
+    "name": "Volunteer shift confirmation caller",
+    "posted": "Volunteer coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms",
+      "whatsapp"
+    ],
+    "does": [
+      "Confirms volunteers the day before an event",
+      "Fills gaps from the list",
+      "Thanks them after and asks for the next date"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Volunteer no-show is the number every coordinator quotes",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Government, NGOs and community",
+    "industry": "Utilities and municipal services",
+    "slug": "outage-notification-caller",
+    "name": "Outage and service notification caller",
+    "posted": "Customer communications officer",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "sms",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls or texts affected customers with the outage, area and restoration time",
+      "Takes a report of a new outage as fields",
+      "Calls back when service is restored"
+    ],
+    "tools": [
+      "google-sheets",
+      "rest-api"
+    ],
+    "status": "later",
+    "signal": "Small utilities and co-operatives worldwide still notify by hand",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
   }
 ];
 

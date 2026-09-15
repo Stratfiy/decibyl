@@ -9,6 +9,8 @@ import { MeshBackground } from '@/components/ui/MeshBackground';
 import { RelatedPosts } from './RelatedPosts';
 import { findAnyVertical, verticalHref, type Vertical } from '@/data/verticals';
 import { includedCallingLabel, tiers, tierPrice } from '@/data/pricing';
+import { verticalPairsForVertical } from '@/data/jobVerticalPairs';
+import { getJob } from '@/data/jobs';
 
 /**
  * The shared template. Ten blocks, same order every time — that consistency is
@@ -17,6 +19,7 @@ import { includedCallingLabel, tiers, tierPrice } from '@/data/pricing';
 export function VerticalPage({ vertical }: { vertical: Vertical }) {
   const tier = tiers.find((t) => t.id === vertical.recommendedTier)!;
   const demoHref = `/book-a-demo?vertical=${vertical.slug}`;
+  const jobsHere = verticalPairsForVertical(vertical.slug).map((p) => getJob(p.job)).filter((j): j is NonNullable<typeof j> => Boolean(j));
   const siblings = vertical.siblings
     .map((slug) => findAnyVertical(slug))
     .filter((v): v is Vertical => Boolean(v));
@@ -198,6 +201,19 @@ export function VerticalPage({ vertical }: { vertical: Vertical }) {
                   className="rounded-button border border-line bg-snow px-5 py-2.5 text-[0.9375rem] transition-colors hover:border-vermilion"
                 >
                   {s.name} <span aria-hidden="true">→</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        {jobsHere.length ? (
+          <div className="mt-10">
+            <p className="t-eyebrow text-iron">Jobs a bot does in {vertical.name.toLowerCase()}</p>
+            <div className="mt-3 flex flex-wrap gap-3">
+              {jobsHere.map((j) => (
+                <Link key={j.slug} href={`/jobs/${j.slug}/industry/${vertical.slug}`} className="rounded-button border border-line bg-snow px-5 py-2.5 text-[0.9375rem] transition-colors hover:border-vermilion">
+                  {j.title} <span aria-hidden="true">→</span>
                 </Link>
               ))}
             </div>

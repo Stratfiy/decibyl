@@ -7,18 +7,20 @@ import { ButtonLink } from '@/components/ui/Button';
 import { site } from '@/lib/site';
 
 const primaryLinks = [
-  { label: 'How it works', href: '/how-it-works' },
+  { label: 'Product', href: '/platform' },
   { label: 'Use cases', href: '/use-cases' },
-  { label: 'Voice', href: '/voice-ai' },
+  { label: 'Memory', href: '/knowledge' },
+  { label: 'Voice', href: '/voice-agents' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Developers', href: '/developers' },
 ];
 
 const companyLinks = [
+  { label: 'How it works', href: '/how-it-works' },
   { label: 'Case studies', href: '/case-studies' },
-  { label: 'Partners', href: '/partners' },
   { label: 'Security', href: '/security' },
   { label: 'Blog', href: '/blog' },
+  { label: 'Partners', href: '/partners' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -61,7 +63,7 @@ export function Nav() {
           <div className="flex items-center gap-2">
             <a
               href={site.external.login}
-              className="hidden px-2 text-[0.8rem] font-semibold text-ink hover:text-sindoor sm:inline-flex"
+              className="hidden px-2 text-[0.8rem] font-semibold text-ink hover:opacity-60 sm:inline-flex"
             >
               Log in
             </a>
@@ -104,7 +106,7 @@ export function Nav() {
                 </Link>
               ))}
               <ButtonLink href={site.external.signup} className="mt-4" size="lg">
-                Get started free
+                Get started
               </ButtonLink>
             </nav>
           </Container>

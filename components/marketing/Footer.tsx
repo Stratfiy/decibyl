@@ -1,20 +1,33 @@
 import Link from 'next/link';
 import { Container } from '@/components/ui/Section';
 import { site } from '@/lib/site';
-import { topLevelVerticals, clinicSubVerticals, verticalHref } from '@/data/verticals';
 import { competitors } from '@/data/competitors';
-import { useCases } from '@/data/useCases';
+
+const product = [
+  { label: 'Product overview', href: '/platform' },
+  { label: 'Use cases', href: '/use-cases' },
+  { label: 'Knowledge & memory', href: '/knowledge' },
+  { label: 'Integrations', href: '/integrations' },
+  { label: 'Voice agents', href: '/voice-agents' },
+  { label: 'Developers', href: '/developers' },
+];
+
+const jobs = [
+  { label: 'AI agents for work', href: '/ai-agents-for-work' },
+  { label: 'Customer support', href: '/ai-agents-for-customer-support' },
+  { label: 'Operations', href: '/ai-agents-for-operations' },
+  { label: 'Procurement', href: '/ai-agents-for-procurement' },
+  { label: 'Documents & analysis', href: '/ai-document-analysis' },
+  { label: 'Connect n8n', href: '/integrations/n8n' },
+];
 
 const company = [
-  { label: 'Experience', href: '/experience' },
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'Developers', href: '/developers' },
-  { label: 'Partners', href: '/partners' },
   { label: 'Case studies', href: '/case-studies' },
+  { label: 'Security', href: '/security' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Book a demo', href: '/book-a-demo' },
-  { label: 'Join the waitlist', href: '/waitlist' },
+  { label: 'Partners', href: '/partners' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -29,12 +42,17 @@ export function Footer() {
   return (
     <footer className="bg-ink text-white/70">
       <Container>
-        <div className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1fr]">
           <div>
             <p className="font-display text-lg font-bold text-white">Decibyl</p>
             <p className="mt-3 max-w-xs text-[0.9375rem] leading-relaxed">
-              {site.tagline} {site.subline}
+              AI that gets work done. Give it a job, connect what it needs, and let it get better with context over time.
             </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {['Talk', 'Remember', 'Use apps', 'Run routines'].map((item) => (
+                <span key={item} className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/60">{item}</span>
+              ))}
+            </div>
             <p className="t-data mt-6 text-white/60">
               {site.legalName}
               {site.registeredAddress ? (
@@ -52,100 +70,32 @@ export function Footer() {
                 </>
               ) : null}
               <br />
-              GST-registered
-              <br />
-              <a href={`mailto:${site.supportEmail}`} className="hover:text-white">
-                {site.supportEmail}
-              </a>
+              <a href={`mailto:${site.supportEmail}`} className="hover:text-white">{site.supportEmail}</a>
             </p>
-            <a
-              href={`mailto:${site.supportEmail}`}
-              className="t-data mt-3 inline-block text-white/70 underline-offset-4 hover:text-white hover:underline"
-            >
-              {site.supportEmail}
-            </a>
           </div>
 
-          <FooterCol title="Solutions">
-            {topLevelVerticals.map((v) => (
-              <FooterLink key={v.slug} href={verticalHref(v)}>
-                AI voice agents for {v.slug === 'd2c-ndr-recovery' ? 'D2C' : v.slug === 'lending-collections' ? 'collections' : v.name.toLowerCase()}
-              </FooterLink>
-            ))}
-            {clinicSubVerticals.map((v) => (
-              <FooterLink key={v.slug} href={verticalHref(v)}>
-                {v.name}
-              </FooterLink>
-            ))}
-            <FooterLink href="/voice-ai">Multilingual AI voice agents</FooterLink>
+          <FooterCol title="Product">
+            {product.map((item) => <FooterLink key={item.href} href={item.href}>{item.label}</FooterLink>)}
+          </FooterCol>
+
+          <FooterCol title="Jobs">
+            {jobs.map((item) => <FooterLink key={item.href} href={item.href}>{item.label}</FooterLink>)}
           </FooterCol>
 
           <FooterCol title="Company">
-            <FooterLink href="/use-cases">AI voice agent use cases</FooterLink>
-            {useCases.map((item) => <FooterLink key={item.slug} href={`/use-cases/${item.slug}`}>{item.name}</FooterLink>)}
-            {company.map((l) => (
-              <FooterLink key={l.href} href={l.href}>
-                {l.label}
-              </FooterLink>
-            ))}
-            <a
-              href={site.external.app}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block py-1 text-[0.9375rem] transition-colors hover:text-white"
-            >
-              Log in
-            </a>
-            <a
-              href={site.external.docs}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block py-1 text-[0.9375rem] transition-colors hover:text-white"
-            >
-              Docs
-            </a>
-            <a
-              href={site.external.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block py-1 text-[0.9375rem] transition-colors hover:text-white"
-            >
-              WhatsApp community
-            </a>
-            <a
-              href={site.external.slack}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block py-1 text-[0.9375rem] transition-colors hover:text-white"
-            >
-              Slack community
-            </a>
-          </FooterCol>
-
-          <FooterCol title="Compare & legal">
-            <FooterLink href="/compare">All platforms compared</FooterLink>
-            {competitors.map((c) => (
-              <FooterLink key={c.slug} href={`/compare/${c.slug}`}>
-                vs {c.name}
-              </FooterLink>
-            ))}
-            <FooterLink href="/security">Security & trust</FooterLink>
-            {legal.map((l) => (
-              <FooterLink key={l.href} href={l.href}>
-                {l.label}
-              </FooterLink>
-            ))}
+            {company.map((item) => <FooterLink key={item.href} href={item.href}>{item.label}</FooterLink>)}
+            <a href={site.external.app} target="_blank" rel="noopener noreferrer" className="block py-1 text-[0.9375rem] transition-colors hover:text-white">Open Decibyl ↗</a>
+            <a href={site.external.docs} target="_blank" rel="noopener noreferrer" className="block py-1 text-[0.9375rem] transition-colors hover:text-white">Docs ↗</a>
           </FooterCol>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 py-7">
-          <p className="t-data text-white/60">
-            © {new Date().getFullYear()} {site.legalName}. All prices exclusive of 18% GST.
-          </p>
-          <p className="t-data text-white/60">
-            Data resident in India by default · AWS Mumbai (ap-south-1) · also available in the US
-            &amp; EU
-          </p>
+        <div className="grid gap-6 border-t border-white/10 py-7 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            <FooterLink href="/compare">Compare platforms</FooterLink>
+            {competitors.slice(0, 3).map((c) => <FooterLink key={c.slug} href={`/compare/${c.slug}`}>vs {c.name}</FooterLink>)}
+            {legal.map((item) => <FooterLink key={item.href} href={item.href}>{item.label}</FooterLink>)}
+          </div>
+          <p className="t-data text-white/50">© {new Date().getFullYear()} {site.legalName}</p>
         </div>
       </Container>
     </footer>
@@ -156,17 +106,11 @@ function FooterCol({ title, children }: { title: string; children: React.ReactNo
   return (
     <div>
       <p className="t-eyebrow mb-4 text-white/60">{title}</p>
-      <nav aria-label={title} className="grid">
-        {children}
-      </nav>
+      <nav aria-label={title} className="grid">{children}</nav>
     </div>
   );
 }
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link href={href} className="block py-1 text-[0.9375rem] transition-colors hover:text-white">
-      {children}
-    </Link>
-  );
+  return <Link href={href} className="block py-1 text-[0.9375rem] transition-colors hover:text-white">{children}</Link>;
 }

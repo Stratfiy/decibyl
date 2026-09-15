@@ -34,9 +34,9 @@ export const site = {
   legalName: 'nAutomation Labs Pvt Ltd',
   url: siteUrl,
   tagline: 'AI that gets work done.',
-  subline: 'Give Decibyl a job. Its agents can talk, remember, use your apps and take action.',
+  subline: 'Give it a job. It can talk, remember, use your apps and take action — getting more useful as it learns the context that matters.',
   description:
-    'Decibyl is an AI agent platform for real work. Create agents that can research, communicate across voice and messaging, use connected apps, remember useful context, run routines and complete repetitive work for you or your team.',
+    'Decibyl is an AI agent platform for real work. Give agents jobs to research, communicate, use connected apps, work with documents, run routines, remember useful context and complete repetitive work for you or your team.',
   regions: ['Mumbai (AWS ap-south-1)'],
   supportEmail: 'hello@decibyl.ai',
   salesEmail: 'hello@decibyl.ai',
@@ -71,9 +71,10 @@ export const site = {
 } as const;
 
 export const nav = [
-  { label: 'How it works', href: '/how-it-works' },
+  { label: 'Product', href: '/platform' },
   { label: 'Use cases', href: '/use-cases' },
-  { label: 'Voice', href: '/voice-ai' },
+  { label: 'Memory', href: '/knowledge' },
+  { label: 'Voice', href: '/voice-agents' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Developers', href: '/developers' },
 ];

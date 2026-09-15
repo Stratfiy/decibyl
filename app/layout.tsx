@@ -11,12 +11,11 @@ import {
   Noto_Sans_Arabic,
 } from 'next/font/google';
 import './globals.css';
+import './refined.css';
 import { Nav } from '@/components/marketing/Nav';
 import { Footer } from '@/components/marketing/Footer';
 import { site, siteUrl } from '@/lib/site';
 import { JsonLd, organizationSchema, softwareApplicationSchema, webSiteSchema } from '@/lib/seo';
-
-/* Self-hosted via next/font — no render-blocking font CDN, no CLS on load. */
 
 const displayInter = Inter({
   subsets: ['latin'],

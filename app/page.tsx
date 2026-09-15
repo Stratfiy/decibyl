@@ -42,7 +42,7 @@ const capabilities = [
     label: 'REMEMBER',
     title: 'Builds useful context over time',
     body: 'Remember decisions, preferences, documents, people and what happened before — with controls over what is kept.',
-    className: 'bg-lavender',
+    className: 'bg-lilac',
   },
   {
     label: 'ACT',

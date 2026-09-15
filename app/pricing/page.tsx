@@ -2,170 +2,127 @@ import type { Metadata } from 'next';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { PricingTable } from '@/components/marketing/PricingTable';
 import { PayAsYouGo } from '@/components/marketing/PayAsYouGo';
-import { FaqList } from '@/components/marketing/Faq';
 import { FinalCta } from '@/components/marketing/Blocks';
-import {
-  additionalNumberInr,
-  bundles,
-  advancedStack,
-  cheapestBundle,
-  dearestBundle,
-  formatInr,
-  fromRateInr,
-  fromRateNote,
-} from '@/data/pricing';
-import { pricingFaqs } from '@/data/faqs';
-import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
-import { RelatedPosts } from '@/components/marketing/RelatedPosts';
+import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
+import { site } from '@/lib/site';
 
 export const metadata: Metadata = pageMetadata({
-  title: `AI Calling Agent Pricing India — from ₹${fromRateInr}/min`,
+  title: 'Pricing — Free, Everyday, Business, Growth & Scale',
   description:
-    'Managed plans from ₹2,999/month with telephony and Indian phone numbers included. Three voice bundles starting at ₹4.91/min, credits with no commitment, and an Advanced stack for teams who want to name the models themselves. GST-compliant invoicing.',
+    'Decibyl plans start free. One shared credit balance covers messages, knowledge, routines, tasks, tools and voice. Everyday is ₹999/month; voice starts on Business at ₹2,999/month.',
   path: '/pricing',
-  keywords: [
-    'AI calling agent price India',
-    'AI voice agent pricing India',
-    'voice AI pricing India',
-    'AI calling cost per minute India',
-    'voicebot pricing India',
-    'voice agent pricing INR',
-    'AI receptionist price India',
-  ],
-  ogTitle: 'Published prices, in rupees, with the GST line stated',
+  keywords: ['AI agent pricing India', 'AI bot pricing', 'AI voice agent pricing India', 'AI automation pricing', 'Decibyl pricing'],
+  ogTitle: 'Simple plans for AI that gets work done',
 });
+
+const creditExamples = [
+  ['Text reply', '1 credit', 'A bot replies in chat or a connected messaging channel.'],
+  ['Knowledge answer', '2 credits', 'The reply uses your uploaded documents; 1 credit when the documents have no answer.'],
+  ['Routine run', '2 credits', 'A scheduled bot job runs without you prompting it again.'],
+  ['Task run', '1 credit', 'A bot completes work from the shared task board.'],
+  ['Tool call', '1–3 credits', '1 for most connected tools; 3 for systems of record such as CRM, ERP, accounting, commerce and helpdesk systems.'],
+  ['WhatsApp message', '2 credits', 'A message sent through Decibyl’s platform sender.'],
+];
 
 export default function PricingPage() {
   return (
     <>
       <section className="bg-canvas" aria-label="Pricing">
         <Container>
-          <div className="pt-14 pb-10 sm:pt-20">
-            <p className="t-eyebrow text-sindoor">Pricing</p>
-            <h1 className="t-display mt-4 max-w-3xl text-balance">
-              A platform fee you can read, and the provider cost shown separately.
-            </h1>
+          <div className="pt-16 pb-12 sm:pt-24 sm:pb-16">
+            <p className="t-eyebrow text-iron">Pricing</p>
+            <h1 className="t-display mt-4 max-w-4xl text-balance">Plans for the work you want to hand off.</h1>
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
-              Most platforms quote a rate. Here&rsquo;s what the rate has to cover: the number, the
-              telephony, the agent build, QA scoring on every call, and India data residency —
-              included, not itemised extras. Credits are below if you would rather not commit to a
-              plan, and the Advanced stack is for teams who want to name the models themselves.
+              Start free. Every plan gives your workspace a shared pool of credits that bots use across messages, knowledge, routines, tasks, tools and—on Business and above—voice calls. No seat licence and no separate per-minute platform fee.
             </p>
-            <p className="t-caption mt-4 text-iron">
-              Three voice bundles — Everyday, Natural and Premium — starting at ₹
-              {fromRateInr.toFixed(2)}/min.
-            </p>
-            <p className="t-caption mt-4 text-iron">
-              Additional numbers {formatInr(additionalNumberInr)}/month each — every plan includes
-              at least one number with telephony.
-            </p>
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate">
+              <span>1 credit = ₹0.50</span>
+              <span>Plan credits reset each cycle</span>
+              <span>Top-up credits never expire</span>
+              <span>18% GST added at checkout</span>
+            </div>
           </div>
         </Container>
       </section>
 
-      <Section surface="canvas" className="pt-0" ariaLabel="Plans">
+      <Section surface="white" className="pt-0" ariaLabel="Plans">
         <PricingTable />
       </Section>
 
-      {/* The bundles. This is the half of the pricing story that makes the
-          minute range on the table above legible: the plan sets the credit,
-          the bundle sets how fast it is spent. */}
-      <Section surface="white" ariaLabel="Voice bundles">
+      <Section surface="canvas" ariaLabel="What credits buy">
         <SectionHead
-          eyebrow="What sets the rate"
-          title="Three voices to build your agent on"
-          sub="Your plan decides how much credit you get. The voice you pick decides how far it goes — it is the single biggest factor in your bill, so it is on the price page rather than buried in the product."
+          eyebrow="One balance"
+          title="One credit system across the work."
+          sub="You do not buy a separate product for every capability. The same workspace balance pays for the work your bots actually run."
         />
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {bundles.map((b) => (
-            <div
-              key={b.slug}
-              className={`rounded-card p-7 ${
-                b.slug === cheapestBundle.slug
-                  ? 'border-2 border-sindoor bg-snow'
-                  : 'border border-line bg-snow'
-              }`}
-            >
-              <div className="flex items-baseline justify-between gap-3">
-                <p className="font-display text-[1.15rem] font-bold">{b.label}</p>
-                {b.slug === cheapestBundle.slug ? (
-                  <span className="t-eyebrow text-sindoor">Start here</span>
-                ) : null}
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {creditExamples.map(([title, cost, body]) => (
+            <article key={title} className="rounded-card border border-line bg-snow p-6">
+              <div className="flex items-baseline justify-between gap-4">
+                <h2 className="text-base font-semibold text-ink">{title}</h2>
+                <span className="t-data shrink-0 text-iron">{cost}</span>
               </div>
-              <p className="mt-3 text-[0.9375rem] text-slate">{b.blurb}</p>
-            </div>
+              <p className="mt-3 text-sm leading-relaxed text-slate">{body}</p>
+            </article>
           ))}
         </div>
-        <p className="t-caption mt-6 text-iron">
-          {cheapestBundle.label} is where almost everyone should start — it is the best option we
-          have on Indian languages as well as the cheapest a minute. {dearestBundle.label} is for
-          when speech quality is genuinely the deciding factor, and costs several times as much a
-          minute, which is why the included-calling figures above are a range rather than one
-          number. {fromRateNote}
-        </p>
       </Section>
 
-      {/* Credits — no commitment, charged per model, no prepay rate card */}
-      <Section surface="white" ariaLabel="Credits">
+      <Section surface="white" ariaLabel="Voice pricing">
+        <SectionHead
+          eyebrow="Voice"
+          title="Calling starts on Business."
+          sub="Voice is metered only while a call is connected. Ringing, busy signals and unanswered calls cost nothing. Billing uses 15-second pulses rather than rounding every call to a full minute."
+        />
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {[
+            ['Business', '13 credits / min', '₹6.50 per connected minute · 1 number included · 5 concurrent calls'],
+            ['Growth', '12 credits / min', '₹6.00 per connected minute · 2 numbers included · 15 concurrent calls'],
+            ['Scale', '11 credits / min', '₹5.50 per connected minute · 4 numbers included · 40 concurrent calls'],
+          ].map(([plan, rate, detail]) => (
+            <article key={plan} className="rounded-card border border-line bg-snow p-7">
+              <p className="t-eyebrow text-iron">{plan}</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink">{rate}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate">{detail}</p>
+            </article>
+          ))}
+        </div>
+        <p className="t-caption mt-6 text-iron">When plan credits are used up, Business and Growth voice draws from top-up credits at one additional credit per minute. Scale remains at 11 credits/min.</p>
+      </Section>
+
+      <Section surface="canvas" ariaLabel="Top up credits">
         <PayAsYouGo />
       </Section>
 
-      {/* Advanced — the technical path, not the default */}
-      <Section surface="white" ariaLabel="Choose your own stack">
-        <div className="rounded-panel bg-ink p-8 text-white sm:p-12">
-          <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
-            <div>
-              <p className="t-eyebrow text-ember">{advancedStack.headline}</p>
-              <h2 className="t-h2 mt-4">
-                Pick the stack, not just the bundle.
-              </h2>
-              <p className="t-body-lg mt-4 max-w-xl text-white/75">{advancedStack.body}</p>
-              <p className="t-data mt-6 text-white/50">
-                {advancedStack.providers.join(' · ')}
-              </p>
-            </div>
-            <div className="rounded-card bg-white/5 p-7">
-              <p className="t-eyebrow text-white/50">Who this is for</p>
-              <p className="mt-3 text-[0.9375rem] text-white/80">
-                Teams with an opinion about which model should answer the phone. If you would
-                rather pick one card and get on with it, the three bundles above do the choosing
-                for you.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <p className="t-body-lg mt-10 max-w-3xl text-ink">
-          A blended per-minute rate tells you nothing about where the money went. Every call
-          closes with the platform fee and each provider component as its own line.
-        </p>
-      </Section>
-
-      <Section surface="canvas" ariaLabel="Pricing questions">
-        <SectionHead eyebrow="Pricing FAQ" title="What the invoice actually looks like." />
-        <div className="mt-10">
-          <FaqList faqs={pricingFaqs} />
+      <Section surface="white" ariaLabel="Provider keys">
+        <SectionHead
+          eyebrow="Models"
+          title="Use ours, or your own keys when you need them."
+          sub="Each model slot can use a Decibyl-managed provider. Accounts with BYOK enabled can instead supply their own provider key for that slot and pay that provider directly. Mixing managed and BYOK components is supported."
+        />
+        <div className="mt-9 grid gap-4 md:grid-cols-2">
+          <article className="rounded-card border border-line bg-snow p-7">
+            <h2 className="text-lg font-semibold">Managed</h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate">Use Decibyl’s configured providers. The work is charged in Decibyl credits and you do not need a separate model-provider account.</p>
+          </article>
+          <article className="rounded-card border border-line bg-snow p-7">
+            <h2 className="text-lg font-semibold">Your key</h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate">When BYOK is enabled for your account, connect your own provider credentials for individual model slots. Decibyl does not charge for the provider component you run on your own key.</p>
+          </article>
         </div>
       </Section>
 
-      <Container>
-        <RelatedPosts path="/pricing" />
-      </Container>
-      <FinalCta
-        title="Want the arithmetic run on your volumes?"
-        sub="Book a demo. We’ll price your actual call pattern rather than a plan name."
-        secondary={{ label: 'Compare with Vapi', href: '/compare/vapi' }}
-      />
+      <Section surface="canvas" ariaLabel="Billing details">
+        <SectionHead eyebrow="Billing" title="Prepaid by design." sub="Your bots spend only credit you already have. Calling pauses before the balance can go negative, and resumes when you top up. Payments and GST documents are handled through the Billing area in the app." />
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a href={site.external.signup} className="inline-flex h-12 items-center rounded-button bg-ink px-6 text-sm font-semibold text-white">Start free</a>
+          <a href="https://docs.decibyl.ai/account/billing" className="inline-flex h-12 items-center rounded-button border border-line px-6 text-sm font-semibold text-ink">Read billing docs</a>
+        </div>
+      </Section>
 
-      <JsonLd
-        data={[
-          faqSchema(pricingFaqs),
-          breadcrumbSchema([
-            { name: 'Home', path: '/' },
-            { name: 'Pricing', path: '/pricing' },
-          ]),
-        ]}
-      />
+      <FinalCta title="Start with the plan that matches the work today." sub="You can move plans as the number of bots, routines, teammates, knowledge or calls grows." secondary={{ label: 'See how Decibyl works', href: '/how-it-works' }} />
+
+      <JsonLd data={breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Pricing', path: '/pricing' }])} />
     </>
   );
 }

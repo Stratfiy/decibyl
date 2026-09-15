@@ -1,100 +1,92 @@
-'use client';
-
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import styles from './home-hero.module.css';
 
-const industries = [
-  { name: 'healthcare.', tone: 'violet' },
-  { name: 'e-commerce.', tone: 'pink' },
-  { name: 'logistics.', tone: 'amber' },
-  { name: 'real estate.', tone: 'violet' },
-  { name: 'insurance.', tone: 'pink' },
-  { name: 'education.', tone: 'amber' },
-] as const;
+const jobs = ['Research', 'Follow up', 'Answer calls', 'Use your apps', 'Run routines', 'Remember context'];
 
 export function HomeHero() {
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) return;
-    const timer = window.setInterval(() => {
-      setActive((current) => (current + 1) % industries.length);
-    }, 2600);
-    return () => window.clearInterval(timer);
-  }, []);
-
   return (
     <section className={styles.hero} aria-labelledby="home-heading">
       <div className={styles.grid}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>
-            <span aria-hidden="true" /> AI voice agents for real operations
+            <span aria-hidden="true" /> AI agents that do the work
           </p>
           <h1 id="home-heading" className={styles.title}>
-            Your AI front desk for
-            <span className={styles.rotator} aria-live="polite">
-              {industries.map((industry, index) => (
-                <span
-                  key={industry.name}
-                  className={styles.word}
-                  data-state={index === active ? 'active' : index < active ? 'past' : 'next'}
-                  data-tone={industry.tone}
-                  aria-hidden={index !== active}
-                >
-                  {industry.name}
-                </span>
-              ))}
-            </span>
+            AI that gets
+            <span className={styles.accentLine}>work done.</span>
           </h1>
           <p className={styles.lead}>
-            Answer every call, qualify every lead, book appointments and complete follow-ups,
-            naturally, in 40+ languages.
+            Give Decibyl a job. Your agents can talk, remember, use your apps and take action —
+            across calls, messages, documents and workflows.
           </p>
           <div className={styles.actions}>
-            <Link href="/book-a-demo" className={styles.primaryAction}>
-              Build your voice agent <span aria-hidden="true">→</span>
+            <Link href="https://app.decibyl.ai" className={styles.primaryAction}>
+              Get started free <span aria-hidden="true">→</span>
             </Link>
-            <Link href="/experience" className={styles.secondaryAction}>
-              See the 3D experience
+            <Link href="/how-it-works" className={styles.secondaryAction}>
+              See how it works
             </Link>
           </div>
-          <div className={styles.proof} aria-label="Product highlights">
-            <span><strong>24/7</strong> availability</span>
-            <span><strong>40+</strong> languages</span>
-            <span><strong>India, US &amp; EU</strong> regions</span>
+          <div className={styles.jobChips} aria-label="Examples of work Decibyl can do">
+            {jobs.map((job) => <span key={job}>{job}</span>)}
           </div>
+          <p className={styles.memoryLine}>
+            <strong>Gets smarter as it works.</strong> Decibyl remembers useful context, decisions and
+            preferences so your agents do not start from zero every time.
+          </p>
         </div>
 
-        <div className={styles.demo} aria-label="Live Decibyl voice agent">
-          <div className={styles.backCard} data-side="left" aria-hidden="true">
-            <span>QUALIFY</span>
-            <strong>Sales leads</strong>
-          </div>
-          <div className={styles.backCard} data-side="right" aria-hidden="true">
-            <span>RESOLVE</span>
-            <strong>Customer calls</strong>
-          </div>
-          <div className={styles.agentCard}>
-            <div className={styles.status}><i /> Live agent</div>
-            <div className={styles.orb} aria-hidden="true">
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
+        <div className={styles.demo} aria-label="Decibyl agent completing work">
+          <div className={styles.workCard}>
+            <div className={styles.cardTop}>
+              <div>
+                <p>ACCOUNT MANAGER</p>
+                <h2>Follow up with Acme</h2>
+              </div>
+              <span className={styles.live}><i /> Working</span>
             </div>
-            <p>DECIBYL</p>
-            <h2>Ask anything</h2>
-            <a href="tel:+918035302788" className={styles.callButton}>
-              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                <path d="M7.1 3.5l2.2 4.8-1.7 1.5c1.1 2.3 2.9 4.1 5.2 5.2l1.5-1.7 4.8 2.2-.8 4c-.2.9-1 1.5-1.9 1.5C9 20.4 3.1 14.5 2.5 7.1c-.1-.9.6-1.7 1.5-1.9l3.1-.7z" fill="currentColor" />
-              </svg>
-              Call the AI receptionist
-            </a>
+
+            <div className={styles.thread}>
+              <div className={styles.userBubble}>Check the account, follow up and update me.</div>
+              <div className={styles.agentBubble}>
+                I found the last conversation, checked the CRM and drafted the follow-up.
+              </div>
+            </div>
+
+            <div className={styles.timeline}>
+              <div className={styles.step}>
+                <span className={styles.stepIcon}>1</span>
+                <div><strong>Read CRM</strong><small>Previous deal + latest activity</small></div>
+                <em>Done</em>
+              </div>
+              <div className={styles.step}>
+                <span className={styles.stepIcon}>2</span>
+                <div><strong>Used memory</strong><small>Annual plan · Dana approves</small></div>
+                <em>Remembered</em>
+              </div>
+              <div className={styles.step}>
+                <span className={styles.stepIcon}>3</span>
+                <div><strong>Send follow-up</strong><small>Ready for your approval</small></div>
+                <em className={styles.review}>Review</em>
+              </div>
+            </div>
+
+            <div className={styles.contextNote}>
+              <span>Memory updated</span>
+              <p>Acme prefers annual contracts. Dana is the final approver.</p>
+            </div>
           </div>
-          <p className={styles.demoHint}>No form. Tap to speak with a real agent.</p>
+
+          <div className={styles.floatCard} data-side="left">
+            <span>VOICE</span>
+            <strong>Call completed</strong>
+            <small>Lead qualified · 2m 14s</small>
+          </div>
+          <div className={styles.floatCard} data-side="right">
+            <span>ROUTINE</span>
+            <strong>Runs every morning</strong>
+            <small>Research → summary → WhatsApp</small>
+          </div>
         </div>
       </div>
     </section>

@@ -55,6 +55,7 @@ const ROUTES = {
   '/ai-receptionist': ['app/ai-receptionist/page.tsx', 'data/cities.ts'],
   '/voice-ai': ['app/voice-ai/page.tsx', 'data/languagePages.ts'],
   '/jobs': ['app/jobs/page.tsx', 'data/jobs.ts'],
+  '/shelf': ['app/shelf/page.tsx', 'data/shelf.ts'],
   '/integrations': ['app/integrations/page.tsx', 'data/integrationPages.ts', 'data/integrations.ts'],
 };
 

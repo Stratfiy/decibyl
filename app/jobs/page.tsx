@@ -31,6 +31,7 @@ export default function JobsIndexPage() {
               with it, what it does not, and the monthly price next to what the post offers a person. Pick
               the job, hear the agent, and decide with both numbers in front of you.
             </p>
+            <p className="t-caption mt-4 text-iron">These eight have full pages. <Link href="/shelf" className="text-sindoor hover:underline">The shelf lists every role by industry</Link>, live and planned.</p>
           </div>
         </Container>
       </section>

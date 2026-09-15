@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Container } from '@/components/ui/Section';
 import { ButtonLink } from '@/components/ui/Button';
+import { site } from '@/lib/site';
 
 const primaryLinks = [
   { label: 'How it works', href: '/how-it-works' },
@@ -59,12 +60,12 @@ export function Nav() {
 
           <div className="flex items-center gap-2">
             <a
-              href="https://inapp.decibyl.ai"
+              href={site.external.login}
               className="hidden px-2 text-[0.8rem] font-semibold text-ink hover:text-sindoor sm:inline-flex"
             >
               Log in
             </a>
-            <ButtonLink href="https://inapp.decibyl.ai" variant="primary" className="nav-morph-cta hidden sm:inline-flex">
+            <ButtonLink href={site.external.signup} variant="primary" className="nav-morph-cta hidden sm:inline-flex">
               Get started
             </ButtonLink>
             <button
@@ -102,7 +103,7 @@ export function Nav() {
                   {link.label}
                 </Link>
               ))}
-              <ButtonLink href="https://inapp.decibyl.ai" className="mt-4" size="lg">
+              <ButtonLink href={site.external.signup} className="mt-4" size="lg">
                 Get started free
               </ButtonLink>
             </nav>

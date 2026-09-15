@@ -6,17 +6,17 @@ export function HomeMemorySection() {
     <Section surface="canvas" ariaLabel="Memory">
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
         <div>
-          <p className="t-eyebrow text-sindoor">Gets smarter as it works</p>
-          <h2 className="t-h2 mt-4">It remembers what matters.</h2>
-          <p className="t-body-lg mt-5 text-slate">Useful context from conversations, calls, documents and completed work can come back when it helps with the next task.</p>
-          <p className="mt-4 text-sm text-slate">Correct it anytime. What Decibyl inferred can stay separate from facts you explicitly confirmed.</p>
+          <p className="t-eyebrow text-iron">Gets smarter as it works</p>
+          <h2 className="t-h2 mt-4">It remembers what you choose to make useful.</h2>
+          <p className="t-body-lg mt-5 text-slate">Confirmed facts, decisions, people and document context can come back when they help with the next job. Things Decibyl only inferred stay reviewable until you confirm them.</p>
+          <p className="mt-4 text-sm text-slate">Correct a fact, reject it, export memory to an Obsidian vault, or explicitly forget everything when you need a clean slate.</p>
         </div>
         <div className={`${styles.stage} ${styles.memoryMap}`}>
           <div className={styles.memoryCore}><span>Memory</span></div>
-          <div className={styles.memoryNode}><strong>People</strong><span>Dana is the final approver.</span></div>
-          <div className={styles.memoryNode}><strong>Decisions</strong><span>Annual contract preferred.</span></div>
-          <div className={styles.memoryNode}><strong>Preferences</strong><span>Keep weekly reports short.</span></div>
-          <div className={styles.memoryNode}><strong>Documents</strong><span>Renewal is due 12 Nov.</span></div>
+          <div className={styles.memoryNode}><strong>Confirmed fact</strong><span>Dana approves final terms.</span></div>
+          <div className={styles.memoryNode}><strong>Decision</strong><span>Annual plan chosen.</span></div>
+          <div className={styles.memoryNode}><strong>Inferred</strong><span>Waiting for your confirmation.</span></div>
+          <div className={styles.memoryNode}><strong>Document</strong><span>Renewal date confirmed: 12 Nov.</span></div>
         </div>
       </div>
     </Section>

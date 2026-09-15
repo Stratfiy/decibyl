@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import {
-  Bricolage_Grotesque,
   Inter,
   IBM_Plex_Mono,
   IBM_Plex_Sans_Devanagari,
@@ -19,12 +18,12 @@ import { JsonLd, organizationSchema, softwareApplicationSchema, webSiteSchema } 
 
 /* Self-hosted via next/font — no render-blocking font CDN, no CLS on load. */
 
-const bricolage = Bricolage_Grotesque({
+const displayInter = Inter({
   subsets: ['latin'],
   weight: ['500', '600', '700'],
   variable: '--font-bricolage',
   display: 'swap',
-  preload: true,
+  preload: false,
 });
 
 const inter = Inter({
@@ -42,10 +41,6 @@ const plexMono = IBM_Plex_Mono({
   display: 'swap',
 });
 
-/* The typographic argument for the whole positioning: a US-built site cannot
-   set its own headline in Tamil. IBM Plex has genuine Devanagari and Tamil
-   cuts; Noto covers Telugu, Kannada and Gujarati. */
-
 const plexDeva = IBM_Plex_Sans_Devanagari({
   subsets: ['devanagari'],
   weight: ['400', '500'],
@@ -53,9 +48,6 @@ const plexDeva = IBM_Plex_Sans_Devanagari({
   display: 'swap',
 });
 
-/* Note: IBM ships a Plex Tamil cut but Google Fonts does not serve it, so the
-   Tamil face is Noto Sans Tamil — the best-quality Tamil family available to
-   next/font. Devanagari stays on IBM Plex. */
 const notoTamil = Noto_Sans_Tamil({
   subsets: ['tamil'],
   weight: ['400', '500'],
@@ -84,9 +76,6 @@ const notoGujarati = Noto_Sans_Gujarati({
   display: 'swap',
 });
 
-/* French and Spanish read fine on IBM Plex (Latin) — no separate face needed.
-   Arabic needs its own cut, and its own reading direction; handled per-chip
-   in components/marketing/Languages.tsx. */
 const notoArabic = Noto_Sans_Arabic({
   subsets: ['arabic'],
   weight: ['400', '500'],
@@ -97,15 +86,13 @@ const notoArabic = Noto_Sans_Arabic({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Decibyl — Voice AI Agents for Indian Businesses',
+    default: 'Decibyl — AI That Gets Work Done',
     template: '%s | Decibyl',
   },
   description: site.description,
   applicationName: site.name,
   authors: [{ name: site.legalName }],
   robots: { index: true, follow: true },
-  // Advertises the blog feed on every page, which is where feed readers and
-  // aggregators look for it — a feed nothing links to is a feed nobody finds.
   alternates: {
     types: { 'application/rss+xml': [{ url: '/feed.xml', title: `${site.name} Blog` }] },
   },
@@ -126,13 +113,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#FFFFFF',
+  themeColor: '#FAFAF8',
   width: 'device-width',
   initialScale: 1,
 };
 
 const fontVars = [
-  bricolage.variable,
+  displayInter.variable,
   inter.variable,
   plexMono.variable,
   plexDeva.variable,
@@ -147,9 +134,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-IN" className={fontVars}>
       <body>
-        {/* Scroll-reveal is an enhancement, never a requirement to see the
-            page — this keeps every [data-reveal] element visible with JS
-            disabled. */}
         <noscript>
           <style>{`[data-reveal] { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
@@ -163,8 +147,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <Footer />
         <JsonLd data={[organizationSchema(), webSiteSchema(), softwareApplicationSchema()]} />
-        {/* "Try us now" live voice widget — loaded after the page is
-            interactive so it never blocks first paint or LCP. */}
         <Script
           id="decibyl-widget"
           src="https://app.decibyl.ai/embed/decibyl-widget.js?token=emb_A7ryxkjGa-AoEHs06g557a3tLVoQbN1ieHNGnKA_U5s&environment=production&apiEndpoint=https://api.decibyl.ai"

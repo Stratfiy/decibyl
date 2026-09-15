@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { FinalCta } from '@/components/marketing/Blocks';
-import { shelf, shelfBySector, shelfSectors, type ShelfRole } from '@/data/shelf';
+import { minimumPlan, shelf, shelfBySector, shelfSectors, type ShelfRole } from '@/data/shelf';
 import { getJob } from '@/data/jobs';
 import { tiers, tierPrice } from '@/data/pricing';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
@@ -30,9 +30,11 @@ const kindLabel: Record<ShelfRole['kind'], string> = {
   text: 'Text only',
 };
 
-function planPrice(plan: ShelfRole['plan']): string {
+function planLabel(role: ShelfRole): string {
+  const plan = minimumPlan(role);
   const tier = tiers.find((t) => t.id === plan);
-  return tier ? `${tierPrice(tier, 'inr')}/mo` : '';
+  const price = tier ? `${tierPrice(tier, 'inr')}/mo` : '';
+  return plan === 'business' ? `Voice · Business and above, from ${price}` : `Any plan, from ${price}`;
 }
 
 export default function ShelfPage() {
@@ -56,6 +58,7 @@ export default function ShelfPage() {
               {shelf.length} roles across {shelfSectors.length} sectors. Each is a job a business posts or a task it does by hand every week. {live} are on the shelf today, {next} are being built for this quarter, and the rest are marked for 2027. Pick one, tell Decibyl the specifics, hear it, put it on your number.
             </p>
             <p className="t-caption mt-4 text-iron">Live means you can hire it now. Next and 2027 are stated so you can plan; nothing here is sold before it works.</p>
+            <p className="t-caption mt-2 text-iron">Every plan gets every role. The only gate is voice: a role that picks up or makes calls needs Business or above; text-only roles run on Everyday.</p>
           </div>
         </Container>
       </section>
@@ -79,7 +82,7 @@ export default function ShelfPage() {
                   </ul>
                   <p className="t-data mt-4 text-iron">{r.channels.join(' · ')} → {r.tools.join(', ')}</p>
                   <div className="mt-auto pt-5 flex items-center justify-between gap-3">
-                    <span className="t-data text-ink">{r.plan.charAt(0).toUpperCase() + r.plan.slice(1)} · {planPrice(r.plan)}</span>
+                    <span className="t-data text-ink">{planLabel(r)}</span>
                     {job ? (
                       <Link href={`/jobs/${job.slug}`} className="t-data text-sindoor hover:underline">The job, priced beside the salary</Link>
                     ) : null}

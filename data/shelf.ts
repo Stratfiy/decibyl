@@ -2,6 +2,10 @@
  * The shelf catalogue: every role a Decibyl worker could be, by sector and
  * industry, with what it does, the channels, the tools and the plan it fits.
  *
+ * Every plan gets every role. The only gate is voice: a role that answers or
+ * makes phone calls needs Business or above; text-only roles (WhatsApp, web
+ * chat, email) run on Everyday at ₹999. `minimumPlan` states that rule once.
+ *
  * `status` is honest: `live` is on the product shelf today, `next` is being
  * built for Q4 2026, `later` is 2027. The /shelf page shows all three with the
  * status stated, and only links to a /jobs page where one exists. Demand
@@ -23,7 +27,6 @@ export type ShelfRole = {
   channels: string[];
   does: string[];
   tools: string[];
-  plan: 'everyday' | 'business' | 'growth';
   status: ShelfStatus;
   signal: string;
   /** A /jobs slug when a job page exists. */
@@ -53,7 +56,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "whatsapp-business"
     ],
-    "plan": "business",
     "status": "live",
     "signal": "Naukri and JobHai: receptionist among the most reposted SMB roles; our own jobs page",
     "jobs": "clinic-receptionist",
@@ -79,7 +81,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "whatsapp-business"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Diagnostics vertical page traffic; MyOperator deployment data lists booking capture as a top use",
     "jobs": "clinic-receptionist",
@@ -105,7 +106,6 @@ export const shelf: ShelfRole[] = [
       "google-calendar",
       "rest-api"
     ],
-    "plan": "growth",
     "status": "later",
     "signal": "Healthcare hiring up 5% YoY (Naukri JobSpeak Jan 2026); multi-department routing needs concurrency",
     "jobs": null,
@@ -131,7 +131,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "razorpay"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Repeat-purchase pattern; no clinical advice on the call",
     "jobs": null,
@@ -157,7 +156,6 @@ export const shelf: ShelfRole[] = [
       "google-calendar",
       "whatsapp-business"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Dental vertical page; six-month recall is a routine every practice skips",
     "jobs": "clinic-receptionist",
@@ -183,7 +181,6 @@ export const shelf: ShelfRole[] = [
       "google-calendar",
       "whatsapp-business"
     ],
-    "plan": "growth",
     "status": "next",
     "signal": "IVF vertical page; after-hours anxiety calls",
     "jobs": "clinic-receptionist",
@@ -208,7 +205,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-calendar"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Same shape as clinic front desk; small but under-served",
     "jobs": null,
@@ -235,7 +231,6 @@ export const shelf: ShelfRole[] = [
       "google-calendar",
       "whatsapp-business"
     ],
-    "plan": "growth",
     "status": "live",
     "signal": "Admissions counsellor caller job page; season bursts",
     "jobs": "admissions-counsellor-caller",
@@ -261,7 +256,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "whatsapp-business"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Result-day and ad-day bursts; lead-qualification job page",
     "jobs": "lead-qualification-telecaller",
@@ -287,7 +281,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "razorpay"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Collections × education pair page",
     "jobs": "collections-telecaller",
@@ -312,7 +305,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Daily routine every school does by hand",
     "jobs": null,
@@ -338,7 +330,6 @@ export const shelf: ShelfRole[] = [
       "rest-api",
       "whatsapp-business"
     ],
-    "plan": "growth",
     "status": "later",
     "signal": "Retention routine; ed-tech activation calls are outsourced today",
     "jobs": null,
@@ -365,7 +356,6 @@ export const shelf: ShelfRole[] = [
       "google-calendar",
       "whatsapp-business"
     ],
-    "plan": "growth",
     "status": "live",
     "signal": "Real-estate telecaller job page; portal speed-to-lead",
     "jobs": "real-estate-telecaller",
@@ -391,7 +381,6 @@ export const shelf: ShelfRole[] = [
       "google-calendar",
       "google-sheets"
     ],
-    "plan": "growth",
     "status": "next",
     "signal": "No-show rate is the number every sales head quotes",
     "jobs": null,
@@ -416,7 +405,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Housing societies and co-working spaces",
     "jobs": null,
@@ -441,7 +429,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Quotes die in silence; a routine is the fix",
     "jobs": null,
@@ -468,7 +455,6 @@ export const shelf: ShelfRole[] = [
       "rest-api",
       "razorpay"
     ],
-    "plan": "growth",
     "status": "live",
     "signal": "Collections telecaller job page; fair-practice window enforced",
     "jobs": "collections-telecaller",
@@ -494,7 +480,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "rest-api"
     ],
-    "plan": "growth",
     "status": "next",
     "signal": "Insurance and lending lead-gen postings; DND checked before dial",
     "jobs": "lead-qualification-telecaller",
@@ -520,7 +505,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "razorpay"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Insurance hiring up 7% YoY; renewal calls are the bulk of an agency’s phone work",
     "jobs": null,
@@ -547,7 +531,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "tally"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Compliance reminder pack exists; monthly deadline cycle",
     "jobs": null,
@@ -572,7 +555,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Tamil Nadu and Kerala chit funds run on phone reminders",
     "jobs": null,
@@ -599,7 +581,6 @@ export const shelf: ShelfRole[] = [
       "woocommerce",
       "google-sheets"
     ],
-    "plan": "business",
     "status": "live",
     "signal": "Order-confirmation job page; RTO reduction",
     "jobs": "order-confirmation-executive",
@@ -626,7 +607,6 @@ export const shelf: ShelfRole[] = [
       "delhivery",
       "google-sheets"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "D2C vertical page; NDR is the second-largest leak after RTO",
     "jobs": "order-confirmation-executive",
@@ -654,7 +634,6 @@ export const shelf: ShelfRole[] = [
       "shiprocket",
       "freshdesk"
     ],
-    "plan": "business",
     "status": "live",
     "signal": "Support job page; MyOperator data: order status is a top-three use",
     "jobs": "customer-support-executive",
@@ -680,7 +659,6 @@ export const shelf: ShelfRole[] = [
       "shopify",
       "razorpay"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "WhatsApp automation guides list cart recovery first; keep it text-first",
     "jobs": null,
@@ -705,7 +683,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "everyday",
     "status": "later",
     "signal": "Kirana, electronics and furniture stores; text-first",
     "jobs": null,
@@ -731,7 +708,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "razorpay"
     ],
-    "plan": "business",
     "status": "live",
     "signal": "Reservations Bot exists on the shelf; hospitality hiring up 15% YoY",
     "jobs": null,
@@ -757,7 +733,6 @@ export const shelf: ShelfRole[] = [
       "google-calendar",
       "google-sheets"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "High no-show, high repeat; a clinic desk with different nouns",
     "jobs": null,
@@ -783,7 +758,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "rest-api"
     ],
-    "plan": "business",
     "status": "live",
     "signal": "Order confirmation × logistics pair page",
     "jobs": "order-confirmation-executive",
@@ -810,7 +784,6 @@ export const shelf: ShelfRole[] = [
       "tally",
       "google-sheets"
     ],
-    "plan": "growth",
     "status": "live",
     "signal": "Procurement job page; Tally connector",
     "jobs": "procurement-follow-up-executive",
@@ -837,7 +810,6 @@ export const shelf: ShelfRole[] = [
       "tally",
       "zoho-books"
     ],
-    "plan": "growth",
     "status": "next",
     "signal": "B2B collections is different from consumer collections: invoice-driven, accounts-desk to accounts-desk",
     "jobs": null,
@@ -862,7 +834,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Factory HR; Hindi and regional languages",
     "jobs": null,
@@ -888,7 +859,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "rest-api"
     ],
-    "plan": "growth",
     "status": "later",
     "signal": "Support × logistics pair page",
     "jobs": null,
@@ -914,7 +884,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "razorpay"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Hospitality hiring up 15% YoY; Reservations Bot base",
     "jobs": null,
@@ -940,7 +909,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "whatsapp-business"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Seasonal enquiry bursts; text-heavy",
     "jobs": null,
@@ -966,7 +934,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "razorpay"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "MyOperator lists spiritual organisations among deployments; regional languages matter",
     "jobs": null,
@@ -992,7 +959,6 @@ export const shelf: ShelfRole[] = [
       "google-calendar",
       "google-sheets"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Intake without advice; handoff rule is the product",
     "jobs": null,
@@ -1019,7 +985,6 @@ export const shelf: ShelfRole[] = [
       "google-calendar",
       "hubspot"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Lead qualification job page",
     "jobs": "lead-qualification-telecaller",
@@ -1045,7 +1010,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "google-calendar"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "High call volume, low ticket; AMC renewal is a routine",
     "jobs": null,
@@ -1071,7 +1035,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "google-calendar"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Dealer service desks post this job every quarter",
     "jobs": null,
@@ -1097,7 +1060,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "google-calendar"
     ],
-    "plan": "growth",
     "status": "later",
     "signal": "Portal leads with fast decay",
     "jobs": null,
@@ -1123,7 +1085,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "google-calendar"
     ],
-    "plan": "growth",
     "status": "next",
     "signal": "Grok Bot and Lindy both ship a recruiting coordinator; Indian volume hiring is phone-first",
     "jobs": null,
@@ -1148,7 +1109,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-calendar"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "No-show is the recruiter’s biggest leak",
     "jobs": null,
@@ -1173,7 +1133,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "everyday",
     "status": "later",
     "signal": "Internal Knowledge Bot base; text-only",
     "jobs": null,
@@ -1198,7 +1157,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-drive"
     ],
-    "plan": "everyday",
     "status": "live",
     "signal": "Internal Knowledge Bot on the shelf",
     "jobs": null,
@@ -1224,7 +1182,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "tally"
     ],
-    "plan": "everyday",
     "status": "live",
     "signal": "Compliance Reminder Bot on the shelf",
     "jobs": null,
@@ -1249,7 +1206,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Our own review caller in the plan; directories skill 10-in-30 protocol",
     "jobs": null,
@@ -1274,7 +1230,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "business",
     "status": "next",
     "signal": "Missed-call service exists in the product; make it a role",
     "jobs": null,
@@ -1300,7 +1255,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Haggle Bot on Grok’s marketplace is the enterprise version",
     "jobs": null,
@@ -1325,7 +1279,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "everyday",
     "status": "next",
     "signal": "Daily report service exists in the product",
     "jobs": null,
@@ -1351,7 +1304,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "razorpay"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Spiritual organisations appear in SMB deployment data; regional languages",
     "jobs": null,
@@ -1377,7 +1329,6 @@ export const shelf: ShelfRole[] = [
       "google-sheets",
       "razorpay"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Pledge follow-up is manual everywhere",
     "jobs": null,
@@ -1402,7 +1353,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "growth",
     "status": "later",
     "signal": "Sovereign tier fit; procurement-led sales",
     "jobs": null,
@@ -1427,7 +1377,6 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Regional languages, seasonal peaks, credit cycles",
     "jobs": null,
@@ -1451,13 +1400,19 @@ export const shelf: ShelfRole[] = [
     "tools": [
       "google-sheets"
     ],
-    "plan": "business",
     "status": "later",
     "signal": "Daily routine over voice; low text literacy",
     "jobs": null,
     "note": null
   }
 ];
+
+export type MinimumPlan = 'everyday' | 'business';
+
+/** Every plan gets every role; voice is the only gate and starts at Business. */
+export function minimumPlan(role: Pick<ShelfRole, 'channels'>): MinimumPlan {
+  return role.channels.includes('phone') ? 'business' : 'everyday';
+}
 
 export const shelfSectors: string[] = [...new Set(shelf.map((r) => r.sector))];
 

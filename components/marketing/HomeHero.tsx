@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './home-hero.module.css';
 
-const jobs = ['Research', 'Follow up', 'Answer calls', 'Use your apps', 'Run routines', 'Remember context'];
+const jobs = ['Voice', 'WhatsApp', 'Email', 'Apps', 'Documents', 'Routines', 'Memory', 'Multi-agent'];
 
 export function HomeHero() {
   return (
@@ -16,23 +16,23 @@ export function HomeHero() {
             <span className={styles.accentLine}>work done.</span>
           </h1>
           <p className={styles.lead}>
-            Give Decibyl a job. Your agents can talk, remember, use your apps and take action —
-            across calls, messages, documents and workflows.
+            Give Decibyl a job. Your agents can talk, remember, use your apps, work across channels,
+            run on their own and take action — with you in control when it matters.
           </p>
           <div className={styles.actions}>
             <Link href="https://app.decibyl.ai" className={styles.primaryAction}>
               Get started free <span aria-hidden="true">→</span>
             </Link>
             <Link href="/how-it-works" className={styles.secondaryAction}>
-              See how it works
+              Explore everything it can do
             </Link>
           </div>
-          <div className={styles.jobChips} aria-label="Examples of work Decibyl can do">
+          <div className={styles.jobChips} aria-label="Decibyl capabilities">
             {jobs.map((job) => <span key={job}>{job}</span>)}
           </div>
           <p className={styles.memoryLine}>
-            <strong>Gets smarter as it works.</strong> Decibyl remembers useful context, decisions and
-            preferences so your agents do not start from zero every time.
+            <strong>Gets smarter as it works.</strong> Decibyl can remember useful context, decisions,
+            people, preferences and documents so your agents do not start from zero every time.
           </p>
         </div>
 

@@ -227,6 +227,19 @@
 | Agri-input dealers | **Price and weather broadcaster** | Field assistant | text | whatsapp | Sends the day's mandi prices and weather to farmers by crop; Answers stock and price questions in the local language; Takes a pre-order as fields | google-sheets, whatsapp-business | Any plan | india | later | Agri WhatsApp groups are the channel; voice is dearer than the margin |
 | Dairy and FPOs | **Harvest quantity aggregation caller** | FPO field coordinator | routine | phone | Calls member farmers before harvest for expected quantity and date; Totals it for the buyer and confirms the pickup plan; Calls back with the price and the pickup slot | google-sheets | Business and above (voice only) | india | later | FPO coordinators aggregate by phone; voice only, because members do not type |
 
+## How Grok Bot's community shares bots, and what we copy
+
+Checked 15 Sept 2026 (x.ai/bot/marketplace, docs, grokbot.dev, third-party write-ups).
+
+- **What travels in a template.** Identity, instructions, behavioural boundaries, skills, routines, selected memories and first-party plugin choices. What does not: computer access, logins, conversation history, API keys, custom MCP servers. Secrets are not stripped automatically; the creator is liable for reviewing the configuration before sharing.
+- **How sharing works.** Create an unpublished draft, review what is included, publish to a public link. The recipient previews on x.ai and clicks Add to Grok Bot; an independent copy lands in their account. Team and public scopes; no payments, no creator revenue. Accounts hold at most 50 bots and group chats.
+- **What a listing shows.** Name, one-line description, creator handle, tags, category. No install counts, ratings or pricing on the official page. Community directories add upvotes and the original post link. grokbot.dev counted 627 community templates on launch week: Chief of Staff and orchestrators 127, Work and ops 157, Money 94, Research and monitoring 79, Personal 73, Creator 56, Dev 41.
+- **Vetting.** Read the preview, connect only the accounts the bot needs, run one safe task and watch it, then enable routines. Reviewers say the same thing: the boring administrative bots are the ones worth installing; personality bots gain nothing from persistence.
+
+**What we take.** A shelf role should ship as a bundle in the same shape: prompt, rules, routines, tool bindings, test scripts, with secrets and customer memory excluded by construction. Every installed role runs its Check it script before it can go live, which Grok leaves to the buyer's discipline. Sharing scopes: private, team, public; public listings show the tests the role passed, not upvotes. We grow the shelf by letting a business publish a role it built, the way Grok's 627 arrived in a week, but with the tests attached.
+
+**What we do not take.** Department grouping (owners search by their industry), personality bots, sharing without a test, and the 50-bot cap as a product limit (our caps are by plan).
+
 ## Sequencing
 
 - **Live (11 rows, 8 packs):** on the product shelf now; three rows are the same pack sold to a second industry. Site pages exist for six of them under /jobs.

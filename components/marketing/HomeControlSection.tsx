@@ -1,4 +1,12 @@
 import { Section } from '@/components/ui/Section';
+import styles from './home-product.module.css';
+
+const controls = [
+  ['Approve important actions', 'Let reads run and review writes before they happen.', true],
+  ['See what agents did', 'Keep calls, tasks and actions visible.', false],
+  ['Control memory', 'Correct context and choose what should be remembered.', true],
+  ['Control access', 'Give each agent only the tools its job needs.', false],
+] as const;
 
 export function HomeControlSection() {
   return (
@@ -10,10 +18,13 @@ export function HomeControlSection() {
           <p className="t-body-lg mt-5 text-slate">Agents can do the routine work while sensitive actions, memory and access stay visible and controllable.</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-card bg-sage p-6"><h3 className="t-h3">Approve important actions</h3><p className="mt-2 text-sm text-ink/65">Let reads run and review writes before they happen.</p></div>
-          <div className="rounded-card bg-mistblue p-6"><h3 className="t-h3">See what agents did</h3><p className="mt-2 text-sm text-ink/65">Keep calls, tasks and actions visible.</p></div>
-          <div className="rounded-card bg-lilac p-6"><h3 className="t-h3">Control memory</h3><p className="mt-2 text-sm text-ink/65">Correct context and choose what should be remembered.</p></div>
-          <div className="rounded-card bg-sand p-6"><h3 className="t-h3">Control access</h3><p className="mt-2 text-sm text-ink/65">Give each agent only the tools its job needs.</p></div>
+          {controls.map(([title, body, accent]) => (
+            <article key={title} className={styles.controlCard}>
+              <span className={styles.controlSwitch} data-accent={accent || undefined} aria-hidden="true"><i /></span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
         </div>
       </div>
     </Section>

@@ -2,6 +2,7 @@ import { Section } from '@/components/ui/Section';
 import { LiveTranscript } from '@/components/marketing/LiveTranscript';
 import { LanguageChips } from '@/components/marketing/Languages';
 import { getVertical } from '@/data/verticals';
+import styles from './home-product.module.css';
 
 export function HomeVoiceSection() {
   const ndr = getVertical('d2c-ndr-recovery')!;
@@ -15,7 +16,12 @@ export function HomeVoiceSection() {
           <div className="mt-6 flex flex-wrap gap-2">{['Inbound','Outbound','40+ languages','Code-mixed speech','Transfers','DTMF','Campaigns','Transcripts'].map((x)=><span key={x} className="rounded-full border border-ink/10 bg-canvas px-3 py-2 text-xs font-bold text-ink/70">{x}</span>)}</div>
           <div className="mt-7"><LanguageChips /></div>
         </div>
-        <LiveTranscript lines={ndr.sampleCall.lines} outcome={ndr.sampleCall.outcome} money="₹1,840 recovered" qaScore={ndr.sampleCall.qaScore} duration={ndr.sampleCall.duration} language={ndr.sampleCall.language} />
+        <div className={styles.voiceStage}>
+          <div className={styles.voiceGlow} aria-hidden="true" />
+          <div className={styles.voiceContent}>
+            <LiveTranscript lines={ndr.sampleCall.lines} outcome={ndr.sampleCall.outcome} money="₹1,840 recovered" qaScore={ndr.sampleCall.qaScore} duration={ndr.sampleCall.duration} language={ndr.sampleCall.language} />
+          </div>
+        </div>
       </div>
     </Section>
   );

@@ -17,11 +17,11 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'AI That Gets Work Done | Decibyl',
-  description: 'Give Decibyl a job. Its AI agents can talk, remember, use your apps, run routines and take action across voice, messages, documents and workflows.',
+  description: 'Tell Decibyl what needs doing. Add bots for real jobs across messages, apps, documents, routines, tasks and voice, with confirmed memory and human approval where it matters.',
   path: '/',
-  keywords: ['AI agents','AI personal assistant','AI voice agents','AI automation agents','AI agent memory','AI workflow automation','AI agent platform'],
+  keywords: ['AI agents','AI bots for work','AI voice agents','AI task automation','AI agent memory','AI workflow automation','AI agent platform'],
   ogTitle: 'AI that gets work done',
-  ogSubtitle: 'Give it a job. It can talk, remember, use your apps and take action.',
+  ogSubtitle: 'Give repeat work a bot. Decibyl keeps the team, context and controls together.',
 });
 
 export default function HomePage() {
@@ -40,7 +40,7 @@ export default function HomePage() {
       <HomeBuilderSection />
 
       <Section surface="white" ariaLabel="Pricing preview">
-        <SectionHead eyebrow="Start small" title="Use Decibyl for yourself. Scale when the work grows." sub="Start with one agent and add more capability, usage and teammates when you need them." />
+        <SectionHead eyebrow="Start small" title="Use Decibyl for yourself. Scale when the work grows." sub="Start free, move to Everyday for personal bots, and add voice from Business when the job needs phone calls." />
         <div className="mt-10"><PricingPreview /></div>
       </Section>
 
@@ -48,11 +48,11 @@ export default function HomePage() {
         <Container>
           <div className="mx-auto max-w-4xl text-center">
             <p className="t-eyebrow text-white/50">DECIBYL</p>
-            <h2 className="mt-4 font-[var(--font-bricolage)] text-4xl font-semibold tracking-[-0.05em] sm:text-6xl">What do you want AI to get done?</h2>
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">Give it a job. Add the context and tools it needs. Let it handle the repetitive work and bring you in when judgment is needed.</p>
+            <h2 className="mt-4 font-[var(--font-bricolage)] text-4xl font-semibold tracking-[-0.05em] sm:text-6xl">What do you want off your plate?</h2>
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">Find a bot for a job that already exists, or build your own. Give it the right context and access, then keep the result and exceptions visible.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="https://app.decibyl.ai" className="inline-flex min-h-12 items-center rounded-xl bg-white px-6 text-sm font-black text-ink">Get started free →</Link>
-              <Link href="/how-it-works" className="inline-flex min-h-12 items-center rounded-xl border border-white/20 px-6 text-sm font-bold text-white">See how it works</Link>
+              <Link href="https://app.decibyl.ai/auth/signup" className="inline-flex min-h-12 items-center rounded-xl bg-white px-6 text-sm font-black text-ink">Get started free →</Link>
+              <Link href="/use-cases" className="inline-flex min-h-12 items-center rounded-xl border border-white/20 px-6 text-sm font-bold text-white">Find a bot</Link>
             </div>
           </div>
         </Container>

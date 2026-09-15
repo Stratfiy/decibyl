@@ -3680,6 +3680,290 @@ export const shelf: ShelfRole[] = [
     "jobs": null,
     "note": null,
     "reach": "global"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "overdue-notifier",
+    "name": "Overdue notifier",
+    "posted": "Follow-up executive",
+    "kind": "routine",
+    "channels": [
+      "whatsapp",
+      "email",
+      "phone",
+      "sms"
+    ],
+    "does": [
+      "Watches any due list: invoices, deliveries, tasks, renewals, submissions, returns",
+      "Notifies the right person on the day before, the day of and after, in their channel",
+      "Escalates to the owner after the third miss with the full history"
+    ],
+    "tools": [
+      "google-sheets",
+      "tally",
+      "zoho-books",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "The generic form of receivables chaser and payment reminder; owners ask for 'anything overdue, tell me'",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "document-drafter",
+    "name": "Document drafter to your format",
+    "posted": "Office assistant",
+    "kind": "text",
+    "channels": [
+      "whatsapp",
+      "web",
+      "email"
+    ],
+    "does": [
+      "Takes the fields by chat or voice note and fills the company's own template: quotation, invoice, purchase order, offer letter, NDA, work order, certificate",
+      "Sends the PDF for approval, then to the customer or staff member",
+      "Numbers and files every document by client"
+    ],
+    "tools": [
+      "google-drive",
+      "google-docs",
+      "tally",
+      "email"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Document Generator and Proposal Strategist; every SMB has ten templates and one person who fills them",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "inventory-stock-notifier",
+    "name": "Inventory and low-stock notifier",
+    "posted": "Stores in-charge",
+    "kind": "routine",
+    "channels": [
+      "whatsapp",
+      "email",
+      "phone"
+    ],
+    "does": [
+      "Reads stock from the sheet, Tally or Zoho Inventory every morning against reorder levels",
+      "Tells the owner what is low and drafts the purchase order to the usual supplier",
+      "Chases the supplier for the dispatch date and tells sales what is out of stock"
+    ],
+    "tools": [
+      "tally",
+      "zoho-inventory",
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Stock-outs and dead stock are the two numbers a trader loses money on; the reorder call is manual everywhere",
+    "jobs": "procurement-follow-up",
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "data-entry-clerk",
+    "name": "Data entry clerk",
+    "posted": "Data entry operator",
+    "kind": "text",
+    "channels": [
+      "whatsapp",
+      "email",
+      "web"
+    ],
+    "does": [
+      "Takes a photo, PDF, voice note or form and writes the fields to the sheet, CRM or Tally",
+      "Asks for a missing field instead of guessing",
+      "Sends a daily count of entries and exceptions"
+    ],
+    "tools": [
+      "google-sheets",
+      "tally",
+      "zoho-crm",
+      "google-drive"
+    ],
+    "status": "next",
+    "signal": "Data entry operator is one of the most posted SMB jobs on Naukri and Indeed alike",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "report-generator",
+    "name": "Daily and weekly report generator",
+    "posted": "MIS executive",
+    "kind": "routine",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Builds the sales, collections, stock or attendance report from the sheet or books on schedule",
+      "Sends it in the owner's format with the three numbers that changed",
+      "Answers 'why is this down' from the underlying rows"
+    ],
+    "tools": [
+      "google-sheets",
+      "tally",
+      "zoho-books",
+      "email"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Support Analytics Reporter and Executive Summary Generator; the MIS executive job",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "expense-bill-capture",
+    "name": "Expense and bill capture",
+    "posted": "Accounts assistant",
+    "kind": "text",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Takes bill photos and forwarded invoices, reads vendor, amount, tax and date",
+      "Enters them in the books under the right head for approval",
+      "Chases staff for the missing bills before month end"
+    ],
+    "tools": [
+      "tally",
+      "zoho-books",
+      "quickbooks",
+      "google-drive"
+    ],
+    "status": "later",
+    "signal": "Grok Bot's Accounts Payable agent; the shoebox of bills every month",
+    "jobs": null,
+    "note": "Needs document extraction",
+    "reach": "global"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "approval-router",
+    "name": "Approval router",
+    "posted": "Executive assistant",
+    "kind": "text",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Sends the owner an approve or reject card for leave, discounts, purchases and refunds with the context",
+      "Records the decision and tells the requester",
+      "Reminds the owner of anything unanswered for a day"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Master and Chief of Staff; the owner's WhatsApp is the approval queue",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "meeting-scheduler",
+    "name": "Meeting and visit scheduler",
+    "posted": "Executive assistant",
+    "kind": "both",
+    "channels": [
+      "phone",
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Finds a slot across the owner's calendar and the other party by call or message",
+      "Sends the invite, location and reminder",
+      "Reschedules when either side slips"
+    ],
+    "tools": [
+      "google-calendar",
+      "whatsapp-business",
+      "email"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Executive Assistant; the back-and-forth of five messages to fix one time",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "dispatch-status-notifier",
+    "name": "Dispatch and delivery status notifier",
+    "posted": "Dispatch assistant",
+    "kind": "routine",
+    "channels": [
+      "whatsapp",
+      "sms",
+      "email"
+    ],
+    "does": [
+      "Tells the customer when the order is packed, dispatched, out for delivery and delivered, with the tracking link",
+      "Answers where-is-it from the courier status",
+      "Flags a shipment stuck for two days"
+    ],
+    "tools": [
+      "google-sheets",
+      "shiprocket",
+      "rest-api",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "The text half of where-is-my-order; proactive updates cut the inbound calls",
+    "jobs": "customer-support-executive",
+    "note": null,
+    "reach": "global"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "contract-expiry-desk",
+    "name": "Contract, AMC and licence expiry desk",
+    "posted": "Admin executive",
+    "kind": "routine",
+    "channels": [
+      "whatsapp",
+      "email",
+      "phone"
+    ],
+    "does": [
+      "Keeps every contract, AMC, licence, domain and subscription with its expiry and owner",
+      "Reminds 60, 30 and 7 days out and asks renew or drop",
+      "Hands a renewal to the negotiator role"
+    ],
+    "tools": [
+      "google-sheets",
+      "google-drive",
+      "email"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Contracts Manager; the generic form of compliance reminder",
+    "jobs": null,
+    "note": null,
+    "reach": "global"
   }
 ];
 

@@ -1,221 +1,246 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { HomeHero } from '@/components/marketing/HomeHero';
 import { LiveTranscript } from '@/components/marketing/LiveTranscript';
-import { SlideDeck, type DeckItem } from '@/components/marketing/SlideDeck';
-import { LossCalculator } from '@/components/marketing/LossCalculator';
 import { LanguageChips } from '@/components/marketing/Languages';
-import { CaseStudiesSection } from '@/components/marketing/CaseStudies';
-import { FaqList } from '@/components/marketing/Faq';
-import { FinalCta, IndianOps, PricingPreview } from '@/components/marketing/Blocks';
-import { InclusionTable } from '@/components/marketing/InclusionTable';
-import { verticals, homepageDeckOrder, verticalHref, getVertical } from '@/data/verticals';
-import { features } from '@/data/features';
-import { homeFaqs } from '@/data/faqs';
-import { JsonLd, faqSchema, pageMetadata } from '@/lib/seo';
+import { PricingPreview } from '@/components/marketing/Blocks';
+import { getVertical } from '@/data/verticals';
+import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'AI Voice Agents for Indian Businesses',
+  title: 'AI Agents That Get Work Done',
   description:
-    'AI voice agents for Indian businesses — an AI calling agent that runs sales, support, appointment booking and reminder calls in Hindi, Tamil, English and more.',
+    'Decibyl gives you AI agents that can talk, remember, use your apps and take action across calls, messages, documents and workflows.',
   path: '/',
   keywords: [
-    'AI voice agents for business',
-    'AI voice agents India',
-    'voice agent for business',
-    'Indian voice agent',
-    'voice AI agent India',
-    'AI calling agent India',
-    'AI calling software India',
-    'voicebot India',
-    'AI receptionist India',
-    'voice AI platform India',
-    'Hindi voice AI agent',
-    'telecalling automation India',
+    'AI agents',
+    'AI agents for work',
+    'AI personal assistant',
+    'AI automation agents',
+    'AI voice agents',
+    'AI calling agent',
+    'AI workflow automation',
+    'AI agents India',
+    'AI business automation',
+    'autonomous AI agents',
+    'AI agent platform',
+    'multilingual AI agent',
   ],
-  ogTitle: 'The AI voice worker that answers your phone',
-  ogSubtitle: 'It calls, confirms, and closes — in the language your customer speaks.',
+  ogTitle: 'AI that gets work done',
+  ogSubtitle: 'Give Decibyl a job. It can talk, remember, use your apps and take action.',
 });
 
-const painPoints = [
+const capabilities = [
   {
-    title: '“We’re on another call.”',
-    body: 'Two lines, one receptionist. The second caller hears a ring tone and then dials your competitor. You never find out it happened.',
-    surface: 'bg-peach',
+    label: 'TALK',
+    title: 'Works through conversations',
+    body: 'Call, answer, chat, email and message. Voice is a built-in skill, not a separate product.',
+    className: 'bg-peach',
   },
   {
-    title: '“They called at 9pm.”',
-    body: 'People decide to buy, book, or confirm when they’re free — evenings, Sundays, lunch breaks. Your team isn’t there. Voicemail doesn’t convert.',
-    surface: 'bg-sage',
+    label: 'REMEMBER',
+    title: 'Builds useful context over time',
+    body: 'Remember decisions, preferences, documents, people and what happened before — with controls over what is kept.',
+    className: 'bg-lavender',
   },
   {
-    title: '“Nobody followed up.”',
-    body: 'The no-show who needed a reminder. The NDR order that needed one confirmation call. The portal lead that went cold in eleven minutes. Everyone agrees these calls matter. Nobody has time to make them.',
-    surface: 'bg-sand',
+    label: 'ACT',
+    title: 'Uses the tools you already use',
+    body: 'Read connected apps, run tools and workflows, update systems and ask for approval when an action needs you.',
+    className: 'bg-sage',
   },
   {
-    title: '“It’s in Tamil, half in English.”',
-    body: 'Most Indian business calls are code-mixed. Agents built for clean English fall apart on the first sentence, and IVR trees make people press 0 for a human.',
-    surface: 'bg-mistblue',
+    label: 'KEEP WORKING',
+    title: 'Runs when the work shows up',
+    body: 'Start from a message, email, webhook, call or schedule. Agents can keep working even after you close the tab.',
+    className: 'bg-sand',
   },
+];
+
+const jobs = [
+  { title: 'Research Agent', body: 'Research a topic, track changes, summarize what matters and deliver it on schedule.' },
+  { title: 'Personal Assistant', body: 'Keep track of tasks, documents, reminders, follow-ups and the context behind them.' },
+  { title: 'Sales Agent', body: 'Research leads, qualify them, follow up, update your CRM and bring you in when needed.' },
+  { title: 'Voice Receptionist', body: 'Answer calls, understand intent, book appointments, resolve questions and escalate.' },
+  { title: 'Customer Support', body: 'Handle common requests across chat, email and voice with your company knowledge.' },
+  { title: 'E-commerce Ops', body: 'Confirm COD orders, recover NDRs, follow up on failed payments and update systems.' },
+  { title: 'Recruiting Agent', body: 'Screen profiles, coordinate candidates, prepare notes and keep the process moving.' },
+  { title: 'Operations Agent', body: 'Run repetitive back-office work across documents, inboxes, APIs and internal tools.' },
+];
+
+const memoryItems = [
+  ['Decisions', 'Why you chose a supplier, plan or approach — and what changed later.'],
+  ['People', 'Who is involved, how they relate and the context that matters when they come up again.'],
+  ['Preferences', 'How you like work done, the formats you use and the things an agent should stop asking twice.'],
+  ['Documents', 'Important facts from files and dates worth remembering, with confirmation before they become trusted context.'],
 ];
 
 export default function HomePage() {
   const ndr = getVertical('d2c-ndr-recovery')!;
 
-  const useCaseCards: DeckItem[] = homepageDeckOrder.map((slug) => {
-    const v = verticals.find((x) => x.slug === slug && !x.parent)!;
-    return {
-      id: v.slug,
-      eyebrow: v.slug === 'd2c-ndr-recovery' ? 'Primary' : undefined,
-      title: v.cardTitle,
-      body: v.cardPain,
-      meta: v.cardLanguages,
-      indic: true,
-      href: verticalHref(v),
-      linkLabel: 'Explore',
-    };
-  });
-
-  const featureCards: DeckItem[] = features.map((f) => ({
-    id: f.title,
-    eyebrow: f.eyebrow,
-    title: f.title,
-    body: f.body,
-    meta: f.meta,
-  }));
-
   return (
     <>
       <HomeHero />
 
-      <section
-        aria-label="Sample call"
-        className="scroll-mt-24 bg-canvas pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pb-24"
-      >
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-            <div>
-              <p className="t-eyebrow text-sindoor">A real call, start to finish</p>
-              <h2 className="t-h2 mt-4 text-balance">
-                This is what one recovered order sounds like.
-              </h2>
-              <p className="t-body-lg mt-4 text-slate text-pretty">
-                A courier marked the delivery failed. The agent called the buyer in the register
-                she actually speaks, confirmed she’d be home, confirmed the cash amount, and booked
-                the reattempt. Forty-one seconds.
-              </p>
-              <p className="mt-4 text-slate">
-                The outcome chip at the end is the point. Not that it can talk — that something
-                happened.
-              </p>
+      <Section surface="canvas" ariaLabel="How Decibyl works">
+        <SectionHead
+          eyebrow="More than chat"
+          title="Give it work, not just prompts."
+          sub="Decibyl agents can understand the request, find context, use tools, take action and come back with the work moved forward."
+        />
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          {capabilities.map((item) => (
+            <article key={item.title} className={`rounded-card p-7 sm:p-8 ${item.className}`}>
+              <p className="t-eyebrow text-ink/55">{item.label}</p>
+              <h3 className="t-h3 mt-3">{item.title}</h3>
+              <p className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-ink/72">{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </Section>
+
+      <Section surface="white" ariaLabel="Memory">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div>
+            <p className="t-eyebrow text-sindoor">Memory that compounds</p>
+            <h2 className="t-h2 mt-4 text-balance">It gets smarter the more you work together.</h2>
+            <p className="t-body-lg mt-5 max-w-xl text-slate text-pretty">
+              Decibyl does not have to treat every task like the first time you have met. It can retain
+              useful context from conversations, calls, documents and completed work, then bring that
+              context back when it is relevant.
+            </p>
+            <p className="mt-4 max-w-xl text-slate">
+              Inferred information stays distinguishable from confirmed facts, and consequential actions
+              can still come back to you for approval.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {memoryItems.map(([title, body]) => (
+              <div key={title} className="rounded-card border border-ink/10 bg-canvas p-6">
+                <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-white text-sm font-black text-sindoor shadow-sm">✦</div>
+                <h3 className="t-h3">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      <Section surface="canvas" ariaLabel="Agent jobs">
+        <SectionHead
+          eyebrow="Give each agent a job"
+          title="Start with the work you want off your plate."
+          sub="Use a ready agent or describe the job in your own words. You can keep one around or build a team of specialists."
+        />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {jobs.map((job, index) => (
+            <article key={job.title} className="group rounded-card border border-ink/10 bg-white p-6 transition hover:-translate-y-1 hover:border-ink/20 hover:shadow-lg">
+              <div className="mb-7 flex items-center justify-between">
+                <span className="t-data text-slate">0{index + 1}</span>
+                <span className="text-lg text-sindoor transition group-hover:translate-x-1">↗</span>
+              </div>
+              <h3 className="t-h3">{job.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate">{job.body}</p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="https://app.decibyl.ai" className="inline-flex min-h-11 items-center rounded-xl bg-ink px-5 text-sm font-bold text-white">
+            Add your first agent →
+          </Link>
+          <Link href="/how-it-works" className="inline-flex min-h-11 items-center rounded-xl border border-ink/15 bg-white px-5 text-sm font-bold text-ink">
+            Build your own
+          </Link>
+        </div>
+      </Section>
+
+      <Section surface="white" ariaLabel="Channels and voice">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="t-eyebrow text-sindoor">Works where work happens</p>
+            <h2 className="t-h2 mt-4 text-balance">Chat is one interface. Decibyl can go further.</h2>
+            <p className="t-body-lg mt-5 text-slate text-pretty">
+              Agents can work across your connected apps and reach people through calls, WhatsApp,
+              email, chat and scheduled routines. One job can move across several of them.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {['Voice', 'WhatsApp', 'Email', 'Chat', 'Apps', 'APIs', 'Documents', 'Routines', 'Webhooks'].map((channel) => (
+                <span key={channel} className="rounded-full border border-ink/10 bg-canvas px-3 py-2 text-xs font-bold text-ink/70">{channel}</span>
+              ))}
             </div>
-            <LiveTranscript
-              lines={ndr.sampleCall.lines}
-              outcome={ndr.sampleCall.outcome}
-              money="₹1,840 recovered"
-              qaScore={ndr.sampleCall.qaScore}
-              duration={ndr.sampleCall.duration}
-              language={ndr.sampleCall.language}
-            />
+            <div className="mt-9">
+              <p className="text-sm font-bold text-ink">40+ languages for voice</p>
+              <div className="mt-4"><LanguageChips /></div>
+            </div>
+          </div>
+          <LiveTranscript
+            lines={ndr.sampleCall.lines}
+            outcome={ndr.sampleCall.outcome}
+            money="₹1,840 recovered"
+            qaScore={ndr.sampleCall.qaScore}
+            duration={ndr.sampleCall.duration}
+            language={ndr.sampleCall.language}
+          />
+        </div>
+      </Section>
+
+      <Section surface="canvas" ariaLabel="Human control and agent collaboration">
+        <div className="grid gap-5 lg:grid-cols-3">
+          <article className="rounded-card bg-mistblue p-8 lg:col-span-2">
+            <p className="t-eyebrow text-ink/55">MULTI-AGENT WORK</p>
+            <h2 className="t-h2 mt-4 max-w-3xl text-balance">One agent can ask another when the job needs a specialist.</h2>
+            <p className="t-body-lg mt-5 max-w-2xl text-slate">
+              Put agents in the same workspace and let them hand off visible work instead of hiding an autonomous chain behind the scenes.
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              {['Research → Sales', 'Support → Operations', 'Voice → CRM update'].map((flow) => (
+                <div key={flow} className="rounded-2xl bg-white/80 p-4 text-sm font-bold text-ink shadow-sm">{flow}</div>
+              ))}
+            </div>
+          </article>
+          <article className="rounded-card bg-sage p-8">
+            <p className="t-eyebrow text-ink/55">YOU STAY IN CONTROL</p>
+            <h3 className="t-h3 mt-4">Reads can run. Writes can ask.</h3>
+            <p className="mt-4 text-sm leading-relaxed text-ink/70">
+              Let an agent fetch context freely while sensitive or consequential actions return as an approval before they happen.
+            </p>
+          </article>
+        </div>
+      </Section>
+
+      <Section surface="white" ariaLabel="Pricing preview">
+        <SectionHead
+          eyebrow="Start small"
+          title="Use Decibyl for yourself. Scale it to a team or business."
+          sub="The same agent system can start with everyday work and grow into voice, operations and higher-volume automation."
+        />
+        <div className="mt-10">
+          <PricingPreview />
+        </div>
+      </Section>
+
+      <section className="bg-ink px-5 py-20 text-white sm:py-24">
+        <Container>
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="t-eyebrow text-white/55">DECIBYL</p>
+            <h2 className="mt-4 font-[var(--font-bricolage)] text-4xl font-semibold tracking-[-0.05em] sm:text-6xl">
+              What do you want AI to get done?
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">
+              Give it a job. Add the context and tools it needs. Let your agents do the repetitive work and bring you in when judgment is required.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link href="https://app.decibyl.ai" className="inline-flex min-h-12 items-center rounded-xl bg-white px-6 text-sm font-black text-ink">
+                Get started free →
+              </Link>
+              <Link href="/book-a-demo" className="inline-flex min-h-12 items-center rounded-xl border border-white/20 px-6 text-sm font-bold text-white">
+                Talk to us
+              </Link>
+            </div>
           </div>
         </Container>
       </section>
-
-      {/* Pain points */}
-      <Section surface="canvas" ariaLabel="The problem">
-        <SectionHead
-          title="The call you didn’t answer was the sale."
-          sub="Every business we work with is losing money in the same four places."
-        />
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2">
-          {painPoints.map((p) => (
-            <li key={p.title} className={`rounded-card p-7 ${p.surface}`}>
-              <h3 className="t-h3">{p.title}</h3>
-              <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink/75">{p.body}</p>
-            </li>
-          ))}
-        </ul>
-        <p className="t-data mt-8 text-slate">
-          Every one of these is a phone call that either happened late, or didn’t happen.
-        </p>
-      </Section>
-
-      {/* Use cases — SlideDeck */}
-      <Section surface="canvas" ariaLabel="Use cases">
-        <SlideDeck
-          idPrefix="usecases"
-          title="Where businesses lose calls"
-          sub="Same engine. Different conversation."
-          items={useCaseCards}
-        />
-      </Section>
-
-      {/* Loss calculator */}
-      <Section surface="canvas" ariaLabel="Loss calculator" id="calculator">
-        <SectionHead
-          eyebrow="Your numbers, not ours"
-          title="We won’t quote you a statistic. Do the arithmetic yourself."
-          sub="Move the sliders to match your business. Nothing here is our claim — every number below is yours."
-        />
-        <div className="mt-10">
-          <LossCalculator variants={['clinic', 'd2c', 'realestate']} />
-        </div>
-      </Section>
-
-      {/* Features — SlideDeck */}
-      <Section surface="canvas" ariaLabel="Features">
-        <SlideDeck
-          idPrefix="features"
-          title="What the agent actually does"
-          sub="Inbound and outbound on the same agent, with the same record of every call."
-          items={featureCards}
-        />
-      </Section>
-
-      {/* What's actually included */}
-      <Section surface="white" ariaLabel="What's actually included">
-        <InclusionTable />
-      </Section>
-
-      {/* Languages */}
-      <Section surface="canvas" ariaLabel="Languages" id="languages">
-        <SectionHead
-          eyebrow="Languages"
-          title="Indian languages live today, and any language your stack speaks."
-          sub="Hinglish and Tanglish aren’t an edge case we tolerate — code-mixed speech is the default register the agent is built for."
-        />
-        <div className="mt-9">
-          <LanguageChips />
-        </div>
-      </Section>
-
-      {/* Built for Indian operations */}
-      <Section surface="white" ariaLabel="Built for Indian operations">
-        <IndianOps />
-      </Section>
-
-      {/* Case studies */}
-      <Section surface="white" ariaLabel="Case studies">
-        <CaseStudiesSection />
-      </Section>
-
-      {/* Pricing preview */}
-      <Section surface="white" ariaLabel="Pricing preview">
-        <PricingPreview />
-      </Section>
-
-      {/* FAQ */}
-      <Section surface="canvas" ariaLabel="Frequently asked questions">
-        <SectionHead eyebrow="FAQ" title="The questions we get asked first." />
-        <div className="mt-10">
-          <FaqList faqs={homeFaqs} />
-        </div>
-      </Section>
-
-      <FinalCta />
-
-      <JsonLd data={faqSchema(homeFaqs)} />
     </>
   );
 }

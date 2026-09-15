@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { FinalCta } from '@/components/marketing/Blocks';
-import { minimumPlan, shelf, shelfBySector, shelfSectors, type ShelfRole } from '@/data/shelf';
+import { hasText, hasVoice, shelf, shelfBySector, shelfSectors, type ShelfRole } from '@/data/shelf';
 import { getJob } from '@/data/jobs';
 import { tiers, tierPrice } from '@/data/pricing';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
@@ -30,11 +30,17 @@ const kindLabel: Record<ShelfRole['kind'], string> = {
   text: 'Text only',
 };
 
+const price = (id: string): string => {
+  const tier = tiers.find((t) => t.id === id);
+  return tier ? `${tierPrice(tier, 'inr')}/mo` : '';
+};
+
 function planLabel(role: ShelfRole): string {
-  const plan = minimumPlan(role);
-  const tier = tiers.find((t) => t.id === plan);
-  const price = tier ? `${tierPrice(tier, 'inr')}/mo` : '';
-  return plan === 'business' ? `Voice · Business and above, from ${price}` : `Any plan, from ${price}`;
+  const voice = hasVoice(role);
+  const text = hasText(role);
+  if (voice && text) return `Text on any plan from ${price('everyday')} · voice from ${price('business')}`;
+  if (voice) return `Voice only · Business and above, from ${price('business')}`;
+  return `Any plan, from ${price('everyday')}`;
 }
 
 export default function ShelfPage() {
@@ -58,7 +64,7 @@ export default function ShelfPage() {
               {shelf.length} roles across {shelfSectors.length} sectors. Each is a job a business posts or a task it does by hand every week. {live} are on the shelf today, {next} are being built for this quarter, and the rest are marked for 2027. Pick one, tell Decibyl the specifics, hear it, put it on your number.
             </p>
             <p className="t-caption mt-4 text-iron">Live means you can hire it now. Next and 2027 are stated so you can plan; nothing here is sold before it works.</p>
-            <p className="t-caption mt-2 text-iron">Every plan gets every role. The only gate is voice: a role that picks up or makes calls needs Business or above; text-only roles run on Everyday.</p>
+            <p className="t-caption mt-2 text-iron">Every plan gets every role. The only gate is voice: the phone half of a role needs Business or above; the WhatsApp, web chat and email half runs on Everyday.</p>
           </div>
         </Container>
       </section>

@@ -2,9 +2,10 @@
  * The shelf catalogue: every role a Decibyl worker could be, by sector and
  * industry, with what it does, the channels, the tools and the plan it fits.
  *
- * Every plan gets every role. The only gate is voice: a role that answers or
- * makes phone calls needs Business or above; text-only roles (WhatsApp, web
- * chat, email) run on Everyday at ₹999. `minimumPlan` states that rule once.
+ * Every plan gets every role. The only gate is voice: the phone half of a role
+ * needs Business or above; its WhatsApp, web chat and email half runs on
+ * Everyday at ₹999. `minimumPlan` states that rule once: only a phone-only
+ * role starts at Business.
  *
  * `status` is honest: `live` is on the product shelf today, `next` is being
  * built for Q4 2026, `later` is 2027. The /shelf page shows all three with the
@@ -1139,7 +1140,7 @@ export const shelf: ShelfRole[] = [
     "note": null
   },
   {
-    "sector": "Every business (internal)",
+    "sector": "Every business",
     "industry": "Any",
     "slug": "internal-knowledge",
     "name": "Internal knowledge bot",
@@ -1163,7 +1164,7 @@ export const shelf: ShelfRole[] = [
     "note": null
   },
   {
-    "sector": "Every business (internal)",
+    "sector": "Every business",
     "industry": "Any",
     "slug": "compliance-reminder",
     "name": "Compliance reminder bot",
@@ -1188,7 +1189,7 @@ export const shelf: ShelfRole[] = [
     "note": null
   },
   {
-    "sector": "Every business (internal)",
+    "sector": "Every business",
     "industry": "Any",
     "slug": "review-request-caller",
     "name": "Review and feedback caller",
@@ -1212,7 +1213,7 @@ export const shelf: ShelfRole[] = [
     "note": null
   },
   {
-    "sector": "Every business (internal)",
+    "sector": "Every business",
     "industry": "Any",
     "slug": "missed-call-callback",
     "name": "Missed-call callback bot",
@@ -1236,7 +1237,7 @@ export const shelf: ShelfRole[] = [
     "note": null
   },
   {
-    "sector": "Every business (internal)",
+    "sector": "Every business",
     "industry": "Any",
     "slug": "vendor-quote-collector",
     "name": "Vendor quote collector",
@@ -1261,7 +1262,7 @@ export const shelf: ShelfRole[] = [
     "note": null
   },
   {
-    "sector": "Every business (internal)",
+    "sector": "Every business",
     "industry": "Any",
     "slug": "daily-summary-reporter",
     "name": "Daily summary reporter",
@@ -1404,14 +1405,789 @@ export const shelf: ShelfRole[] = [
     "signal": "Daily routine over voice; low text literacy",
     "jobs": null,
     "note": null
+  },
+  {
+    "sector": "Healthcare",
+    "industry": "Diagnostic labs",
+    "slug": "lab-report-delivery",
+    "name": "Report delivery and query desk",
+    "posted": "Lab customer care",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Sends the report PDF on WhatsApp the moment it is signed off",
+      "Answers when will my report be ready without reading a value",
+      "Books a doctor call-back for questions about results"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "rest-api",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Labs answer 'is my report ready' hundreds of times a day; the WhatsApp guides list report delivery as the first lab automation",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Healthcare",
+    "industry": "Clinics and doctors",
+    "slug": "pre-visit-messenger",
+    "name": "Pre-visit and follow-up messenger",
+    "posted": "Patient coordinator",
+    "channels": [
+      "whatsapp"
+    ],
+    "does": [
+      "Sends preparation instructions and directions the evening before",
+      "Asks how the patient is doing three days after the visit",
+      "Logs a bad reply for the doctor to see"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-calendar",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Post-visit follow-up is the top retention message clinics send by hand",
+    "jobs": "clinic-receptionist",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Healthcare",
+    "industry": "Hospitals",
+    "slug": "discharge-followup",
+    "name": "Post-discharge follow-up messenger",
+    "posted": "Patient relations executive",
+    "channels": [
+      "whatsapp"
+    ],
+    "does": [
+      "Checks in on days 1, 3 and 7 after discharge",
+      "Reminds of medicine timings and review dates",
+      "Escalates a red-flag answer to the ward"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-sheets"
+    ],
+    "status": "later",
+    "signal": "Readmission calls are outsourced today; text is enough for the check-in",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Education",
+    "industry": "Coaching institutes",
+    "slug": "doubt-desk",
+    "name": "Doubt desk from course material",
+    "posted": "Academic support executive",
+    "channels": [
+      "whatsapp",
+      "web"
+    ],
+    "does": [
+      "Answers syllabus and timetable questions from uploaded notes",
+      "Sends the right PDF or recording link",
+      "Hands a subject doubt to the teacher on duty"
+    ],
+    "tools": [
+      "google-drive",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Ed-tech support queues are mostly where-is-the-link questions",
+    "jobs": "admissions-counsellor",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Education",
+    "industry": "Schools",
+    "slug": "school-circular-broadcaster",
+    "name": "Circular and homework broadcaster",
+    "posted": "School office assistant",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Sends circulars, homework and event notices by class",
+      "Answers when is the PTM from the calendar",
+      "Collects RSVPs and consent forms as fields"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-sheets",
+      "google-calendar"
+    ],
+    "status": "next",
+    "signal": "Every school runs this by hand in class WhatsApp groups",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Education",
+    "industry": "Colleges and institutes",
+    "slug": "admissions-document-collector",
+    "name": "Admissions document collector",
+    "posted": "Admissions office assistant",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Lists the documents pending for each applicant",
+      "Receives uploads on WhatsApp and files them by applicant",
+      "Reminds until the file is complete"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-drive",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Admissions season is a document chase; the desk role above books the slot, this one closes the file",
+    "jobs": "admissions-counsellor",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Real estate and construction",
+    "industry": "Builders and brokers",
+    "slug": "listing-enquiry-responder",
+    "name": "Listing enquiry responder",
+    "posted": "Pre-sales executive",
+    "channels": [
+      "whatsapp",
+      "web",
+      "email"
+    ],
+    "does": [
+      "Replies to a portal or website enquiry within a minute with the brochure",
+      "Asks budget, locality and configuration in chat",
+      "Hands a hot lead to the qualifier or a person"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-sheets",
+      "google-drive"
+    ],
+    "status": "next",
+    "signal": "Speed-to-lead on 99acres and MagicBricks enquiries; most first replies are brochure sends",
+    "jobs": "real-estate-telecaller",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Real estate and construction",
+    "industry": "Property management",
+    "slug": "tenant-notice-messenger",
+    "name": "Rent and notice messenger",
+    "posted": "Society office assistant",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Sends maintenance bills and rent reminders by flat",
+      "Broadcasts water, lift and power notices",
+      "Records who paid from the bank statement upload"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-sheets",
+      "tally"
+    ],
+    "status": "later",
+    "signal": "Society apps exist, but WhatsApp is where residents read",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Financial services",
+    "industry": "Lending and NBFC",
+    "slug": "kyc-document-collector",
+    "name": "KYC and document collector",
+    "posted": "Loan processing executive",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Asks for PAN, Aadhaar, bank statement and salary slips in order",
+      "Files each upload against the application",
+      "Reminds daily until the set is complete"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-drive",
+      "rest-api"
+    ],
+    "status": "next",
+    "signal": "Loan files stall on documents, not decisions; Lindy and Zapier both ship document chasers",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Financial services",
+    "industry": "Insurance agencies",
+    "slug": "policy-query-desk",
+    "name": "Policy and claim query desk",
+    "posted": "Customer service executive",
+    "channels": [
+      "whatsapp",
+      "web"
+    ],
+    "does": [
+      "Answers coverage, premium date and claim-status questions from the policy sheet",
+      "Sends the policy PDF and claim form",
+      "Hands a claim intimation to the agent with the details captured"
+    ],
+    "tools": [
+      "google-sheets",
+      "google-drive",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Agents field the same ten questions per policy year",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Financial services",
+    "industry": "CA and tax firms",
+    "slug": "client-status-mailer",
+    "name": "Client status and due-date mailer",
+    "posted": "Office assistant",
+    "channels": [
+      "email",
+      "whatsapp"
+    ],
+    "does": [
+      "Sends each client a monthly status of filings done and pending",
+      "Answers what do you need from me for this month",
+      "Collects the missing invoices as uploads"
+    ],
+    "tools": [
+      "google-sheets",
+      "google-drive",
+      "tally"
+    ],
+    "status": "next",
+    "signal": "CA firms lose clients on silence, not on filings",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Retail, D2C and commerce",
+    "industry": "D2C brands",
+    "slug": "whatsapp-order-taker",
+    "name": "WhatsApp catalogue and order taker",
+    "posted": "Sales chat executive",
+    "channels": [
+      "whatsapp"
+    ],
+    "does": [
+      "Sends the catalogue and answers size, colour and stock questions",
+      "Takes the order and payment link in chat",
+      "Writes the order to the store and confirms"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "shopify",
+      "razorpay"
+    ],
+    "status": "next",
+    "signal": "WhatsApp commerce is the top use in every Indian automation guide",
+    "jobs": "order-confirmation-executive",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Retail, D2C and commerce",
+    "industry": "D2C brands",
+    "slug": "returns-desk",
+    "name": "Returns and exchange desk",
+    "posted": "Customer support executive",
+    "channels": [
+      "whatsapp",
+      "web",
+      "email"
+    ],
+    "does": [
+      "Checks the order and the return window",
+      "Raises the return or exchange and sends the pickup date",
+      "Hands a damaged-goods claim to a person with photos attached"
+    ],
+    "tools": [
+      "shopify",
+      "rest-api",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Returns are a third of D2C support tickets",
+    "jobs": "customer-support-executive",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Retail, D2C and commerce",
+    "industry": "D2C brands",
+    "slug": "offer-broadcaster",
+    "name": "Offer and restock broadcaster",
+    "posted": "Marketing executive",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Sends a launch or offer to a segment from the sheet",
+      "Tells customers who asked when an item is back",
+      "Records replies and opt-outs as fields"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business",
+      "shopify"
+    ],
+    "status": "later",
+    "signal": "Broadcast tools exist; the reply handling is what they lack",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Retail, D2C and commerce",
+    "industry": "Local retail",
+    "slug": "instagram-dm-responder",
+    "name": "Instagram and website DM responder",
+    "posted": "Social media executive",
+    "channels": [
+      "web",
+      "whatsapp"
+    ],
+    "does": [
+      "Answers price, availability and timings from the sheet",
+      "Moves a serious buyer to WhatsApp with the details captured",
+      "Flags a complaint to the owner"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Small shops sell through DMs; Instagram inbound needs a channel the platform does not have yet",
+    "jobs": null,
+    "note": "Needs an Instagram channel; web chat and WhatsApp halves work sooner",
+    "kind": "text"
+  },
+  {
+    "sector": "Logistics and manufacturing",
+    "industry": "Transporters",
+    "slug": "shipment-status-desk",
+    "name": "Shipment status desk for shippers",
+    "posted": "Customer service executive",
+    "channels": [
+      "whatsapp",
+      "email",
+      "web"
+    ],
+    "does": [
+      "Answers where is my consignment from the tracking sheet",
+      "Sends the proof of delivery on request",
+      "Logs a complaint with the LR number"
+    ],
+    "tools": [
+      "google-sheets",
+      "rest-api",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Support × logistics pair page; the phone half is live as delivery confirmation",
+    "jobs": "customer-support-executive",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Logistics and manufacturing",
+    "industry": "Manufacturers",
+    "slug": "supplier-invoice-clerk",
+    "name": "Supplier invoice and PO clerk",
+    "posted": "Accounts assistant",
+    "channels": [
+      "email"
+    ],
+    "does": [
+      "Reads supplier invoices from the inbox and matches them to the PO",
+      "Enters the matched invoice in Tally for approval",
+      "Writes back to the supplier on a mismatch"
+    ],
+    "tools": [
+      "tally",
+      "google-drive",
+      "email"
+    ],
+    "status": "later",
+    "signal": "n8n's most-imported finance workflow is supplier invoice extraction",
+    "jobs": "procurement-follow-up",
+    "note": "Needs inbound email and document extraction",
+    "kind": "text"
+  },
+  {
+    "sector": "Hospitality and travel",
+    "industry": "Hotels and homestays",
+    "slug": "pre-arrival-messenger",
+    "name": "Pre-arrival and in-stay messenger",
+    "posted": "Guest relations executive",
+    "channels": [
+      "whatsapp"
+    ],
+    "does": [
+      "Sends check-in details, directions and ID requirements before arrival",
+      "Takes room-service and housekeeping requests in chat",
+      "Asks for a review at checkout"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Hospitality hiring up 15% (Naukri JobSpeak); guest messaging is manual at small hotels",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Hospitality and travel",
+    "industry": "Travel agencies",
+    "slug": "itinerary-sender",
+    "name": "Itinerary and document sender",
+    "posted": "Travel desk executive",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Sends the itinerary, tickets and vouchers by traveller",
+      "Answers what time is my pickup from the plan",
+      "Reminds of visa and passport dates"
+    ],
+    "tools": [
+      "google-drive",
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Agencies resend the same documents on the phone all day",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Professional and home services",
+    "industry": "Consultancies and agencies",
+    "slug": "proposal-drafter",
+    "name": "Proposal and quote drafter",
+    "posted": "Pre-sales executive",
+    "channels": [
+      "email",
+      "web"
+    ],
+    "does": [
+      "Turns a qualified enquiry into a first-draft proposal from the rate sheet",
+      "Sends it for a human to approve before it goes out",
+      "Follows up on day 3 and day 10"
+    ],
+    "tools": [
+      "google-drive",
+      "google-sheets",
+      "email"
+    ],
+    "status": "later",
+    "signal": "Zapier and Lindy both ship proposal and meeting-prep agents",
+    "jobs": "lead-qualification-executive",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Professional and home services",
+    "industry": "Home services (AC, plumbing, pest)",
+    "slug": "technician-dispatch-messenger",
+    "name": "Job card and technician messenger",
+    "posted": "Service coordinator",
+    "channels": [
+      "whatsapp"
+    ],
+    "does": [
+      "Sends the technician the job card and address",
+      "Tells the customer the technician's name and arrival window",
+      "Collects the completion photo and payment status"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Urban Company-style coordination done by hand at local firms",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Recruitment and HR",
+    "industry": "Staffing and recruitment",
+    "slug": "candidate-document-collector",
+    "name": "Candidate document and offer messenger",
+    "posted": "HR executive",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Sends the offer and collects acceptance and documents",
+      "Reminds until the joining file is complete",
+      "Answers joining-date and location questions"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-drive",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Offer-to-join drop-off is the number every recruiter quotes",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Recruitment and HR",
+    "industry": "Any employer",
+    "slug": "attendance-leave-collector",
+    "name": "Attendance and leave collector",
+    "posted": "HR assistant",
+    "channels": [
+      "whatsapp"
+    ],
+    "does": [
+      "Takes leave requests in chat and writes them to the sheet",
+      "Sends the manager an approve or reject card",
+      "Publishes the month's attendance summary"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Small firms run leave on WhatsApp messages to the owner",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "website-whatsapp-enquiry-desk",
+    "name": "Website and WhatsApp enquiry desk",
+    "posted": "Customer care executive",
+    "channels": [
+      "web",
+      "whatsapp"
+    ],
+    "does": [
+      "Answers product, price and timing questions from the knowledge base",
+      "Captures name, need and phone as a lead",
+      "Hands a buying customer to a person or to the caller role"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "The text half of every front desk; the internal knowledge bot is the same engine facing staff",
+    "jobs": "customer-support-executive",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "email-inbox-triage",
+    "name": "Email inbox triage and reply drafter",
+    "posted": "Office assistant",
+    "channels": [
+      "email"
+    ],
+    "does": [
+      "Sorts the shared inbox into enquiry, invoice, complaint and spam",
+      "Drafts a reply for approval on enquiries and complaints",
+      "Files attachments by sender"
+    ],
+    "tools": [
+      "email",
+      "google-drive",
+      "google-sheets"
+    ],
+    "status": "later",
+    "signal": "Lindy's first agent; needs inbound email on the platform",
+    "jobs": null,
+    "note": "Needs inbound email",
+    "kind": "text"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "review-reply-writer",
+    "name": "Google review reply writer",
+    "posted": "Marketing executive",
+    "channels": [
+      "web"
+    ],
+    "does": [
+      "Drafts a reply to every new Google review in the business's voice",
+      "Sends a bad review to the owner before replying",
+      "Posts approved replies"
+    ],
+    "tools": [
+      "google-business-profile",
+      "google-sheets"
+    ],
+    "status": "later",
+    "signal": "Directories skill: reply rate is a ranking signal",
+    "jobs": null,
+    "note": "Needs a Google Business Profile connector",
+    "kind": "text"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "lead-crm-updater",
+    "name": "Lead enrichment and CRM updater",
+    "posted": "Sales operations executive",
+    "channels": [
+      "web",
+      "email"
+    ],
+    "does": [
+      "Takes every new lead from the form or inbox and fills the CRM row",
+      "Adds company and city from public sources",
+      "Assigns by rule and tells the owner on WhatsApp"
+    ],
+    "tools": [
+      "google-sheets",
+      "zoho-crm",
+      "hubspot"
+    ],
+    "status": "next",
+    "signal": "The most-imported n8n workflow is lead capture to Sheets",
+    "jobs": "lead-qualification-executive",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "ticket-triage",
+    "name": "Support ticket triage",
+    "posted": "Support executive",
+    "channels": [
+      "web",
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Answers the known questions and closes them",
+      "Tags and routes the rest by category and urgency",
+      "Reports the day's unanswered questions for the knowledge base"
+    ],
+    "tools": [
+      "freshdesk",
+      "zoho-desk",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Grok Bot and Zapier both ship a support queue bot",
+    "jobs": "customer-support-executive",
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Government, NGOs and community",
+    "industry": "NGOs and trusts",
+    "slug": "donation-receipt-sender",
+    "name": "Donation receipt and update sender",
+    "posted": "Donor relations executive",
+    "channels": [
+      "email",
+      "whatsapp"
+    ],
+    "does": [
+      "Sends the 80G receipt within a minute of a donation",
+      "Sends quarterly impact updates by donor",
+      "Answers where did my money go from the report"
+    ],
+    "tools": [
+      "razorpay",
+      "email",
+      "google-sheets"
+    ],
+    "status": "later",
+    "signal": "Receipts are the donor complaint every NGO has",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
+  },
+  {
+    "sector": "Agriculture and rural",
+    "industry": "Agri-input dealers",
+    "slug": "mandi-price-broadcaster",
+    "name": "Price and weather broadcaster",
+    "posted": "Field assistant",
+    "channels": [
+      "whatsapp"
+    ],
+    "does": [
+      "Sends the day's mandi prices and weather to farmers by crop",
+      "Answers stock and price questions in the local language",
+      "Takes a pre-order as fields"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Agri WhatsApp groups are the channel; voice is dearer than the margin",
+    "jobs": null,
+    "note": null,
+    "kind": "text"
   }
 ];
 
 export type MinimumPlan = 'everyday' | 'business';
 
-/** Every plan gets every role; voice is the only gate and starts at Business. */
+export const TEXT_CHANNELS = ['whatsapp', 'web', 'email', 'sms'] as const;
+
+export function hasVoice(role: Pick<ShelfRole, 'channels'>): boolean {
+  return role.channels.includes('phone');
+}
+
+export function hasText(role: Pick<ShelfRole, 'channels'>): boolean {
+  return role.channels.some((c) => (TEXT_CHANNELS as readonly string[]).includes(c));
+}
+
+/** Every plan gets every role; voice is the only gate. A role with a text channel runs on Everyday. */
 export function minimumPlan(role: Pick<ShelfRole, 'channels'>): MinimumPlan {
-  return role.channels.includes('phone') ? 'business' : 'everyday';
+  return hasText(role) ? 'everyday' : 'business';
 }
 
 export const shelfSectors: string[] = [...new Set(shelf.map((r) => r.sector))];

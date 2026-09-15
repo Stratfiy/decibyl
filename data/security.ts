@@ -1,45 +1,37 @@
-/**
- * Everything here has to be true and traceable to a real control — same
- * discipline as data/proof.ts and data/caseStudies.ts. This page exists so a
- * security/procurement reviewer doesn't have to read four legal pages to get
- * a straight answer. Full legal language stays in /legal/dpdp and /legal/privacy;
- * this is the skimmable version, cross-linked to those.
- */
-
-export type SecurityPillar = {
-  title: string;
-  body: string;
-};
+/** Security claims mirrored from echowave/compliance/TRUST.md and privacy routes. */
+export type SecurityPillar = { title: string; body: string };
 
 export const pillars: SecurityPillar[] = [
   {
-    title: 'Data residency, your choice',
-    body: 'Call audio, transcripts, and lead data are stored in India — AWS Mumbai (ap-south-1) — by default. US and EU infrastructure is available for teams who need data closer to customers outside India.',
+    title: 'India data residency',
+    body: 'Decibyl runs in AWS Mumbai (ap-south-1). The database, recordings, transcripts and application data are kept in that region; we do not currently advertise multi-region failover.',
   },
   {
-    title: 'Encrypted in transit and at rest',
-    body: 'All call content and stored data is encrypted in transit and at rest. Access to call content is limited to the people who need it to run your account, with audit logs on that access.',
+    title: 'Encrypted and tenant-isolated',
+    body: 'Traffic uses TLS, stored data is encrypted at rest, provider credentials are encrypted, and API keys are stored as hashes. Tenant boundaries are enforced in the application and data layer.',
   },
   {
-    title: 'Consent and calling controls you actually get',
-    body: 'Permitted calling windows, do-not-call suppression lists, and an immediate stop on request are built in, not an add-on. You are responsible for a lawful basis to call your list — we give you the controls to honour it.',
+    title: 'Consent and calling controls',
+    body: 'Outbound campaigns support consent attestation, calling windows and suppression controls. Recording disclosure and retention controls are part of the calling workflow; you remain responsible for having a lawful basis to contact people.',
   },
   {
-    title: 'DPDP-aligned, roles stated plainly',
-    body: 'For calls run on your account, you are the data fiduciary and Decibyl is your data processor. A data processing agreement covers this — ask for it before you sign, not after.',
+    title: 'DPDP and privacy controls',
+    body: 'Workspace privacy controls include export, erasure and access logging. For customer workloads, Decibyl acts as a processor under the terms and DPA while the customer remains responsible for the purpose and lawful basis of the processing.',
   },
   {
-    title: 'Disclosure on every call, not configurable off',
-    body: 'The agent identifies itself as automated and discloses that the call is recorded at the start of every call. A caller who asks for a person is transferred.',
+    title: 'Retention you can shorten',
+    body: 'Default retention is 90 days for recordings and 365 days for transcripts, with shorter workspace retention available. Signed URLs are used for stored media instead of public file links.',
   },
   {
-    title: 'GST-compliant billing',
-    body: 'Every invoice is GST-compliant, issued via Razorpay, with the platform fee and provider cost shown separately rather than blended into one rate.',
+    title: 'Backups and access records',
+    body: 'Encrypted backups are retained for 30 days and monitored for staleness. Access to sensitive customer data is logged so support and security reviews start from an auditable record.',
   },
 ];
 
 export const notCertified = [
-  'ISO 27001',
-  'SOC 2',
-  'HIPAA (a US framework — it does not apply to Indian clinical data regardless)',
+  'SOC 2 — not currently certified',
+  'ISO 27001 — not currently certified',
+  'HIPAA BAA — not currently offered',
+  'Independent penetration test — not yet completed',
+  'Multi-region failover — not currently provided',
 ];

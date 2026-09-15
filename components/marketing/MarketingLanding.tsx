@@ -4,20 +4,81 @@ import { site } from '@/lib/site';
 import type { MarketingPage } from '@/data/marketingPages';
 import styles from './marketing-landing.module.css';
 
-const scenes: Record<MarketingPage['visual'], { label: string; request: string; steps: [string, string][]; result: string }> = {
-  platform: { label: 'ACCOUNT MANAGER', request: 'Check Acme, follow up and update me.', steps: [['Read CRM', 'Latest account activity'], ['Recall context', 'Annual plan · Dana approves'], ['Prepare action', 'Follow-up ready for review']], result: 'Job ready to complete' },
-  voice: { label: 'VOICE AGENT', request: 'Answer the call, verify the order and resolve it.', steps: [['Conversation', 'English + Hindi'], ['Use knowledge', 'Order + policy context'], ['Save outcome', 'Resolved · transcript ready']], result: 'Call completed' },
-  memory: { label: 'MEMORY', request: 'What should the agent remember for next time?', steps: [['People', 'Dana is the approver'], ['Decision', 'Annual plan preferred'], ['Correction', 'New supplier from August']], result: 'Useful context retained' },
-  apps: { label: 'CONNECTED WORK', request: 'Find the account, draft the reply and update the CRM.', steps: [['Read', 'CRM + email'], ['Reason', 'Use account context'], ['Write', 'Waiting for approval']], result: 'Action ready' },
-  jobs: { label: 'YOUR JOB', request: 'Research competitors every morning and send what changed.', steps: [['Research', 'Sources checked'], ['Routine', 'Weekdays · 8:00 AM'], ['Deliver', 'WhatsApp summary']], result: 'Agent ready' },
-  support: { label: 'SUPPORT', request: 'Help this customer without making them repeat everything.', steps: [['Read history', 'Account + recent issue'], ['Resolve', 'Policy + action'], ['Escalate', 'Human only if needed']], result: 'Case moved forward' },
-  ops: { label: 'OPERATIONS', request: 'Run the daily check and only surface exceptions.', steps: [['Check', 'Systems + status'], ['Compare', 'Against expected state'], ['Report', '3 exceptions found']], result: 'Routine finished' },
-  procurement: { label: 'PROCUREMENT', request: 'Prepare the supplier update before tomorrow’s review.', steps: [['Research', 'Supplier changes'], ['Documents', 'Dates + terms extracted'], ['Brief', 'Decision context prepared']], result: 'Review brief ready' },
-  docs: { label: 'DOCUMENT AGENT', request: 'Read this contract and use the important parts in the next task.', steps: [['Extract', 'Renewal · 12 Nov'], ['Remember', 'Notice period · 60 days'], ['Use', 'Available to agents']], result: 'Working context ready' },
-  security: { label: 'CONTROL', request: 'Let the agent work, but ask before external writes.', steps: [['Read tools', 'Allowed'], ['Memory', 'Controlled'], ['External write', 'Approval required']], result: 'Boundaries applied' },
-  pricing: { label: 'USAGE', request: 'Start with one useful agent and scale from there.', steps: [['Agent count', 'Not the billing unit'], ['Credits', 'Shared usage balance'], ['Calling', 'Shown separately']], result: 'Pay for useful work' },
-  impact: { label: 'OUTCOME', request: 'Did the agent actually save work?', steps: [['Baseline', '12 min per task'], ['Coverage', '68% handled'], ['Outcome', '8.2 hrs/week released']], result: 'Impact measured' },
-  n8n: { label: 'DECIBYL + N8N', request: 'Understand the request, then run the right workflow.', steps: [['Decibyl', 'Context + decision'], ['n8n', 'Deterministic execution'], ['Decibyl', 'Report the outcome']], result: 'Workflow completed' },
+type Scene = { label: string; request: string; owner?: string; steps: [string, string][]; result: string };
+
+const scenes: Record<MarketingPage['visual'], Scene> = {
+  platform: {
+    label: 'DECIBYL',
+    request: 'Check what needs attention and get the right bot on it.',
+    owner: '@operations',
+    steps: [['Read workspace', 'Tasks + confirmed context'], ['Delegate', 'Operations bot owns the job'], ['Review result', 'Exception ready for you']],
+    result: 'Work moved forward',
+  },
+  voice: {
+    label: 'VOICE BOT',
+    request: 'Answer the call, check the order and hand off if needed.',
+    owner: '@order-desk',
+    steps: [['Conversation', 'Multilingual + code-mixed'], ['Use context', 'Order + approved knowledge'], ['Save outcome', 'Transcript + result']],
+    result: 'Call completed',
+  },
+  memory: {
+    label: 'MEMORY',
+    request: 'What should Decibyl carry into the next job?',
+    steps: [['Confirmed fact', 'Dana approves final terms'], ['Decision', 'Annual plan chosen'], ['Correction', 'Supplier changed in August']],
+    result: 'Context ready for reuse',
+  },
+  apps: {
+    label: 'CONNECTED WORK',
+    request: 'Find the account and prepare the next action.',
+    owner: '@account-desk',
+    steps: [['Read', 'Connected account context'], ['Prepare', 'Action drafted'], ['Write', 'Waiting for approval']],
+    result: 'Ready for confirmation',
+  },
+  jobs: {
+    label: 'BOT TEAM',
+    request: 'Give this repeat job an owner.',
+    steps: [['Find a bot', 'Choose a live job pack'], ['Give access', 'Only the tools it needs'], ['Test', 'Publish when it works']],
+    result: 'Bot ready for the job',
+  },
+  support: {
+    label: 'SUPPORT BOT',
+    request: 'Resolve this without making the customer repeat everything.',
+    owner: '@support',
+    steps: [['Read context', 'History + knowledge'], ['Resolve', 'Safe action prepared'], ['Escalate', 'Person only when needed']],
+    result: 'Case moved forward',
+  },
+  ops: {
+    label: 'ROUTINE',
+    request: 'Run the check automatically and surface only the exception.',
+    owner: '@operations',
+    steps: [['Trigger', 'Schedule or event'], ['Run bot', 'Real tools + task context'], ['Surface', 'Exception needs attention']],
+    result: 'Routine finished',
+  },
+  procurement: {
+    label: 'PROCUREMENT BOT',
+    request: 'Prepare the supplier follow-up before the review.',
+    owner: '@supplier-desk',
+    steps: [['Documents', 'Terms + dates extracted'], ['Recall', 'Confirmed supplier context'], ['Task', 'Follow-up ready']],
+    result: 'Review context prepared',
+  },
+  docs: {
+    label: 'DOCUMENT WORK',
+    request: 'Read this file and make the important parts useful later.',
+    steps: [['Read', 'Text or OCR'], ['Confirm', 'Dates + fields reviewed'], ['Use', 'Knowledge + reminders']],
+    result: 'Working context created',
+  },
+  impact: {
+    label: 'OUTCOMES',
+    request: 'Did the bot actually move the job forward?',
+    steps: [['Run', 'Work completed'], ['Outcome', 'Outside-app result recorded'], ['Compare', 'Version + failures visible']],
+    result: 'Result is inspectable',
+  },
+  n8n: {
+    label: 'DECIBYL + N8N',
+    request: 'Understand the request, then hand the fixed steps to the workflow.',
+    steps: [['Decibyl', 'Context + delegation'], ['n8n', 'Deterministic execution'], ['Bot', 'Continue with the outcome']],
+    result: 'Workflow completed',
+  },
 };
 
 export function MarketingLanding({ page }: { page: MarketingPage }) {
@@ -68,12 +129,12 @@ export function MarketingLanding({ page }: { page: MarketingPage }) {
           <div>
             <p className={styles.darkEyebrow}>CONTEXT THAT COMPOUNDS</p>
             <h2>Gets smarter as it works.</h2>
-            <p>Decibyl can bring useful context from previous work into the next job—people, decisions, preferences and documents—while keeping corrections and control in your hands.</p>
+            <p>Decibyl can carry confirmed facts, decisions, people and useful document context into later work. Learned facts stay reviewable until you confirm them, and you can correct, export or delete memory.</p>
           </div>
-          <div className={styles.memoryStack} aria-label="Examples of remembered context">
-            <div><span>PERSON</span><strong>Dana approves final terms</strong></div>
-            <div><span>DECISION</span><strong>Use the annual plan</strong></div>
-            <div><span>PREFERENCE</span><strong>Keep reports concise</strong></div>
+          <div className={styles.memoryStack} aria-label="Examples of confirmed workspace memory">
+            <div><span>CONFIRMED</span><strong>Dana approves final terms</strong></div>
+            <div><span>DECISION</span><strong>Annual plan chosen</strong></div>
+            <div><span>CORRECTION</span><strong>Supplier changed in August</strong></div>
           </div>
         </Container>
       </section>
@@ -87,7 +148,7 @@ export function MarketingLanding({ page }: { page: MarketingPage }) {
           </div>
           <div className={styles.finalActions}>
             <a className={styles.lightButton} href={site.external.signup}>Get started <span>→</span></a>
-            <Link className={styles.darkLink} href="/use-cases">Explore jobs</Link>
+            <Link className={styles.darkLink} href="/use-cases">Find a bot</Link>
           </div>
         </Container>
       </section>
@@ -95,19 +156,19 @@ export function MarketingLanding({ page }: { page: MarketingPage }) {
   );
 }
 
-function ProductScene({ scene }: { scene: { label: string; request: string; steps: [string, string][]; result: string } }) {
+function ProductScene({ scene }: { scene: Scene }) {
   return (
-    <div className={styles.scene} aria-label="Example Decibyl agent workflow">
+    <div className={styles.scene} aria-label="Example Decibyl work flow">
       <div className={styles.sceneGlow} />
       <div className={styles.scenePanel}>
         <div className={styles.sceneTop}>
-          <div><span>{scene.label}</span><strong>Working</strong></div>
+          <div><span>{scene.label}</span><strong>{scene.owner ?? 'Working'}</strong></div>
           <i aria-hidden="true" />
         </div>
         <div className={styles.request}>{scene.request}</div>
         <div className={styles.steps}>
           {scene.steps.map(([title, detail], i) => (
-            <div className={styles.step} key={title}>
+            <div className={styles.step} key={`${title}-${i}`}>
               <b>{i + 1}</b>
               <div><strong>{title}</strong><small>{detail}</small></div>
               <em>{i === scene.steps.length - 1 ? 'Ready' : 'Done'}</em>
@@ -116,8 +177,8 @@ function ProductScene({ scene }: { scene: { label: string; request: string; step
         </div>
         <div className={styles.result}><span>RESULT</span><strong>{scene.result}</strong></div>
       </div>
-      <div className={`${styles.floatChip} ${styles.floatOne}`}><span>MEMORY</span><strong>Context recalled</strong></div>
-      <div className={`${styles.floatChip} ${styles.floatTwo}`}><span>ACTION</span><strong>Approval when needed</strong></div>
+      <div className={`${styles.floatChip} ${styles.floatOne}`}><span>MEMORY</span><strong>Confirmed context</strong></div>
+      <div className={`${styles.floatChip} ${styles.floatTwo}`}><span>CONTROL</span><strong>Writes ask first</strong></div>
       <div className={styles.orb} aria-hidden="true" />
     </div>
   );

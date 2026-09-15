@@ -1,11 +1,6 @@
 /** Site-wide constants. Change once, changes everywhere. */
-
-/** The one domain this site is ever served from in production. Google is told
- *  this and nothing else. */
 const CANONICAL_URL = 'https://decibyl.ai';
 
-/** Coerce whatever we were handed into a usable origin, or give up cleanly.
- *  Accepts a bare host ("decibyl.ai", "my-app.vercel.app") as well as a full URL. */
 function toOrigin(value: string): string | null {
   const trimmed = value.trim();
   if (!trimmed) return null;
@@ -17,14 +12,6 @@ function toOrigin(value: string): string | null {
   }
 }
 
-/**
- * Resolve the canonical site URL.
- *
- * **A production build always says decibyl.ai**, and that is the important
- * part. Every canonical tag, every `<loc>` in the sitemap, the `sitemap:` line
- * in robots.txt, and every absolute URL in the JSON-LD is built from this one
- * value.
- */
 function resolveSiteUrl(): string {
   const explicit = toOrigin(process.env.NEXT_PUBLIC_SITE_URL ?? '');
   if (explicit) return explicit;
@@ -50,7 +37,7 @@ export const site = {
   subline: 'Give Decibyl a job. Its agents can talk, remember, use your apps and take action.',
   description:
     'Decibyl is an AI agent platform for real work. Create agents that can research, communicate across voice and messaging, use connected apps, remember useful context, run routines and complete repetitive work for you or your team.',
-  regions: ['Mumbai (AWS ap-south-1)', 'USA', 'Europe'],
+  regions: ['Mumbai (AWS ap-south-1)'],
   supportEmail: 'hello@decibyl.ai',
   salesEmail: 'hello@decibyl.ai',
   demoPhone: {
@@ -58,7 +45,7 @@ export const site = {
     display: '+91 80353 02788',
   },
   registeredAddress: {
-    street: 'No. 86/18, Brindhavan Nagar',
+    street: 'No. 86/16, Papanna Thottam, Brindhavan Nagar, TNHB Phase 7',
     locality: 'Hosur',
     region: 'Tamil Nadu',
     postalCode: '635109',
@@ -73,8 +60,12 @@ export const site = {
     postalCode: string | null;
   } | null,
   external: {
-    app: 'https://inapp.decibyl.ai',
+    app: 'https://app.decibyl.ai',
+    signup: 'https://app.decibyl.ai/auth/signup',
+    login: 'https://app.decibyl.ai/auth/login',
     docs: 'https://docs.decibyl.ai',
+    whatsapp: 'https://chat.whatsapp.com/Ebd9nygrUZg37RVqgjnOYA',
+    slack: 'https://join.slack.com/t/decibyl/shared_invite/zt-48zc1yr9x-au6xUu7i6nl23l7XSjtgKg',
   },
   profiles: [] as string[],
 } as const;

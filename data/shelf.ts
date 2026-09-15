@@ -2170,6 +2170,641 @@ export const shelf: ShelfRole[] = [
     "jobs": null,
     "note": null,
     "kind": "text"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "renewal-negotiator",
+    "name": "Renewal and quote negotiator",
+    "posted": "Purchase executive",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "email"
+    ],
+    "does": [
+      "Lists every AMC, insurance, software and internet renewal from the ledger 45 days out",
+      "Calls two alternative vendors for a quote",
+      "Calls the incumbent with the quotes and asks for a counter; the owner decides"
+    ],
+    "tools": [
+      "tally",
+      "google-sheets",
+      "email"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Haggle Bot and Harvey Specter, translated: Indian SMB renewals are won on a phone call, not a portal",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "refund-recovery-chaser",
+    "name": "Refund and deposit recovery chaser",
+    "posted": "Accounts assistant",
+    "channels": [
+      "phone",
+      "email",
+      "whatsapp"
+    ],
+    "kind": "routine",
+    "does": [
+      "Finds money owed to the business: courier RTO refunds, security deposits, GST refunds, bank reversals, vendor advances",
+      "Chases each one weekly with the reference number",
+      "Reports what came back and what is stuck"
+    ],
+    "tools": [
+      "tally",
+      "google-sheets",
+      "email"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Bounty Hunter and Fixer; every Indian SMB has lakhs sitting in refunds nobody chases",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "promise-chaser",
+    "name": "Promise chaser",
+    "posted": "Sales coordinator",
+    "kind": "routine",
+    "channels": [
+      "whatsapp",
+      "phone",
+      "email"
+    ],
+    "does": [
+      "Reads every call and chat for promises made by staff or customers: I will send it Friday, call me after 4",
+      "Reminds the staff member before the promise is due",
+      "Calls the customer if the promise was theirs"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's GTM Loop Closer; uses our own transcripts, nobody else has the phone half",
+    "jobs": "lead-qualification-executive",
+    "note": null
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "unhappy-reviewer-callback",
+    "name": "Unhappy reviewer call-back",
+    "posted": "Customer care manager",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Watches Google, JustDial and Instagram for a review under four stars",
+      "Calls the reviewer within the hour, listens, records the complaint as fields",
+      "Tells the owner and drafts the public reply for approval"
+    ],
+    "tools": [
+      "google-business-profile",
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Grok Bot's Overheard plus a phone; a call inside an hour is what turns a two-star into a deleted review",
+    "jobs": null,
+    "note": "Needs a Google Business Profile connector"
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "telecaller-call-coach",
+    "name": "Human telecaller call coach",
+    "posted": "Team lead / quality analyst",
+    "kind": "routine",
+    "channels": [
+      "whatsapp",
+      "email"
+    ],
+    "does": [
+      "Listens to the human team's recorded calls on the same number",
+      "Scores greeting, questions asked, close and register update",
+      "Sends each caller a two-line note every evening and the owner a weekly board"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Sales Call Coach; our judge already scores bot calls, pointing it at human calls is the same engine",
+    "jobs": "collections-telecaller",
+    "note": null
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "mystery-caller",
+    "name": "Mystery caller",
+    "posted": "Quality auditor",
+    "kind": "routine",
+    "channels": [
+      "phone"
+    ],
+    "does": [
+      "Calls your own branches or desk twice a week as a customer with a scripted need",
+      "Scores rings to pick up, greeting, accuracy of the answer, and whether the lead was captured",
+      "Sends the owner a branch-by-branch scorecard"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Scam Drill Coach inverted; our scripted caller and judge are already built for evals",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "owner-voice-note-clerk",
+    "name": "Owner's voice-note clerk",
+    "posted": "Personal assistant",
+    "kind": "text",
+    "channels": [
+      "whatsapp"
+    ],
+    "does": [
+      "Takes the owner's WhatsApp voice notes in any language and turns each into a task with an owner and a date",
+      "Assigns it to the staff member on WhatsApp and chases until done",
+      "Reads the open list back on request"
+    ],
+    "tools": [
+      "whatsapp-business",
+      "google-sheets"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Todo and Chief of Staff; Indian owners run the business on voice notes",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "morning-brief-call",
+    "name": "Morning brief by phone",
+    "posted": "Chief of staff",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls the owner at a fixed time with yesterday's calls, bookings, collections and complaints",
+      "Takes instructions on the call and turns them into tasks",
+      "Sends the same brief as text for the record"
+    ],
+    "tools": [
+      "google-sheets",
+      "tally"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Morning Newspaper and Exec CoS Digest, for an owner who does not read dashboards",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "festival-greeter",
+    "name": "Festival and birthday greeter",
+    "posted": "Customer relations executive",
+    "kind": "routine",
+    "channels": [
+      "whatsapp",
+      "phone"
+    ],
+    "does": [
+      "Greets top customers on Diwali, Pongal, Eid, Onam and their birthday by name in their language",
+      "Calls the top fifty personally with the owner's message",
+      "Records replies and any order that comes out of it"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Office Ops Desk tracks birthdays; in India the festival greeting is where repeat business starts",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "balance-confirmation-caller",
+    "name": "Year-end balance confirmation caller",
+    "posted": "Audit assistant",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "email",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls every debtor and creditor with the ledger balance as on 31 March",
+      "Records confirmed, disputed and the disputed amount",
+      "Sends the auditor the confirmation list with recordings"
+    ],
+    "tools": [
+      "tally",
+      "zoho-books",
+      "email"
+    ],
+    "status": "next",
+    "signal": "Every CA sends balance-confirmation letters by post that nobody returns; a call gets an answer",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Every business",
+    "industry": "Any",
+    "slug": "failed-payment-handler",
+    "name": "Failed payment and refund handler",
+    "posted": "Payments support executive",
+    "kind": "routine",
+    "channels": [
+      "whatsapp",
+      "phone"
+    ],
+    "does": [
+      "Calls or messages a customer whose payment failed with a fresh link",
+      "Handles a refund request by rule and raises it in Razorpay",
+      "Tells the owner about a chargeback the same hour"
+    ],
+    "tools": [
+      "razorpay",
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Stripe Refund Handler, on Razorpay and UPI",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Retail, D2C and commerce",
+    "industry": "FMCG distributors",
+    "slug": "retailer-order-booker",
+    "name": "Retailer order booker",
+    "posted": "Order booker / salesman",
+    "kind": "outbound",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls every retailer on the beat on their day with this week's scheme",
+      "Takes the order SKU by SKU and writes it to the distributor software",
+      "Flags a shop that skipped two weeks"
+    ],
+    "tools": [
+      "google-sheets",
+      "tally",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "The order booker is the most common sales job in Indian distribution and it is a phone job on a fixed beat",
+    "jobs": "order-confirmation-executive",
+    "note": null
+  },
+  {
+    "sector": "Retail, D2C and commerce",
+    "industry": "Appliance and electronics dealers",
+    "slug": "warranty-amc-caller",
+    "name": "Warranty registration and AMC caller",
+    "posted": "Service sales executive",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls a buyer a week after delivery to register the warranty and check installation",
+      "Calls before the warranty ends with the AMC offer",
+      "Books the service visit"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Dealers make more on AMC than on the appliance, and the call is never made",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Logistics and manufacturing",
+    "industry": "Transporters",
+    "slug": "eway-bill-expiry-caller",
+    "name": "E-way bill expiry caller",
+    "posted": "Dispatch executive",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Watches every e-way bill's validity against the vehicle's location update",
+      "Calls the driver and the consignee four hours before expiry",
+      "Extends or raises it to the office with the reason"
+    ],
+    "tools": [
+      "google-sheets",
+      "rest-api",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "An expired e-way bill is a fine and a detained truck; no logistics SaaS makes the call",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Logistics and manufacturing",
+    "industry": "Fleet and drivers",
+    "slug": "driver-document-expiry",
+    "name": "Driver and vehicle document caller",
+    "posted": "Fleet coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Tracks licence, insurance, fitness, permit and PUC dates per vehicle and driver",
+      "Calls the driver 15 days before and collects the renewed copy on WhatsApp",
+      "Grounds a vehicle on the sheet if the date passes"
+    ],
+    "tools": [
+      "google-sheets",
+      "google-drive",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Contracts Manager pattern; fleet fines in India are mostly expired documents",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Logistics and manufacturing",
+    "industry": "Manufacturers",
+    "slug": "tender-watcher",
+    "name": "Tender and RFQ watcher",
+    "posted": "Business development executive",
+    "kind": "text",
+    "channels": [
+      "email",
+      "whatsapp"
+    ],
+    "does": [
+      "Watches GeM, state portals and the inbox for tenders matching the product list",
+      "Summarises eligibility, EMD and due date in one card",
+      "Chases the documents needed to bid"
+    ],
+    "tools": [
+      "email",
+      "google-drive",
+      "google-sheets"
+    ],
+    "status": "later",
+    "signal": "Grok Bot's Event Request Desk and Competitor Watch; MSMEs miss GeM bids because nobody reads the portal",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Healthcare",
+    "industry": "Diagnostic labs",
+    "slug": "referring-doctor-caller",
+    "name": "Referring doctor relationship caller",
+    "posted": "Marketing executive (lab)",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls each referring doctor monthly with their patients' report turnaround and a thank you",
+      "Asks what tests they want added",
+      "Flags a doctor whose referrals dropped"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Labs and hospitals live on referrals; the visit is done by a field executive who never calls",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Education",
+    "industry": "Coaching institutes",
+    "slug": "parent-progress-caller",
+    "name": "Parent progress caller",
+    "posted": "Academic counsellor",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls each parent monthly with attendance, test marks and the teacher's one line",
+      "Records the parent's concern as a field",
+      "Flags a student at risk of dropping out"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Canvas Student Assistant, aimed at the parent who pays; retention call every institute skips",
+    "jobs": "admissions-counsellor",
+    "note": null
+  },
+  {
+    "sector": "Professional and home services",
+    "industry": "Law firms and legal services",
+    "slug": "hearing-date-caller",
+    "name": "Hearing date and cause-list caller",
+    "posted": "Law clerk",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Checks the eCourts cause list every evening for the firm's matters",
+      "Calls the client with tomorrow's hearing, time and what to bring",
+      "Records adjournments and the next date"
+    ],
+    "tools": [
+      "rest-api",
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "The clerk's whole evening; no Indian legal SaaS makes the client call",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Professional and home services",
+    "industry": "Event planners and wedding vendors",
+    "slug": "rsvp-caller",
+    "name": "Guest RSVP and logistics caller",
+    "posted": "Event coordinator",
+    "kind": "outbound",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls every guest on the list for RSVP, headcount and dietary needs",
+      "Sends the venue map and pickup timing",
+      "Reports the confirmed count to the caterer daily"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Indian weddings run on 500 phone calls made by cousins",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Professional and home services",
+    "industry": "Field sales teams",
+    "slug": "pre-visit-brief-caller",
+    "name": "Pre-visit brief for field sales",
+    "posted": "Sales coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls the salesman an hour before each visit with the account's history, dues and last promise",
+      "Takes the visit outcome by voice after and writes it to the CRM",
+      "Chases the next step"
+    ],
+    "tools": [
+      "zoho-crm",
+      "google-sheets"
+    ],
+    "status": "later",
+    "signal": "Grok Bot's Market Memory and Witness; uses our organisation memory on a phone call",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Recruitment and HR",
+    "industry": "Any employer",
+    "slug": "old-candidate-reengager",
+    "name": "Old candidate re-engager",
+    "posted": "Recruiter",
+    "kind": "outbound",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls past applicants and ex-employees on the sheet when a role opens",
+      "Checks availability, notice and expected pay",
+      "Books the interview and updates the pool"
+    ],
+    "tools": [
+      "google-sheets",
+      "google-calendar",
+      "whatsapp-business"
+    ],
+    "status": "next",
+    "signal": "Grok Bot's Talent Discovery; the cheapest candidate pool an SMB has is the one it already interviewed",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Financial services",
+    "industry": "Chit funds and co-operatives",
+    "slug": "pdc-cheque-caller",
+    "name": "Post-dated cheque and bounce caller",
+    "posted": "Collections executive",
+    "kind": "routine",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls two days before each post-dated cheque date to confirm funds",
+      "Calls the same day on a bounce with the charges and the re-presentation date",
+      "Records promise-to-pay"
+    ],
+    "tools": [
+      "google-sheets",
+      "tally"
+    ],
+    "status": "later",
+    "signal": "PDCs still run NBFC and chit collections; the confirmation call is the job",
+    "jobs": "collections-telecaller",
+    "note": null
+  },
+  {
+    "sector": "Government, NGOs and community",
+    "industry": "Blood banks and hospitals",
+    "slug": "blood-donor-caller",
+    "name": "Blood donor caller",
+    "posted": "Donor coordinator",
+    "kind": "outbound",
+    "channels": [
+      "phone",
+      "whatsapp"
+    ],
+    "does": [
+      "Calls donors of the needed group who are past 90 days",
+      "Books a slot and sends directions",
+      "Thanks them after and records the next eligible date"
+    ],
+    "tools": [
+      "google-sheets",
+      "whatsapp-business"
+    ],
+    "status": "later",
+    "signal": "Blood banks call donor lists by hand in every shortage",
+    "jobs": null,
+    "note": null
+  },
+  {
+    "sector": "Agriculture and rural",
+    "industry": "Dairy and FPOs",
+    "slug": "harvest-aggregation-caller",
+    "name": "Harvest quantity aggregation caller",
+    "posted": "FPO field coordinator",
+    "kind": "routine",
+    "channels": [
+      "phone"
+    ],
+    "does": [
+      "Calls member farmers before harvest for expected quantity and date",
+      "Totals it for the buyer and confirms the pickup plan",
+      "Calls back with the price and the pickup slot"
+    ],
+    "tools": [
+      "google-sheets"
+    ],
+    "status": "later",
+    "signal": "FPO coordinators aggregate by phone; voice only, because members do not type",
+    "jobs": null,
+    "note": null
   }
 ];
 

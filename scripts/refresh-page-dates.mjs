@@ -56,6 +56,7 @@ const ROUTES = {
   '/voice-ai': ['app/voice-ai/page.tsx', 'data/languagePages.ts'],
   '/jobs': ['app/jobs/page.tsx', 'data/jobs.ts'],
   '/shelf': ['app/shelf/page.tsx', 'data/shelf.ts'],
+  '/team': ['app/team/page.tsx', 'data/teamPack.ts'],
   '/integrations': ['app/integrations/page.tsx', 'data/integrationPages.ts', 'data/integrations.ts'],
 };
 

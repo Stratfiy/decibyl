@@ -64,7 +64,7 @@ export default function ShelfPage() {
               {shelf.length} roles across {shelfSectors.length} sectors. Each is a job a business posts or a task it does by hand every week. {live} are on the shelf today, {next} are being built for this quarter, and the rest are marked for 2027. Pick one, tell Decibyl the specifics, hear it, put it on your number.
             </p>
             <p className="t-caption mt-4 text-iron">Live means you can hire it now. Next and 2027 are stated so you can plan; nothing here is sold before it works.</p>
-            <p className="t-caption mt-2 text-iron">Every plan gets every role. The only gate is voice: the phone half of a role needs Business or above; the WhatsApp, web chat and email half runs on Everyday. Roles are global unless marked India, where they depend on an Indian rule or portal.</p>
+            <p className="t-caption mt-2 text-iron">Every plan gets every role. The only gate is voice: the phone half of a role needs Business or above; the WhatsApp, web chat and email half runs on Everyday. Roles are global unless marked India, where they depend on an Indian rule or portal. Starting something on your own? The <Link href="/team" className="text-sindoor hover:underline">seven-role team</Link> is a free guide and a pack built from these roles.</p>
           </div>
         </Container>
       </section>

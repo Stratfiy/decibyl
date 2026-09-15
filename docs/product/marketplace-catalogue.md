@@ -240,6 +240,19 @@ Checked 15 Sept 2026 (x.ai/bot/marketplace, docs, grokbot.dev, third-party write
 
 **What we do not take.** Department grouping (owners search by their industry), personality bots, sharing without a test, and the 50-bot cap as a product limit (our caps are by plan).
 
+## Meta: Muse (consumer agent) and Business Agent (free WhatsApp bot)
+
+Checked 15 Sept 2026.
+
+- **Muse** (launched 8 Sept 2026, US only, India not in the rollout, no date). A personal agent for consumers in the Muse app and inside WhatsApp: sends emails, books travel, fills forms, negotiates bills, buys with a one-time Stripe Link card, keeps working after the app closes. Free tier, then $20 and $100 a month. Runs in a Muse Secure VM with a Sentinel agent approving every outbound action. Nothing in the launch material has Muse calling or messaging a business, but "negotiate on their behalf" and "lower bills" mean that is where it goes.
+- **Meta Business Agent** (India May 2026, global June 2026). Free inside the WhatsApp Business app: answers from the catalogue and uploaded documents in every Indian language, recommends products, books appointments, captures leads, hands over to the owner; UPI in chat coming; a daily briefing of overnight chats in testing. Limits: WhatsApp and Instagram only, no phone, no scheduled or outbound work, no CRM or sheet integration on the free tier, 256-contact broadcast cap, no green tick, basic analytics. Paid tiers will sit in WhatsApp Business Premium; an enterprise platform charged by tokens will connect Shopify, Zendesk and Shopee.
+
+**What this means for the shelf.**
+
+1. The free Business Agent takes the bottom of the text market: inbound FAQ answering on WhatsApp for a tutor, boutique or restaurant. Our text-only roles must not be sold as "answers WhatsApp questions". They are sold on what Meta cannot do: routines (chase, remind, report), writes to Tally, Zoho and Sheets, the phone half of the same role, memory that confirms before it believes, and receipts. Every text role on the shelf already has at least one of those; the copy on /shelf should say so per card.
+2. Muse is the other side of our workers' conversations. When a consumer's agent rings a clinic or messages a hotel, a Decibyl worker is what picks up. Roles that quote, book and negotiate (reservations, service booking, catering quotes, estimate follow-up, renewal negotiator) need a rule for talking to another agent: state the rate sheet, never bargain below the owner's floor, confirm with a human when the other side is a machine claiming authority to pay.
+3. Meta's daily briefing, appointment booking and lead capture are the same three features on every platform now. They are table stakes, not differentiators, and should drop out of the site's feature list as headline items.
+
 ## Sequencing
 
 - **Live (11 rows, 8 packs):** on the product shelf now; three rows are the same pack sold to a second industry. Site pages exist for six of them under /jobs.

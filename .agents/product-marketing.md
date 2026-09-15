@@ -42,6 +42,7 @@ Auto-drafted from the Decibyl site data (data/jobs.ts, data/competitors.ts, data
 ## Competitive Landscape
 **Direct:** Bolna, Gnani.ai, Yellow.ai (Indian voice agents) — fall short because they sell to enterprises through sales teams, not self-serve at ₹999 to ₹19,999.
 **Secondary:** Vapi, Retell AI, ElevenLabs Agents (global voice platforms) — fall short because they are developer products, USD-priced, no Indian carriage, no GST invoice.
+**Free floor:** Meta Business Agent (free in the WhatsApp Business app, India since May 2026): inbound FAQ answers, appointment booking, lead capture on WhatsApp and Instagram; no phone, no routines, no tool writes, no CRM on the free tier. Sets the price of a plain WhatsApp answer-bot at zero, so our text roles are sold on routines, tool writes, memory and the phone half, never on answering questions.
 **Indirect:** Hiring a receptionist or telecaller; SquadStack-style outsourced callers; Exotel and MyOperator IVR — fall short on cost, hours, language coverage, or because they do not act on the call outcome.
 (Full profiles in data/competitors.ts and /compare.)
 
@@ -127,5 +128,6 @@ Indic-first speech is still true and still cheaper; it is the floor, not the pit
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v2.1 (2026-09-15) — Added Meta Business Agent as the free floor in the competitive landscape after the Muse launch review.
 - v2 (2026-09-15) — Repositioned from voice-first to AI workers on every channel; differentiators re-ranked with the shelf and Decibyl-as-builder first, after the founder's call that voice agents are a commodity.
 - v1 (2026-09-14) — Initial context, auto-drafted from site data, pricing spec and financial model.

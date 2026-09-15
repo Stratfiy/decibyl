@@ -1,136 +1,98 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
-import { ButtonLink } from '@/components/ui/Button';
-import { site } from '@/lib/site';
+import { FinalCta } from '@/components/marketing/Blocks';
 import { JsonLd, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'How Decibyl Works — Give AI a Job',
-  description:
-    'Tell Decibyl what needs doing, connect the context and tools it needs, then let the agent work with approvals where they matter.',
+  title: 'How Decibyl Works — From Job to Bot to Outcome',
+  description: 'Tell Decibyl the job, add or build a bot, connect the knowledge and tools it needs, run it on demand or automatically, and review the result.',
   path: '/how-it-works',
-  keywords: ['how AI agents work', 'AI agent setup', 'AI agents for work', 'agent automation'],
-  ogTitle: 'Start with the job. Decibyl handles the setup underneath.',
+  keywords: ['how AI agents work', 'AI bot workflow', 'AI task automation', 'AI agent platform'],
+  ogTitle: 'Tell Decibyl the job. Give it an owner. See the result.',
 });
 
 const steps = [
   {
-    number: '01',
-    title: 'Tell it what needs doing.',
-    body: 'Start in plain language. Describe the job, the result you want and any limits that matter. You do not need to begin with a workflow diagram.',
+    n: '01',
+    title: 'Tell Decibyl what needs doing.',
+    body: 'Start with the responsibility in normal language. On Home, Decibyl can use workspace context, answer questions about the team and prepare bot changes or actions for review.',
   },
   {
-    number: '02',
-    title: 'Give it the context and tools it needs.',
-    body: 'Connect documents, apps, channels and knowledge. Decibyl can use those tools while keeping access scoped to the job.',
+    n: '02',
+    title: 'Find a bot or build your own.',
+    body: 'Add one of the live marketplace job packs, or describe a new bot from a brief. Give it only the channels, knowledge and tools that job needs.',
   },
   {
-    number: '03',
-    title: 'Let it work. Review the important parts.',
-    body: 'Run the job now, on a schedule or when something happens. Sensitive actions can wait for your approval while routine work keeps moving.',
+    n: '03',
+    title: 'Test it before it works unattended.',
+    body: 'Test the bot in-app. Routines require a successful test before they can be armed, so scheduled access is earned by a working configuration rather than assumed.',
   },
-];
-
-const capabilities = [
-  ['Talk', 'Voice, chat, WhatsApp and email when the job involves people.'],
-  ['Remember', 'Keep useful context about people, decisions, preferences and documents.'],
-  ['Use apps', 'Read connected systems, use APIs and trigger workflows.'],
-  ['Run again', 'Turn repeat work into routines, schedules and event-driven jobs.'],
-  ['Work together', 'Let specialist agents hand parts of a larger job to each other.'],
-  ['Ask first', 'Require approval before important writes or consequential actions.'],
+  {
+    n: '04',
+    title: 'Run now, on a channel, on a schedule or on an event.',
+    body: 'Bots can work from tasks and messages, answer or place calls from Business onward, run routines, or start from matching email and webhook triggers.',
+  },
+  {
+    n: '05',
+    title: 'Bring people in at the right moment.',
+    body: 'Supported reads can move quickly. Consequential writes can wait for confirmation. Tasks and call transfers keep a human close when judgment is needed.',
+  },
+  {
+    n: '06',
+    title: 'See the result and improve the bot.',
+    body: 'Review tasks, runs, calls, outcomes and failures. Confirm useful memory, correct what changed and compare whether a newer bot version actually improved the result.',
+  },
 ];
 
 export default function HowItWorksPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-canvas" aria-label="How Decibyl works">
-        <Container className="relative">
-          <div className="pt-16 pb-14 sm:pt-24 sm:pb-20">
-            <p className="t-eyebrow">How it works</p>
-            <h1 className="t-display mt-4 max-w-4xl text-balance">Start with the job, not the setup.</h1>
-            <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">
-              Tell Decibyl what you want done. It turns that into an agent with the right context, tools and controls underneath.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <ButtonLink href={site.external.signup} size="lg">Get started</ButtonLink>
-              <ButtonLink href="/platform" variant="secondary" size="lg">See everything it can do</ButtonLink>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <Section surface="white" ariaLabel="Three steps">
-        <div className="grid gap-5 lg:grid-cols-3">
-          {steps.map((step) => (
-            <article key={step.number} className="rounded-card border border-line bg-white p-7 sm:p-8">
-              <p className="t-eyebrow">{step.number}</p>
-              <h2 className="t-h3 mt-5">{step.title}</h2>
-              <p className="mt-4 text-slate">{step.body}</p>
-            </article>
-          ))}
-        </div>
-      </Section>
-
-      <Section surface="canvas" ariaLabel="Capabilities">
-        <SectionHead
-          eyebrow="Under the hood"
-          title="Simple to ask. Powerful when the job needs more."
-          sub="Add only what the job needs. Voice is one skill. Memory is context. Apps are tools. Routines decide when work runs."
-        />
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {capabilities.map(([title, body]) => (
-            <article key={title} className="rounded-card border border-line bg-white p-6">
-              <h3 className="t-h3">{title}</h3>
-              <p className="mt-3 text-sm text-slate">{body}</p>
-            </article>
-          ))}
-        </div>
-      </Section>
-
-      <Section surface="white" ariaLabel="Memory">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div>
-            <p className="t-eyebrow">Gets smarter as it works</p>
-            <h2 className="t-h2 mt-4">The next job can start with more context.</h2>
-            <p className="t-body-lg mt-5 text-slate">
-              Decibyl can bring back useful facts from previous work instead of making every agent start from zero. Correct the context when something changes.
-            </p>
-            <Link href="/knowledge" className="mt-6 inline-flex font-semibold text-ink underline underline-offset-4">Explore memory →</Link>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {['People and relationships', 'Decisions and changes', 'Preferences and ways of working', 'Documents and important facts'].map((item) => (
-              <div key={item} className="rounded-card border border-line bg-canvas p-5 text-sm font-semibold text-ink">{item}</div>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      <Section surface="canvas" ariaLabel="Voice">
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          <div>
-            <p className="t-eyebrow">When the job needs a conversation</p>
-            <h2 className="t-h2 mt-4">Agents can call too.</h2>
-            <p className="t-body-lg mt-5 text-slate">Use voice for inbound support, follow-ups, verification, bookings and other jobs where a conversation is the fastest interface.</p>
-          </div>
-          <div className="rounded-card bg-ink p-7 text-white">
-            <p className="text-sm font-semibold">Answer call → check context → resolve → update system</p>
-            <p className="mt-3 text-sm text-white/60">Multilingual · transfers · DTMF · transcripts · structured outcomes</p>
-          </div>
-        </div>
-      </Section>
-
-      <section className="bg-ink py-20 text-white">
+      <section className="bg-canvas" aria-label="How Decibyl works">
         <Container>
-          <div className="max-w-3xl">
-            <p className="t-eyebrow text-white/50">Start with something real</p>
-            <h2 className="t-h2 mt-4 text-white">What would you hand off first?</h2>
-            <p className="mt-5 text-white/65">Pick one useful job. Connect what it needs. Let Decibyl prove itself there first.</p>
-            <div className="mt-8"><ButtonLink href={site.external.signup} size="lg">Get started</ButtonLink></div>
+          <div className="pt-16 pb-14 sm:pt-24 sm:pb-20">
+            <p className="t-eyebrow text-iron">How it works</p>
+            <h1 className="t-display mt-4 max-w-4xl text-balance">From “this keeps taking my time” to a bot that owns the job.</h1>
+            <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">Decibyl is the manager. Bots own specific jobs. Apps, knowledge, channels and schedules are the tools around them—not separate products you have to stitch together first.</p>
           </div>
         </Container>
       </section>
 
+      <Section surface="white" className="pt-0" ariaLabel="Six steps">
+        <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {steps.map((step) => (
+            <li key={step.n} className="rounded-card border border-line bg-snow p-7">
+              <span className="t-data text-iron">{step.n}</span>
+              <h2 className="t-h3 mt-5">{step.title}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      <Section surface="canvas" ariaLabel="Where work can happen">
+        <SectionHead eyebrow="Where the job runs" title="The bot stays the same. The channel can change." sub="Use the path the job needs instead of rebuilding a new assistant for every surface." />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ['Messages', 'Web chat, WhatsApp, email and Slack paths can put the bot where conversations already arrive.'],
+            ['Tasks', 'Assign work to a bot or teammate and keep the owner and result visible on the shared board.'],
+            ['Routines + triggers', 'Run tested work on a schedule or from matching email/webhook events.'],
+            ['Voice', 'From Business onward, use the same bot for inbound/outbound calls, DTMF, transfers and campaigns.'],
+          ].map(([title, body]) => <article key={title} className="rounded-card border border-line bg-white p-6"><h2 className="text-base font-semibold">{title}</h2><p className="mt-3 text-sm leading-relaxed text-slate">{body}</p></article>)}
+        </div>
+      </Section>
+
+      <Section surface="white" ariaLabel="Memory and control">
+        <SectionHead eyebrow="Gets smarter as it works" title="Context can compound without turning inference into fact." sub="Confirmed workspace facts can be reused. Learned facts stay reviewable until you confirm them, and you can correct, export or erase memory." />
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {[
+            ['Remember', 'Confirmed people, decisions, reasons, promises, dates and document facts can be recalled later.'],
+            ['Control', 'Choose bot access, confirm consequential writes and keep sensitive actions visible.'],
+            ['Inspect', 'Runs, tasks, calls, failures and outcomes leave evidence so improvement is based on results.'],
+          ].map(([title, body]) => <article key={title} className="rounded-card border border-line bg-snow p-7"><h2 className="t-h3">{title}</h2><p className="mt-3 text-slate">{body}</p></article>)}
+        </div>
+      </Section>
+
+      <FinalCta title="What job would you give a bot first?" sub="Start free, add one useful bot and keep the configuration as simple as the job allows." secondary={{ label: 'Find a bot', href: '/use-cases' }} />
       <JsonLd data={breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'How it works', path: '/how-it-works' }])} />
     </>
   );

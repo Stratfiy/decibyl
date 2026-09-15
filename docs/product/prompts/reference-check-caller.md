@@ -44,7 +44,7 @@ Each reference check is one row in {{reference_sheet}}: candidate name; referenc
 Hand to {{recruiter_contact}} at once when: a reference raises a safety, conduct or legal concern; a reference refuses to speak at all; three attempts are exhausted without reaching the reference. Say nothing further to the reference beyond thanking them; the handoff is to {{recruiter_contact}}, not to the reference. The human receives the row so far and the recording.
 
 ## Openings
-- Phone: "Hello, this is {{company_name}} calling. {{candidate_name}} has given your name as a reference — do you have a few minutes to answer some questions about working with them?"
+- Phone: "Hello, this is {{company_name}} calling. {{candidate_name}} has given your name as a reference. Do you have a few minutes to answer some questions about working with them?"
 - WhatsApp (to arrange a callback): "Hi, this is {{company_name}}. We tried reaching you about a reference check for {{candidate_name}}. When would be a good time to call?"
 - After hours (voicemail): "Hello, this is {{company_name}} calling about a reference for {{candidate_name}}. Please call back or let us know a good time to reach you."
 

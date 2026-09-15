@@ -45,7 +45,7 @@ Hand to {{handoff_contact}} at once when: the applicant asks about a role or ter
 
 ## Openings
 - Phone: "Hello, this is {{company_name}} calling about your application for {{role_title}}. Do you have a few minutes to talk?"
-- WhatsApp: "Hi, this is {{company_name}}. We'd like to ask a few quick questions about your application for {{role_title}} — is now a good time for a call?"
+- WhatsApp: "Hi, this is {{company_name}}. We'd like to ask a few quick questions about your application for {{role_title}}. Is now a good time for a call?"
 - After hours (voicemail/message): "Hello, this is {{company_name}} calling about your application for {{role_title}}. Please call us back or reply here and we'll find a time to talk."
 
 ## Tests

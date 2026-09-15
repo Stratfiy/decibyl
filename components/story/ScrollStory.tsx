@@ -620,7 +620,7 @@ function buildChapters(
       nav: 'The receipt',
       eyebrow: `${call.duration} · ${call.language}`,
       title: 'Every call leaves a receipt.',
-      lead: 'The point was never that it can talk. At the end there is a booked appointment, a confirmed order or a qualified lead — with the transcript and the recording of every single call, and QA scoring you can switch on for all of them. You are billed for what the call actually cost, in credits, not in rounded-up minutes.',
+      lead: 'The point was never that it can talk. At the end there is a booked appointment, a confirmed order or a qualified lead — with the transcript and the recording of every single call, and a QA score on every one of them — on from the moment you create the agent, not something you have to go and find. You are billed for what the call actually cost, in credits, not in rounded-up minutes.',
       chips: [call.outcome, 'Recorded and transcribed', 'Credits, not minutes'],
       art: '/media/story/decibyl-room-05-call-receipt.webp',
       blend: 'soft',

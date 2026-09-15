@@ -8,6 +8,8 @@ import { languagePages, languageSlug } from '@/data/languagePages';
 import { useCases } from '@/data/useCases';
 import { jobs, jobsUpdatedAt } from '@/data/jobs';
 import { jobCityPairs, jobIntegrationPairs } from '@/data/jobPairs';
+import { jobLanguagePairs } from '@/data/jobLanguagePairs';
+import { jobVerticalPairs } from '@/data/jobVerticalPairs';
 import { integrationPages, integrationPagesUpdatedAt } from '@/data/integrationPages';
 import {
   citiesUpdatedAt,
@@ -111,6 +113,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...jobCityPairs.map((p) => ({
       url: `${siteUrl}/jobs/${p.job}/in/${p.city}`,
+      lastModified: new Date(jobPairsUpdatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
+    ...jobLanguagePairs.map((p) => ({
+      url: `${siteUrl}/jobs/${p.job}/language/${languageSlug(languagePages.find((l) => l.code === p.language)!)}`,
+      lastModified: new Date(jobPairsUpdatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
+    ...jobVerticalPairs.map((p) => ({
+      url: `${siteUrl}/jobs/${p.job}/industry/${p.vertical}`,
       lastModified: new Date(jobPairsUpdatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.6,

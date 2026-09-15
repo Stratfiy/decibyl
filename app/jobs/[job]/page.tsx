@@ -7,6 +7,8 @@ import { FaqList } from '@/components/marketing/Faq';
 import { getJob, jobs } from '@/data/jobs';
 import { getCity } from '@/data/cities';
 import { getIntegrationPage } from '@/data/integrationPages';
+import { languagePages, languageRecord, languageSlug } from '@/data/languagePages';
+import { findAnyVertical } from '@/data/verticals';
 import { firstVoiceTier, formatInr, tiers, tierPrice } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
@@ -43,6 +45,8 @@ export default async function JobPage({ params }: { params: Promise<{ job: strin
   const integrationRecords = job.integrations
     .map((s) => getIntegrationPage(s))
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
+  const languageRecords = job.languages.map((c) => languagePages.find((l) => l.code === c)).filter((l): l is NonNullable<typeof l> => Boolean(l));
+  const verticalRecords = job.verticals.map((v) => findAnyVertical(v)).filter((v): v is NonNullable<typeof v> => Boolean(v));
   const siblings = jobs.filter((j) => j.slug !== job.slug && j.direction === job.direction).slice(0, 3);
   const monthly = tier.priceInr ?? 0;
   const ratio = monthly > 0 ? Math.round((job.humanSalary.low / monthly) * 10) / 10 : null;
@@ -144,13 +148,28 @@ export default async function JobPage({ params }: { params: Promise<{ job: strin
           title="The economics, worked through with your numbers"
           sub="These pages take the same job into a specific business and a specific city."
         />
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <p className="t-eyebrow text-iron">By business</p>
+            <p className="t-eyebrow text-iron">By industry</p>
             <ul className="mt-3 space-y-2">
+              {verticalRecords.map((v) => (
+                <li key={v.slug}>
+                  <Link href={`/jobs/${job.slug}/industry/${v.slug}`} className="text-sindoor hover:underline">{job.title} for {v.name.toLowerCase()}</Link>
+                </li>
+              ))}
               {job.related.map((r) => (
                 <li key={r.href}>
                   <Link href={r.href} className="text-sindoor hover:underline">{r.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="t-eyebrow text-iron">By language</p>
+            <ul className="mt-3 space-y-2">
+              {languageRecords.map((l) => (
+                <li key={l.code}>
+                  <Link href={`/jobs/${job.slug}/language/${languageSlug(l)}`} className="text-sindoor hover:underline">{job.title} in {languageRecord(l)?.name}</Link>
                 </li>
               ))}
             </ul>

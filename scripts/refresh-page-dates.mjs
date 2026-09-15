@@ -65,7 +65,7 @@ const DERIVED = {
   languagePagesUpdatedAt: ['data/languagePages.ts', 'app/voice-ai/[language]/page.tsx'],
   jobsUpdatedAt: ['data/jobs.ts', 'app/jobs/[job]/page.tsx'],
   integrationPagesUpdatedAt: ['data/integrationPages.ts', 'data/integrations.ts', 'app/integrations/[tool]/page.tsx'],
-  jobPairsUpdatedAt: ['data/jobPairs.ts', 'data/jobs.ts', 'app/jobs/[job]/for/[tool]/page.tsx', 'app/jobs/[job]/in/[city]/page.tsx'],
+  jobPairsUpdatedAt: ['data/jobPairs.ts', 'data/jobLanguagePairs.ts', 'data/jobVerticalPairs.ts', 'data/jobs.ts', 'app/jobs/[job]/for/[tool]/page.tsx', 'app/jobs/[job]/in/[city]/page.tsx', 'app/jobs/[job]/language/[language]/page.tsx', 'app/jobs/[job]/industry/[vertical]/page.tsx'],
 };
 
 /** Last commit date for a path, as YYYY-MM-DD, or null if git has nothing.

@@ -26,14 +26,14 @@ export const SITE_EPOCH = '2026-08-12';
  */
 /* GENERATED:START */
 export const pageDates: Record<string, string> = {
-  '/': '2026-09-12',
-  '/pricing': '2026-09-12',
+  '/': '2026-09-14',
+  '/pricing': '2026-09-14',
   '/how-it-works': '2026-09-03',
-  '/solutions': '2026-09-12',
+  '/solutions': '2026-09-14',
   '/use-cases': '2026-09-03',
   '/case-studies': '2026-08-13',
   '/security': '2026-09-14',
-  '/developers': '2026-09-03',
+  '/developers': '2026-09-14',
   '/partners': '2026-09-03',
   '/blog': '2026-09-03',
   '/book-a-demo': '2026-08-17',
@@ -55,7 +55,7 @@ export const pageDates: Record<string, string> = {
  *  move when that file does. Kept separate from the map above because the
  *  route list is derived, not enumerated. */
 /* GENERATED:DERIVED:START */
-export const verticalsUpdatedAt = '2026-09-12';
+export const verticalsUpdatedAt = '2026-09-14';
 export const competitorsUpdatedAt = '2026-09-14';
 export const citiesUpdatedAt = '2026-09-14';
 export const languagePagesUpdatedAt = '2026-09-14';

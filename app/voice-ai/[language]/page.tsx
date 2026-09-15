@@ -11,6 +11,8 @@ import {
   languageSlug,
 } from '@/data/languagePages';
 import { getCity } from '@/data/cities';
+import { languagePairsForLanguage } from '@/data/jobLanguagePairs';
+import { getJob } from '@/data/jobs';
 import { fromRateInr, firstVoiceTier, tiers, tierPrice } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
@@ -54,6 +56,7 @@ export default async function LanguagePage({
   if (!record) notFound();
 
   const cities = page.cities.map((s) => getCity(s)).filter((c): c is NonNullable<typeof c> => Boolean(c));
+  const jobsHere = languagePairsForLanguage(page.code).map((p) => getJob(p.job)).filter((j): j is NonNullable<typeof j> => Boolean(j));
   const starter = firstVoiceTier;
   const isCheapStack = page.code === 'hi' || page.code === 'en';
 
@@ -153,6 +156,19 @@ export default async function LanguagePage({
               </Link>
             ))}
           </div>
+        </Section>
+      ) : null}
+
+      {jobsHere.length ? (
+        <Section surface="white" ariaLabel={`Jobs in ${record.name}`}>
+          <SectionHead eyebrow="Jobs" title={`Phone jobs a bot does in ${record.name}`} sub="Each page takes one job post and says what this language makes hard about it." />
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            {jobsHere.map((j) => (
+              <li key={j.slug}>
+                <Link href={`/jobs/${j.slug}/language/${languageSlug(page)}`} className="text-sindoor hover:underline">{j.title} in {record.name}</Link>
+              </li>
+            ))}
+          </ul>
         </Section>
       ) : null}
 

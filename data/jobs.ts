@@ -47,6 +47,10 @@ export type Job = {
   cities: string[];
   /** Integration slugs from data/integrationPages.ts the outcome writes to. */
   integrations: string[];
+  /** Language codes from data/languagePages.ts this job is worth a page in. */
+  languages: string[];
+  /** Vertical slugs from data/verticals.ts where this job runs volume. */
+  verticals: string[];
   faqs: Faq[];
   seo: { title: string; description: string; keywords: string[] };
 };
@@ -85,6 +89,8 @@ export const jobs: Job[] = [
     ],
     cities: ['hyderabad', 'chennai', 'bangalore', 'pune'],
     integrations: ['google-calendar', 'google-sheets', 'whatsapp-business'],
+    languages: ['ta', 'te', 'hi', 'kn', 'en'],
+    verticals: ['clinics', 'dental', 'diagnostics', 'ivf-fertility'],
     faqs: [
       {
         q: 'Can it handle a patient who switches from Telugu to English mid-call?',
@@ -142,6 +148,8 @@ export const jobs: Job[] = [
     ],
     cities: ['mumbai', 'delhi-ncr', 'hyderabad', 'ahmedabad'],
     integrations: ['rest-api', 'webhooks', 'google-sheets'],
+    languages: ['hi', 'ta', 'te', 'mr', 'gu'],
+    verticals: ['lending-collections', 'education'],
     faqs: [
       {
         q: 'Is automated collection calling legal in India?',
@@ -199,6 +207,8 @@ export const jobs: Job[] = [
     ],
     cities: ['mumbai', 'delhi-ncr', 'bangalore', 'ahmedabad'],
     integrations: ['shopify', 'webhooks', 'rest-api', 'whatsapp-business'],
+    languages: ['hi', 'en', 'mr', 'gu', 'ta'],
+    verticals: ['d2c-ndr-recovery', 'logistics'],
     faqs: [
       {
         q: 'Can it read the order details from my store?',
@@ -256,6 +266,8 @@ export const jobs: Job[] = [
     ],
     cities: ['hyderabad', 'pune', 'mumbai', 'bangalore'],
     integrations: ['hubspot', 'zoho-crm', 'google-calendar', 'whatsapp-business'],
+    languages: ['hi', 'te', 'kn', 'mr', 'gu', 'en'],
+    verticals: ['real-estate'],
     faqs: [
       {
         q: 'Where do the enquiries come from?',
@@ -313,6 +325,8 @@ export const jobs: Job[] = [
     ],
     cities: ['delhi-ncr', 'hyderabad', 'pune', 'chennai'],
     integrations: ['google-calendar', 'google-sheets', 'whatsapp-business', 'zoho-crm'],
+    languages: ['hi', 'ta', 'te', 'kn', 'en'],
+    verticals: ['education'],
     faqs: [
       {
         q: 'Can it handle the fee question without misquoting?',
@@ -370,6 +384,8 @@ export const jobs: Job[] = [
     ],
     cities: ['bangalore', 'mumbai', 'delhi-ncr', 'chennai'],
     integrations: ['rest-api', 'webhooks', 'gmail', 'n8n'],
+    languages: ['hi', 'en', 'ta', 'mr'],
+    verticals: ['d2c-ndr-recovery', 'logistics', 'clinics'],
     faqs: [
       {
         q: 'How does it know my product?',
@@ -427,6 +443,8 @@ export const jobs: Job[] = [
     ],
     cities: ['hosur', 'chennai', 'pune', 'ahmedabad'],
     integrations: ['google-sheets', 'rest-api', 'n8n', 'gmail'],
+    languages: ['hi', 'gu', 'ta', 'en'],
+    verticals: ['logistics'],
     faqs: [
       {
         q: 'Can it read my PO list from Tally or SAP?',
@@ -484,6 +502,8 @@ export const jobs: Job[] = [
     ],
     cities: ['bangalore', 'delhi-ncr', 'mumbai', 'hyderabad'],
     integrations: ['hubspot', 'zoho-crm', 'webhooks', 'google-sheets'],
+    languages: ['hi', 'en', 'te', 'kn', 'mr'],
+    verticals: ['real-estate', 'education', 'lending-collections'],
     faqs: [
       {
         q: 'Who decides the qualification questions?',

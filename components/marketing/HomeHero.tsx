@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import styles from './home-hero.module.css';
+import { site } from '@/lib/site';
 
 const industries = [
   ['healthcare', 'A calmer front desk.', 'Appointments, reminders and patient enquiries.', '+'],
@@ -41,7 +42,8 @@ export function HomeHero() {
         </h1>
         <p className={styles.lead}>Answer every call, qualify every lead, book appointments and complete follow-ups, naturally, in 40+ languages.</p>
         <div className={styles.actions}>
-          <Link href="/book-a-demo" className={styles.primaryAction}>Book a demo ↗</Link>
+          <a href={site.external.signup} className={styles.primaryAction}>Start free, build a bot in minutes ↗</a>
+          <Link href="/book-a-demo" className={styles.secondaryAction}>Book a demo</Link>
         </div>
         <div className={styles.proof}><span><strong>24/7</strong> availability</span><span><strong>40+</strong> languages</span><span><strong>India, US &amp; EU</strong> regions</span></div>
       </div>

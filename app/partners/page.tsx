@@ -106,7 +106,7 @@ export default function PartnersPage() {
         title="Ready to send your first referral?"
         sub={referralProgram.applyCta.prompt}
         primary={{ label: referralProgram.applyCta.label, href: referralProgram.applyCta.href }}
-        secondary={{ label: 'See published pricing', href: '/pricing' }}
+        secondary={{ label: 'Join the waitlist', href: '/waitlist' }}
       />
 
       <JsonLd

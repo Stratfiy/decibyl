@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  async redirects() {
+    return ['/pricing', '/marketing/pricing', '/together/pages/pricing/:path*'].map((source) => ({
+      source, destination: '/waitlist', permanent: false,
+    }));
+  },
   async rewrites() {
     // Keep public URLs stable while serving the unified server-rendered
     // product marketing system underneath them.

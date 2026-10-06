@@ -1,0 +1,118 @@
+'use client';
+
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import s from './action-home.module.css';
+
+const jobs = {
+  personal: [
+    { title: 'Turn my notes into a plan', tag: 'A little less life admin', request: 'Turn these messy notes into a clear plan for my week.', steps: ['Reading your notes', 'Finding the priorities', 'Putting a plan together'], result: 'Your week. A little more organised.', detail: 'A clear plan, with the next steps ready for you.', icon: '✳', color: 'pink' },
+    { title: 'Research it for me', tag: 'Skip the twenty open tabs', request: 'Compare these options and tell me what I should know.', steps: ['Understanding your brief', 'Comparing the options', 'Preparing your summary'], result: 'The research, ready to read.', detail: 'Key differences and a useful summary in one place.', icon: '↗', color: 'blue' },
+    { title: 'Give me my daily brief', tag: 'Start one step ahead', request: 'Put together a morning brief from my connected tools.', steps: ['Checking your connected apps', 'Collecting what matters', 'Writing your morning brief'], result: 'Your morning, made simpler.', detail: 'The updates you need, without the app hopping.', icon: '☀', color: 'yellow' },
+  ],
+  business: [
+    { title: 'Follow up with leads', tag: 'Keep the conversation going', request: 'Follow up with new enquiries and update our CRM.', steps: ['Checking new enquiries', 'Following your approved instructions', 'Updating the customer record'], result: 'Follow-ups handled. Team in the loop.', detail: 'A record of the action and what needs your attention.', icon: '↗', color: 'green' },
+    { title: 'Handle customer calls', tag: 'A helpful voice for your business', request: 'Answer customer questions and help book appointments.', steps: ['Using your business knowledge', 'Helping the customer', 'Recording the next step'], result: 'A conversation that moves things forward.', detail: 'Voice, context and the next action, working together.', icon: '◖', color: 'pink' },
+    { title: 'Get the report ready', tag: 'Make reporting feel lighter', request: 'Bring our weekly updates together into a team report.', steps: ['Reading your connected sources', 'Pulling together the updates', 'Preparing the team report'], result: 'The weekly update. Already organised.', detail: 'One report your whole team can work from.', icon: '▤', color: 'blue' },
+  ],
+};
+
+function Bot({ small = false }: { small?: boolean }) {
+  return <div className={`${s.bot} ${small ? s.botSmall : ''}`} aria-hidden="true"><i /><i /><span /></div>;
+}
+function WorkspaceExample({ business = false }: { business?: boolean }) {
+  const rows = business
+    ? [['Riya', 'Appointment booked', 'Address ready to send on WhatsApp'], ['Accounts', 'Reminder ready for review', 'Waiting for your approval'], ['Follow-up', 'Lead summary prepared', 'Next steps in one place']]
+    : [['My assistant', 'Your morning brief', 'The updates you asked for, together'], ['Research', 'Options compared', 'A short summary ready to read'], ['Planner', 'Your week organised', 'Notes turned into next steps']];
+  return <div className={s.workspaceExample} aria-label={business ? 'Example business workspace' : 'Example personal workspace'}>
+    <div className={s.exampleHeader}><span>decibyl</span><small>Example workspace</small></div>
+    <h3>{business ? 'A little help for your team.' : 'A little room in your day.'}</h3>
+    <div className={s.examplePrompt}>{business ? 'What needs my attention today?' : 'Help me get ready for the day.'}</div>
+    <p className={s.exampleLabel}>Your bots</p>
+    <ul>{rows.map(([name, title, detail]) => <li key={name}><Bot small /><div><small>{name}</small><strong>{title}</strong><p>{detail}</p></div></li>)}</ul>
+  </div>;
+}
+const faqs = [
+  ['Who is Decibyl for?', 'For you, your business, or your team. Use the same platform for personal research and everyday tasks, or connect it to your business tools for repeatable work.'],
+  ['Is Decibyl free right now?', 'Yes. Decibyl is free during early access and access is invite only. Join the waitlist; once approved, you’ll receive an invitation to start using it. '],
+  ['How do I get access?', 'Join the waitlist with your email. We review requests and invite approved users. Already received an invite? Use your invite code to create your account.'],
+  ['How can I reach my bot?', 'Your bot gets its own email address and phone number. You can also connect through Slack, WhatsApp or Microsoft Teams, so it fits into the way you already communicate.'],
+  ['Can I build my own bot?', 'Yes. Start with a ready-made agent or describe the work you want it to do. Add the knowledge, connected tools and instructions it needs, and use the workflow canvas for more control.'],
+  ['What stays in my control?', 'You choose the connected tools and access you give your agents. Set instructions and approval rules for the work they do. Available actions depend on your agent’s setup and permissions.'],
+];
+
+export function ActionHome() {
+  const root = useRef<HTMLDivElement>(null);
+  const [demoVisible, setDemoVisible] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.setAttribute('data-visible', 'true');
+      if (entry.target.id === 'see-it-work') setDemoVisible(true);
+      observer.unobserve(entry.target);
+    }), { threshold: 0.15 });
+    root.current?.querySelectorAll('section').forEach(section => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+  const [audience, setAudience] = useState<'personal' | 'business'>('personal');
+  const [active, setActive] = useState(0);
+  const [step, setStep] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const job = jobs[audience][active];
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setStep(4); return; }
+    if (!playing || !demoVisible || step >= 4) return;
+    const timer = window.setTimeout(() => setStep(value => value + 1), step === 3 ? 4200 : 2400);
+    return () => window.clearTimeout(timer);
+  }, [playing, audience, active, demoVisible, step]);
+  function choose(kind: 'personal' | 'business') { setAudience(kind); setActive(0); setStep(0); }
+  return <div ref={root} className={s.home}>
+    <section className={s.hero} aria-labelledby="hero-title">
+      <div className={s.heroCenter}>
+        <div className={s.mascots} aria-hidden="true"><span><Bot small /></span><span><Bot small /></span><span><Bot small /></span></div>
+        <p className={s.greeting}>Hi, I’m Decibyl.</p>
+        <h1 id="hero-title">What can I take<br />off your plate?</h1>
+        <p>Your AI bots for life and work.<br />Give them a job. Get on with your day.</p>
+        <div className={s.composer}>
+          <p>Research something. Handle calls. Get the admin done.</p>
+          <div><span>For you. For your business.</span><Link href="/waitlist" className={s.primary}>Join the waitlist</Link></div>
+        </div>
+        <div className={s.suggestions} aria-label="Explore example tasks">
+          {([['personal', 1, 'Research it for me'], ['personal', 2, 'Plan my morning'], ['business', 1, 'Handle customer calls']] as const).map(([kind, index, label]) => <a key={label} href="#see-it-work" onClick={() => {setAudience(kind);setActive(index);setStep(0);}}>{label}</a>)}
+        </div>
+        <a href="#early-access" className={s.accessBadge}>Free while we’re early · Invite only</a>
+      </div>
+    </section>
+
+    <section className={s.tasks} id="see-it-work" aria-labelledby="tasks-title">
+      <div className={s.sectionTop}><div><h2 id="tasks-title">What’s on your list?</h2></div><div className={s.switch} aria-label="Choose example audience"><button aria-pressed={audience==='personal'} onClick={()=>choose('personal')}>For you</button><button aria-pressed={audience==='business'} onClick={()=>choose('business')}>For business</button></div></div>
+      <p className={s.intro}>The little things that fill your day. Hand a few over.</p>
+      <div className={s.demoGrid}><div className={s.jobList}>{jobs[audience].map((item,i)=><button key={item.title} onClick={()=>{setActive(i);setStep(0);}} aria-pressed={active===i} className={active===i?s.jobActive:''}><span className={`${s.tile} ${s[item.color]}`}>{item.icon}</span><span><strong>{item.title}</strong><small>{item.tag}</small></span><span aria-hidden="true">↗</span></button>)}<p>Pick a task. See how it could work.</p></div>
+        <div className={s.demo} aria-label="Illustrative task demo"><div className={s.demoBar}><span><Bot small /> Decibyl</span><span>INTERACTIVE EXAMPLE <button onClick={()=>{ if(step>=4){setStep(0);setPlaying(true);}else setPlaying(v=>!v);}} aria-label={step>=4?'Replay demo':playing?'Pause demo animation':'Play demo animation'}>{step>=4?'↻':playing?'Ⅱ':'▶'}</button></span></div><div className={s.request} key={`${audience}-${active}`}>{job.request}</div><div className={s.steps}>{job.steps.map((text,i)=><div key={text} data-done={step>i} data-active={step===i}><span>{step>i?'✓':i+1}</span>{text}<small>{step>i?'Done':step===i?'Working…':''}</small></div>)}</div><div className={s.result} data-ready={step>=3}><span className={s.tick}>✓</span><div><strong>{step>=3?job.result:'A little work happening in the background.'}</strong><p>{step>=3?job.detail:'From your request to a useful result.'}</p></div></div><p className={s.demoDisclaimer}>Illustrative workflow. Actions depend on connected apps and permissions.</p></div>
+      </div>
+    </section>
+
+    <section className={s.audiences} aria-label="Personal and business">
+      <header><h2>One assistant.<br />Both sides of your life.</h2><p>Because your to-do list doesn’t stop at work.</p></header>
+      <article id="for-you" className={s.personal}>
+        <WorkspaceExample />
+        <div className={s.audienceCopy}><span className={s.eyebrow}>FOR YOU</span><h2>Less life admin.<br />More actual life.</h2><p>Research the options. Untangle your notes. Get your day in order. Make room for the things you want to do.</p><Link href="/waitlist?vertical=personal" className={s.textLink}>Find your everyday sidekick</Link></div>
+      </article>
+      <article id="for-business" className={s.business}>
+        <div className={s.audienceCopy}><span className={s.eyebrow}>FOR BUSINESS</span><h2>Small team.<br />More follow-through.</h2><p>Follow up with leads. Help customers. Prepare the report. Give your team a helping hand with the work that keeps coming.</p><Link href="/waitlist?vertical=business" className={s.textLink}>Give your team a hand</Link></div>
+        <WorkspaceExample business />
+      </article>
+    </section>
+    <section className={s.channels} aria-labelledby="channels-title">
+      <div><h2 id="channels-title">Email it. Call it.<br />Message it.</h2><p>Your bot gets its own email address and phone number. Connect through the apps you already use.</p><Link href="/integrations" className={s.textLink}>Explore connections</Link></div>
+      <div className={s.channelDirectory}><div className={s.botIdentity}><Bot /><div><h3>Your bot. Within reach.</h3><p>Its own email. Its own phone number.</p></div></div><ul aria-label="Ways to connect"><li><span>Email</span><small>A dedicated address for your bot</small></li><li><span>Phone</span><small>A number you can call</small></li><li><span>Slack</span><small>Connect your workspace</small></li><li><span>WhatsApp</span><small>Message from your everyday chat</small></li><li><span>Microsoft Teams</span><small>Bring your bot into the conversation</small></li></ul></div>
+    </section>
+    <section className={s.platform}><h2>It remembers.<br />It connects.<br /><span>It gets to work.</span></h2><div><p>Your context, your tools and your instructions. Together, in an assistant that can take the next step.</p><Link href="/platform" className={s.textLink}>Explore the platform</Link><ul><li>Personal memory &amp; shared knowledge</li><li>Voice &amp; connected tools</li><li>Scheduled routines &amp; custom agents</li></ul></div></section>
+
+    <section className={s.control}><div><h2>Give it work.<br />Keep the say-so.</h2></div><div>{[['01','You choose the connections.','Give your bots the tools and context they need for the job.'],['02','You set the boundaries.','Use instructions and approval rules to control how work gets done.'],['03','You see what happened.','Follow tasks, review results and step in when your judgment is needed.']].map(([n,title,body])=><article key={n}><span>{n}</span><div><h3>{title}</h3><p>{body}</p></div></article>)}</div></section>
+
+    <section className={s.access} id="early-access"><div className={s.accessIntro}><span className={s.accessBadge}><span className={s.liveDot} /> NOW INVITING EARLY USERS</span><h2>Your next “done”<br />starts here.</h2><p>Decibyl is free during early access.<br />For people with a lot on their plate. And teams, too.</p><Link href="/waitlist" className={s.primary}>Join the waitlist</Link><small>Already have an invite? <a href="https://app.decibyl.ai/auth/signup">Activate your account ↗</a></small></div><ol className={s.accessSteps}><li><span>1</span><div><h3>Put your name on the list.</h3><p>Tell us where to send your invitation.</p></div></li><li><span>2</span><div><h3>Get your invite.</h3><p>We review requests and approve access.</p></div></li><li><span>3</span><div><h3>Hand over your first task.</h3><p>Connect your tools and make yourself at home.</p></div></li></ol></section>
+    <section className={s.faq}><h2>A few good questions.</h2><div>{faqs.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section>
+    <div className={s.signoff}><Bot small /><span>Less busywork. More you.</span><a href="#hero-title" aria-label="Back to top">↑</a></div>
+  </div>;
+}

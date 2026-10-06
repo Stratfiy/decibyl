@@ -109,7 +109,7 @@ export default function Post() {
       <FinalCta
         title="Want the arithmetic run on your volumes?"
         sub="Book a demo. We'll price your actual call pattern rather than a plan name."
-        secondary={{ label: 'See the full pricing page', href: '/pricing' }}
+        secondary={{ label: 'Join the waitlist', href: '/waitlist' }}
       />
 
       <JsonLd

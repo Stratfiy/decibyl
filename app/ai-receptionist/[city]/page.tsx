@@ -7,7 +7,6 @@ import { FaqList } from '@/components/marketing/Faq';
 import { cities, cityLanguages, cityVerticals, getCity } from '@/data/cities';
 import { languageHref } from '@/data/languagePages';
 import { verticalHref } from '@/data/verticals';
-import { fromRateInr, tiers, tierPrice } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
@@ -45,7 +44,6 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
   const langs = cityLanguages(city);
   const verts = cityVerticals(city);
-  const starter = tiers[0];
 
   const faqs = [
     {
@@ -54,11 +52,11 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     },
     {
       q: `Do I get a phone number in ${city.name}?`,
-      a: `You get an Indian number with telephony included in the plan — no separate carrier account and no KYC of your own to arrange. Every managed plan includes at least one number; extra numbers are ₹559/month each. You can also forward an existing number to the agent and keep the number your customers already have.`,
+      a: `You get an Indian number with telephony included in the plan — no separate carrier account and no KYC of your own to arrange. You can also forward an existing number to the agent and keep the number your customers already have.`,
     },
     {
       q: 'What does it cost?',
-      a: `Plans start at ${tierPrice(starter, 'inr')}/month including the number and the telephony, with call credit included. Calling starts at ₹${fromRateInr.toFixed(2)}/min on the Everyday voice; how far your credit goes depends on which voice you choose. Prices are exclusive of 18% GST, billed in rupees with a GST-compliant invoice.`,
+      a: 'Decibyl is free during invite-only early access. Join the waitlist to request access.',
     },
     {
       q: 'Can it transfer to a person?',

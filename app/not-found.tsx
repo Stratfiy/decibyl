@@ -17,8 +17,8 @@ export default function NotFound() {
             <ButtonLink href="/" size="lg">
               Back to home
             </ButtonLink>
-            <ButtonLink href="/pricing" variant="secondary" size="lg">
-              See pricing
+            <ButtonLink href="/waitlist" variant="secondary" size="lg">
+              Join the waitlist
             </ButtonLink>
           </div>
           <div className="mt-12">

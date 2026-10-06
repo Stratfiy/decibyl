@@ -39,5 +39,24 @@ body{background:#fbfbfa;color:#1d1d1f;font-family:var(--font-inter),ui-sans-seri
 .rounded-card{box-shadow:0 22px 55px -48px rgba(0,0,0,.42)}
 button,a{transition-color:color .18s ease}
 ::selection{background:#1d1d1f;color:#fff}
-footer{background:#111!important}
+footer{background:#fff!important}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+/* Invite-only launch: neutral navigation shared with the new action homepage. */
+.site-nav-shell { background: transparent !important; border-color: transparent !important; box-shadow: none !important; border-radius: 0 !important; }
+.site-nav-shell .nav-morph-cta { background: #25291f !important; color: white !important; border-color: #25291f !important; border-radius: 999px !important; font-size: 12px; }
+.site-nav-shell .nav-morph-link { color: #62675a; font-size: 12px; padding-inline: 14px; }
+.site-nav-shell .nav-morph-link:hover { background: #f2f4ed; color: #25291f; }
+.nav-morph-menu { background: white !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* Refero typography: Poppins is the Winamp reference's primary family. */
+.site-nav-shell, .nav-morph-menu { font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif; }
+.site-nav-shell .nav-morph-cta { background:#171717 !important; border-color:#171717 !important; }
+.site-nav-shell .nav-morph-link { color:#626262; }
+
+/* Shared product shell: monochrome, readable and shadow-free. */
+body {background:#fff;color:#0d0d0d;letter-spacing:0;}
+.site-nav-shell::before {display:none;}
+.site-nav-shell .nav-morph-link,.site-nav-shell .nav-morph-cta {font-size:14px;}
+.site-nav-shell .nav-morph-link:hover {background:#f1f1f1;}
+.site-nav-shell .nav-morph-cta {box-shadow:none!important;}

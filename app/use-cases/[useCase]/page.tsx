@@ -36,7 +36,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ useCas
             <p className="t-eyebrow mt-6 text-sindoor">{item.eyebrow}</p>
             <h1 className="t-display mt-4 max-w-4xl text-balance">{item.h1}</h1>
             <p className="t-body-lg mt-6 max-w-2xl text-slate text-pretty">{item.description}</p>
-            <div className="mt-8 flex flex-wrap gap-3"><ButtonLink href={`/book-a-demo?useCase=${item.slug}`} size="lg">Book a workflow demo</ButtonLink><ButtonLink href="/pricing" variant="secondary" size="lg">See pricing</ButtonLink></div>
+            <div className="mt-8 flex flex-wrap gap-3"><ButtonLink href={`/book-a-demo?useCase=${item.slug}`} size="lg">Book a workflow demo</ButtonLink><ButtonLink href="/waitlist" variant="secondary" size="lg">Join the waitlist</ButtonLink></div>
           </div>
         </Container>
       </section>

@@ -112,7 +112,7 @@ export default function Post() {
             only spend credit you have added.
           </p>
           <p>
-            Our <Link href="/pricing">pricing page</Link> still shows minutes, but as a{' '}
+            Our <Link href="/waitlist">pricing page</Link> still shows minutes, but as a{' '}
             <strong>range</strong>: what the credit buys on the dearest voice, and on the cheapest.
             The range is wide because the truth is wide. A single number in the middle would be
             more persuasive and wrong for almost everybody.

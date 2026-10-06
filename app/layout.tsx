@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import {
   Inter,
+  Poppins,
   IBM_Plex_Mono,
   IBM_Plex_Sans_Devanagari,
   Noto_Sans_Tamil,
@@ -16,6 +17,8 @@ import { Nav } from '@/components/marketing/Nav';
 import { Footer } from '@/components/marketing/Footer';
 import { site, siteUrl } from '@/lib/site';
 import { JsonLd, organizationSchema, softwareApplicationSchema, webSiteSchema } from '@/lib/seo';
+
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-poppins', display: 'swap' });
 
 const displayInter = Inter({
   subsets: ['latin'],
@@ -118,6 +121,7 @@ export const viewport: Viewport = {
 };
 
 const fontVars = [
+  poppins.variable,
   displayInter.variable,
   inter.variable,
   plexMono.variable,

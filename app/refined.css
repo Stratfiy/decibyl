@@ -49,3 +49,7 @@ footer{background:#111!important}
 .nav-morph-menu { background: white !important; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* Refero typography: Poppins is the Winamp reference's primary family. */
+.site-nav-shell, .nav-morph-menu { font-family: var(--font-poppins), sans-serif; }
+.site-nav-shell .nav-morph-cta { background:#171717 !important; border-color:#171717 !important; }
+.site-nav-shell .nav-morph-link { color:#626262; }

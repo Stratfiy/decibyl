@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import s from './action-home.module.css';
 
 const jobs = {
@@ -30,55 +31,68 @@ const faqs = [
 ];
 
 export function ActionHome() {
+  const root = useRef<HTMLDivElement>(null);
+  const [demoVisible, setDemoVisible] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.setAttribute('data-visible', 'true');
+      if (entry.target.id === 'see-it-work') setDemoVisible(true);
+      observer.unobserve(entry.target);
+    }), { threshold: 0.15 });
+    root.current?.querySelectorAll('section').forEach(section => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
   const [audience, setAudience] = useState<'personal' | 'business'>('personal');
   const [active, setActive] = useState(0);
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(true);
   const job = jobs[audience][active];
   useEffect(() => {
-    if (!playing || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const timer = window.setInterval(() => setStep(value => (value + 1) % 5), 1700);
-    return () => window.clearInterval(timer);
-  }, [playing, audience, active]);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setStep(4); return; }
+    if (!playing || !demoVisible || step >= 4) return;
+    const timer = window.setTimeout(() => setStep(value => value + 1), step === 3 ? 4200 : 2400);
+    return () => window.clearTimeout(timer);
+  }, [playing, audience, active, demoVisible, step]);
   function choose(kind: 'personal' | 'business') { setAudience(kind); setActive(0); setStep(0); }
-  return <div className={s.home}>
+  return <div ref={root} className={s.home}>
     <section className={s.hero} aria-labelledby="hero-title">
-      <div className={`${s.floatCard} ${s.cardResearch}`}><span className={`${s.tile} ${s.blue}`}>↗</span><div><small>Research bot</small><strong>Twenty tabs. One answer.</strong></div><span className={s.tick}>✓</span></div>
-      <div className={`${s.floatCard} ${s.cardCalendar}`}><span className={`${s.tile} ${s.pink}`}>▦</span><div><small>Life, a little lighter</small><strong>Your week, sorted.</strong></div></div>
-      <div className={`${s.floatCard} ${s.cardVoice}`}><div className={s.voiceTop}><span className={s.liveDot} /> Voice bot <small>Example</small></div><div className={s.wave}>{Array.from({length:23},(_,i)=><i key={i} style={{height:`${12+(i*17%36)}px`, animationDelay:`${i*0.08}s`}} />)}</div><strong>“I can help with that.”</strong><span className={s.voiceCaption}>A voice. And a next step.</span></div>
-      <div className={`${s.floatCard} ${s.cardMail}`}><span className={`${s.tile} ${s.yellow}`}>✉</span><div><small>Follow-up bot</small><strong>Consider it handled.</strong></div><span className={s.tick}>✓</span></div>
-      <span className={`${s.spark} ${s.sparkOne}`} aria-hidden="true">✳</span><span className={`${s.spark} ${s.sparkTwo}`} aria-hidden="true">✧</span>
       <div className={s.heroCenter}>
-        <a href="#early-access" className={s.accessBadge}><span className={s.liveDot} /> Free early access <span>·</span> Invite only <Arrow /></a>
-        <div className={s.mascot}><Bot /><span className={s.hello}>hi, I’m on it!</span></div>
-        <h1 id="hero-title">Big plans.<br />Less boring work.</h1>
-        <p>Meet Decibyl. Bots that take care of the busywork.<br className={s.desktopBreak} /> For your everyday life. And your business.</p>
-        <div className={s.heroActions}><Link href="/waitlist" className={s.primary}>Join the waitlist <Arrow /></Link><a href="#see-it-work" className={s.secondary}>See it in action <span aria-hidden="true">↓</span></a></div>
-        <span className={s.heroNote}>You bring the ideas. We’ll help with the to-dos.</span>
+        <a href="#early-access" className={s.accessBadge}>Free early access <span>·</span> Invite only <Arrow /></a>
+        <h1 id="hero-title">Your life.<br />Less busywork.</h1>
+        <p>AI that gets things done.<br />For you. For your business. For the time back.</p>
+        <div className={s.heroActions}><Link href="/waitlist" className={s.primary}>Join the waitlist <Arrow /></Link><a href="#see-it-work" className={s.secondary}>Meet Decibyl <span aria-hidden="true">↓</span></a></div>
       </div>
-      <div className={s.heroFoot}><span>BOTS THAT DO THE BORING WORK</span><span>Scroll for the good part ↓</span></div>
+      <div className={s.collage} aria-label="More time for life and your business">
+        <div className={s.photoPersonal}><Image src="/images/home/more-life.webp" alt="A woman enjoying a quiet moment at a café" fill priority sizes="(max-width: 768px) 90vw, 55vw" /></div>
+        <div className={s.photoBusiness}><Image src="/images/home/more-life.webp" alt="Two business owners sharing ideas in their studio" fill priority sizes="(max-width: 768px) 90vw, 55vw" /></div>
+        <div className={s.helloSticker}><Bot /><span>hi, I’m Decibyl.</span></div>
+        <span className={s.star} aria-hidden="true">✳</span>
+      </div>
     </section>
 
     <section className={s.tasks} id="see-it-work" aria-labelledby="tasks-title">
-      <div className={s.sectionTop}><div><span className={s.eyebrow}>LESS “I NEED TO”. MORE “IT’S DONE”.</span><h2 id="tasks-title">What’s on your list?</h2></div><div className={s.switch} aria-label="Choose example audience"><button aria-pressed={audience==='personal'} onClick={()=>choose('personal')}>For you</button><button aria-pressed={audience==='business'} onClick={()=>choose('business')}>For business</button></div></div>
+      <div className={s.sectionTop}><div><h2 id="tasks-title">What’s on your list?</h2></div><div className={s.switch} aria-label="Choose example audience"><button aria-pressed={audience==='personal'} onClick={()=>choose('personal')}>For you</button><button aria-pressed={audience==='business'} onClick={()=>choose('business')}>For business</button></div></div>
       <p className={s.intro}>The little things that fill your day. Hand a few over.</p>
       <div className={s.demoGrid}><div className={s.jobList}>{jobs[audience].map((item,i)=><button key={item.title} onClick={()=>{setActive(i);setStep(0);}} aria-pressed={active===i} className={active===i?s.jobActive:''}><span className={`${s.tile} ${s[item.color]}`}>{item.icon}</span><span><strong>{item.title}</strong><small>{item.tag}</small></span><span aria-hidden="true">↗</span></button>)}<p>Pick a task. See how it could work.</p></div>
-        <div className={s.demo} aria-label="Illustrative task demo"><div className={s.demoBar}><span><Bot small /> Decibyl</span><span>INTERACTIVE EXAMPLE <button onClick={()=>setPlaying(v=>!v)} aria-label={playing?'Pause demo animation':'Play demo animation'}>{playing?'Ⅱ':'▶'}</button></span></div><div className={s.request} key={`${audience}-${active}`}>{job.request}</div><div className={s.steps}>{job.steps.map((text,i)=><div key={text} data-done={step>i} data-active={step===i}><span>{step>i?'✓':i+1}</span>{text}<small>{step>i?'Done':step===i?'Working…':''}</small></div>)}</div><div className={s.result} data-ready={step>=3}><span className={s.tick}>✓</span><div><strong>{step>=3?job.result:'A little work happening in the background.'}</strong><p>{step>=3?job.detail:'From your request to a useful result.'}</p></div></div><p className={s.demoDisclaimer}>Illustrative workflow. Actions depend on connected apps and permissions.</p></div>
+        <div className={s.demo} aria-label="Illustrative task demo"><div className={s.demoBar}><span><Bot small /> Decibyl</span><span>INTERACTIVE EXAMPLE <button onClick={()=>{ if(step>=4){setStep(0);setPlaying(true);}else setPlaying(v=>!v);}} aria-label={step>=4?'Replay demo':playing?'Pause demo animation':'Play demo animation'}>{step>=4?'↻':playing?'Ⅱ':'▶'}</button></span></div><div className={s.request} key={`${audience}-${active}`}>{job.request}</div><div className={s.steps}>{job.steps.map((text,i)=><div key={text} data-done={step>i} data-active={step===i}><span>{step>i?'✓':i+1}</span>{text}<small>{step>i?'Done':step===i?'Working…':''}</small></div>)}</div><div className={s.result} data-ready={step>=3}><span className={s.tick}>✓</span><div><strong>{step>=3?job.result:'A little work happening in the background.'}</strong><p>{step>=3?job.detail:'From your request to a useful result.'}</p></div></div><p className={s.demoDisclaimer}>Illustrative workflow. Actions depend on connected apps and permissions.</p></div>
       </div>
     </section>
 
-    <section className={s.statement}><span>RESEARCH. REMEMBER. CALL. CONNECT. DO.</span><h2>A helpful chat.<br />A whole lot of follow-through.</h2><p>Give it context. Connect your tools. Let Decibyl take the next step.</p><div className={s.appRow} aria-label="Connected tools"><span>G<span className={s.appName}>Google</span></span><span>✳<span className={s.appName}>Slack</span></span><span>▦<span className={s.appName}>Microsoft</span></span><span>n8n<span className={s.appName}>Workflows</span></span><Link href="/integrations">Explore integrations <Arrow /></Link></div></section>
+    <section className={s.audiences} aria-label="Personal and business">
+      <header><h2>One assistant.<br />Both sides of your life.</h2><p>Because your to-do list doesn’t stop at work.</p></header>
+      <article id="for-you" className={s.personal}>
+        <div className={s.audiencePhoto}><Image src="/images/home/more-life.webp" alt="A peaceful moment away from the to-do list" fill sizes="(max-width: 768px) 100vw, 50vw" /></div>
+        <div className={s.audienceCopy}><span className={s.eyebrow}>FOR YOU</span><h2>Less life admin.<br />More actual life.</h2><p>Research the options. Untangle your notes. Get your day in order. Make room for the things you want to do.</p><Link href="/waitlist?vertical=personal" className={s.textLink}>Find your everyday sidekick <Arrow /></Link></div>
+      </article>
+      <article id="for-business" className={s.business}>
+        <div className={s.audienceCopy}><span className={s.eyebrow}>FOR BUSINESS</span><h2>Small team.<br />More follow-through.</h2><p>Follow up with leads. Help customers. Prepare the report. Give your team a helping hand with the work that keeps coming.</p><Link href="/waitlist?vertical=business" className={s.textLink}>Give your team a hand <Arrow /></Link></div>
+        <div className={s.audiencePhoto}><Image src="/images/home/more-life.webp" alt="A creative team discussing their next project" fill sizes="(max-width: 768px) 100vw, 50vw" /></div>
+      </article>
+    </section>
+    <section className={s.platform}><h2>It remembers.<br />It connects.<br /><span>It gets to work.</span></h2><div><p>Your context, your tools and your instructions. Together, in an assistant that can take the next step.</p><Link href="/platform" className={s.textLink}>Explore the platform <Arrow /></Link><ul><li>Personal memory &amp; shared knowledge</li><li>Voice &amp; connected tools</li><li>Scheduled routines &amp; custom agents</li></ul></div></section>
 
-    <section className={s.audiences} aria-label="Personal and business"><article id="for-you" className={s.personal}><div className={s.audienceCopy}><span className={s.eyebrow}>FOR YOU</span><h2>A little help.<br />A lot more headspace.</h2><p>Research the options. Make sense of a document. Get your day in order. Make room for the things you actually want to do.</p><Link href="/waitlist?vertical=personal" className={s.textLink}>Find your everyday sidekick <Arrow /></Link></div><div className={s.noteBoard}><div className={s.note}><span>THE SMALL STUFF</span><p><del>Read that long document</del><br /><del>Pull my notes together</del><br />Make time for the good stuff <span>♡</span></p></div><span className={s.sticker}>more life,<br />less admin.</span></div></article>
-    <article id="for-business" className={s.business}><div className={s.audienceCopy}><span className={s.eyebrow}>FOR BUSINESS</span><h2>Your team’s new<br />“leave it with me”.</h2><p>Follow up with leads, help customers, prepare reports and keep work moving. Shared bots, shared context, and a clear view of what happened.</p><Link href="/waitlist?vertical=business" className={s.textLink}>Give your team a hand <Arrow /></Link></div><div className={s.businessBoard}><div><span className={s.liveDot} /> THE TEAM’S WORK, IN ONE PLACE <small>Example</small></div>{[['↗','Sales follow-up','CRM updated'],['◖','Customer care','Next step recorded'],['▤','Weekly report','Ready for review']].map(([icon,title,status])=><div key={title}><span>{icon}</span><strong>{title}</strong><small>{status} ✓</small></div>)}</div></article></section>
-
-    <section className={s.capabilities}><div className={s.sectionTop}><div><span className={s.eyebrow}>SIMPLE ON THE SURFACE. CAPABLE UNDERNEATH.</span><h2>More than a one-task wonder.</h2></div><Link href="/platform" className={s.textLink}>Meet the platform <Arrow /></Link></div><div className={s.capGrid}>
-      <article><div className={s.memoryArt}><span>You</span><i /><Bot small /><i /><span>Your context</span></div><h3>A memory for what matters.</h3><p>Personal context and shared business knowledge help your bots pick up where the work left off.</p><Link href="/knowledge">Explore memory <Arrow /></Link></article>
-      <article><div className={s.routineArt}><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><b>↻ &nbsp; Your morning brief</b></div><h3>Good work. On repeat.</h3><p>Turn repeatable jobs into routines. Give them a schedule and keep track of what runs.</p><Link href="/platform">Explore routines <Arrow /></Link></article>
-      <article><div className={s.builderArt}><span>Tell me what you want to build…</span><div><i>Trigger</i><b>→</b><i>Agent</i><b>→</b><i>Action</i></div></div><h3>Your bot. Your way.</h3><p>Choose a ready-made agent or build from a conversation. Open the canvas when you want more control.</p><Link href="/developers">Explore building <Arrow /></Link></article>
-    </div></section>
-
-    <section className={s.control}><div><span className={s.eyebrow}>A HELPING HAND. YOU’RE STILL IN CHARGE.</span><h2>Give it work.<br />Keep the say-so.</h2></div><div>{[['01','You choose the connections.','Give your bots the tools and context they need for the job.'],['02','You set the boundaries.','Use instructions and approval rules to control how work gets done.'],['03','You see what happened.','Follow tasks, review results and step in when your judgment is needed.']].map(([n,title,body])=><article key={n}><span>{n}</span><div><h3>{title}</h3><p>{body}</p></div></article>)}</div></section>
+    <section className={s.control}><div><h2>Give it work.<br />Keep the say-so.</h2></div><div>{[['01','You choose the connections.','Give your bots the tools and context they need for the job.'],['02','You set the boundaries.','Use instructions and approval rules to control how work gets done.'],['03','You see what happened.','Follow tasks, review results and step in when your judgment is needed.']].map(([n,title,body])=><article key={n}><span>{n}</span><div><h3>{title}</h3><p>{body}</p></div></article>)}</div></section>
 
     <section className={s.access} id="early-access"><div className={s.accessIntro}><span className={s.accessBadge}><span className={s.liveDot} /> NOW INVITING EARLY USERS</span><h2>Your next “done”<br />starts here.</h2><p>Decibyl is free during early access.<br />For people with a lot on their plate. And teams, too.</p><Link href="/waitlist" className={s.primary}>Join the waitlist <Arrow /></Link><small>Already have an invite? <a href="https://app.decibyl.ai/auth/signup">Activate your account ↗</a></small></div><ol className={s.accessSteps}><li><span>1</span><div><h3>Put your name on the list.</h3><p>Tell us where to send your invitation.</p></div></li><li><span>2</span><div><h3>Get your invite.</h3><p>We review requests and approve access.</p></div></li><li><span>3</span><div><h3>Hand over your first task.</h3><p>Connect your tools and make yourself at home.</p></div></li></ol></section>
     <section className={s.faq}><h2>A few good questions.</h2><div>{faqs.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section>

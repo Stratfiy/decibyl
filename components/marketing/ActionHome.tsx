@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import s from './action-home.module.css';
 
@@ -20,6 +19,18 @@ const jobs = {
 
 function Bot({ small = false }: { small?: boolean }) {
   return <div className={`${s.bot} ${small ? s.botSmall : ''}`} aria-hidden="true"><i /><i /><span /></div>;
+}
+function WorkspaceExample({ business = false }: { business?: boolean }) {
+  const rows = business
+    ? [['Riya', 'Appointment booked', 'Address ready to send on WhatsApp'], ['Accounts', 'Reminder ready for review', 'Waiting for your approval'], ['Follow-up', 'Lead summary prepared', 'Next steps in one place']]
+    : [['My assistant', 'Your morning brief', 'The updates you asked for, together'], ['Research', 'Options compared', 'A short summary ready to read'], ['Planner', 'Your week organised', 'Notes turned into next steps']];
+  return <div className={s.workspaceExample} aria-label={business ? 'Example business workspace' : 'Example personal workspace'}>
+    <div className={s.exampleHeader}><span>decibyl</span><small>Example workspace</small></div>
+    <h3>{business ? 'A little help for your team.' : 'A little room in your day.'}</h3>
+    <div className={s.examplePrompt}>{business ? 'What needs my attention today?' : 'Help me get ready for the day.'}</div>
+    <p className={s.exampleLabel}>Your bots</p>
+    <ul>{rows.map(([name, title, detail]) => <li key={name}><Bot small /><div><small>{name}</small><strong>{title}</strong><p>{detail}</p></div></li>)}</ul>
+  </div>;
 }
 const faqs = [
   ['Who is Decibyl for?', 'For you, your business, or your team. Use the same platform for personal research and everyday tasks, or connect it to your business tools for repeatable work.'],
@@ -84,12 +95,12 @@ export function ActionHome() {
     <section className={s.audiences} aria-label="Personal and business">
       <header><h2>One assistant.<br />Both sides of your life.</h2><p>Because your to-do list doesn’t stop at work.</p></header>
       <article id="for-you" className={s.personal}>
-        <div className={s.audiencePhoto}><Image src="/images/home/personal-miniature.webp" alt="Miniature personal assistant with notes, calendar and a phone" fill sizes="(max-width: 768px) 100vw, 50vw" /></div>
+        <WorkspaceExample />
         <div className={s.audienceCopy}><span className={s.eyebrow}>FOR YOU</span><h2>Less life admin.<br />More actual life.</h2><p>Research the options. Untangle your notes. Get your day in order. Make room for the things you want to do.</p><Link href="/waitlist?vertical=personal" className={s.textLink}>Find your everyday sidekick</Link></div>
       </article>
       <article id="for-business" className={s.business}>
         <div className={s.audienceCopy}><span className={s.eyebrow}>FOR BUSINESS</span><h2>Small team.<br />More follow-through.</h2><p>Follow up with leads. Help customers. Prepare the report. Give your team a helping hand with the work that keeps coming.</p><Link href="/waitlist?vertical=business" className={s.textLink}>Give your team a hand</Link></div>
-        <div className={s.audiencePhoto}><Image src="/images/home/business-miniature.webp" alt="Miniature business assistant connecting calls, email and messages" fill sizes="(max-width: 768px) 100vw, 50vw" /></div>
+        <WorkspaceExample business />
       </article>
     </section>
     <section className={s.channels} aria-labelledby="channels-title">

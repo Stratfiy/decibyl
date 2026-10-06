@@ -16,3 +16,6 @@ Primary: the supplied Decibyl simplified-screens artifact, including the signup 
 The hero is a marketing invitation, not a fake live chat. Suggestion links select personal/business examples and scroll to the existing interactive demo. The demo starts on entry, supports pause and replay, and displays the finished state under reduced motion. Existing lead submission, attribution, rate limiting and notifications are preserved.
 
 The existing draft PR is updated; no application runtime or billing implementation is changed. Historical research articles are separate from the retired pricing offer page.
+
+## Visual correction
+The founder rejected the miniature robots and neon-green treatment as inconsistent with the current product. Removed the two miniature scenes from the homepage and replaced them with clearly labelled personal/business workspace examples. All bot marks now use circular pastel avatars with small dot eyes; grey replaces lime accents, and the rest of the UI stays neutral.

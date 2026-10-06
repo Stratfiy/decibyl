@@ -13,7 +13,7 @@ export type MarketingPage = {
   title: string;
   lead: string;
   chips: string[];
-  visual: 'platform' | 'voice' | 'memory' | 'apps' | 'jobs' | 'support' | 'ops' | 'procurement' | 'docs' | 'security' | 'pricing' | 'impact' | 'n8n';
+  visual: 'platform' | 'voice' | 'memory' | 'apps' | 'jobs' | 'support' | 'ops' | 'procurement' | 'docs' | 'security' | 'impact' | 'n8n';
   sections: MarketingSection[];
   finalTitle: string;
   finalBody: string;
@@ -247,26 +247,6 @@ export const marketingPages: Record<string, MarketingPage> = {
         { title: 'Outcome records', body: 'Track what the job actually produced.' },
       ]},
     ], finalTitle: 'Useful autonomy needs visible boundaries.', finalBody: 'Give agents room to handle routine work while people keep authority where it matters.'
-  },
-  pricing: {
-    path: '/pricing', seoTitle: 'AI Agent Pricing & Credits | Decibyl',
-    seoDescription: 'Explore proposed Decibyl credit-based pricing for AI agents, workflows and voice usage.',
-    eyebrow: 'PRICING', title: 'Start with the work. Scale when it proves useful.',
-    lead: 'The proposed launch model uses a shared credit balance across AI and workflow usage, with calling and phone costs shown separately where applicable.',
-    chips: ['Unlimited agents', 'Shared credits', 'Usage visibility', 'Voice separate', 'BYOK options'], visual: 'pricing',
-    sections: [
-      { eyebrow: 'PROPOSED LAUNCH PLANS', title: 'Choose the usage that fits.', body: 'Prices are shown before applicable taxes and remain subject to final launch terms.', items: [
-        { title: 'Recharge · ₹500', body: '500 credits for occasional use and testing.' },
-        { title: 'Starter · ₹999/month', body: '999 credits for regular individual use.' },
-        { title: 'Growth · ₹2,999/month', body: '2,999 credits for recurring team workflows.' },
-        { title: 'Business · ₹9,999/month', body: '9,999 credits for more active business usage.' },
-      ]},
-      { eyebrow: 'WHAT USAGE MEANS', title: 'Different jobs use different resources.', body: 'Model, speech, workflow and telephony consumption varies with the job.', items: [
-        { title: 'AI and speech', body: 'Model tokens, speech recognition and speech generation depend on actual usage.' },
-        { title: 'Workflow execution', body: 'Running work consumes compute based on the steps involved.' },
-        { title: 'Calling', body: 'Carrier and number costs remain visible rather than disappearing into a generic plan.' },
-      ]},
-    ], finalTitle: 'Start with one useful agent.', finalBody: 'Measure what it does before deciding how much capacity you need.'
   },
   impact: {
     path: '/impact', seoTitle: 'AI Agent Impact — Measure Work Saved | Decibyl',

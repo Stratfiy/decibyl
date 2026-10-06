@@ -15,7 +15,6 @@ const scenes: Record<MarketingPage['visual'], { label: string; request: string; 
   procurement: { label: 'PROCUREMENT', request: 'Prepare the supplier update before tomorrow’s review.', steps: [['Research', 'Supplier changes'], ['Documents', 'Dates + terms extracted'], ['Brief', 'Decision context prepared']], result: 'Review brief ready' },
   docs: { label: 'DOCUMENT AGENT', request: 'Read this contract and use the important parts in the next task.', steps: [['Extract', 'Renewal · 12 Nov'], ['Remember', 'Notice period · 60 days'], ['Use', 'Available to agents']], result: 'Working context ready' },
   security: { label: 'CONTROL', request: 'Let the agent work, but ask before external writes.', steps: [['Read tools', 'Allowed'], ['Memory', 'Controlled'], ['External write', 'Approval required']], result: 'Boundaries applied' },
-  pricing: { label: 'USAGE', request: 'Start with one useful agent and scale from there.', steps: [['Agent count', 'Not the billing unit'], ['Credits', 'Shared usage balance'], ['Calling', 'Shown separately']], result: 'Pay for useful work' },
   impact: { label: 'OUTCOME', request: 'Did the agent actually save work?', steps: [['Baseline', '12 min per task'], ['Coverage', '68% handled'], ['Outcome', '8.2 hrs/week released']], result: 'Impact measured' },
   n8n: { label: 'DECIBYL + N8N', request: 'Understand the request, then run the right workflow.', steps: [['Decibyl', 'Context + decision'], ['n8n', 'Deterministic execution'], ['Decibyl', 'Report the outcome']], result: 'Workflow completed' },
 };

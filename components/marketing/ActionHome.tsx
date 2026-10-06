@@ -18,13 +18,12 @@ const jobs = {
   ],
 };
 
-function Arrow() { return <span aria-hidden="true">↗</span>; }
 function Bot({ small = false }: { small?: boolean }) {
   return <div className={`${s.bot} ${small ? s.botSmall : ''}`} aria-hidden="true"><i /><i /><span /></div>;
 }
 const faqs = [
   ['Who is Decibyl for?', 'For you, your business, or your team. Use the same platform for personal research and everyday tasks, or connect it to your business tools for repeatable work.'],
-  ['Is Decibyl free right now?', 'Yes. Decibyl is free during early access and access is invite only. Join the waitlist; once approved, you’ll receive an invitation to start using it. Usage allowances apply.'],
+  ['Is Decibyl free right now?', 'Yes. Decibyl is free during early access and access is invite only. Join the waitlist; once approved, you’ll receive an invitation to start using it. '],
   ['How do I get access?', 'Join the waitlist with your email. We review requests and invite approved users. Already received an invite? Use your invite code to create your account.'],
   ['How can I reach my bot?', 'Your bot gets its own email address and phone number. You can also connect through Slack, WhatsApp or Microsoft Teams, so it fits into the way you already communicate.'],
   ['Can I build my own bot?', 'Yes. Start with a ready-made agent or describe the work you want it to do. Add the knowledge, connected tools and instructions it needs, and use the workflow canvas for more control.'],
@@ -59,16 +58,18 @@ export function ActionHome() {
   return <div ref={root} className={s.home}>
     <section className={s.hero} aria-labelledby="hero-title">
       <div className={s.heroCenter}>
-        <a href="#early-access" className={s.accessBadge}>Free early access <span>·</span> Invite only <Arrow /></a>
-        <h1 id="hero-title">Your life.<br />Less busywork.</h1>
-        <p>Your AI bot, with its own email and phone number.<br />For everyday life and business.</p>
-        <div className={s.heroActions}><Link href="/waitlist" className={s.primary}>Join the waitlist <Arrow /></Link><a href="#see-it-work" className={s.secondary}>Meet Decibyl <span aria-hidden="true">↓</span></a></div>
-      </div>
-      <div className={s.collage} aria-label="More time for life and your business">
-        <div className={s.photoPersonal}><Image src="/images/home/personal-miniature.webp" alt="3D miniature bot organizing everyday tasks at a home desk" fill priority sizes="(max-width: 768px) 90vw, 55vw" /></div>
-        <div className={s.photoBusiness}><Image src="/images/home/business-miniature.webp" alt="3D miniature business bot with phone, email and messaging bubbles" fill priority sizes="(max-width: 768px) 90vw, 55vw" /></div>
-        <div className={s.helloSticker}><Bot /><span>hi, I’m Decibyl.</span></div>
-        <span className={s.star} aria-hidden="true">✳</span>
+        <div className={s.mascots} aria-hidden="true"><span><Bot small /></span><span><Bot small /></span><span><Bot small /></span></div>
+        <p className={s.greeting}>Hi, I’m Decibyl.</p>
+        <h1 id="hero-title">What can I take<br />off your plate?</h1>
+        <p>Your AI bots for life and work.<br />Give them a job. Get on with your day.</p>
+        <div className={s.composer}>
+          <p>Research something. Handle calls. Get the admin done.</p>
+          <div><span>For you. For your business.</span><Link href="/waitlist" className={s.primary}>Join the waitlist</Link></div>
+        </div>
+        <div className={s.suggestions} aria-label="Explore example tasks">
+          {([['personal', 1, 'Research it for me'], ['personal', 2, 'Plan my morning'], ['business', 1, 'Handle customer calls']] as const).map(([kind, index, label]) => <a key={label} href="#see-it-work" onClick={() => {setAudience(kind);setActive(index);setStep(0);}}>{label}</a>)}
+        </div>
+        <a href="#early-access" className={s.accessBadge}>Free while we’re early · Invite only</a>
       </div>
     </section>
 
@@ -84,22 +85,22 @@ export function ActionHome() {
       <header><h2>One assistant.<br />Both sides of your life.</h2><p>Because your to-do list doesn’t stop at work.</p></header>
       <article id="for-you" className={s.personal}>
         <div className={s.audiencePhoto}><Image src="/images/home/personal-miniature.webp" alt="Miniature personal assistant with notes, calendar and a phone" fill sizes="(max-width: 768px) 100vw, 50vw" /></div>
-        <div className={s.audienceCopy}><span className={s.eyebrow}>FOR YOU</span><h2>Less life admin.<br />More actual life.</h2><p>Research the options. Untangle your notes. Get your day in order. Make room for the things you want to do.</p><Link href="/waitlist?vertical=personal" className={s.textLink}>Find your everyday sidekick <Arrow /></Link></div>
+        <div className={s.audienceCopy}><span className={s.eyebrow}>FOR YOU</span><h2>Less life admin.<br />More actual life.</h2><p>Research the options. Untangle your notes. Get your day in order. Make room for the things you want to do.</p><Link href="/waitlist?vertical=personal" className={s.textLink}>Find your everyday sidekick</Link></div>
       </article>
       <article id="for-business" className={s.business}>
-        <div className={s.audienceCopy}><span className={s.eyebrow}>FOR BUSINESS</span><h2>Small team.<br />More follow-through.</h2><p>Follow up with leads. Help customers. Prepare the report. Give your team a helping hand with the work that keeps coming.</p><Link href="/waitlist?vertical=business" className={s.textLink}>Give your team a hand <Arrow /></Link></div>
+        <div className={s.audienceCopy}><span className={s.eyebrow}>FOR BUSINESS</span><h2>Small team.<br />More follow-through.</h2><p>Follow up with leads. Help customers. Prepare the report. Give your team a helping hand with the work that keeps coming.</p><Link href="/waitlist?vertical=business" className={s.textLink}>Give your team a hand</Link></div>
         <div className={s.audiencePhoto}><Image src="/images/home/business-miniature.webp" alt="Miniature business assistant connecting calls, email and messages" fill sizes="(max-width: 768px) 100vw, 50vw" /></div>
       </article>
     </section>
     <section className={s.channels} aria-labelledby="channels-title">
-      <div><h2 id="channels-title">Email it. Call it.<br />Message it.</h2><p>Your bot gets its own email address and phone number. Connect through the apps you already use.</p><Link href="/integrations" className={s.textLink}>Explore connections <Arrow /></Link></div>
+      <div><h2 id="channels-title">Email it. Call it.<br />Message it.</h2><p>Your bot gets its own email address and phone number. Connect through the apps you already use.</p><Link href="/integrations" className={s.textLink}>Explore connections</Link></div>
       <div className={s.channelDirectory}><div className={s.botIdentity}><Bot /><div><h3>Your bot. Within reach.</h3><p>Its own email. Its own phone number.</p></div></div><ul aria-label="Ways to connect"><li><span>Email</span><small>A dedicated address for your bot</small></li><li><span>Phone</span><small>A number you can call</small></li><li><span>Slack</span><small>Connect your workspace</small></li><li><span>WhatsApp</span><small>Message from your everyday chat</small></li><li><span>Microsoft Teams</span><small>Bring your bot into the conversation</small></li></ul></div>
     </section>
-    <section className={s.platform}><h2>It remembers.<br />It connects.<br /><span>It gets to work.</span></h2><div><p>Your context, your tools and your instructions. Together, in an assistant that can take the next step.</p><Link href="/platform" className={s.textLink}>Explore the platform <Arrow /></Link><ul><li>Personal memory &amp; shared knowledge</li><li>Voice &amp; connected tools</li><li>Scheduled routines &amp; custom agents</li></ul></div></section>
+    <section className={s.platform}><h2>It remembers.<br />It connects.<br /><span>It gets to work.</span></h2><div><p>Your context, your tools and your instructions. Together, in an assistant that can take the next step.</p><Link href="/platform" className={s.textLink}>Explore the platform</Link><ul><li>Personal memory &amp; shared knowledge</li><li>Voice &amp; connected tools</li><li>Scheduled routines &amp; custom agents</li></ul></div></section>
 
     <section className={s.control}><div><h2>Give it work.<br />Keep the say-so.</h2></div><div>{[['01','You choose the connections.','Give your bots the tools and context they need for the job.'],['02','You set the boundaries.','Use instructions and approval rules to control how work gets done.'],['03','You see what happened.','Follow tasks, review results and step in when your judgment is needed.']].map(([n,title,body])=><article key={n}><span>{n}</span><div><h3>{title}</h3><p>{body}</p></div></article>)}</div></section>
 
-    <section className={s.access} id="early-access"><div className={s.accessIntro}><span className={s.accessBadge}><span className={s.liveDot} /> NOW INVITING EARLY USERS</span><h2>Your next “done”<br />starts here.</h2><p>Decibyl is free during early access.<br />For people with a lot on their plate. And teams, too.</p><Link href="/waitlist" className={s.primary}>Join the waitlist <Arrow /></Link><small>Already have an invite? <a href="https://app.decibyl.ai/auth/signup">Activate your account ↗</a></small></div><ol className={s.accessSteps}><li><span>1</span><div><h3>Put your name on the list.</h3><p>Tell us where to send your invitation.</p></div></li><li><span>2</span><div><h3>Get your invite.</h3><p>We review requests and approve access.</p></div></li><li><span>3</span><div><h3>Hand over your first task.</h3><p>Connect your tools and make yourself at home.</p></div></li></ol></section>
+    <section className={s.access} id="early-access"><div className={s.accessIntro}><span className={s.accessBadge}><span className={s.liveDot} /> NOW INVITING EARLY USERS</span><h2>Your next “done”<br />starts here.</h2><p>Decibyl is free during early access.<br />For people with a lot on their plate. And teams, too.</p><Link href="/waitlist" className={s.primary}>Join the waitlist</Link><small>Already have an invite? <a href="https://app.decibyl.ai/auth/signup">Activate your account ↗</a></small></div><ol className={s.accessSteps}><li><span>1</span><div><h3>Put your name on the list.</h3><p>Tell us where to send your invitation.</p></div></li><li><span>2</span><div><h3>Get your invite.</h3><p>We review requests and approve access.</p></div></li><li><span>3</span><div><h3>Hand over your first task.</h3><p>Connect your tools and make yourself at home.</p></div></li></ol></section>
     <section className={s.faq}><h2>A few good questions.</h2><div>{faqs.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section>
     <div className={s.signoff}><Bot small /><span>Less busywork. More you.</span><a href="#hero-title" aria-label="Back to top">↑</a></div>
   </div>;

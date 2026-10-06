@@ -23,7 +23,6 @@ const jobs = [
 
 const company = [
   { label: 'How it works', href: '/how-it-works' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Case studies', href: '/case-studies' },
   { label: 'Security', href: '/security' },
   { label: 'Blog', href: '/blog' },
@@ -40,20 +39,20 @@ const legal = [
 
 export function Footer() {
   return (
-    <footer className="bg-ink text-white/70">
+    <footer className="border-t border-line bg-white text-slate">
       <Container>
         <div className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1fr]">
           <div>
-            <p className="font-display text-lg font-bold text-white">Decibyl</p>
+            <p className="font-display text-lg font-bold text-ink">Decibyl</p>
             <p className="mt-3 max-w-xs text-[0.9375rem] leading-relaxed">
               AI that gets work done. Give it a job, connect what it needs, and let it get better with context over time.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {['Talk', 'Remember', 'Use apps', 'Run routines'].map((item) => (
-                <span key={item} className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/60">{item}</span>
+                <span key={item} className="rounded-full border border-line px-3 py-1 text-xs text-slate">{item}</span>
               ))}
             </div>
-            <p className="t-data mt-6 text-white/60">
+            <p className="t-data mt-6 text-slate">
               {site.legalName}
               {site.registeredAddress ? (
                 <>
@@ -70,7 +69,7 @@ export function Footer() {
                 </>
               ) : null}
               <br />
-              <a href={`mailto:${site.supportEmail}`} className="hover:text-white">{site.supportEmail}</a>
+              <a href={`mailto:${site.supportEmail}`} className="hover:text-ink">{site.supportEmail}</a>
             </p>
           </div>
 
@@ -84,18 +83,18 @@ export function Footer() {
 
           <FooterCol title="Company">
             {company.map((item) => <FooterLink key={item.href} href={item.href}>{item.label}</FooterLink>)}
-            <a href={site.external.app} target="_blank" rel="noopener noreferrer" className="block py-1 text-[0.9375rem] transition-colors hover:text-white">Open Decibyl ↗</a>
-            <a href={site.external.docs} target="_blank" rel="noopener noreferrer" className="block py-1 text-[0.9375rem] transition-colors hover:text-white">Docs ↗</a>
+            <a href={site.external.app} target="_blank" rel="noopener noreferrer" className="block py-1 text-[0.9375rem] transition-colors hover:text-ink">Open Decibyl ↗</a>
+            <a href={site.external.docs} target="_blank" rel="noopener noreferrer" className="block py-1 text-[0.9375rem] transition-colors hover:text-ink">Docs ↗</a>
           </FooterCol>
         </div>
 
-        <div className="grid gap-6 border-t border-white/10 py-7 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="grid gap-6 border-t border-line py-7 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             <FooterLink href="/compare">Compare platforms</FooterLink>
             {competitors.slice(0, 3).map((c) => <FooterLink key={c.slug} href={`/compare/${c.slug}`}>vs {c.name}</FooterLink>)}
             {legal.map((item) => <FooterLink key={item.href} href={item.href}>{item.label}</FooterLink>)}
           </div>
-          <p className="t-data text-white/50">© {new Date().getFullYear()} {site.legalName}</p>
+          <p className="t-data text-slate">© {new Date().getFullYear()} {site.legalName}</p>
         </div>
       </Container>
     </footer>
@@ -105,12 +104,12 @@ export function Footer() {
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="t-eyebrow mb-4 text-white/60">{title}</p>
+      <p className="t-eyebrow mb-4 text-slate">{title}</p>
       <nav aria-label={title} className="grid">{children}</nav>
     </div>
   );
 }
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return <Link href={href} className="block py-1 text-[0.9375rem] transition-colors hover:text-white">{children}</Link>;
+  return <Link href={href} className="block py-1 text-[0.9375rem] transition-colors hover:text-ink">{children}</Link>;
 }

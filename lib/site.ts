@@ -75,6 +75,5 @@ export const nav = [
   { label: 'Use cases', href: '/use-cases' },
   { label: 'Memory', href: '/knowledge' },
   { label: 'Voice', href: '/voice-agents' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Developers', href: '/developers' },
 ];

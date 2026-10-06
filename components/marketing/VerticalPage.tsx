@@ -8,14 +8,12 @@ import { FinalCta, HowItWorks } from './Blocks';
 import { MeshBackground } from '@/components/ui/MeshBackground';
 import { RelatedPosts } from './RelatedPosts';
 import { findAnyVertical, verticalHref, type Vertical } from '@/data/verticals';
-import { includedCallingLabel, tiers, tierPrice } from '@/data/pricing';
 
 /**
  * The shared template. Ten blocks, same order every time — that consistency is
  * what lets a new vertical ship as a data-file edit rather than a new component.
  */
 export function VerticalPage({ vertical }: { vertical: Vertical }) {
-  const tier = tiers.find((t) => t.id === vertical.recommendedTier)!;
   const demoHref = `/book-a-demo?vertical=${vertical.slug}`;
   const siblings = vertical.siblings
     .map((slug) => findAnyVertical(slug))
@@ -166,26 +164,11 @@ export function VerticalPage({ vertical }: { vertical: Vertical }) {
       </Section>
 
       {/* 9 · Pricing pointer */}
-      <Section surface="canvas" ariaLabel="Pricing">
-        <div className="rounded-panel bg-snow p-8 sm:p-10">
-          <div className="flex flex-wrap items-end justify-between gap-8">
-            <div className="max-w-xl">
-              <p className="t-eyebrow text-sindoor">Where most {vertical.name} start</p>
-              <h2 className="t-h2 mt-3">
-                {tier.name} — {tierPrice(tier, 'inr')}
-                <span className="t-data ml-1 font-normal text-slate">/month</span>
-              </h2>
-              <p className="mt-3 text-slate">
-                {includedCallingLabel(tier)}, {tier.phoneNumbers.toLowerCase()}, telephony
-                included, all Indian languages, and{' '}
-                {tier.qaScoring === 'full' ? 'QA available on every call' : 'quality-sampled QA'}.
-                Exclusive of 18% GST.
-              </p>
-            </div>
-            <ButtonLink href="/pricing" variant="secondary" size="lg">
-              See the full table
-            </ButtonLink>
-          </div>
+      <Section surface="canvas" ariaLabel="Early access">
+        <div className="rounded-panel bg-canvas p-8 sm:p-10">
+          <h2 className="t-h2">Free, invite-only early access.</h2>
+          <p className="mt-3 text-slate">Join the waitlist to bring Decibyl to your business. We’ll email you once your access is approved.</p>
+          <div className="mt-6"><ButtonLink href="/waitlist">Join the waitlist</ButtonLink></div>
         </div>
 
         {siblings.length ? (

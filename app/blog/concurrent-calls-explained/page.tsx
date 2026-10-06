@@ -141,7 +141,7 @@ export default function Post() {
             you knew.
           </p>
           <p>
-            Ours are listed on the <Link href="/pricing">pricing page</Link>, next to what the plan
+            Ours are listed on the <Link href="/waitlist">pricing page</Link>, next to what the plan
             actually includes.
           </p>
         </BlogSection>

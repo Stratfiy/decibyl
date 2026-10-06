@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { site, siteUrl } from './site';
-import { tiers } from '@/data/pricing';
 import type { Faq } from '@/data/faqs';
 
 type MetaInput = {
@@ -164,15 +163,6 @@ export function softwareApplicationSchema() {
     description: site.description,
     // By reference, not by restatement — see ORG_ID.
     provider: orgRef,
-    offers: tiers
-      .filter((t) => t.priceInr !== null)
-      .map((t) => ({
-        '@type': 'Offer',
-        name: t.name,
-        price: String(t.priceInr),
-        priceCurrency: 'INR',
-        url: `${siteUrl}/pricing`,
-      })),
     // NOTE: no Product/AggregateRating until real reviews exist. Fake review
     // schema is a manual-action risk with Google.
   };

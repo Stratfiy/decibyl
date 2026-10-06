@@ -11,7 +11,6 @@ import {
   languageSlug,
 } from '@/data/languagePages';
 import { getCity } from '@/data/cities';
-import { fromRateInr, tiers, tierPrice } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
@@ -54,8 +53,6 @@ export default async function LanguagePage({
   if (!record) notFound();
 
   const cities = page.cities.map((s) => getCity(s)).filter((c): c is NonNullable<typeof c> => Boolean(c));
-  const starter = tiers[0];
-  const isCheapStack = page.code === 'hi' || page.code === 'en';
 
   const faqs = [
     {
@@ -68,9 +65,7 @@ export default async function LanguagePage({
     },
     {
       q: `What does a ${record.name} call cost?`,
-      a: isCheapStack
-        ? `${record.name} runs on the cheapest speech stack we have, so credit goes further here than on a regional-language line. Plans start at ${tierPrice(starter, 'inr')}/month with the number and telephony included, and calling starts at ₹${fromRateInr.toFixed(2)}/min on the Everyday voice. Exclusive of 18% GST.`
-        : `${record.name} runs on the regional speech stack, which costs more per minute than Hindi or English — so the same credit buys fewer ${record.name} minutes, and our pricing page shows included calling as a range rather than one number for exactly that reason. Plans start at ${tierPrice(starter, 'inr')}/month with the number and telephony included. Exclusive of 18% GST.`,
+      a: 'Decibyl is free during invite-only early access. Join the waitlist to request access.',
     },
     {
       q: 'Is the call recorded and transcribed?',

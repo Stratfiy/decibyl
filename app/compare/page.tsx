@@ -4,7 +4,6 @@ import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { FinalCta } from '@/components/marketing/Blocks';
 import { FaqList } from '@/components/marketing/Faq';
 import { competitors } from '@/data/competitors';
-import { formatInr, tiers } from '@/data/pricing';
 import { site } from '@/lib/site';
 import { JsonLd, breadcrumbSchema, faqSchema, pageMetadata } from '@/lib/seo';
 import { RelatedPosts } from '@/components/marketing/RelatedPosts';
@@ -68,7 +67,6 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function CompareHub() {
-  const starter = tiers[0];
 
   return (
     <>
@@ -141,8 +139,8 @@ export default function CompareHub() {
                   than blended into one rate.
                 </td>
                 <td className="py-4 align-top text-[0.9375rem]">
-                  <Link href="/pricing" className="text-sindoor hover:underline">
-                    See pricing
+                  <Link href="/waitlist" className="text-sindoor hover:underline">
+                    Join the waitlist
                   </Link>
                 </td>
               </tr>
@@ -226,7 +224,7 @@ export default function CompareHub() {
             },
             {
               t: 'INR and a GST invoice',
-              b: `Plans from ${formatInr(starter.priceInr as number)}/month, billed in rupees through Razorpay, with a GST-compliant invoice your finance team accepts.`,
+              b: 'Free during invite-only early access. Join the waitlist and start once your access is approved.',
             },
             {
               t: 'Economics you can see',

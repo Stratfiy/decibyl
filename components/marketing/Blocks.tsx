@@ -4,15 +4,6 @@ import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { advantages, howItWorks, indianOps } from '@/data/features';
 import { site } from '@/lib/site';
-import {
-  additionalNumberInr,
-  formatInr,
-  includedCallingCaption,
-  includedCallingLabel,
-  tiers,
-  tierPrice,
-  managedTiersLive,
-} from '@/data/pricing';
 
 /* ───────────────────────────── Final CTA ───────────────────────────── */
 
@@ -73,7 +64,7 @@ export function Advantages() {
       <SectionHead
         eyebrow="Why the economics work"
         title="Three structural reasons, not three adjectives."
-        sub="Every one of these is provable from our pricing page. That is the test we hold a claim to."
+        sub="Explore the capabilities available to your bots."
       />
 
       <div className="mt-10 overflow-x-auto">
@@ -156,46 +147,5 @@ export function IndianOps() {
 /* ───────────────────────────── Pricing preview ───────────────────────────── */
 
 export function PricingPreview() {
-  const preview = tiers.filter((t) => t.priceInr !== null);
-
-  return (
-    <div>
-      <SectionHead
-        eyebrow="Pricing"
-        title="Published, in rupees, with the GST line stated."
-        sub="Telephony and phone numbers included. Every call closes with an itemised receipt — the platform fee and each provider component as its own line, never one blended number."
-      />
-
-      <div className="mt-10 grid gap-5 md:grid-cols-3">
-        {preview.map((tier, i) => (
-          <Reveal key={tier.id} delay={i * 100} className="rounded-card border border-line bg-snow p-8">
-            <p className="t-eyebrow text-sindoor">{tier.name}</p>
-            <p className="t-h2 mt-3 text-[2.25rem]">
-              {tierPrice(tier, 'inr')}
-              <span className="t-data ml-1 font-normal text-slate">/month</span>
-            </p>
-            <p className="mt-2 text-slate">{tier.tagline}</p>
-            <ul className="mt-6 space-y-2 text-[0.9375rem] text-slate">
-              <li>{includedCallingLabel(tier)}</li>
-              <li>{tier.phoneNumbers} · telephony included</li>
-              <li>All Indian languages · {tier.concurrentCalls} concurrent calls</li>
-              <li>{tier.qaScoring === 'full' ? 'QA scoring available on every call' : 'Quality-sampled QA'}</li>
-            </ul>
-          </Reveal>
-        ))}
-      </div>
-
-      <p className="t-caption mt-6 text-iron">
-        All prices exclusive of 18% GST. Additional numbers {formatInr(additionalNumberInr)}/month
-        each. {includedCallingCaption}
-        {!managedTiersLive ? ' Managed plans are opening soon — join the waitlist.' : ''}
-      </p>
-
-      <div className="mt-8">
-        <ButtonLink href="/pricing" variant="secondary" size="lg">
-          See the full pricing table
-        </ButtonLink>
-      </div>
-    </div>
-  );
+  return <div><SectionHead eyebrow="EARLY ACCESS" title="Free while we’re early." sub="For personal and business use. Join the waitlist and start once your invitation is approved." /><div className="mt-8"><ButtonLink href="/waitlist" size="lg">Join the waitlist</ButtonLink></div></div>;
 }

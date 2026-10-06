@@ -829,3 +829,50 @@ to {
 .waitlist h1 {
   font-size:52px}
 }
+
+/* Whole miniature scenes replace the split photographic crop. */
+.photoPersonal img,.photoBusiness img,.audiencePhoto img {
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain;
+}
+.photoPersonal img,.photoBusiness img,.personal .audiencePhoto img,.business .audiencePhoto img {
+  left:0!important;
+  object-position:center;
+}
+.photoPersonal,.photoBusiness,.audiencePhoto { background:white; }
+.photoPersonal { width:85%;height:450px;left:-7%;top:-15px;transform:rotate(-4deg); }
+.photoBusiness { width:53%;height:280px;right:-7%;bottom:-10px;transform:rotate(5deg);border:0; }
+.star { font-size:85px;bottom:10px;left:10px; }
+.helloSticker { width:135px;height:135px;top:5px;right:-1%; }
+.channels { max-width:1240px;margin:auto;padding:0 55px 110px;display:grid;grid-template-columns:1fr 1fr;gap:85px;align-items:center; }
+.channels>div>p { max-width:420px;font-size:15px;color:var(--muted);margin:25px 0 30px; }
+.channelDirectory { border:1px solid var(--line);border-radius:16px;padding:28px; }
+.botIdentity { display:flex;align-items:center;gap:20px;padding-bottom:25px; }
+.botIdentity>.bot { background:var(--accent);border-radius:16px;width:65px;height:65px;flex-shrink:0; }
+.botIdentity h3 { font-size:16px;font-weight:500;letter-spacing:-.03em; }
+.botIdentity p { font-size:11px;color:var(--muted);margin-top:7px; }
+.channelDirectory ul { list-style:none;padding:0;margin:0; }
+.channelDirectory li { display:flex;justify-content:space-between;align-items:center;gap:20px;padding:17px 0;border-top:1px solid var(--line); }
+.channelDirectory li>span { font-size:13px;font-weight:500; }
+.channelDirectory small { font-size:10px;color:var(--muted);text-align:right; }
+@media(max-width:1100px) {
+  .photoPersonal { height:400px; }
+  .photoBusiness { height:240px; }
+  .channels { gap:40px; }
+}
+@media(max-width:767px) {
+  .photoPersonal { height:330px;width:87%;left:-8%;top:-10px; }
+  .photoBusiness { height:210px;width:55%;right:-8%;bottom:-5px; }
+  .helloSticker { width:105px;height:105px;top:5px;right:-5%; }
+  .helloSticker .bot { transform:scale(.8); }
+  .star { font-size:60px;bottom:0; }
+  .channels { padding:0 25px 65px;grid-template-columns:1fr;gap:35px; }
+  .channelDirectory { padding:22px; }
+}
+@media(max-width:390px) {
+  .photoPersonal { height:290px; }
+  .photoBusiness { height:180px; }
+  .channelDirectory li { gap:12px; }
+  .channelDirectory small { font-size:9px; }
+}

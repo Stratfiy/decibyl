@@ -26,6 +26,7 @@ const faqs = [
   ['Who is Decibyl for?', 'For you, your business, or your team. Use the same platform for personal research and everyday tasks, or connect it to your business tools for repeatable work.'],
   ['Is Decibyl free right now?', 'Yes. Decibyl is free during early access and access is invite only. Join the waitlist; once approved, you’ll receive an invitation to start using it. Usage allowances apply.'],
   ['How do I get access?', 'Join the waitlist with your email. We review requests and invite approved users. Already received an invite? Use your invite code to create your account.'],
+  ['How can I reach my bot?', 'Your bot gets its own email address and phone number. You can also connect through Slack, WhatsApp or Microsoft Teams, so it fits into the way you already communicate.'],
   ['Can I build my own bot?', 'Yes. Start with a ready-made agent or describe the work you want it to do. Add the knowledge, connected tools and instructions it needs, and use the workflow canvas for more control.'],
   ['What stays in my control?', 'You choose the connected tools and access you give your agents. Set instructions and approval rules for the work they do. Available actions depend on your agent’s setup and permissions.'],
 ];
@@ -60,12 +61,12 @@ export function ActionHome() {
       <div className={s.heroCenter}>
         <a href="#early-access" className={s.accessBadge}>Free early access <span>·</span> Invite only <Arrow /></a>
         <h1 id="hero-title">Your life.<br />Less busywork.</h1>
-        <p>AI that gets things done.<br />For you. For your business. For the time back.</p>
+        <p>Your AI bot, with its own email and phone number.<br />For everyday life and business.</p>
         <div className={s.heroActions}><Link href="/waitlist" className={s.primary}>Join the waitlist <Arrow /></Link><a href="#see-it-work" className={s.secondary}>Meet Decibyl <span aria-hidden="true">↓</span></a></div>
       </div>
       <div className={s.collage} aria-label="More time for life and your business">
-        <div className={s.photoPersonal}><Image src="/images/home/more-life.webp" alt="A woman enjoying a quiet moment at a café" fill priority sizes="(max-width: 768px) 90vw, 55vw" /></div>
-        <div className={s.photoBusiness}><Image src="/images/home/more-life.webp" alt="Two business owners sharing ideas in their studio" fill priority sizes="(max-width: 768px) 90vw, 55vw" /></div>
+        <div className={s.photoPersonal}><Image src="/images/home/personal-miniature.webp" alt="3D miniature bot organizing everyday tasks at a home desk" fill priority sizes="(max-width: 768px) 90vw, 55vw" /></div>
+        <div className={s.photoBusiness}><Image src="/images/home/business-miniature.webp" alt="3D miniature business bot with phone, email and messaging bubbles" fill priority sizes="(max-width: 768px) 90vw, 55vw" /></div>
         <div className={s.helloSticker}><Bot /><span>hi, I’m Decibyl.</span></div>
         <span className={s.star} aria-hidden="true">✳</span>
       </div>
@@ -82,13 +83,17 @@ export function ActionHome() {
     <section className={s.audiences} aria-label="Personal and business">
       <header><h2>One assistant.<br />Both sides of your life.</h2><p>Because your to-do list doesn’t stop at work.</p></header>
       <article id="for-you" className={s.personal}>
-        <div className={s.audiencePhoto}><Image src="/images/home/more-life.webp" alt="A peaceful moment away from the to-do list" fill sizes="(max-width: 768px) 100vw, 50vw" /></div>
+        <div className={s.audiencePhoto}><Image src="/images/home/personal-miniature.webp" alt="Miniature personal assistant with notes, calendar and a phone" fill sizes="(max-width: 768px) 100vw, 50vw" /></div>
         <div className={s.audienceCopy}><span className={s.eyebrow}>FOR YOU</span><h2>Less life admin.<br />More actual life.</h2><p>Research the options. Untangle your notes. Get your day in order. Make room for the things you want to do.</p><Link href="/waitlist?vertical=personal" className={s.textLink}>Find your everyday sidekick <Arrow /></Link></div>
       </article>
       <article id="for-business" className={s.business}>
         <div className={s.audienceCopy}><span className={s.eyebrow}>FOR BUSINESS</span><h2>Small team.<br />More follow-through.</h2><p>Follow up with leads. Help customers. Prepare the report. Give your team a helping hand with the work that keeps coming.</p><Link href="/waitlist?vertical=business" className={s.textLink}>Give your team a hand <Arrow /></Link></div>
-        <div className={s.audiencePhoto}><Image src="/images/home/more-life.webp" alt="A creative team discussing their next project" fill sizes="(max-width: 768px) 100vw, 50vw" /></div>
+        <div className={s.audiencePhoto}><Image src="/images/home/business-miniature.webp" alt="Miniature business assistant connecting calls, email and messages" fill sizes="(max-width: 768px) 100vw, 50vw" /></div>
       </article>
+    </section>
+    <section className={s.channels} aria-labelledby="channels-title">
+      <div><h2 id="channels-title">Email it. Call it.<br />Message it.</h2><p>Your bot gets its own email address and phone number. Connect through the apps you already use.</p><Link href="/integrations" className={s.textLink}>Explore connections <Arrow /></Link></div>
+      <div className={s.channelDirectory}><div className={s.botIdentity}><Bot /><div><h3>Your bot. Within reach.</h3><p>Its own email. Its own phone number.</p></div></div><ul aria-label="Ways to connect"><li><span>Email</span><small>A dedicated address for your bot</small></li><li><span>Phone</span><small>A number you can call</small></li><li><span>Slack</span><small>Connect your workspace</small></li><li><span>WhatsApp</span><small>Message from your everyday chat</small></li><li><span>Microsoft Teams</span><small>Bring your bot into the conversation</small></li></ul></div>
     </section>
     <section className={s.platform}><h2>It remembers.<br />It connects.<br /><span>It gets to work.</span></h2><div><p>Your context, your tools and your instructions. Together, in an assistant that can take the next step.</p><Link href="/platform" className={s.textLink}>Explore the platform <Arrow /></Link><ul><li>Personal memory &amp; shared knowledge</li><li>Voice &amp; connected tools</li><li>Scheduled routines &amp; custom agents</li></ul></div></section>
 

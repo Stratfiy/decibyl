@@ -1,6 +1,6 @@
 # Decibyl early-access homepage
 
-Reading this as a personal-and-business AI launch with a bright, human, playful design language. Design variance 8, motion 6, density 3. Wajo is the founder's primary mood reference. Light canvas and black actions are intentional brand choices.
+Reading this as a personal-and-business AI launch with a bright, playful 3D miniature design language. Design variance 8, motion 6, density 3. Wajo is the founder's primary mood reference. Light canvas and black actions are intentional brand choices.
 
 ## Reference lock
 
@@ -12,9 +12,9 @@ Reading this as a personal-and-business AI launch with a bright, human, playful 
 
 ## Art and motion
 
-Original generated editorial photography depicts both individual and business use; it does not depict customers or testimonials. One 174KB WebP serves both compositions with responsive crop windows. Hero images are priority loaded with reserved dimensions.
+Original generated 3D miniature dioramas replace all lifestyle photographs at the founder’s request. Separate personal and business WebP assets render as complete scenes with object-fit: contain. Hero images are priority loaded with reserved dimensions.
 
-Hero entrance stages copy, personal photograph, business photograph and greeting. Native CSS and IntersectionObserver keep the existing dependency footprint. Section reveals run once. The illustrative task demonstration begins on entry, proceeds from request through actions to result, holds its result and stops. Pause/replay controls remain available. Reduced motion shows the completed example immediately. No continuous floating, scroll hijacking, pointer tracking or fake live metrics.
+Hero entrance stages copy, personal miniature, business miniature and greeting. Native CSS and IntersectionObserver keep the existing dependency footprint. Section reveals run once. The illustrative task demonstration begins on entry, proceeds from request through actions to result, holds its result and stops. Pause/replay controls remain available. Reduced motion shows the completed example immediately. No continuous floating, scroll hijacking, pointer tracking or fake live metrics.
 
 ## Launch contract
 
@@ -23,3 +23,9 @@ Both personal and business use already exist. Free during early access, invite o
 ## Verification boundary
 
 Production build, TypeScript and diff whitespace checks are run locally. The Vercel preview is access-protected. Browser visual verification remains pending authorized access; a successful build does not establish visual correctness.
+
+## Communication channels
+
+Founder-confirmed positioning: each bot gets an email address and phone number, with Slack, WhatsApp and Microsoft Teams connections. Reflected in hero copy, a dedicated channel section and FAQ. This is a marketing update, not a new provisioning backend.
+
+Assets generated with the built-in image tool: personal-miniature.webp and business-miniature.webp. Prompt direction: premium isometric clay/ceramic miniature bots at personal and business desks; white studio background, lime accents, phone and envelope props; no text.

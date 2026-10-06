@@ -51,12 +51,13 @@ function waitlistEmailHtml(bookingUrl: string): string {
     <div style="font-family: -apple-system, Helvetica, Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px 24px; color: #1a1a1a;">
       <p style="font-size: 16px; line-height: 1.6;">You're on the list.</p>
       <p style="font-size: 16px; line-height: 1.6;">
-        We'll email you the moment a seat opens up. If you'd rather not wait, you can
-        book a live demo now and we'll walk you through it directly.
+        Decibyl is free during early access and access is invite only. We review
+        requests and will email your invitation once your access is approved.
+        Want to learn more while you wait? You can book a demo below.
       </p>
       <p style="margin: 28px 0;">
         <a href="${bookingUrl}"
-           style="background: #E24313; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">
+           style="background: #25291f; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">
           Book a demo call
         </a>
       </p>
@@ -74,7 +75,7 @@ function waitlistEmailText(bookingUrl: string): string {
   return [
     "You're on the list.",
     '',
-    "We'll email you the moment a seat opens up. If you'd rather not wait, you can book a live demo now:",
+    "Decibyl is free during early access and access is invite only. We'll email your invitation once your access is approved. Want to learn more while you wait? Book a demo:",
     bookingUrl,
     '',
     `— The ${site.name} team`,

@@ -21,7 +21,7 @@ type Props = {
 
 const promises: Record<FormType, string> = {
   demo: 'We’ll call you back with a live agent — usually within the hour.',
-  waitlist: 'Early access when self-serve opens. No other email from us.',
+  waitlist: 'You’re on the list. We’ll email your invitation once your access is approved.',
   contact: 'We’ll reply within one business day.',
 };
 
@@ -172,7 +172,7 @@ export function LeadForm({ variant, vertical, compact = false }: Props) {
             label={variant === 'waitlist' ? 'What would you use it for? (optional)' : 'What do you need calls for?'}
             name="vertical"
             defaultValue={prefill.vertical}
-            options={topLevelVerticals.map((v) => ({ value: v.slug, label: v.name }))}
+            options={variant === 'waitlist' ? [{ value: 'personal', label: 'For myself' }, { value: 'business', label: 'For my business or team' }, { value: 'both', label: 'A bit of both' }] : topLevelVerticals.map((v) => ({ value: v.slug, label: v.name }))}
             placeholder="Choose one"
           />
         ) : null}

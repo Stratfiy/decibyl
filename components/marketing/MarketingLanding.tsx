@@ -31,7 +31,7 @@ export function MarketingLanding({ page }: { page: MarketingPage }) {
             <h1 className={styles.title}>{page.title}</h1>
             <p className={styles.lead}>{page.lead}</p>
             <div className={styles.actions}>
-              <a className={styles.primary} href={site.external.signup}>Get started <span>→</span></a>
+              <a className={styles.primary} href="/waitlist">Join the waitlist <span>→</span></a>
               <Link className={styles.secondary} href="/how-it-works">How it works</Link>
             </div>
             <div className={styles.chips}>{page.chips.map((chip) => <span key={chip}>{chip}</span>)}</div>
@@ -86,7 +86,7 @@ export function MarketingLanding({ page }: { page: MarketingPage }) {
             <p>{page.finalBody}</p>
           </div>
           <div className={styles.finalActions}>
-            <a className={styles.lightButton} href={site.external.signup}>Get started <span>→</span></a>
+            <a className={styles.lightButton} href="/waitlist">Join the waitlist <span>→</span></a>
             <Link className={styles.darkLink} href="/use-cases">Explore jobs</Link>
           </div>
         </Container>

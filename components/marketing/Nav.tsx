@@ -7,12 +7,10 @@ import { ButtonLink } from '@/components/ui/Button';
 import { site } from '@/lib/site';
 
 const primaryLinks = [
-  { label: 'Product', href: '/platform' },
-  { label: 'Use cases', href: '/use-cases' },
-  { label: 'Memory', href: '/knowledge' },
-  { label: 'Voice', href: '/voice-agents' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Developers', href: '/developers' },
+  { label: 'For you', href: '/#for-you' },
+  { label: 'For business', href: '/#for-business' },
+  { label: 'How it works', href: '/#see-it-work' },
+  { label: 'Explore', href: '/platform' },
 ];
 
 const companyLinks = [
@@ -38,15 +36,21 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 h-14 px-2 sm:px-3">
+    <header className="sticky top-0 z-50 h-20 px-2 sm:px-3 bg-white/95 backdrop-blur-md">
       <Container>
         <div
-          className="site-nav-shell mx-auto flex h-12 max-w-[1200px] translate-y-1 items-center justify-between gap-3 px-2.5 sm:px-3"
+          className="site-nav-shell mx-auto flex h-16 max-w-[1280px] translate-y-2 items-center justify-between gap-3 px-2.5 sm:px-3"
           data-scrolled={scrolled || undefined}
         >
           <Link href="/" className="flex items-center gap-2" aria-label="Decibyl home">
@@ -67,8 +71,8 @@ export function Nav() {
             >
               Log in
             </a>
-            <ButtonLink href={site.external.signup} variant="primary" className="nav-morph-cta hidden sm:inline-flex">
-              Get started
+            <ButtonLink href="/waitlist" variant="primary" className="nav-morph-cta hidden sm:inline-flex">
+              Join the waitlist
             </ButtonLink>
             <button
               type="button"
@@ -91,7 +95,7 @@ export function Nav() {
       </Container>
 
       {open ? (
-        <div id="mobile-nav" className="nav-morph-menu absolute inset-x-3 top-[3.75rem] overflow-hidden rounded-card border border-line shadow-[var(--shadow-lift)] lg:hidden">
+        <div id="mobile-nav" className="nav-morph-menu absolute inset-x-3 top-[4.75rem] overflow-hidden rounded-card border border-line shadow-[var(--shadow-lift)] lg:hidden">
           <Container>
             <nav aria-label="Mobile" className="grid gap-1 py-5">
               {primaryLinks.map((link) => (
@@ -105,8 +109,8 @@ export function Nav() {
                   {link.label}
                 </Link>
               ))}
-              <ButtonLink href={site.external.signup} className="mt-4" size="lg">
-                Get started
+              <ButtonLink href="/waitlist" className="mt-4" size="lg">
+                Join the waitlist
               </ButtonLink>
             </nav>
           </Container>

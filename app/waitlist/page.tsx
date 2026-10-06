@@ -1,45 +1,6 @@
 import type { Metadata } from 'next';
-import { Container } from '@/components/ui/Section';
 import { LeadForm } from '@/components/forms/LeadForm';
 import { pageMetadata } from '@/lib/seo';
-
-export const metadata: Metadata = pageMetadata({
-  title: 'Join the Waitlist',
-  description:
-    'Get early access when self-serve signup opens. One email when it does, and nothing else.',
-  path: '/waitlist',
-  ogTitle: 'Early access when self-serve opens',
-});
-
-export default function WaitlistPage() {
-  return (
-    <section className="bg-canvas" aria-label="Join the waitlist">
-      <Container>
-        <div className="grid gap-12 py-14 sm:py-20 lg:grid-cols-[1fr_minmax(340px,460px)] lg:gap-16">
-          <div>
-            <p className="t-eyebrow text-sindoor">Waitlist</p>
-            <h1 className="t-display mt-4 text-balance">
-              Self-serve is coming. Get in the first group.
-            </h1>
-            <p className="t-body-lg mt-6 max-w-xl text-slate text-pretty">
-              Today we set up agents with you, because getting the script and the transfer rules
-              right is most of whether it works. Self-serve signup is next, and this list gets it
-              first.
-            </p>
-            <p className="mt-6 max-w-xl text-slate">
-              In a hurry? <a className="text-sindoor underline-offset-4 hover:underline" href="/book-a-demo">Book a demo</a>{' '}
-              instead — we can have an agent running on your number this week.
-            </p>
-            <p className="t-data mt-10 text-iron">
-              Every new account opens with call credit to test on.
-            </p>
-          </div>
-
-          <div>
-            <LeadForm variant="waitlist" />
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
+import s from '@/components/marketing/action-home.module.css';
+export const metadata: Metadata = pageMetadata({title:'Join the waitlist',description:'Free, invite-only early access to Decibyl. Join the waitlist for personal or business use. Get approved, receive your invite and start using your bots.',path:'/waitlist',ogTitle:'Your next “done” starts here.'});
+export default function WaitlistPage(){return <div className={s.home}><section className={s.waitlist}><div><span className={s.accessBadge}><span className={s.liveDot}/> FREE EARLY ACCESS · INVITE ONLY</span><h1>A little less busy.<br/>A little more you.</h1><p>Join the Decibyl waitlist. Bots for your everyday life and your business, ready to help with the boring work.</p><ol><li>01 &nbsp; Join the list with your email.</li><li>02 &nbsp; Get approved and receive your invitation.</li><li>03 &nbsp; Give your first bot a job.</li></ol><small>Already invited? <a href="https://app.decibyl.ai/auth/signup">Activate your account ↗</a></small></div><LeadForm variant="waitlist"/></section></div>}

@@ -41,3 +41,11 @@ button,a{transition-color:color .18s ease}
 ::selection{background:#1d1d1f;color:#fff}
 footer{background:#111!important}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+/* Invite-only launch: neutral navigation shared with the new action homepage. */
+.site-nav-shell { background: transparent !important; border-color: transparent !important; box-shadow: none !important; border-radius: 0 !important; }
+.site-nav-shell .nav-morph-cta { background: #25291f !important; color: white !important; border-color: #25291f !important; border-radius: 999px !important; font-size: 12px; }
+.site-nav-shell .nav-morph-link { color: #62675a; font-size: 12px; padding-inline: 14px; }
+.site-nav-shell .nav-morph-link:hover { background: #f2f4ed; color: #25291f; }
+.nav-morph-menu { background: white !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

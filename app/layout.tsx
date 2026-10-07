@@ -12,6 +12,7 @@ import {
 } from 'next/font/google';
 import './globals.css';
 import './refined.css';
+import { RouteChrome } from '@/components/marketing/RouteChrome';
 import { Nav } from '@/components/marketing/Nav';
 import { Footer } from '@/components/marketing/Footer';
 import { site, siteUrl } from '@/lib/site';
@@ -142,9 +143,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Nav />
+        <RouteChrome><Nav /></RouteChrome>
         <main id="main">{children}</main>
-        <Footer />
+        <RouteChrome><Footer /></RouteChrome>
         <JsonLd data={[organizationSchema(), webSiteSchema(), softwareApplicationSchema()]} />
         <Script
           id="decibyl-widget"

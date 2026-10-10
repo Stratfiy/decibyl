@@ -23,7 +23,6 @@ const jobs = [
 
 const company = [
   { label: 'How it works', href: '/how-it-works' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Case studies', href: '/case-studies' },
   { label: 'Security', href: '/security' },
   { label: 'Blog', href: '/blog' },
@@ -46,7 +45,7 @@ export function Footer() {
           <div>
             <p className="font-display text-lg font-bold text-white">Decibyl</p>
             <p className="mt-3 max-w-xs text-[0.9375rem] leading-relaxed">
-              AI that gets work done. Give it a job, connect what it needs, and let it get better with context over time.
+              Intelligence that grows with you. Personalized work autopilots, available by invitation.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {['Talk', 'Remember', 'Use apps', 'Run routines'].map((item) => (

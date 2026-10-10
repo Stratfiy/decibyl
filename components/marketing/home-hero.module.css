@@ -225,3 +225,27 @@
 .workCard { border-color: #e6e6e8; border-radius: 18px; box-shadow: 0 24px 60px -43px rgb(28 29 31 / 38%); }
 .floatCard { border-color: #e6e6e8; box-shadow: 0 15px 40px -31px rgb(28 29 31 / 28%); }
 @media (prefers-reduced-motion: reduce) { .hero::before,.hero::after { animation: none; } }
+
+/* Refero hero type lock: Granola's airy literary serif with Attio's black-and-white discipline. */
+.title {
+  font-family: var(--font-newsreader), Georgia, 'Times New Roman', serif;
+  font-size: clamp(4rem, 7.1vw, 7.4rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -.038em;
+  font-optical-sizing: auto;
+  text-wrap: balance;
+  max-width: 11.5ch;
+}
+.accentLine {
+  color: #1c1d1f;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.04em;
+}
+@media (max-width: 959px) {
+ .title { margin-inline: auto; max-width: 14ch; font-size: clamp(3.8rem, 9vw, 6.2rem); }
+}
+@media (max-width: 600px) {
+ .title { font-size: clamp(3.45rem, 12.2vw, 4.8rem); line-height: 1.04; letter-spacing: -.035em; }
+}

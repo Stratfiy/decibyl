@@ -998,3 +998,7 @@ a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Friendly, precise display typography inspired by contemporary AI products; open-source Manrope. */
+:root { --font-display: var(--font-manrope), var(--font-inter), system-ui, sans-serif; --font-accent: var(--font-manrope), var(--font-inter), system-ui, sans-serif; }
+.t-h1,.t-h2,.t-h3,h1,h2,h3 { font-family: var(--font-manrope), var(--font-inter), system-ui, sans-serif; letter-spacing: -.045em; }

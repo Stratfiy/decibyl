@@ -7,8 +7,8 @@ export function HomeBuilderSection() {
       <div className="grid gap-5 lg:grid-cols-2">
         <article className="rounded-card bg-peach p-7 sm:p-8">
           <p className="t-eyebrow text-ink/55">Build your way</p>
-          <h2 className="t-h2 mt-4">Start ready. Customize when you need to.</h2>
-          <p className="mt-4 text-slate">Use a ready agent, describe a job in your own words, add skills and knowledge, or let agents work together.</p>
+          <h2 className="t-h2 mt-4">Build an autopilot that works your way.</h2>
+          <p className="mt-4 text-slate">Start from a template or describe your work. Connect the right apps, set approvals and make it your own.</p>
           <div className="mt-6 flex flex-wrap gap-2">{['Ready agents','Build from a brief','Skills','Agent teams','Shared tasks'].map((x)=><span key={x} className="rounded-full bg-white/75 px-3 py-2 text-xs font-bold text-ink/70">{x}</span>)}</div>
         </article>
         <article className="rounded-card bg-ink p-7 text-white sm:p-8">

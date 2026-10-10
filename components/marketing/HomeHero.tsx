@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './home-hero.module.css';
+import { AutopilotCompanion } from './AutopilotCompanion';
 
 const jobs = ['Voice', 'WhatsApp', 'Email', 'Apps', 'Documents', 'Routines', 'Memory', 'Multi-agent'];
 
@@ -9,30 +10,28 @@ export function HomeHero() {
       <div className={styles.grid}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>
-            <span aria-hidden="true" /> AI agents that do the work
+            <span aria-hidden="true" /> INVITE-ONLY EARLY ACCESS
           </p>
           <h1 id="home-heading" className={styles.title}>
-            AI that gets
-            <span className={styles.accentLine}>work done.</span>
+            Intelligence that
+            <span className={styles.accentLine}>grows with you.</span>
           </h1>
           <p className={styles.lead}>
-            Give Decibyl a job. Your agents can talk, remember, use your apps, work across channels,
-            run on their own and take action — with you in control when it matters.
+            Build an autopilot for your work or business. Give it access to the right tools, let it handle recurring tasks, and approve the decisions that matter. It remembers your context so you can focus on what comes next.
           </p>
           <div className={styles.actions}>
-            <Link href="https://app.decibyl.ai" className={styles.primaryAction}>
-              Get started free <span aria-hidden="true">→</span>
+            <Link href="/waitlist" className={styles.primaryAction}>
+              Request early access <span aria-hidden="true">→</span>
             </Link>
             <Link href="/how-it-works" className={styles.secondaryAction}>
-              Explore everything it can do
+              See Decibyl in action
             </Link>
           </div>
           <div className={styles.jobChips} aria-label="Decibyl capabilities">
             {jobs.map((job) => <span key={job}>{job}</span>)}
           </div>
           <p className={styles.memoryLine}>
-            <strong>Gets smarter as it works.</strong> Decibyl can remember useful context, decisions,
-            people, preferences and documents so your agents do not start from zero every time.
+            <strong>Built around the way you work.</strong> Decibyl remembers useful context and preferences today. Customer-specific model learning is the next chapter of our roadmap.
           </p>
         </div>
 
@@ -87,6 +86,7 @@ export function HomeHero() {
             <strong>Runs every morning</strong>
             <small>Research → summary → WhatsApp</small>
           </div>
+          <AutopilotCompanion />
         </div>
       </div>
     </section>

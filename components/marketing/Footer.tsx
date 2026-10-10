@@ -8,7 +8,6 @@ import { useCases } from '@/data/useCases';
 const company = [
   { label: 'Experience', href: '/experience' },
   { label: 'How it works', href: '/how-it-works' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Developers', href: '/developers' },
   { label: 'Partners', href: '/partners' },
   { label: 'Case studies', href: '/case-studies' },
@@ -124,7 +123,7 @@ export function Footer() {
 
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 py-7">
           <p className="t-data text-white/60">
-            © {new Date().getFullYear()} {site.legalName}. All prices exclusive of 18% GST.
+            © {new Date().getFullYear()} {site.legalName}. Early access is invite-only.
           </p>
           <p className="t-data text-white/60">
             Data resident in India by default · AWS Mumbai (ap-south-1) · also available in the US

@@ -19,7 +19,7 @@ export function FinalCta({
   title = 'Your customers are calling. Someone should answer.',
   sub = 'Book a demo and we’ll call you back with a live agent, in the language you pick.',
   primary = { label: 'Book a demo call', href: '/book-a-demo' },
-  secondary = { label: 'See pricing', href: '/pricing' },
+  secondary = { label: 'Request early access', href: '/waitlist' },
 }: {
   title?: string;
   sub?: string;

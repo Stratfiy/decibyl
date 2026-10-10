@@ -5,8 +5,8 @@ export function HomeMemorySection() {
     <Section surface="canvas" ariaLabel="Memory">
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <p className="t-eyebrow text-sindoor">Gets smarter as it works</p>
-          <h2 className="t-h2 mt-4">It remembers what matters.</h2>
+          <p className="t-eyebrow text-sindoor">Personal to your work</p>
+          <h2 className="t-h2 mt-4">It knows the context. You stay in control.</h2>
           <p className="t-body-lg mt-5 text-slate">Useful context from conversations, calls, documents and completed work can come back when it helps with the next task.</p>
           <p className="mt-4 text-sm text-slate">Correct it anytime. What Decibyl inferred can stay separate from facts you explicitly confirmed.</p>
         </div>

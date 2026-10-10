@@ -10,7 +10,7 @@ export function HomeHero() {
       <div className={styles.grid}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>
-            <span aria-hidden="true" /> YOUR PERSONAL WORK AUTOPILOT
+            <span aria-hidden="true" /> INVITE-ONLY EARLY ACCESS
           </p>
           <h1 id="home-heading" className={styles.title}>
             Intelligence that
@@ -20,8 +20,8 @@ export function HomeHero() {
             Build an autopilot for your work or business. Give it access to the right tools, let it handle recurring tasks, and approve the decisions that matter. It remembers your context so you can focus on what comes next.
           </p>
           <div className={styles.actions}>
-            <Link href="https://app.decibyl.ai" className={styles.primaryAction}>
-              Build your autopilot <span aria-hidden="true">→</span>
+            <Link href="/waitlist" className={styles.primaryAction}>
+              Request early access <span aria-hidden="true">→</span>
             </Link>
             <Link href="/how-it-works" className={styles.secondaryAction}>
               See Decibyl in action

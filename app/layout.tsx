@@ -98,7 +98,7 @@ const notoArabic = Noto_Sans_Arabic({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Decibyl — Voice AI Agents for Indian Businesses',
+    default: 'Decibyl — Intelligence That Grows With You',
     template: '%s | Decibyl',
   },
   description: site.description,

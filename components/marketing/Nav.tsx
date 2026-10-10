@@ -9,7 +9,6 @@ const primaryLinks = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Use cases', href: '/use-cases' },
   { label: 'Voice', href: '/voice-ai' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Developers', href: '/developers' },
 ];
 
@@ -64,8 +63,8 @@ export function Nav() {
             >
               Log in
             </a>
-            <ButtonLink href="https://inapp.decibyl.ai" variant="primary" className="nav-morph-cta hidden sm:inline-flex">
-              Get started
+            <ButtonLink href="/waitlist" variant="primary" className="nav-morph-cta hidden sm:inline-flex">
+              Join waitlist
             </ButtonLink>
             <button
               type="button"
@@ -102,8 +101,8 @@ export function Nav() {
                   {link.label}
                 </Link>
               ))}
-              <ButtonLink href="https://inapp.decibyl.ai" className="mt-4" size="lg">
-                Get started free
+              <ButtonLink href="/waitlist" className="mt-4" size="lg">
+                Request an invite
               </ButtonLink>
             </nav>
           </Container>

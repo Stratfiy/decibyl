@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './home-hero.module.css';
+import { AutopilotCompanion } from './AutopilotCompanion';
 
 const jobs = ['Voice', 'WhatsApp', 'Email', 'Apps', 'Documents', 'Routines', 'Memory', 'Multi-agent'];
 
@@ -85,6 +86,7 @@ export function HomeHero() {
             <strong>Runs every morning</strong>
             <small>Research → summary → WhatsApp</small>
           </div>
+          <AutopilotCompanion />
         </div>
       </div>
     </section>

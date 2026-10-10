@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { HomeHero } from '@/components/marketing/HomeHero';
+import { ProductEcosystem } from '@/components/marketing/ProductEcosystem';
 import { HomeAskSection } from '@/components/marketing/HomeAskSection';
 import { HomeAgentsSection } from '@/components/marketing/HomeAgentsSection';
 import { HomeAppsSection } from '@/components/marketing/HomeAppsSection';
@@ -27,6 +28,7 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
+      <ProductEcosystem />
       <HomeAskSection />
       <HomeAgentsSection />
       <HomeAppsSection />

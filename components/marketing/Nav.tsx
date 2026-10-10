@@ -9,7 +9,8 @@ import { site } from '@/lib/site';
 const primaryLinks = [
   { label: 'Product', href: '/platform' },
   { label: 'Use cases', href: '/use-cases' },
-  { label: 'Memory', href: '/knowledge' },
+  { label: 'Intelligence', href: '/intelligence' },
+  { label: 'Managed', href: '/managed' },
   { label: 'Voice', href: '/voice-agents' },
   { label: 'Developers', href: '/developers' },
 ];

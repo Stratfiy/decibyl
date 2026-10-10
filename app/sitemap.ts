@@ -32,7 +32,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }[] = [
     { path: '/', priority: 1, freq: 'weekly' },
     { path: '/experience', priority: 0.7, freq: 'monthly' },
-    { path: '/pricing', priority: 0.9, freq: 'weekly' },
+    { path: '/intelligence', priority: 0.9, freq: 'monthly' },
+    { path: '/managed', priority: 0.85, freq: 'monthly' },
     { path: '/how-it-works', priority: 0.8, freq: 'monthly' },
     { path: '/solutions', priority: 0.8, freq: 'monthly' },
     { path: '/use-cases', priority: 0.85, freq: 'monthly' },
@@ -54,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return [
-    ...marketingRoutes.filter((path) => !staticPaths.some((p) => p.path === path)).map((path) => ({
+    ...marketingRoutes.filter((path) => path !== '/pricing' && !staticPaths.some((p) => p.path === path)).map((path) => ({
       url: `${siteUrl}${path}`,
       lastModified: new Date('2026-09-14'),
       changeFrequency: 'monthly' as const,

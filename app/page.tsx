@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Container, Section, SectionHead } from '@/components/ui/Section';
 import { HomeHero } from '@/components/marketing/HomeHero';
+import { ProductEcosystem } from '@/components/marketing/ProductEcosystem';
 import { HomeAskSection } from '@/components/marketing/HomeAskSection';
 import { HomeAgentsSection } from '@/components/marketing/HomeAgentsSection';
 import { HomeAppsSection } from '@/components/marketing/HomeAppsSection';
@@ -15,10 +16,10 @@ import { HomeBuilderSection } from '@/components/marketing/HomeBuilderSection';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Intelligence That Grows With You | Decibyl',
-  description: 'Give Decibyl a job. Its AI agents can talk, remember, use your apps, run routines and take action across voice, messages, documents and workflows.',
+  title: 'Personalized AI Work Autopilots | Decibyl Cloud',
+  description: 'Build personalized AI work autopilots with Decibyl Cloud. Explore Decibyl Intelligence, our open-weight model learning roadmap, and Decibyl Managed for private enterprise deployment.',
   path: '/',
-  keywords: ['AI agents','AI personal assistant','AI voice agents','AI automation agents','AI agent memory','AI workflow automation','AI agent platform'],
+  keywords: ['AI agents','AI personal assistant','AI voice agents','AI automation agents','AI agent memory','AI workflow automation','AI agent platform','personalized AI agents','self-learning AI agents','open-weight AI models','on-premises AI agents'],
   ogTitle: 'Intelligence that grows with you',
   ogSubtitle: 'Build your personal work autopilot. Invite-only early access.',
 });
@@ -27,6 +28,7 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
+      <ProductEcosystem />
       <HomeAskSection />
       <HomeAgentsSection />
       <HomeAppsSection />

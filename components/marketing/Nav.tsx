@@ -11,7 +11,6 @@ const primaryLinks = [
   { label: 'Use cases', href: '/use-cases' },
   { label: 'Memory', href: '/knowledge' },
   { label: 'Voice', href: '/voice-agents' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Developers', href: '/developers' },
 ];
 
@@ -67,8 +66,8 @@ export function Nav() {
             >
               Log in
             </a>
-            <ButtonLink href={site.external.signup} variant="primary" className="nav-morph-cta hidden sm:inline-flex">
-              Get started
+            <ButtonLink href="/waitlist" variant="primary" className="nav-morph-cta hidden sm:inline-flex">
+              Join waitlist
             </ButtonLink>
             <button
               type="button"

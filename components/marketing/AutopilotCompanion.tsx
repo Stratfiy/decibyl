@@ -42,7 +42,7 @@ export function AutopilotCompanion() {
       <div className={styles.hint} data-open={active}>
         <strong>What would you put on autopilot?</strong>
         <p>Start with one repeat task. Connect your tools and stay in control of approvals.</p>
-        <a href="https://inapp.decibyl.ai">Build your autopilot <span aria-hidden="true">→</span></a>
+        <a href="/waitlist">Request an invite <span aria-hidden="true">→</span></a>
       </div>
     </div>
   );

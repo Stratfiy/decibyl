@@ -16,12 +16,12 @@ import { PricingPreview } from '@/components/marketing/Blocks';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'AI That Gets Work Done | Decibyl',
-  description: 'Give Decibyl a job. Its AI agents can talk, remember, use your apps, run routines and take action across voice, messages, documents and workflows.',
+  title: 'Intelligence That Grows With You | Decibyl',
+  description: 'Build your own work autopilot with Decibyl Cloud. Connect apps, delegate recurring tasks and keep control through approvals. Personalized intelligence for individuals and businesses.',
   path: '/',
   keywords: ['AI agents','AI personal assistant','AI voice agents','AI automation agents','AI agent memory','AI workflow automation','AI agent platform'],
-  ogTitle: 'AI that gets work done',
-  ogSubtitle: 'Give it a job. It can talk, remember, use your apps and take action.',
+  ogTitle: 'Intelligence that grows with you',
+  ogSubtitle: 'Build a personalized autopilot for the work you would rather not repeat.',
 });
 
 export default function HomePage() {
@@ -48,10 +48,10 @@ export default function HomePage() {
         <Container>
           <div className="mx-auto max-w-4xl text-center">
             <p className="t-eyebrow text-white/50">DECIBYL</p>
-            <h2 className="mt-4 font-[var(--font-bricolage)] text-4xl font-semibold tracking-[-0.05em] sm:text-6xl">What do you want AI to get done?</h2>
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">Give it a job. Add the context and tools it needs. Let it handle the repetitive work and bring you in when judgment is needed.</p>
+            <h2 className="mt-4 font-[var(--font-bricolage)] text-4xl font-semibold tracking-[-0.05em] sm:text-6xl">What would you put on autopilot?</h2>
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">Build a Decibyl autopilot for yourself or your team. It connects to your tools, follows your instructions, remembers what matters and asks before important actions.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="https://app.decibyl.ai" className="inline-flex min-h-12 items-center rounded-xl bg-white px-6 text-sm font-black text-ink">Get started free →</Link>
+              <Link href="https://app.decibyl.ai" className="inline-flex min-h-12 items-center rounded-xl bg-white px-6 text-sm font-black text-ink">Build your autopilot →</Link>
               <Link href="/how-it-works" className="inline-flex min-h-12 items-center rounded-xl border border-white/20 px-6 text-sm font-bold text-white">See how it works</Link>
             </div>
           </div>

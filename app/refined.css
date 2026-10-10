@@ -41,3 +41,7 @@ button,a{transition-color:color .18s ease}
 ::selection{background:#1d1d1f;color:#fff}
 footer{background:#111!important}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* Release override: pastel appears only as atmosphere, interface remains monochrome. */
+:root{--color-peach:#f7ece8;--color-blush:#f7edf2;--color-sand:#f7f0e9;--color-sage:#e8f2ee;--color-mistblue:#edf2f7;--color-lilac:#eee9f5;--color-canvas:#fdfdfc;--color-fog:#f8f8f6;--color-vermilion:#1c1d1f;--color-sindoor:#323234;}
+.bg-peach{background:#f7ece8!important}.bg-blush{background:#f7edf2!important}.bg-sand{background:#f7f0e9!important}.bg-lilac{background:#eee9f5!important}.bg-mistblue{background:#edf2f7!important}.bg-sage{background:#e8f2ee!important}

@@ -229,3 +229,71 @@
 @media (max-width: 959px) { .hero { padding-top: 6rem; } .copy { margin: 0 auto; text-align: center; } .eyebrow, .actions, .jobChips { justify-content: center; } .memoryLine { margin-inline: auto; } .demo { width: min(100%, 39rem); margin: 0 auto; } .title { max-width: none; } }
 @media (max-width: 600px) { .hero { padding-inline: 1rem; } .title { font-size: clamp(3.05rem, 15vw, 4.7rem); } .demo { min-height: 34rem; } .workCard { width: 88%; transform: rotateY(-3deg) rotateX(2deg); } .agentOrb { top: 1rem; right: 1rem; width: 8rem; height: 8rem; } .floatCard { width: 9.5rem; padding: .7rem; } .floatCard[data-side='left'] { left: 0; bottom: 2.2rem; } .floatCard[data-side='right'] { right: 0; top: 2.7rem; } }
 @media (prefers-reduced-motion: reduce) { .primaryAction, .secondaryAction, .workCard { transition: none; } .agentOrb { animation: none; } }
+
+/* Pastel blobs: organic, diffuse, and non-interactive. */
+.hero { isolation: isolate; background: #fdfdfc; }
+.hero::before {
+  z-index: -1;
+  inset: -10% -8%;
+  background:
+    radial-gradient(ellipse 33% 32% at 84% 19%, #e5def0 0%, transparent 76%),
+    radial-gradient(ellipse 33% 30% at 10% 80%, #dcece8 0%, transparent 78%),
+    radial-gradient(ellipse 24% 28% at 72% 83%, #f4e4e8 0%, transparent 76%),
+    radial-gradient(ellipse 24% 24% at 22% 13%, #f7eee5 0%, transparent 76%);
+  background-size: 100% 100%;
+  opacity: .92;
+  mask-image: none;
+  animation: pastel-drift 23s ease-in-out infinite alternate;
+}
+.hero::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+  width: clamp(260px, 39vw, 620px);
+  height: clamp(260px, 39vw, 620px);
+  top: 4%;
+  right: -12%;
+  border-radius: 48% 52% 63% 37% / 42% 44% 56% 58%;
+  background: linear-gradient(130deg, rgb(217 207 232 / 24%), rgb(232 244 239 / 23%), rgb(249 226 231 / 28%));
+  filter: blur(38px);
+  animation: blob-breathe 18s ease-in-out infinite alternate;
+}
+@keyframes pastel-drift { from { transform: translate3d(-1%,0,0) scale(1); } to { transform: translate3d(1.5%,-1.5%,0) scale(1.04); } }
+@keyframes blob-breathe { from { transform: rotate(-14deg) translateY(0); } to { transform: rotate(13deg) translateY(25px); } }
+.eyebrow { color: #4e5055; }
+.eyebrow span { background: #252525; box-shadow: 0 0 0 .28rem rgb(28 29 31 / 9%); }
+.accentLine { color: #1c1d1f; }
+.primaryAction { background: #1c1d1f; color: #fff; box-shadow: none; }
+.secondaryAction { background: #fff; border-color: #d5d6d7; }
+.secondaryAction:hover { border-color: #888; }
+.jobChips span { border-color: #e4e5e5; background: rgb(255 255 255 / 78%); color: #555b62; }
+.workCard { border-color: #e6e6e8; border-radius: 18px; box-shadow: 0 24px 60px -43px rgb(28 29 31 / 38%); }
+.floatCard { border-color: #e6e6e8; box-shadow: 0 15px 40px -31px rgb(28 29 31 / 28%); }
+@media (prefers-reduced-motion: reduce) { .hero::before,.hero::after { animation: none; } }
+
+/* Refero hero type lock: Granola's airy literary serif with Attio's black-and-white discipline. */
+.title {
+  font-family: var(--font-newsreader), Georgia, 'Times New Roman', serif;
+  font-size: clamp(4rem, 7.1vw, 7.4rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -.038em;
+  font-optical-sizing: auto;
+  text-wrap: balance;
+  max-width: 11.5ch;
+}
+.accentLine {
+  color: #1c1d1f;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.04em;
+}
+@media (max-width: 959px) {
+ .title { margin-inline: auto; max-width: 14ch; font-size: clamp(3.8rem, 9vw, 6.2rem); }
+}
+@media (max-width: 600px) {
+ .title { font-size: clamp(3.45rem, 12.2vw, 4.8rem); line-height: 1.04; letter-spacing: -.035em; }
+}
+
+.agentOrb {opacity:.34;filter:grayscale(1);}

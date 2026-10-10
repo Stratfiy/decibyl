@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './home-hero.module.css';
+import { AutopilotCompanion } from './AutopilotCompanion';
 
 const jobs = ['Voice', 'WhatsApp', 'Email', 'Apps', 'Documents', 'Routines', 'Memory', 'Multi-agent'];
 
@@ -8,17 +9,16 @@ export function HomeHero() {
     <section className={styles.hero} aria-labelledby="home-heading">
       <div className={styles.grid}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}><span aria-hidden="true" /> AI agents that do the work</p>
+          <p className={styles.eyebrow}><span aria-hidden="true" /> INVITE-ONLY EARLY ACCESS</p>
           <h1 id="home-heading" className={styles.title}>
-            AI that gets <span className={styles.accentLine}>work done.</span>
+            Intelligence that <span className={styles.accentLine}>grows with you.</span>
           </h1>
           <p className={styles.lead}>
-            Give Decibyl a job. Your agents can talk, remember, use your apps, work across channels,
-            run on their own and take action — with you in control when it matters.
+            Build a personalized autopilot for your work or business. Connect tools, delegate recurring tasks and approve the actions that matter.
           </p>
           <div className={styles.actions}>
-            <Link href="https://app.decibyl.ai/auth/signup" className={styles.primaryAction}>
-              Get started free <span aria-hidden="true">→</span>
+            <Link href="/waitlist" className={styles.primaryAction}>
+              Request early access <span aria-hidden="true">→</span>
             </Link>
             <Link href="/how-it-works" className={styles.secondaryAction}>See how it works</Link>
           </div>
@@ -26,7 +26,7 @@ export function HomeHero() {
             {jobs.map((job) => <span key={job}>{job}</span>)}
           </div>
           <p className={styles.memoryLine}>
-            <strong>Gets smarter as it works.</strong> It can remember useful context, decisions,
+            <strong>Built around how you work.</strong> It can remember useful context, decisions,
             people, preferences and documents so the next job starts with context.
           </p>
         </div>
@@ -77,6 +77,7 @@ export function HomeHero() {
           <div className={styles.floatCard} data-side="right">
             <span>ROUTINE</span><strong>Runs every morning</strong><small>Research → summary → WhatsApp</small>
           </div>
+          <AutopilotCompanion />
         </div>
       </div>
     </section>

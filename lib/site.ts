@@ -34,9 +34,9 @@ export const site = {
   legalName: 'nAutomation Labs Pvt Ltd',
   url: siteUrl,
   tagline: 'Intelligence that grows with you.',
-  subline: 'Give it a job. It can talk, remember, use your apps and take action — getting more useful as it learns the context that matters.',
+  subline: 'Build personalized work autopilots with Decibyl Cloud. Discover the road ahead for self-learning Intelligence and private deployment.',
   description:
-    'Decibyl is an AI agent platform for real work. Give agents jobs to research, communicate, use connected apps, work with documents, run routines, remember useful context and complete repetitive work for you or your team.',
+    'Decibyl Cloud is an invite-only platform for personalized AI work autopilots. Connect tools, automate tasks, use voice agents and preserve useful work context. Decibyl Intelligence, specialized open-weight model learning, and Decibyl Managed private deployment are on our roadmap.',
   regions: ['Mumbai (AWS ap-south-1)'],
   supportEmail: 'hello@decibyl.ai',
   salesEmail: 'hello@decibyl.ai',

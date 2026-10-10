@@ -4,6 +4,7 @@ import {
   Bricolage_Grotesque,
   Inter,
   Manrope,
+  Newsreader,
   IBM_Plex_Mono,
   IBM_Plex_Sans_Devanagari,
   Noto_Sans_Tamil,
@@ -25,6 +26,15 @@ const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
   weight: ['500', '600', '700'],
   variable: '--font-bricolage',
+  display: 'swap',
+  preload: true,
+});
+
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  style: ['normal', 'italic'],
+  variable: '--font-newsreader',
   display: 'swap',
   preload: true,
 });
@@ -144,6 +154,7 @@ export const viewport: Viewport = {
 const fontVars = [
   bricolage.variable,
   manrope.variable,
+  newsreader.variable,
   inter.variable,
   plexMono.variable,
   plexDeva.variable,

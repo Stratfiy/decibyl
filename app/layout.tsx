@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import {
   Inter,
+  Newsreader,
   IBM_Plex_Mono,
   IBM_Plex_Sans_Devanagari,
   Noto_Sans_Tamil,
@@ -17,6 +18,8 @@ import { Nav } from '@/components/marketing/Nav';
 import { Footer } from '@/components/marketing/Footer';
 import { site, siteUrl } from '@/lib/site';
 import { JsonLd, organizationSchema, softwareApplicationSchema, webSiteSchema } from '@/lib/seo';
+
+const newsreader = Newsreader({subsets:['latin'],weight:['400','500'],style:['normal','italic'],variable:'--font-newsreader',display:'swap'});
 
 const displayInter = Inter({
   subsets: ['latin'],
@@ -86,7 +89,7 @@ const notoArabic = Noto_Sans_Arabic({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Decibyl — AI That Gets Work Done',
+    default: 'Decibyl — Intelligence That Grows With You',
     template: '%s | Decibyl',
   },
   description: site.description,
@@ -120,6 +123,7 @@ export const viewport: Viewport = {
 
 const fontVars = [
   displayInter.variable,
+  newsreader.variable,
   inter.variable,
   plexMono.variable,
   plexDeva.variable,

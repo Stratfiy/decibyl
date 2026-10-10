@@ -7,6 +7,8 @@ const product = [
   { label: 'Product overview', href: '/platform' },
   { label: 'Use cases', href: '/use-cases' },
   { label: 'Knowledge & memory', href: '/knowledge' },
+  { label: 'Decibyl Intelligence', href: '/intelligence' },
+  { label: 'Decibyl Managed', href: '/managed' }
   { label: 'Integrations', href: '/integrations' },
   { label: 'Voice agents', href: '/voice-agents' },
   { label: 'Developers', href: '/developers' },
